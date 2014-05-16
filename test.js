@@ -4,13 +4,9 @@ var child_process = require('child_process')
   , production = (process.env.NODE_ENV == 'production')
   , html
   , coverage
-  , stdout
+  , mocha
 
 
-html = fs.createWriteStream('coverage.html',{
-	flags:"w"
-	,encoding:'utf8'
-});
 
 if( production ){
 	reporter = fs.createWriteStream('tap.xml',{
@@ -18,10 +14,15 @@ if( production ){
 		,encoding:'utf8'
 	})
 } else {
+	html = fs.createWriteStream('coverage.html',{
+		flags:"w"
+		,encoding:'utf8'
+	});
+	coverage = child_process.spawn("mocha", [ "--recursive", "-r", "jscoverage", "--reporter=html-cov"])
+	coverage.stdout.pipe( html )
 	reporter = process.stdout
 }
-coverage = child_process.spawn("mocha", [ "--recursive", "-r", "jscoverage", "--reporter=html-cov"])
-stdout = child_process.spawn("mocha", ["--growl", "--recursive", util.format("--reporter=%s", production ? 'xunit':'spec')])
 
-coverage.stdout.pipe( html )
-stdout.stdout.pipe( reporter )
+mocha = child_process.spawn("mocha", ["--growl", "--recursive", util.format("--reporter=%s", production ? 'xunit':'spec')])
+mocha.stdout.pipe( reporter )
+mocha.stderr.pipe( reporter )
