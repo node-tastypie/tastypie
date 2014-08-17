@@ -14,8 +14,10 @@ describe('serializer#xml', function(){
 	].join('\n')
 
 	it("should do some things 1", function(){
-		var s = new serializer();
-		s.deserialize(doc, 'application/xml', function( err, content){
+		var s = new serializer({
+			defaultFormat:"application/xml"
+		});
+		s.deserialize(doc, function( err, content){
 			console.log( arguments )
 		})
 	})
