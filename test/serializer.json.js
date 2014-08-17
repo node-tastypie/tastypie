@@ -11,7 +11,9 @@ describe("serializer",function(){
 		describe('#serialize', function(){
 			it("should do encoding", function( ){
 				var s = new Serializer()
-				assert.equal( JSON.stringify( fake_data ), s.serialize( fake_data ) )
+				s.serialize( fake_data, function( err, d ){
+					assert.equal( JSON.stringify( fake_data ).key1, d.key1 ) 
+				});
 			})
 		})
 
@@ -20,13 +22,10 @@ describe("serializer",function(){
 			it("should decode json objects", function(){
 				var s = new Serializer();
 				var string_data = JSON.stringify( fake_data )
-
-
-				var decoded_data = s.deserialize( string_data );
-
-				assert.equal( decoded_data.key1, fake_data.key1 )
-				assert.equal( decoded_data.key2, fake_data.key2 )
-				
+				s.deserialize( string_data, function( err, decoded_data ){
+					assert.equal( decoded_data.key1, fake_data.key1 )
+					assert.equal( decoded_data.key2, fake_data.key2 )
+				});
 			})
 		})
 	})
