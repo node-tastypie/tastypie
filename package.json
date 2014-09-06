@@ -26,8 +26,9 @@
   "contributors": [],
   "license": "MIT",
   "dependencies": {
-    "mout": "~0.9.1",
+    "debug": "^2.0.0",
     "jstoxml": "~0.2.2",
+    "mout": "~0.9.1",
     "xml2js": "~0.4.2"
   },
   "devDependencies": {
