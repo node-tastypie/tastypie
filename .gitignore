@@ -3,3 +3,5 @@ node_modules
 .project
 coverage.html
 tap.xml
+*.swp
+
