@@ -3,6 +3,7 @@ var assert = require("assert")
 
 describe('serializer#xml', function(){
 	var doc = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
 	'<response>',
 	' <key type="string">value</key>',
 	' <foo type="object">',
@@ -23,7 +24,7 @@ describe('serializer#xml', function(){
 	})
 
 	it('should do other things 2', function(){
-		var expected = '<response>\n <key type="string">value</key>\n <foo type="object">\n  <alt type="object">\n   <test type="number">1</test>\n  </alt>\n </foo>\n</response>\n'
+		var expected = '<?xml version="1.0" encoding="UTF-8"?>\n<response>\n <key type="string">value</key>\n <foo type="object">\n  <alt type="object">\n   <test type="number">1</test>\n  </alt>\n </foo>\n</response>\n'
 		var s = new serializer({
 			xmlattr:true
 		})
