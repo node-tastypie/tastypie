@@ -30,7 +30,7 @@ curl http://localhost:3000/api/v1/test?format=xml
 
 ### Contributing
 
-Contributions & patches welcome. If you have experience working with the original python / django-tastypie, you input would be greatly appreciated. Anything from docs, test and feature code is fair game.
+Contributions & patches welcome. If you have experience working with the original python / django-tastypie,  input would be greatly appreciated. Anything from docs, test and feature code is fair game.
 
 1. Fork
 2. Write Code
