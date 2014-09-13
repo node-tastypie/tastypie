@@ -20,7 +20,7 @@ app.listen( 3000 );
 This allows for basic CRUD operations on a single enpoint - api/v1/test
 
 ### Serialization
-The base serializer can deal with xml, json and jsonp out of the box. Serialization method is determined by the `Accept` header or a `format` query string param
+The base serializer can deal with `xml`, `json` and `jsonp` out of the box. Serialization method is determined by the `Accept` header or a `format` query string param
 
 ```sh
 curl -H "Accept: application/xml" http://localhost:3000/api/v1/test
