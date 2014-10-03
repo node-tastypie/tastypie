@@ -14,7 +14,7 @@ var Resource = tastypie.Resource
 var app = require('express')();
 
 var v1 = new Api('api/v1', app)
-api.register('test', new Resource() );
+v1.register('test', new Resource() );
 app.listen( 3000 );
 ```
 
