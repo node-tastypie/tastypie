@@ -1,7 +1,7 @@
 node-tastypie
 =============
 
-Port of Django's REST framework - Tasypie for Node.js
+A re-realization of the popular Django REST framework - Tasypie for Node.js
 
 * Project is **very** `Alpha` and missing a lot of features and functionality. Do not use for any production apps currently
 
