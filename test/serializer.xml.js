@@ -19,7 +19,7 @@ describe('serializer#xml', function(){
 			defaultFormat:"application/xml"
 		});
 		s.deserialize(doc, function( err, content){
-			console.log( arguments )
+			assert.ok( content );
 		})
 	})
 
