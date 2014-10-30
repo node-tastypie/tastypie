@@ -30,7 +30,6 @@ describe('serializer#xml', function(){
 		})
 		s.serialize({key:'value', foo:{alt:{test:1}}}, 'application/xml', function(e,xml){
 			assert.equal( xml, expected )
-		    assert.ok( false )
 		})
 
 	})
