@@ -10,18 +10,28 @@ describe('cache', function(){
 
 	describe('#get/#set', function(){
 		it('should set a value', function(){
-			cache.set('foo', 'bar' );
-			assert.equal( cache.get('foo'), 'bar')
+			cache.set('foo', 'bar', function(){
+				cache.get('foo', function(err, value ){
+
+					assert.equal(value, 'bar' )
+				})
+				
+			});
 		})
 
 		it('should expire keys', function( done ){
 			cache.setMeta({timeout:0.5});
 			cache.set('bar','baz')
-			assert.equal( cache.get('bar'), 'baz')
+
+			 cache.get('bar', function( err, value){
+			 	assert.equal( value, 'baz')
+			 })
 
 			setTimeout( function(){
-				assert.notEqual( cache.get('bar'), 'baz')
-				done();
+				cache.get('bar', function(err, value){
+					assert.notEqual(value, 'baz')
+					done();
+				})
 			},1000)
 		})
 
