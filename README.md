@@ -34,6 +34,16 @@ curl -H "Accept: application/xml" http://localhost:3000/api/v1/test
 curl http://localhost:3000/api/v1/test?format=xml
 ```
 
+### FIXMEs 
+- currently implemented ontop of express. Would like to move to [Hapi.js](http://hapijs.com/api/v7.5.2#route-handler)
+	- The hapi request interface is mostly the same, and the parts - Paginator, Serializer, Cache can be used just find with hapi out side of the Resource Class in Hapi plugins and route handlers just fine
+
+### What is Broke ?
+1. Request flow for all HTTP Methods is yet to be fleshed out. Mostly data hydration
+2. All APIFields are yet to be fleshed out
+3. Schema endpoints
+4. Notion of streaming responses... 
+
 ### What Works ?
 1. Serialization / Desrialization in xml, json, and serialization in JSONP
 2. Paginators.
@@ -44,7 +54,6 @@ curl http://localhost:3000/api/v1/test?format=xml
 6. APIField inheritance
 
 #### Example FS resourse
-
 
 Here is a resource that will asyncronously read a JSON file from disk are respond to GET requests. Supports XML, JSON, paging and dummy cache out of the box.
 
