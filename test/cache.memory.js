@@ -20,7 +20,7 @@ describe('cache', function(){
 		})
 
 		it('should expire keys', function( done ){
-			cache.setMeta({timeout:0.5});
+			cache.setOptions({timeout:0.5});
 			cache.set('bar','baz')
 
 			 cache.get('bar', function( err, value){
@@ -37,7 +37,7 @@ describe('cache', function(){
 
 		it('should defaine control property function', function(){
 			assert.equal( cache.control.no_cache, true )
-			cache.setMeta({control:{no_cache:false}});
+			cache.setOptions({control:{no_cache:false}});
 			assert.equal( cache.control.no_cache, false)
 		})
 	})
