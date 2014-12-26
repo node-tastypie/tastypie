@@ -11,11 +11,19 @@ A re-realization of the popular Django REST framework - Tasypie for Node.js
 var tastypie = require('tastypie')
 var Api = tastypie.Api
 var Resource = tastypie.Resource
-var app = require('express')();
+var hapi = require('hapi')
+var server = new hapi.server
+var v1 = new Api('api/v1', app )
 
-var v1 = new Api('api/v1', app)
-v1.register('test', new Resource() );
-app.listen( 3000 );
+v1.add('test', new Resource() );
+
+server.connection({port:2000})
+server.register( v1, function( ){
+	
+	server.start(function(){
+		console.log('server listening localhost:2000')	
+	});
+})
 ```
 
 This allows for full HTTP support and basic CRUD operations on a single enpoint - api/v1/test
@@ -58,95 +66,119 @@ curl http://localhost:3000/api/v1/test?format=xml
 Here is a resource that will asyncronously read a JSON file from disk are respond to GET requests. Supports XML, JSON, paging and dummy cache out of the box.
 
 ```js
-var Resource = require('./lib/resource')
-var Api = require('./lib/api')
-var app = require('express')();
-var fields = require("./lib/fields")
-var Class = require('./lib/class')
-var fs = require('fs')
-var path = require('path')
-var debug = require('debug')('tastypie:simple')
+var hapi     = require('hapi');
+var fs       = require('fs')
+var path     = require('path')
+var Resource = require('tastypie/lib/resource')
+var Api      = require('tastypie/lib/api')
+var fields   = require("tastypie/lib/fields")
+var Class    = require('tastypie/lib/class')
+var Options  = require('tastypie/lib/class/options')
+var Serializer = require('tastypie/lib/serializer')
+var debug    = require('debug')('tastypie:example')
+var app;
 
-var R = new Class({
-	inherits: Resource
-	,resourceName:'lookup'
-	,methodsAllowed:{
-		get:true
+
+// make a simple object template to be populated
+// This could be a Model class just as easily
+
+function Schema(){
+	this.name = {
+		first: undefined, last: undefined
+	}
+	this.age = undefined;
+	this.guid = undefined;
+	this.range = []
+	this.eyeColor = undefined;
+};
+
+
+var Base = Class({
+	inherits:Resource
+	,options:{
+		objectTpl: Schema // Set the schema as the Object template
 	}
 	,fields:{
-		test:{ 
-			attribute:'id'
-			,type:'ApiField'
-		} 
+	   // remap _id to id
+		id       : { type:'ApiField', attribute:'_id' }
+	  , age      : { type:'IntegerField' } 
+
+	  // can also be a field instance
+	  , eyeColor : new fields.CharField({'null':true})
+	  , range    : { type:'ArrayField', 'null': true }
+	  , fullname : { type:"CharField", 'null':true }
+
+	  // remap the uid property to uuid. 
+	  , uuid     : { type:'CharField', attribute:'guid'}
+	  , name     : { type:'ApiField'}
 	}
-	// Called by get_list to get the data, does caching
-	,_get_list: function( bundle, callback ){
-		var key = this.cacheKey(
-			"list"
-			,bundle.req.api_name
-			,bundle.req.uri
-			,bundle.req.method
-			,this.meta.name
-			,bundle.req.query
-			,bundle.req.params
-		)
-		var that = this;
-		this.meta.cache.get(key, function( err, data ){
-			debug('cache return')
-			if( data ){
-				debug("cached")
-				return callback( null, data )
-			}
-			// Reads a file name data.json from disk
-			fs.readFile(path.resolve("./data.json"), 'utf8', function(err, contents){
-				debug("file return")
-				that.meta.cache.set( key, contents)
-				callback( null, contents )
-			})
-		})
+	,constructor: function( meta ){
+		this.parent('constructor', meta )
 	}
 
-	// handles a put request to an specific instance
-	,put_detail: function( bundle ){
-		var format = this.format(bundle, this.meta.serializer.types )
-		this.deserialize( bundle.req.body, format, function(err, data ){
-			console.log( data );
-			bundle = this.update_object( bundle )
-			bundle.data = this.full_dehydrate( bundle.data )
-			return this.respond(bundle)
-		}.bind( this ) )
+	// internal lower level method responsible for getting the raw data
+    , _get_list: function(bundle, callback){
+		fs.readFile( path.join(__dirname, 'example','data.json') , callback)
+    }
+
+
+    // internal low level method reponsible for dealing with a POST request
+    , _post_list: function _post_list( bundle, opt, callback ){
+    	bundle = this.full_hydrate( bundle )
+    	// this.save( bundle, callback )
+    	callback && callback(null, bundle )
+    }
+	// per field dehydration method - generates a full name field from name.first & name.last
+	, dehydrate_fullname:function( obj, bundle ){
+		return obj.name.first + " " + obj.name.last
 	}
 
-	// per field dehydration method - maps the test field value to id
-	,dehydrate_test: function( obj ){
-		return obj.id
+	// top level method for custom GET /upload 
+	, get_upload: function( bundle ){
+		this.respond({data:{key:'value'}})
 	}
-	,update_object: function(bundle){
-		return bundle
-	}
-
+	
 	// method that retreives an individual object by id.
 	// becuase it's in a flat file, read it, filter and return first object
 	,get_object: function(bundle, callback){
 		this._get_list(bundle,function(e, objects){
 			var obj = JSON.parse( objects ).filter(function( obj ){
-				return obj.id = bundle.req.params.id
+				return obj._id = bundle.req.params.id
 			})[0]
 			callback( null, obj )
 		})
 	}
+
+	// Proxy method for delegeting HTTP methods to approriate resource method
+	, dispatch_upload: function(req, reply ){
+		// Do additional magic here.
+		return this.dispatch('upload', this.bundle( req, reply ) )
+	}
+	
+	// adds a custom route for upload in addition to standard crud methods
+	, prepend_urls:function(){
+		return [{
+			route: '/api/v1/data/upload'
+		  , handler: this.dispatch_upload.bind( this )
+		  , name:'upload'
+
+		}]
+	}
 });
-var counter = 0;
-var api = new Api('api/v1', app,{
-	middleware:[
-		function(req, res, next){
-			console.log("request %d", ++counter)
-			next()
-		}
-	]
+var api = new Api('api/v1', {
+	serializer:new Serializer()
+})
+
+app.connection({port:process.env.PORT || 2000 });
+
+api.add('data', new Base() );
+
+app.register( api, function(e){
+	app.start(function(){
+		console.log('server is ready')
+	});
 });
-api.register('test', new R );
-app.listen(process.env.PORT || 2000);
+
 ```
 
 Now you can read data from a file with your rest API
