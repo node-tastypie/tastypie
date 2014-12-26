@@ -13,9 +13,10 @@ var Api = tastypie.Api
 var Resource = tastypie.Resource
 var hapi = require('hapi')
 var server = new hapi.server
-var v1 = new Api('api/v1', app )
+var v1 = new Api('api/v1' )
 
 v1.add('test', new Resource() );
+v1.add('fake', new Resource() );
 
 server.connection({port:2000})
 server.register( v1, function( ){
