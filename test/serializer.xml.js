@@ -18,7 +18,7 @@ describe('serializer#xml', function(){
 		var s = new serializer({
 			defaultFormat:"application/xml"
 		});
-		s.deserialize(doc, function( err, content){
+		s.deserialize(doc, 'text/xml', function( err, content){
 			assert.ok( content );
 		})
 	})
@@ -28,7 +28,7 @@ describe('serializer#xml', function(){
 		var s = new serializer({
 			xmlattr:true
 		})
-		s.serialize({key:'value', foo:{alt:{test:1}}}, 'application/xml', function(e,xml){
+		s.serialize({key:'value', foo:{alt:{test:1}}}, 'text/xml', function(e,xml){
 			assert.equal( xml, expected )
 		})
 
