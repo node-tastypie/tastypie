@@ -1,7 +1,7 @@
 var child_process = require('child_process')
   , fs = require('fs')
   , util = require("util")
-  , production = (process.env.NODE_ENV == 'production')
+  , production = (process.env.NODE_ENV == 'test')
   , html
   , coverage
   , mocha
