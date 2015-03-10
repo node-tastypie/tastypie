@@ -62,7 +62,136 @@ curl http://localhost:3000/api/v1/test?format=xml
 5. Per Field dyhdration.
 6. APIField inheritance
 
+#### Example Mongoose Resource
+
+##### Make A mongoose Model
+```js
+// Make A Mongoose Model
+var Schema = new mongoose.Schema({ 
+	name:{
+		first:{type:String}
+		,last:{type:String}
+	}
+	,index:{type:Number, required:false}
+	,guid:{type:String, requierd:false}
+	,tags:[{type:String}]
+}, {collection:'tastypie'})
+
+var Test = connection.model('Test', Schema)
+```
+
+##### Define A Resource
+```js
+// Default Query
+var queryset = Test.find().lean().toConstructor()
+
+// Define A Mongo Resource
+var Mongo = new Class({
+	inherits:MongoseResource
+	,options:{
+		queryset: queryset
+	}
+	,fields:{
+		firstName: {type:'CharField', attribute:'name.first'} // Remaps name.first to firstName
+		,lastName: {type:'CharField', attribute:'name.last'} // Remaps name.last to lastName
+	}
+})
+```
+
+##### Register Resource
+```js
+// Define API Namespace
+var api = new Api('api/v1')
+var app = new Hapi.server()
+
+// Register Resource
+api.add('mongo', new Mongo() );
+
+// Register API w/ Hapi
+app.register(api , function(e){
+	app.start(function(){
+		console.log('server is ready')
+	});
+});
+```
+
+
+##### Get Data
+
+```js
+
+// GET /api/v1/mongo
+
+{
+
+	"meta":{
+		"count":1,
+		"limit":25,
+		"next":null,
+		"previous":null	
+	},
+	"data":[{
+		firstName:"Bill",
+		lastName:"Bucks",
+		uri:"/api/v1/mongo/54fe9cfb1738a8aa47ddf150"	
+	}]
+} 
+
+```
+
+##### Auto Schema
+
+```js
+// GET /api/v1/mongo/schema
+
+{
+	"fields": {
+	      "firstName": {
+	          "blank": false,
+	          "default": null,
+	          "help_text": "Forces values to string values by calling toString",
+	          "nullable": false,
+	          "readonly": false,
+	          "type": "string",
+	          "unique": false
+	      },
+	      "lastName": {
+	          "blank": false,
+	          "default": null,
+	          "help_text": "Forces values to string values by calling toString",
+	          "nullable": false,
+	          "readonly": false,
+	          "type": "string",
+	          "unique": false
+	      },
+	      "uri": {
+	          "blank": false,
+	          "default": null,
+	          "help_text": "Forces values to string values by calling toString",
+	          "nullable": false,
+	          "readonly": false,
+	          "type": "string",
+	          "unique": false
+	      }
+	  },
+	  "filtering": {},
+	  "format": "application/json",
+	  "limit": 0,
+	  "methodsAllowed": [
+	      "get",
+	      "put",
+	      "post",
+	      "delete",
+	      "patch",
+	      "head",
+	      "options"
+	  ]
+
+}
+```
+
 #### Example FS resourse
+Of course, Tastypie is not tied to Mongo or mongose, you can use the default resource type to create to put a Rest API around anything. The mongo resource just does a lot of the set up for you.
 
 Here is a resource that will asyncronously read a JSON file from disk are respond to GET requests. Supports XML, JSON, paging and dummy cache out of the box.
 
