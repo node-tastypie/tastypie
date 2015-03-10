@@ -27,6 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "accepts": "^1.1.0",
+    "boom": "^2.6.1",
     "jstoxml": "~0.2.2",
     "mime": "^1.2.11",
     "prime": "^0.4.2",
@@ -38,7 +39,7 @@
     "hapi": "^8.0.0",
     "mout": "^0.11.0",
     "debug": "^2.0.0",
-    "joi": "^5.0.2"
+    "joi": "^6.0.0"
   },
   "devDependencies": {
     "express": "~4.2.0",
