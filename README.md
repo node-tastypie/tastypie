@@ -43,24 +43,21 @@ curl -H "Accept: application/xml" http://localhost:3000/api/v1/test
 curl http://localhost:3000/api/v1/test?format=xml
 ```
 
-### FIXMEs 
-- currently implemented ontop of express. Would like to move to [Hapi.js](http://hapijs.com/api/v7.5.2#route-handler)
-	- The hapi request interface is mostly the same, and the parts - Paginator, Serializer, Cache can be used just find with hapi out side of the Resource Class in Hapi plugins and route handlers just fine
-
 ### What is Broke ?
 1. Request flow for all HTTP Methods is yet to be fleshed out. Mostly data hydration
 2. All APIFields are yet to be fleshed out
 3. Schema endpoints
 4. Notion of streaming responses... 
+5. There is no concept of validators / validation of incoming data
 
 ### What Works ?
 1. Serialization / Desrialization in xml, json, and serialization in JSONP
 2. Paginators.
-3. Caching
-4. GET, POST & PUT
+3. Basic Caching
+4. GET, POST, PUT & DELETE
 	- Resources do not assume any ORM or backend, so the default resource does nothing. You will have to subclass and define all internal methods. Get is mostly done for you.
 5. Per Field dyhdration.
-6. APIField inheritance
+6. Per Field Hydration
 
 #### Example Mongoose Resource
 
