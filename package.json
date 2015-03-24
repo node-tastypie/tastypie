@@ -42,11 +42,14 @@
     "joi": "^6.0.0"
   },
   "devDependencies": {
-    "express": "~4.2.0",
-    "jscoverage": "~0.5.0-rc2",
-    "mocha": "~1.18.2",
-    "mout": "^0.11.0",
     "debug": "^2.0.0",
-    "mongoose": "^3.8.21"
+    "express": "~4.2.0",
+    "grunt": "^0.4.5",
+    "jscoverage": "~0.5.0-rc2",
+    "jscs": "^1.11.3",
+    "jscs-jsdoc": "^0.4.5",
+    "mocha": "~1.18.2",
+    "mongoose": "^3.8.21",
+    "mout": "^0.11.0"
   }
 }
