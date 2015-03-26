@@ -42,14 +42,15 @@
     "joi": "^6.0.0"
   },
   "devDependencies": {
-    "hapi": "^8.0.0",
     "grunt": "^0.4.5",
+    "hapi": "^8.0.0",
+    "joi": "^6.0.0",
     "jscoverage": "~0.5.0-rc2",
     "jscs": "^1.11.3",
     "jscs-jsdoc": "^0.4.5",
-    "joi": "^6.0.0",
     "mocha": "~1.18.2",
     "mongoose": "^3.8.21",
-    "mout": "^0.11.0"
+    "mout": "^0.11.0",
+    "should": "^5.2.0"
   }
 }
