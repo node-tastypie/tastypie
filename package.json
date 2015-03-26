@@ -32,22 +32,22 @@
     "mime": "^1.2.11",
     "prime": "^0.4.2",
     "prime-util": "^0.5.0",
+    "mout": "^0.11.0",
+    "debug": "^2.0.0",
     "urljoin": "^0.1.5",
     "xml2js": "~0.4.2"
   },
   "peerDependencies": {
     "hapi": "^8.0.0",
-    "mout": "^0.11.0",
-    "debug": "^2.0.0",
     "joi": "^6.0.0"
   },
   "devDependencies": {
-    "debug": "^2.0.0",
-    "express": "~4.2.0",
+    "hapi": "^8.0.0",
     "grunt": "^0.4.5",
     "jscoverage": "~0.5.0-rc2",
     "jscs": "^1.11.3",
     "jscs-jsdoc": "^0.4.5",
+    "joi": "^6.0.0",
     "mocha": "~1.18.2",
     "mongoose": "^3.8.21",
     "mout": "^0.11.0"

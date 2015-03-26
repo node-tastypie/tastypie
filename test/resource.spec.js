@@ -13,21 +13,24 @@ describe('resoruce', function(){
 		})
 	});
 
-	it('should accept a request',function( done ){
-		server.inject({
-			url:'/api/resource'
-			,method:'get'
-			,headers:{
-				Accept:'application/json',
-				'Content-Type':'application/json'
-			}
-		}, function( response ){
-			var reply = response.result
-			assert.equal( reply.more.schema, "/api/resource/more/schema" )
-			assert.equal( reply.more.list, "/api/resource/more" )
-			assert.equal( reply.more.detail, "/api/resource/more/{pk}" )
-			done();
+	describe('api', function(){
+		
+		it('should accept a request',function( done ){
+			server.inject({
+				url:'/api/resource'
+				,method:'get'
+				,headers:{
+					Accept:'application/json',
+					'Content-Type':'application/json'
+				}
+			}, function( response ){
+				var reply = response.result
+				assert.equal( reply.more.schema, "/api/resource/more/schema" )
+				assert.equal( reply.more.list, "/api/resource/more" )
+				assert.equal( reply.more.detail, "/api/resource/more/{pk}" )
+				done();
+			})
 		})
-	})
 
+	})
 })

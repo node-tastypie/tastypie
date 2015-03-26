@@ -3,3 +3,4 @@ tap.xml
 data.json
 coverage.html
 xmltest.js
+*.tgz
