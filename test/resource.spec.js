@@ -1,14 +1,16 @@
 /*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
-var should = require('should')
-var assert = require('assert')
-var server = require('./server')
-var Api    = require('../lib/api')
-var Resource = require( '../lib/resource' )
-var xml2js   = require( 'xml2js' )
-var fs = require('fs')
-var path = require('path')
-var fields = require('../lib/fields')
-var http = require('../lib/http')
+var should   = require('should')
+  , assert   = require('assert')
+  , server   = require('./server')
+  , Api      = require('../lib/api')
+  , Resource = require( '../lib/resource' )
+  , xml2js   = require( 'xml2js' )
+  , fs       = require('fs')
+  , path     = require('path')
+  , fields   = require('../lib/fields')
+  , http     = require('../lib/http')
+  ;
+
 describe('resoruce', function(){
 	var api;
 	before(function( done ){
@@ -49,7 +51,7 @@ describe('resoruce', function(){
 					}
 
 					,put_fudge: function( bundle ){
-
+						// method not allowed
 					}
 
 					,post_fudge: function( bundle ){
