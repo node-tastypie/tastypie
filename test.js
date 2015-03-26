@@ -23,6 +23,12 @@ if( production ){
 	reporter = process.stdout
 }
 
-mocha = child_process.spawn("mocha", ["--growl", "--recursive", util.format("--reporter=%s", production ? 'xunit':'spec')])
-mocha.stdout.pipe( reporter )
-mocha.stderr.pipe( reporter )
+mocha = child_process.spawn("mocha", [
+	"--growl"
+	, "--recursive"
+	, util.format("--reporter=%s", production ? 'xunit':'spec')
+	, 'test/*.spec.js'
+])
+
+mocha.stdout.pipe( reporter );
+mocha.stderr.pipe( reporter );

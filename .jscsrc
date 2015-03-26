@@ -1,6 +1,6 @@
 {
     "plugins": [
-        "jscs-jsdoc"
+        "/home/esatterwhite/dev/js/node-tastypie/node_modules/jscs-jsdoc"
     ],
     "jsDoc": {
 		"checkTypes": "strictNativeCase",
@@ -40,10 +40,12 @@
     "requireMultipleVarDecl": "onevar",
     "requireBlocksOnNewline": true,
     "disallowEmptyBlocks": true,
-    "requireSpacesInsideArrayBrackets": "allButNested",
     "disallowSpacesInsideArrayBrackets": true,
-    "disallowSpacesInsideParentheses": true,
-    "disallowDanglingUnderscores": { "allExcept": ["_exception"] },
+    "requireSpacesInsideParentheses":{
+        "all":true,
+        "except":["{", "}", "function" ]    
+    },
+    "disallowDanglingUnderscores": { "allExcept": ["_exception", "_uricache"] },
     "disallowSpaceAfterPrefixUnaryOperators": true,
     "disallowSpaceBeforePostfixUnaryOperators": true,
     "disallowSpaceBeforeBinaryOperators": [
@@ -55,12 +57,12 @@
     "disallowKeywords": [
         "with"
     ],
-    "validateIndentation": 4,
+    "validateIndentation": "\t",
     "disallowKeywordsOnNewLine": ["else"],
-    "disallowMixedSpacesAndTabs": true,
+    "disallowMixedSpacesAndTabs": "smart",
     "disallowTrailingWhitespace": true,
     "disallowTrailingComma": true,
-    "disallowCommaBeforeLineBreak": true
+    "disallowCommaBeforeLineBreak": true,
     "disallowKeywordsOnNewLine": [
         "else"
     ],
