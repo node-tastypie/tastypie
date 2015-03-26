@@ -1,3 +1,5 @@
+/*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
+var should = require('should')
 var assert = require('assert')
 var server = require('./server')
 var Api    = require('../lib/api')
@@ -6,6 +8,7 @@ var xml2js   = require( 'xml2js' )
 var fs = require('fs')
 var path = require('path')
 var fields = require('../lib/fields')
+var http = require('../lib/http')
 describe('resoruce', function(){
 	var api;
 	before(function( done ){
@@ -24,6 +27,8 @@ describe('resoruce', function(){
 					options:{
 						fudgeMethodsAllowed:{
 							get:true
+							,post:true
+							,put:false
 						}
 					}
 					,prepend_urls: function(){
@@ -42,6 +47,14 @@ describe('resoruce', function(){
 						bundle.data = {message:'fudge'}
 						this.respond( bundle );
 					}
+
+					,put_fudge: function( bundle ){
+
+					}
+
+					,post_fudge: function( bundle ){
+						this.respond( bundle, http.created )
+					}
 				});
 
 				api.add('candy', new Extended );
@@ -58,6 +71,29 @@ describe('resoruce', function(){
 					var data = JSON.parse( response.result ) 
 					assert.equal( data.message, 'fudge' )
 					done();
+				})
+			})
+
+
+			it('should return a 405 for disallowed methods', function( done ){
+				server.inject({
+					url:'/api/resource/candy/fudge'
+					,method:"put"
+				}, function( response ){
+					response.statusCode.should.equal( 405 )
+					done();
+				})	
+			})
+
+			describe('#respond',function() {
+				it('should allow custome response classes', function( done ){
+					server.inject({
+						url:'/api/resource/candy/fudge'
+						,method:"post"
+					}, function( response ){
+						response.statusCode.should.equal( 201 )
+						done();
+					})	
 				})
 			})
 
@@ -96,7 +132,8 @@ describe('resoruce', function(){
 			before( function( done ){
 				File = Resource.extend({
 					options:{
-						objectTpl:{range:[]}
+						objectTpl:function(){ this.range = [] }
+						,pk:'guid'
 					}
 					,fields:{
 						name:{type:'char', attribute:'name.first'}
@@ -111,15 +148,15 @@ describe('resoruce', function(){
 					,dehydrate_value: function( obj, bundle, ret ){
 						return 2
 					}
-
 				});
 
 				api.add('file', new File );
 				done();
 			})
+
 			it('should convert field definitions to Field instances', function(){
 				var f = new File();
-				assert.ok( f.fields.name instanceof fields.char )
+				f.fields.name.should.be.instanceOf( fields.char )
 			});
 
 			it('should accept a GET request', function( done ){
@@ -140,12 +177,28 @@ describe('resoruce', function(){
 					var data = JSON.parse( response.result ).data
 
 					data.forEach(function( instance ){
-						assert.ok(instance.hasOwnProperty( 'name' ) )
-						assert.ok(instance.hasOwnProperty( 'value' ) )
-						assert.equal(instance.value, 2 )
+						instance.should.have.property( 'name' )
+						instance.should.have.property( 'value' ) 
+						instance.value.should.equal( 2 );
 					})
 					done();
-				})
+				});
+			});
+
+			describe('/schema', function(){
+				it('should render defined fields', function( done ){
+					server.inject({
+						url:'/api/resource/file/schema'
+						,method:"get"
+					}, function( response ){
+						var data = JSON.parse( response.result )
+						var fields = Object.keys( data.fields );
+						fields.indexOf( 'name' ).should.equal(0);
+						fields.indexOf( 'value' ).should.equal( 1 )
+						fields.indexOf( 'faked' ).should.be.lessThan(0)
+						done();
+					});
+				});
 			});
 
 			it('should map attribute values', function( done ){
@@ -160,8 +213,10 @@ describe('resoruce', function(){
 					done();
 				})
 			})
+
 		})
 	});
+
 	describe('api', function(){
 		it('should accept a request',function( done ){
 			server.inject({
@@ -173,9 +228,9 @@ describe('resoruce', function(){
 				}
 			}, function( response ){
 				var reply = response.result
-				assert.equal( reply.more.schema, "/api/resource/more/schema" );
-				assert.equal( reply.more.list, "/api/resource/more" );
-				assert.equal( reply.more.detail, "/api/resource/more/{pk}" );
+				 reply.more.schema.should.equal( "/api/resource/more/schema" );
+				 reply.more.list.should.equal( "/api/resource/more" );
+				 reply.more.detail.should.equal( "/api/resource/more/{pk}" );
 				done();
 			});
 		});
