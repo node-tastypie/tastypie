@@ -68,10 +68,16 @@ describe('MongoResource', function( ){
 		before(function( done ){
 			queryset = Model.find().limit( 25 ).toConstructor();
 
-			Mongo = new MongoResource({
-				queryset: queryset
-			})
-			mongo.add('test', Mongo )
+			Mongo = MongoResource.extend({
+				options:{
+
+					queryset: queryset
+				}
+				,fields:{
+					name:{type:'char', attribute:'name.first'}
+				}
+			});
+			mongo.add('test', new Mongo );
 			done();
 		})
 
@@ -84,7 +90,8 @@ describe('MongoResource', function( ){
 				}
 			},function( response ){
 				var data = JSON.parse( response.result );
-				data.data.length.should.equal( 25 )
+				console.log( data.data )
+				data.data.length.should.equal( 25 );
 				done();
 			})
 

@@ -28,12 +28,13 @@
   "dependencies": {
     "accepts": "^1.1.0",
     "boom": "^2.6.1",
+    "catbox-memory": "^1.1.1",
+    "debug": "^2.0.0",
     "jstoxml": "~0.2.2",
     "mime": "^1.2.11",
+    "mout": "^0.11.0",
     "prime": "^0.4.2",
     "prime-util": "^0.5.0",
-    "mout": "^0.11.0",
-    "debug": "^2.0.0",
     "urljoin": "^0.1.5",
     "xml2js": "~0.4.2"
   },
