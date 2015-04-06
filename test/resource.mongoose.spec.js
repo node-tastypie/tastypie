@@ -77,7 +77,7 @@ describe('MongoResource', function( ){
 					name:{type:'char', attribute:'name.first'}
 				}
 			});
-			mongo.add('test', new Mongo );
+			mongo.use('test', new Mongo );
 			done();
 		})
 

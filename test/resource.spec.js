@@ -15,7 +15,7 @@ describe('resoruce', function(){
 	var api;
 	before(function( done ){
 		api = new Api('api/resource')
-		api.add('more', new Resource)
+		api.use('more', new Resource)
 		server.register([api], function( e ){
 			server.start( done );
 		});
@@ -59,7 +59,7 @@ describe('resoruce', function(){
 					}
 				});
 
-				api.add('candy', new Extended );
+				api.use('candy', new Extended );
 			})
 			it('should allow custom routes', function( done ){
 				server.inject({
@@ -152,7 +152,7 @@ describe('resoruce', function(){
 					}
 				});
 
-				api.add('file', new File );
+				api.use('file', new File );
 				done();
 			})
 
