@@ -4,3 +4,8 @@ data.json
 coverage.html
 xmltest.js
 *.tgz
+example/
+test*
+*.yml
+.npmignore
+.jscsrc
