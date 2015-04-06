@@ -39,13 +39,13 @@
     "xml2js": "~0.4.2"
   },
   "peerDependencies": {
-    "hapi": "^8.0.0",
-    "joi": "^6.0.0"
+    "hapi": ">=8.0.0",
+    "joi": ">=6.0.0" 
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "hapi": "^8.0.0",
-    "joi": "^6.0.0",
+    "hapi": "^8.4.0",
+    "joi": "^6.1.0",
     "jscoverage": "~0.5.0-rc2",
     "jscs": "^1.11.3",
     "jscs-jsdoc": "^0.4.5",
