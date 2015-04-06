@@ -6,7 +6,7 @@ node-tastypie
 
 A re-realization of the popular Django REST framework - Tasypie for Node.js
 
-* Project is **very** `Alpha` and missing a lot of features and functionality. Do not use for any production apps currently
+* Project is early beta and missing a lot of features found in the [python implementation](https://django-tastypie.readthedocs.org/en/latest/). Do not use for any production apps currently
 
 ### Create a simple Api
 
@@ -319,16 +319,14 @@ curl http://localhost:2000/api/v1/test/2?format=xml
 ```
 
 ### What is Broke ?
-1. Request flow for all HTTP Methods is yet to be fleshed out. Mostly data hydration
-2. All APIFields are yet to be fleshed out
-3. Schema endpoints
-4. Notion of streaming responses... 
-5. There is no concept of validators / validation of incoming data
+1. All APIFields are yet to be fleshed out
+2. Notion of streaming responses... 
+3. There is no concept of validators / validation of incoming data
 
 ### What Works ?
 1. Serialization / Desrialization in xml, json, and serialization in JSONP
 2. Paginators.
-3. Basic Caching
+3. Basic Caching ( revamp to catbox support coming )
 4. GET, POST, PUT & DELETE
 	- Resources do not assume any ORM or backend, so the default resource does nothing. You will have to subclass and define all internal methods. Get is mostly done for you.
 5. Per Field dyhdration.

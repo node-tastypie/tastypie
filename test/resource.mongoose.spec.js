@@ -90,7 +90,6 @@ describe('MongoResource', function( ){
 				}
 			},function( response ){
 				var data = JSON.parse( response.result );
-				console.log( data.data )
 				data.data.length.should.equal( 25 );
 				done();
 			})
