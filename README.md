@@ -30,6 +30,17 @@ server.register( v1, function( ){
 })
 ```
 
+#### Built-in Fields
+
+* field ( ApiField ) - Generic noop field
+* object ( ObjectField ) - Generic no-op field
+* char ( character / CharField ) - Converts values to strings
+* array ( ArrayField ) Converts comma sparated strings into arrays
+* int ( int / IntegerField ) converts numeric values into integers using `parseInt`
+* float ( FloatField ) Converts values to floating point number using `parseFloat`
+* bool ( BooleanField ) Forces values to booleans
+* datetime ( DateTimeField ) Attempts to convert date time strings into date objects
+
 This allows for full HTTP support and basic CRUD operations on a single enpoint - api/v1/test
 
 ```sh
@@ -42,25 +53,11 @@ curl -XDELETE http://localhost:3000/api/v1/test/fake
 The base serializer can deal with `xml`, `json` and `jsonp` out of the box. Serialization method is determined by the `Accept` header or a `format` query string param
 
 ```sh
-curl -H "Accept: application/xml" http://localhost:3000/api/v1/test
+curl -H "Accept: text/xml" http://localhost:3000/api/v1/test
 curl http://localhost:3000/api/v1/test?format=xml
 ```
 
-### What is Broke ?
-1. Request flow for all HTTP Methods is yet to be fleshed out. Mostly data hydration
-2. All APIFields are yet to be fleshed out
-3. Schema endpoints
-4. Notion of streaming responses... 
-5. There is no concept of validators / validation of incoming data
-
-### What Works ?
-1. Serialization / Desrialization in xml, json, and serialization in JSONP
-2. Paginators.
-3. Basic Caching
-4. GET, POST, PUT & DELETE
-	- Resources do not assume any ORM or backend, so the default resource does nothing. You will have to subclass and define all internal methods. Get is mostly done for you.
-5. Per Field dyhdration.
-6. Per Field Hydration
+**NOTE:** hapi captures application/foo so for custom serialization, we must use text/foo
 
 #### Example Mongoose Resource
 
@@ -320,6 +317,22 @@ curl http://localhost:2000/api/v1/test/1
 curl http://localhost:2000/api/v1/test/2
 curl http://localhost:2000/api/v1/test/2?format=xml
 ```
+
+### What is Broke ?
+1. Request flow for all HTTP Methods is yet to be fleshed out. Mostly data hydration
+2. All APIFields are yet to be fleshed out
+3. Schema endpoints
+4. Notion of streaming responses... 
+5. There is no concept of validators / validation of incoming data
+
+### What Works ?
+1. Serialization / Desrialization in xml, json, and serialization in JSONP
+2. Paginators.
+3. Basic Caching
+4. GET, POST, PUT & DELETE
+	- Resources do not assume any ORM or backend, so the default resource does nothing. You will have to subclass and define all internal methods. Get is mostly done for you.
+5. Per Field dyhdration.
+6. Per Field Hydration
 
 ### Contributing
 
