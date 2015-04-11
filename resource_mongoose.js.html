@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tastypie Source: resource/mongoose.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Tastypie</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-tastypie_lib_resource_validator_toJoi.converters.html">tastypie/lib/resource/validator/toJoi.converters</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-lib_exceptions.html">lib/exceptions</a></li><li><a href="module-lib_paginator.html">lib/paginator</a></li><li><a href="module-lib_serializer.html">lib/serializer</a></li><li><a href="module-lib_util.html">lib/util</a></li><li><a href="module-mime.html">mime</a></li><li><a href="module-tastypie_cache.html">tastypie/cache</a></li><li><a href="module-tastypie_fields.html">tastypie/fields</a></li><li><a href="module-tastypie_http.html">tastypie/http</a></li><li><a href="module-tastypie_lib_api.html">tastypie/lib/api</a></li><li><a href="module-tastypie_lib_class.html">tastypie/lib/class</a></li><li><a href="module-tastypie_lib_class_options.html">tastypie/lib/class/options</a></li><li><a href="module-tastypie_lib_resource.html">tastypie/lib/resource</a></li><li><a href="module-tastypie_lib_resource_mongoose.html">tastypie/lib/resource/mongoose</a></li><li><a href="module-tastypie_lib_resource_validator.html">tastypie/lib/resource/validator</a></li><li><a href="module-tastypie_lib_resource_validator_oid.html">tastypie/lib/resource/validator/oid</a></li><li><a href="module-tastypie_lib_resource_validator_querystring.html">tastypie/lib/resource/validator/querystring</a></li><li><a href="module-tastypie_lib_resource_validator_toJoi.html">tastypie/lib/resource/validator/toJoi</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-lib_exceptions.NotImplemented.html">lib/exceptions.NotImplemented</a></li><li><a href="module-lib_exceptions.SerializationError.html">lib/exceptions.SerializationError</a></li><li><a href="module-lib_exceptions.UnsupportedFormat.html">lib/exceptions.UnsupportedFormat</a></li><li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-NAME.Thing.html">NAME.Thing</a></li><li><a href="module-paginator.js.Thing.html">paginator.js.Thing</a></li><li><a href="module-tastypie_cache.Cache.html">tastypie/cache.Cache</a></li><li><a href="module-tastypie_field.IntegerField.html">tastypie/field.IntegerField</a></li><li><a href="module-tastypie_fields.ApiField.html">tastypie/fields.ApiField</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_class_options-module_tastypie_class_options.html">tastypie/lib/class/options~module:tastypie/class/options</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+    		<h1 class="page-title">Source: resource/mongoose.js</h1>
+			
+
+		<h1 class="page-title">Source: resource/mongoose.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript ">/*jshint laxcomma: true, smarttabs: true, node:true */
+'use strict';
+/**
+ * A Resource for interacting with the Mongoose ODM for mongodb
+ * @module tastypie/lib/resource/mongoose
+ * @author Eric Satterwhite
+ * @since 0.0.1
+ * @requires util
+ * @requires tastypie/lib/class
+ * @requires tastypie/lib/class/options
+ * @requires tastypie/lib/resource
+ * @requires joi
+ */
+
+var util       = require( 'util' )
+  , Class      = require( '../class' )
+  , Options    = require( '../class/options' )
+  , http       = require('../http')
+  , object     = require('mout/object')
+  , Resource   = require('./index')
+  , joi        = require('joi')
+  , Boom       = require('boom')
+  , debug      = require('debug')('tastpie:resource:mongoose')
+  , toArray    = require("mout/lang/toArray")
+  , isFunction = require('mout/lang/isFunction')
+  , isNumber   = require('mout/lang/isNumber')
+  , typecast   = require('mout/string/typecast')
+  , compact    = require('mout/array/map')
+  , set        = require('mout/object/set')
+  , merge      = require('mout/object/merge')
+  , orderExp   = /^(\-)?([\w]+)/
+  , SEP        = '__'
+  , MongoResource
+  , terms
+  ;
+
+
+function quickmap( array, mapFunction ){
+	var arrayLen = array.length;
+	 var newArray = new Array(arrayLen);
+	 for(var i = 0; i &lt; arrayLen; i++) {
+	   newArray[i] = mapFunction(array[i], i, array);
+	 }
+
+	 return newArray;
+};
+
+
+terms = {
+	'gt'          : '$gt'
+  , 'gte'         : '$gte'
+  , 'in'          : '$in'
+  , 'lt'          : '$lt'
+  , 'lte'         : '$lte'
+  , 'ne'          : '$ne'
+  , 'nin'         : '$nin'
+  , 'regex'       : '$regex'
+  , 'all'         : '$all'
+  , 'size'        : '$size'
+  , 'match'       : '$elemMatch'
+  , 'contains'    : { key:'$regex', value: function( term ){ return new RegExp( term )}}
+  , 'icontains'   : { key:'$regex', value: function( term ){ return new RegExp(term, 'i')}}
+  , 'startswith'  : { key:'$regex', value: function( term ){ return new RegExp( '^' + term ) }}
+  , 'istartswith' : { key:'$regex', value: function( term ){ return new RegExp( '^' + term, 'i' )}}
+  , 'endswith'    : { key:'$regex', value: function( term ){ return new RegExp( term + '$' ) }}
+  , 'iendswith'   : { key:'$regex', value: function( term ){ return new RegExp( term + '$', 'i') }}
+}
+
+
+function join( array, sep ){
+	return quickmap( array, function( i ){
+		return i.key ? i.key : i;
+	}).join( sep )
+}
+
+/**
+ * @constructor
+ * @alias module:tastypie/lib/resource/mongoose
+ * @extends module:tastypie/lib/resource
+ * @mixes module:tastypie/lib/class/options
+ * @param {Object} options
+ */
+module.exports = MongoResource = new Class({
+	inherits:Resource
+	,options:{
+		queryset: null
+		,pk:'_id'
+		,objectTpl:null
+		,max:1000
+	}
+	,constructor: function( options ){
+		var instance;
+
+		this.parent( 'constructor', options );
+		joi.assert(this.options.queryset, joi.required(),'querset is required')
+
+		instance = new this.options.queryset;
+		this.options.objectTpl = this.options.objectTpl || instance.model;
+		var paths = Object.keys( this.fields || instance.model.schema.paths );
+
+		this.allowablepaths = paths.filter( function( p ){
+			return ( p !== '_id' &amp;&amp; p !== '__v');
+		});
+
+		instance = null;
+
+	}
+	, get_list: function get_list( bundle ){
+		var query = new this.options.queryset();
+
+		// TODO: execute the page before the list
+		// paging is handled by mongo
+		// and paginator is really for formatting
+		// at this point.
+		query.model.count(function(err, cnt ){
+			this._get_list( bundle,function( e, objects ){
+				var that = this
+				  , paginator
+				  , to_be_serialized
+				  ;
+
+				objects = objects || [];
+				paginator = new this.options.paginator({
+					limit:bundle.req.query.limit
+					,req:bundle.req
+					,res:bundle.res
+					,collectionName:this.options.collection
+					,objects:objects
+					,count: cnt
+					,offset: bundle.req.query.offset || 0
+				});
+
+				to_be_serialized = paginator.page();
+				to_be_serialized[ that.options.collection ] = to_be_serialized[ that.options.collection ].map( function( item ){
+					return that.full_dehydrate( item, bundle );
+				});
+
+				bundle.data = to_be_serialized;
+				return that.respond( bundle );
+			}.bind( this ));
+		}.bind( this ))
+	}
+	, _get_list: function( bundle, callback ){
+		var query = new this.options.queryset()
+		   , filters = this.buildFilters( bundle.req.query )
+		   ;
+
+		query.where( filters );
+		this.offset( query, bundle );
+		this.limit( query, bundle );
+		this.sort( query, bundle.req.query );
+		query.exec( callback );
+	}
+
+	,limit: function limit( query, bundle ){
+		var qs = bundle.req.query
+		  , lmt
+		  ;
+
+		qs.limit = qs.hasOwnProperty( 'limit' )  ? parseInt( qs.limit, 10) : qs.limit;
+		lmt = isNumber( qs.limit ) ? qs.limit : this.options.limit ? this.options.limit : 25;
+		lmt = Math.min( lmt, this.options.max );
+		query.limit( lmt );
+		return lmt;
+	}
+
+	,offset: function offset( query, bundle ){
+		var qs = bundle.req.query;
+		query.skip( qs.offset || 0 )
+
+	}
+	,get_object: function get_object( bundle, callback ){
+		var req= bundle.req
+
+
+		var query = new this.options.queryset()
+			query
+				.model
+				.findById( req.params.pk )
+				.exec( callback )
+	}
+
+	, update_object: function update_object( bundle, callback ){
+      var format = this.format( bundle, this.options.serializer.types );
+  		var that = this;
+      this.get_object( bundle, function( err, obj ){
+        if( err || !obj ){
+          if( err ){
+            err.req = bundle.req;
+            err.res = bundle.res;
+            return this.emit('error',err)
+          }
+          bundle.data = {message:'not found',code:404};
+          return that.respond(bundle,http.notFound );
+        }
+
+
+        this.deserialize( bundle.data, format, function( err, data ){
+    			bundle = that.bundle(bundle.req, bundle.res, data )
+    			merge(obj, data);
+    			bundle.object = obj;
+
+    			bundle = that.full_hydrate( bundle );
+    			bundle.object.save(function(err, d ){
+    				return callback &amp;&amp; callback( err, bundle );
+    			});
+    		});
+      }.bind(this));
+
+	}
+
+	, _patch_detail: function _patch_detail( bundle, callback ){}
+
+	, delete_detail: function delete_detail( bundle ){
+		var that = this;
+		this._delete_detail(bundle, function( err, instance ){
+			if( err ){
+				err.req = bundle.req
+				err.res = bundle.res
+				return that.emit('error', err  )
+			}
+
+			if( !instance ){
+				bundle.data = {message:'not found',code:404};
+				return that.respond(bundle,http.notFound );
+			}
+
+			if(!that.options.returnData ){
+				bundle.data = null;
+				var response = http.noContent
+				return that.respond( bundle, response )
+			}
+
+			bundle.object = instance;
+			bundle.data = that.full_dehydrate( bundle.object, bundle );
+			that.options.cache.set(bundle.toKey( 'detail') , null )
+			return that.respond( bundle )
+		});
+	}
+
+	, _delete_detail: function _delete_detail( bundle, callback ){
+		var query = new this.options.queryset();
+		query = query.model.findByIdAndRemove(bundle.req.params.pk);
+		query.exec(callback);
+		return this;
+	}
+	, _post_list: function( bundle, callback ){
+		var format = this.format( bundle, this.options.serializer.types );
+		var that = this;
+		this.deserialize( bundle.data, format, function( err, data ){
+			bundle = that.bundle(bundle.req, bundle.res, data )
+			var obj = new that.options.objectTpl()
+			merge(obj, data)
+			bundle.object = obj
+
+			bundle = that.full_hydrate( bundle )
+
+			bundle.object.save(function(err, d ){
+				return callback &amp;&amp; callback( err, bundle )
+			})
+		})
+	}
+
+	,buildFilters: function buildFilters( qs ){
+		var query = new this.options.queryset()
+		  , remaining = {}
+		  ;
+
+		for( var key in qs ){
+			var bits = key.split( SEP )
+			   , filter = {}
+			   , value
+			   , fieldname
+			   , filtertype
+			   , last
+
+			filtertype = null;
+			value     = qs[key];
+			fieldname = bits.shift();
+
+			bits = quickmap(bits, function( bit ){
+				if( terms.hasOwnProperty( bit ) ){
+					return terms[ bit ];
+				}
+				return bit;
+			});
+
+			last = bits[ bits.length - 1 ];
+			// should be defined on resource instance
+			if( this.allowablepaths.indexOf( fieldname ) >=0 ){
+				if( bits.length ){
+					set( filter, join( bits, '__' ),  isFunction( last.value ) ? last.value( value ) : typecast( value ) )
+				} else{
+					filter = typecast( value );
+				}
+				remaining[ fieldname ] = filter;
+			}
+		}
+		return remaining;
+	}
+
+	, sort: function sort( mquery, rquery ){
+		var ordering = {};
+		toArray( rquery.orderby ).forEach( function( param ){
+			var bits = orderExp.exec( param );
+
+			if( !bits ){
+				return;
+			}
+
+			ordering[ bits[2] ] = bits[1] ? -1 : 1;
+		});
+
+		mquery.sort( ordering );
+		return mquery;
+	}
+});
+
+MongoResource.extend = function( proto ){
+	proto.inherits = MongoResource;
+	return new Class( proto )
+}
+</pre>
+	</article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	Eric Satterwhite &copy; 2015
+	</span>
+	<br />
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a>
+	on 2015-04-11T17:08:42-05:00 using the <a
+	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<!--<script src="scripts/sunlight.js"></script>-->
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/bootstrap-dropdown.js"></script>
+<script src="scripts/toc.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "h1,h2,h3,h4",
+		showAndHide : false,
+		scrollTo    : "100px"
+	} );
+
+	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			lang = "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+</body>
+</html>
