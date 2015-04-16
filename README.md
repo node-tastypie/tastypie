@@ -6,7 +6,7 @@ node-tastypie
 
 A re-realization of the popular Django REST framework - Tasypie for Node.js
 
-* Project is early beta and missing a lot of features found in the [python implementation](https://django-tastypie.readthedocs.org/en/latest/). Do not use for any production apps currently
+* Project is in it's alpha phase and missing a lot of features found in the [python implementation](https://django-tastypie.readthedocs.org/en/latest/).
 
 ### Create a simple Api
 
