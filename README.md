@@ -4,9 +4,12 @@ node-tastypie
 [ ![Codeship Status for esatterwhite/node-tastypie](https://codeship.com/projects/c1cbe300-223a-0132-f5dd-46c80b892b0f/status?branch=master)](https://codeship.com/projects/36472)
 [![Build Status](https://travis-ci.org/esatterwhite/node-tastypie.svg?branch=master)](https://travis-ci.org/esatterwhite/node-tastypie)
 
+
 A re-realization of the popular Django REST framework - Tasypie for Node.js
 
-* Project is in it's alpha phase and missing a lot of features found in the [python implementation](https://django-tastypie.readthedocs.org/en/latest/).
+* Project is in it's beta phase and missing some features found in the [python implementation](https://django-tastypie.readthedocs.org/en/latest/).
+
+[API Documentation](http://esatterwhite.github.io/node-tastypie)
 
 ### Create a simple Api
 
