@@ -82,13 +82,15 @@ var Test = connection.model('Test', Schema)
 
 ##### Define A Resource
 ```js
+var tastypie = require("tastypie");
+var MongoseResource = tastypie.Resource.Mongoose;
+
 // Default Query
 var queryset = Test.find().lean().toConstructor()
 
 // Define A Mongo Resource
-var Mongo = new Class({
-	inherits:MongoseResource
-	,options:{
+var Mongo = MongoseResource.extend({
+	options:{
 		queryset: queryset
 	}
 	,fields:{
@@ -101,6 +103,7 @@ var Mongo = new Class({
 ##### Register Resource
 ```js
 // Define API Namespace
+var Api = require('tastypie').Api;
 var api = new Api('api/v1')
 var app = new Hapi.server()
 
