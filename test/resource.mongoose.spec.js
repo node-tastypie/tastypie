@@ -14,7 +14,6 @@ var should        = require('should')
   ;
 
 var connection = mongoose.createConnection('mongodb://127.0.0.1:27017/test')
-
 var  Schema = new mongoose.Schema({
 	index:      {type:Number}
   , guid:       {type:String}
@@ -24,8 +23,16 @@ var  Schema = new mongoose.Schema({
   , age:        {type:Number}
   , eyeColor:   {type:String, enum:['green','blue', 'brown','hazel', 'black']}
   , date:       {type:Date}
-  , name:       { first:{type:String}, last:{type:String}}
-  , company:    {type: String}
+  , name:       {type:String}
+  , company:    {
+  	name:{type:String}
+  	,address:{
+  		city:{type:String},
+  		state:{type: String},
+  		street:{type: String},
+  		country:{type:String}
+  	}
+  }
   , email:      {type:String}
   , phone:      {type:String}
   , address:    {type:String}
@@ -54,13 +61,6 @@ describe('MongoResource', function( ){
 		Model.remove( done )
 	});
 
-
-	it('should pass', function( done ){
-		Model.count(function(err, cnt ){
-			cnt.should.not.equal(0)
-			done()
-		})
-	})
 
 	describe('filtering', function( ){
 
@@ -119,12 +119,36 @@ describe('MongoResource', function( ){
 				url:'/api/mongo/test?name__istartswith=c&age__gt=100'
 				,method:'get'
 				,headers:{
-					Accept:'test/json'
+					Accept:'application/json'
 				}
 			},function( response ){
 				assert.equal(response.statusCode, 400)
 				done()
 			})
-		})
+		});
+
+		it('should allow for nested look-ups',function( done ){
+			server.inject({
+				url:'/api/mongo/test?company__name__istartswith=c'
+				,method:'get'
+				,headers:{
+					Accept:'application/json'
+				}
+			},function( response ){
+				var content = JSON.parse( response.result )
+				assert.equal(response.statusCode, 200);
+				content.data.length.should.be.greaterThan( 0 )
+				content.data.forEach(function(item){
+					if( item.company ){
+						item.company.name.charAt(0).should.equal('c')
+					}
+				});
+				
+				done()
+			})
+
+		});
+
+
 	})
 })
