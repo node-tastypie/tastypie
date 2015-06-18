@@ -294,25 +294,61 @@ All of the primary query types in mongo query filters are exposed.
 
 ##### Built In Filters
 
-| Filter        | Function      |
-| ------------- | ------------- |
-| gt            | greater than                              |
-| gte           | greater than or equal to                  |
-| lt            | less than                                 |
-| lte           | less than or equal to                     |
-| in            | value in set ( [ 1,2,3 ])                 |
-| nin           | Value **not** in set                      |
-| size          | Size of set ( array length )              |
-| startswith    | Case Sensitive string match               |
-| istartswith   | Case **Insensitive** string match         |
-| endswith      | Case Sensitive string match               |
-| iendswith     | Case **Insensitive** string match         |
-| contains      | Case Sensitive global string match        |
-| icontains     | Case **Insensitive** global string match  |
-| exact ( = )   | Exact Case Sensitive string match         |
-| iexact        | Exact Case **Insensitive** string match   |
-| match         | Matches an item in an array ( elemMatch ) |
-
+<table class="table table-striped table-hover">
+  <thead>
+    <th>Filter</th><th>function</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>gt</td><td>greater than</td>
+    </tr>
+    <tr>
+      <td>gte</td><td>greater than or equal to</td>
+    </tr>
+    <tr>
+      <td>lt</td><td>less than</td>
+    </tr>
+    <tr>
+      <td>lte</td><td>less than or equal to</td>
+    </tr>
+    <tr>
+      <td>in</td><td>Value in set ( [ 1,2,3 ])</td>
+    </tr>
+    <tr>
+      <td>nin</td><td>Value <strong>Not</strong> in set</td>
+    </tr>
+    <tr>
+      <td>size</td><td>Size of set ( array length )</td>
+    </tr>
+    <tr>
+      <td>startswith</td><td>Case Sensitive string match</td>
+    </tr>
+    <tr>
+      <td>istartswith</td><td>Case <strong>Insensitive</strong> string match</td>
+    </tr>
+    <tr>
+      <td>endswith</td><td>Case Sensitive string match</td>
+    </tr>
+    <tr>
+      <td>iendswith</td><td>Case <strong>Insensitive</strong> string match</td>
+    </tr>
+    <tr>
+      <td>contains</td><td>Case Sensitive global string match</td>
+    </tr> 
+    <tr>
+      <td>icontains</td><td>Case <strong>Insensitive</strong> global string match</td>
+    </tr>
+    <tr>
+      <td>exact ( = )</td><td>Exact Case Sensitive string match</td>
+    </tr>
+    <tr>
+      <td>iexact</td><td>Exact Case <strong>Insensitive</strong> string match</td>
+    </tr>
+    <tr>
+      <td>match</td><td>Matches an item in an array ( elemMatch )</td>
+    </tr>
+  </tbody>
+</table>
 
 Filters are added by appending a double underscore ``__`` and the filter type to the end of a field name. Given our example, if we wanted to find people who were older than 25, we would use the following URI syntax
 
