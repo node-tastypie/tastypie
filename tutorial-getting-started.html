@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tastypie tutorialGetting Started</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Tastypie</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-tastypie_lib_resource_validator_toJoi.converters.html">tastypie/lib/resource/validator/toJoi.converters</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-tastypie.html">tastypie</a></li><li><a href="module-tastypie_cache.html">tastypie/cache</a></li><li><a href="module-tastypie_fields.html">tastypie/fields</a></li><li><a href="module-tastypie_http.html">tastypie/http</a></li><li><a href="module-tastypie_lib_api.html">tastypie/lib/api</a></li><li><a href="module-tastypie_lib_api_helpers_qs.html">tastypie/lib/api/helpers/qs</a></li><li><a href="module-tastypie_lib_class.html">tastypie/lib/class</a></li><li><a href="module-tastypie_lib_class_options.html">tastypie/lib/class/options</a></li><li><a href="module-tastypie_lib_constants.html">tastypie/lib/constants</a></li><li><a href="module-tastypie_lib_exceptions.html">tastypie/lib/exceptions</a></li><li><a href="module-tastypie_lib_mime.html">tastypie/lib/mime</a></li><li><a href="module-tastypie_lib_paginator.html">tastypie/lib/paginator</a></li><li><a href="module-tastypie_lib_resource.html">tastypie/lib/resource</a></li><li><a href="module-tastypie_lib_resource_mongoose.html">tastypie/lib/resource/mongoose</a></li><li><a href="module-tastypie_lib_resource_validator.html">tastypie/lib/resource/validator</a></li><li><a href="module-tastypie_lib_resource_validator_oid.html">tastypie/lib/resource/validator/oid</a></li><li><a href="module-tastypie_lib_resource_validator_querystring.html">tastypie/lib/resource/validator/querystring</a></li><li><a href="module-tastypie_lib_resource_validator_toJoi.html">tastypie/lib/resource/validator/toJoi</a></li><li><a href="module-tastypie_lib_serializer.html">tastypie/lib/serializer</a></li><li><a href="module-tastypie_lib_throttle.html">tastypie/lib/throttle</a></li><li><a href="module-tastypie_lib_util.html">tastypie/lib/util</a></li><li><a href="module-tastypie_lib_validators.html">tastypie/lib/validators</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_cache.Cache.html">tastypie/cache.Cache</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-getting-started.html">Getting Started</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+    		<h1 class="page-title">tutorialGetting Started</h1>
+			<section class="tutorial-section">
+
+<header>
+    
+
+    <h2>Getting Started</h2>
+</header>
+
+<article>
+    <p>REST Apis seem to be taking over the world as of late, and Node has been the platform of choice for building them. However, when you take a look at some of the tooling for building robust REST APIs in the node community, the options are bleak at best. When you take a look at all of the properties that would make an API RESTful, it is easy to see that it is rather complex.</p></p>
+<h2>REST</h2><p>There are a few fundamental properties that make apis <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> - they should be a <strong>Scaleable</strong>, <strong>Stateless</strong>, <strong>Cacheable</strong>, fit into a <strong>Layered System</strong> which is apart of a <strong>Client / Server</strong> model that provides a <strong>Uniform Interface</strong>. In the confines of a Restful HTTP API, it is common to use the HTTP verbs ( GET, PUT, POST, DELETE, etc ) to describe what action the API should perform. </p>
+<p>When it comes right down to it, there isn't really anything the facilitates this in the Node world. Most frameworks are limited and leave a lot of this work up to you which leads to a lot of repetitive boilerplate work. And like many DIYers in the JavaScript community, this frustration has lead me to build one myself. For the <a href="https://github.com/esatterwhite/node-tastypie">better part of a year</a> I have been working on the side on a REST framework heavily inspired by a <a href="https://www.djangoproject.com/">Django</a> project called <a href="http://tastypieapi.org/">Tastypie</a> which focuses on implementing <em>most</em> of the REST principles with an emphasis on <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a> - And wrote it in JavaScript!</p>
+<h2>Tastypie</h2><p>Tastypie is built on top of <a href="http://hapijs.com/">Hapi</a> from the fine folks at Walmart. Tastypie lets you Define a Resource which will provide basic CRUD operations which map to the HTTP verbs complete with customization <strong>serialization</strong>, <strong>Validation</strong>, <strong>Caching</strong>, etc. Plus easy-as-pie Mongoose support to boot. To create Your first CRUD API we need 3 things - a <strong>Data Model</strong>, a tastypie <strong>Resource</strong> definition, and an <code>API Namespace</code> to hold your resources. </p>
+<p><em>T he source code for the examples can be found <a href="https://bitbucket.org/esatterwhite/tastypie-get-started">here</a></em></p>
+<p>We start by making a pretty simple data model with Mongoose</p>
+<pre class="prettyprint source"><code>{@lang bash}
+npm install -s hapi mongoose joi boom tastypie@0.2.2</code></pre><h4>Define A Model</h4><pre class="prettyprint source lang-js"><code>// model.js
+var mongoose = require('mongoose')
+mongoose.set('debug',true)
+var connection = mongoose.createConnection('mongodb://localhost:27017/test')
+var Schema = mongoose.Schema;
+var User;
+
+User = new Schema({
+  name:{type:String}
+  ,age:{type:Number}
+  ,index:{type:Number}
+  ,guid:{type:String}
+  ,tags:[{type:String}]
+  ,company:{
+    name:{type:String}
+    ,address:{
+      city: {type:String}
+      ,state: {type:String}
+      ,street: {type:String}
+      ,country: {type:String}
+    }
+  }
+},{collection:'tastypie_user'});
+
+module.exports = connection.model('User', User)</code></pre><h4>Define A Resource</h4><p>The next step is to define a Resource for this data model. While tastypie resources are not inherently tied to mongoose, it does ship with a Resource class specifically for mongoose. Basically, give it a query constructor, and a field definition. Done!</p>
+<pre class="prettyprint source lang-js"><code>// resource.js
+var tastypie = require('tastypie')
+var MongoResource = tastypie.Resource.Mongoose;
+var User  = require('./model')
+
+var Resource = MongoResource.extend({
+  options:{
+    queryset: User.find().toConstructor()
+  }
+  ,fields:{
+    name: {type:'char'}
+    ,age:{type:'int', attribute:'age'}
+    ,companyName:{type:'char', attribute:'company.name', readonly:true}
+  }
+});
+module.exports = Resource;</code></pre><p>This is the bare bones set up of a resource which will give us full CRUD support. You must give it a query constructor using the <code>toConstructor</code> method on a mongoose query. We're using the simple case here. And a <code>fields</code> definition which defines the data fields you want to expose. The resource class will auto add an <code>id</code> field and <code>uri</code> field. But we'll come back to that.</p>
+<h4>Plug Into Hapi</h4><p>Now we just need to wire it up to Hapi.</p>
+<pre class="prettyprint source lang-js"><code>// server.js
+
+var hapi = require('hapi')
+var tastypie = require('tastypie')
+var Api = tastypie.Api
+var UserResource = require('./resource')
+var app
+var v1;
+
+app = new hapi.Server();
+
+app.connection({
+  port:3000,
+  labels:['api']
+})
+
+v1 = new Api('api/v1')
+v1.use('user',new UserResource() );
+
+app.register([v1], function( e ){
+  app.start( function(){
+    console.log('server running at http://localhost:3000')
+  })    
+})</code></pre><p>That is it! The Tastpie <code>API</code> class is a Hapi plugin which adds the url prefix you defined - ( <code>api/v1</code> in our case ). </p>
+<h2>Interacting With Your API</h2><p>Under the hood our resource creates 7 routes by default.</p>
+<ul>
+<li><code>GET /api/v1</code> - endpoint schema</li>
+<li><code>GET /api/v1/user</code> - Get all users</li>
+<li><code>GET /api/v1/user/schema</code> - User schema</li>
+<li><code>GET /api/v1/user/{pk}</code> -get user by id</li>
+<li><code>POST /api/v1/user</code> - create a user</li>
+<li><code>PUT /api/v1/user/{pk}</code> - update a user</li>
+<li><code>DELETE /api/v1/user/{pk}</code> - delete a user</li>
+</ul>
+<p>Tastypie uses the standard HTTP Headers <code>Accept</code> and <code>Content-Type</code> to deal with serialization / serialization of data. You can use whatever HTTP client you like. <a href="http://linux.die.net/man/1/curl">Curl</a> will do us OK here.</p>
+<h4>API Schema</h4><p>Each <code>API</code> instance registers an endpoint which provides all of the defined routes under it as a means for endpoint discovery. In our example it is just the <code>list</code>, <code>detail</code>, and <code>schema</code> endpoints, as you add more resources, this becomes a bit more dense.</p>
+<pre class="prettyprint source lang-js"><code>// curl http://localhost:3000/api/v1
+{
+    &quot;user&quot;: {
+        &quot;detail&quot;: &quot;/api/v1/user/{pk}&quot;,
+        &quot;list&quot;: &quot;/api/v1/user&quot;,
+        &quot;schema&quot;: &quot;/api/v1/user/schema&quot;
+    }
+}</code></pre><p>Internally Tastypie maps each of the routes to an instance method using the HTTP verb. For example creating a user with <code>POST /api/v1/user</code> maps to <code>post_list</code>, where as <code>GET /api/v1/user</code> maps to the <code>get_list</code> method. Most functionality on a resource is granular and function based so you can subclass &amp; change things if you like. If not granular, there is probably a config option for it.</p>
+<p>From here we can take a look at the list endpoint which will return a paged set of data. The default page size is set to 25.</p>
+<pre class="prettyprint source lang-js"><code>    &quot;meta&quot;: {
+        &quot;count&quot;: 100,
+        &quot;limit&quot;: 25,
+        &quot;next&quot;: &quot;/api/v1/meth?limit=25&offset=25&quot;,
+        &quot;offset&quot;: 0,
+        &quot;previous&quot;: null
+    },
+    &quot;data&quot;:[
+        {
+            &quot;age&quot;: 31,
+            &quot;companyName&quot;: &quot;ISOTRONIC&quot;,
+            &quot;id&quot;: &quot;557af820f3c3008b415de043&quot;,
+            &quot;name&quot;: &quot;Sonia Velazquez&quot;,
+            &quot;uri&quot;: &quot;/api/v1/meth/557af820f3c3008b415de043&quot;
+        },
+        {
+            &quot;age&quot;: 24,
+            &quot;companyName&quot;: &quot;CENTREXIN&quot;,
+            &quot;id&quot;: &quot;557af820f3c3008b415de044&quot;,
+            &quot;name&quot;: &quot;Shawna Perez&quot;,
+            &quot;uri&quot;: &quot;/api/v1/meth/557af820f3c3008b415de044&quot;
+        }
+    ]
+}</code></pre><p>You can see here we have a structured response with two primary blocks, <code>meta</code> and <code>data</code>. The <code>meta</code> block gives you some information about the response. Namely how many records are in the actual data set ( of the query you created ), the current page size or <code>limit</code>,and URIs to the <code>next</code> and <code>previous</code> page, if they exist.</p>
+<p>The <code>data</code> block is an array of objects mapping be to the model we defined with the auto included <code>id</code> and <code>uri</code> field which is the unique identifier for that specific object. You can also see here that there is a <code>companyName</code> field which surfaced the nested value from our model. This is because our field definition specified a name path in the <code>attribute</code> property.</p>
+<pre class="prettyprint source lang-js"><code>companyName:{type:'char', attribute:'company.name', readonly:true}</code></pre><p>There are a number of ways to reshape the data, the <code>attribute</code> field is the easiest. It works in both directions, so one could actually send data in the <code>companyName</code> field and tastypie would resolve it to <code>company.name</code>. But in general, it is best to use a data structure that mirrors your model, so we marked this as <code>readonly</code>.</p>
+<h4>Resource Schema</h4><p>Each defined resource comes standard with a simple schema definition mapped to the <code>/schema</code> uri which defines default format, allowed methods, and field definitions.</p>
+<pre class="prettyprint source lang-js"><code>// curl http://localhost:3000/api/v1/user/schema
+{
+    &quot;fields&quot;: {
+        &quot;age&quot;: {
+            &quot;blank&quot;: false,
+            &quot;default&quot;: null,
+            &quot;help&quot;: &quot;Converts values to Numbers with a base of 10&quot;,
+            &quot;nullable&quot;: false,
+            &quot;readonly&quot;: false,
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;unique&quot;: false
+        },
+        &quot;companyName&quot;: {
+            &quot;blank&quot;: false,
+            &quot;default&quot;: null,
+            &quot;help&quot;: &quot;Forces values to string values by calling toString&quot;,
+            &quot;nullable&quot;: false,
+            &quot;readonly&quot;: true,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;unique&quot;: false
+        },
+        &quot;id&quot;: {
+            &quot;blank&quot;: false,
+            &quot;default&quot;: null,
+            &quot;help&quot;: &quot;A general no op field&quot;,
+            &quot;nullable&quot;: false,
+            &quot;readonly&quot;: true,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;unique&quot;: false
+        },
+        &quot;name&quot;: {
+            &quot;blank&quot;: false,
+            &quot;default&quot;: null,
+            &quot;help&quot;: &quot;Forces values to string values by calling toString&quot;,
+            &quot;nullable&quot;: false,
+            &quot;readonly&quot;: false,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;unique&quot;: false
+        },
+        &quot;uri&quot;: {
+            &quot;blank&quot;: false,
+            &quot;default&quot;: null,
+            &quot;help&quot;: &quot;Forces values to string values by calling toString&quot;,
+            &quot;nullable&quot;: false,
+            &quot;readonly&quot;: true,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;unique&quot;: false
+        }
+    },
+    &quot;filtering&quot;: null,
+    &quot;format&quot;: &quot;application/json&quot;,
+    &quot;limit&quot;: 25,
+    &quot;methodsAllowed&quot;: [
+        &quot;get&quot;,
+        &quot;put&quot;,
+        &quot;post&quot;,
+        &quot;delete&quot;,
+        &quot;patch&quot;,
+        &quot;head&quot;,
+        &quot;options&quot;
+    ]
+}</code></pre><p>This sort of information can come in very hand for auto generating user interfaces for example.</p>
+<p>If you don't like this schema format, you can alter this by changing the <code>get_schema</code> method on your resource to return a <a href="http://json-schema.org/">JSONSchema</a> definition if you prefer. Or to return what ever you like for that matter.</p>
+<h4>Paging</h4><p>You can use a number of special query string params to control how data is paged on the <code>list</code> endpoint. Namely -</p>
+<ul>
+<li><code>limit</code> - Page size ( default 25 )</li>
+<li><code>offset</code> - The starting point in the list</li>
+</ul>
+<p><code>limit=25&amp;offset=50</code> would be the start of page 3</p>
+<h4>Sorting</h4><p>sorting is handled query param <code>orderby</code> where you can pass it the name of a field to sort on. Sorting is descending by default. Specifying a negetive field ( <code>-&lt;FOO&gt;</code> ) would flip the order</p>
+<pre class="prettyprint source"><code>{@lang bash}
+orderby=-age</code></pre><h4>Advanced Querying</h4><p>You might have noticed the <code>filtering</code> field on the schema. One of the things that makes an API &quot;Good&quot; is the ability to use query and filter the data to get very specific subsets of data. Tastypie exposes this through the query string as <code>field</code> and <code>filter</code> combinations. By default, the resource doesn't have anything enabled, you need to specify which filters are allowed on which fields, or specify <code>1</code> to allow everything</p>
+<pre class="prettyprint source lang-js"><code>var Resource = MongoResource.extend({
+  options:{
+    queryset: User.find().toConstructor(),
+    filtering:{
+        name:['startswith','istartswith','endswith','iendswith'],
+        age:['gt','lt','lte','gte', 'exact'],
+        company:['istartswith'],
+        companyName: ['istartswith']
+    }
+  }
+  ,fields:{
+    name: {type:'char'}
+    ,age:{type:'int', attribute:'age'}
+    ,companyName:{type:'char', attribute:'company.name', readonly:true}
+  }
+});</code></pre><p>All of the primary query types in mongo query filters are exposed. </p>
+<h5>Built In Filters</h5><table>
+<thead>
+<tr>
+<th>Filter</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gt</td>
+<td>greater than</td>
+</tr>
+<tr>
+<td>gte</td>
+<td>greater than or equal to</td>
+</tr>
+<tr>
+<td>lt</td>
+<td>less than</td>
+</tr>
+<tr>
+<td>lte</td>
+<td>less than or equal to</td>
+</tr>
+<tr>
+<td>in</td>
+<td>value in set ( [ 1,2,3 ])</td>
+</tr>
+<tr>
+<td>nin</td>
+<td>Value <strong>not</strong> in set</td>
+</tr>
+<tr>
+<td>size</td>
+<td>Size of set ( array length )</td>
+</tr>
+<tr>
+<td>startswith</td>
+<td>Case Sensitive string match</td>
+</tr>
+<tr>
+<td>istartswith</td>
+<td>Case <strong>Insensitive</strong> string match</td>
+</tr>
+<tr>
+<td>endswith</td>
+<td>Case Sensitive string match</td>
+</tr>
+<tr>
+<td>iendswith</td>
+<td>Case <strong>Insensitive</strong> string match</td>
+</tr>
+<tr>
+<td>contains</td>
+<td>Case Sensitive global string match</td>
+</tr>
+<tr>
+<td>icontains</td>
+<td>Case <strong>Insensitive</strong> global string match</td>
+</tr>
+<tr>
+<td>exact ( = )</td>
+<td>Exact Case Sensitive string match</td>
+</tr>
+<tr>
+<td>iexact</td>
+<td>Exact Case <strong>Insensitive</strong> string match</td>
+</tr>
+<tr>
+<td>match</td>
+<td>Matches an item in an array ( elemMatch )</td>
+</tr>
+</tbody>
+</table>
+<p>Filters are added by appending a double underscore <code>__</code> and the filter type to the end of a field name. Given our example, if we wanted to find people who were older than 25, we would use the following URI syntax</p>
+<pre class="prettyprint source"><code>{@lang bash}
+http://localhost:3000/api/v1/user?age__gt=25</code></pre><p>Filters are additive for a given field. For example, if we we only wanted people where we between 25 and 45, we would just add another filter</p>
+<pre class="prettyprint source"><code>{@lang bash}
+http://localhost:3000/api/v1/user?age__gt=25&age__lt=45</code></pre><p>The same double underscore <code>__</code> syntax is used to access nested fields where the filter is always the last parameter. So we could find people whos age was  <strong>greater than</strong> 25, <strong>less than</strong> 45 and whose Company Name <strong>starts with</strong> <code>W</code></p>
+<pre class="prettyprint source"><code>{@lang bash}
+http://localhost:3000/api/v1/user?age__gt=25&age__lt=45&company__name__istartswith=w</code></pre><p>Remember, remapped fields still work for filtering, so the same would also be true for <code>companyName</code></p>
+<pre class="prettyprint source"><code>{@lang bash}
+http://localhost:3000/api/v1/user?age__gt=25&age__lt=45&companyName__istartswith=w</code></pre><p>Resources provide a simple and expressive syntax to query for very specific subsets of data without any of the boilerplate work to set it up. And as you would expect, regular params will map back to <code>exact</code> where applicable</p>
+<pre class="prettyprint source"><code>{@lang bash}
+http://localhost:3000/api/v1/user?age=44</code></pre><h4>Serialization</h4><p>Tastypie supports multiple serialization formats out of the box as well as a way to define your own custom formats. The base <code>serializer</code> class supports <code>xml</code>, <code>json</code> &amp; <code>jsonp</code> by default. You add formats or create your own serialization formats by subclassing the <code>Serializer</code> class and defining the approriate methods. Each format must define a <code>to_&lt;FORMAT&gt;</code> and a <code>from_&lt;FORMAT&gt;</code>. For example, tastypie defines the <code>to_xml</code> and <code>from_xml</code> methods. JSON is defined by <code>to_json</code>, <code>from_json</code></p>
+<p>To get back xml just change the <code>Accept</code> header
+<strong>NOTE:</strong> <em>Hapi deals with most <code>application/foo</code> formats, but is blind to <code>text/foo</code>. So the safe bet here is to use <code>text/xml</code></em></p>
+<pre class="prettyprint source"><code>{@lang xml}
+// curl -H &quot;Accept: text/xml&quot; http://localhost:3000/api/v1/user
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>
+&lt;response>
+ &lt;meta type=&quot;object&quot;>
+  &lt;count type=&quot;number&quot;>100&lt;/count>
+  &lt;limit type=&quot;number&quot;>1&lt;/limit>
+  &lt;offset type=&quot;number&quot;>0&lt;/offset>
+  &lt;previous type=&quot;null&quot;>null&lt;/previous>
+  &lt;next type=&quot;string&quot;>/api/v1/meth?limit=25&offset=25&lt;/next>
+ &lt;/meta>
+ &lt;data type=&quot;array&quot;>
+  &lt;object type=&quot;object&quot;>
+   &lt;name type=&quot;string&quot;>Dejesus Zimmerman&lt;/name>
+   &lt;age type=&quot;number&quot;>31&lt;/age>
+   &lt;companyName type=&quot;string&quot;>AVENETRO&lt;/companyName>
+   &lt;id type=&quot;string&quot;>557af820f3c3008b415de02c&lt;/id>
+   &lt;uri type=&quot;string&quot;>/api/v1/meth/557af820f3c3008b415de02c&lt;/uri>
+  &lt;/object>
+ &lt;/data>
+&lt;/response></code></pre><h4>Validation</h4><p>At the time of writing, Tastypie ( <code>0.2.2</code> ) delegates validation responsibility to <a href="http://hapijs.com/api#route-options">Hapi</a>. You can specifiy a <code>validation</code> object in the Resource options which is passed to the Route configuration untouched. So to validate that the <code>Age</code> Param of incoming post / put data is an integer and less than 100, we could update our resource to hold the following</p>
+<pre class="prettyprint source lang-js"><code>// resource.js
+var tastypie = require('tastypie')
+var MongoResource = tastypie.Resource.Mongoose;
+var User  = require('./model')
+var joi = require('joi')
+
+var Resource = MongoResource.extend({
+  options:{
+    queryset: User.find().toConstructor()
+    ,validation:{
+       payload:joi.object({
+           age:joi.integer().max(100).min(0)
+       }).unknown()
+    }
+  }
+  ,fields:{
+    name: {type:'char'}
+    ,age:{type:'int', attribute:'age', default:0}
+    ,companyName:{type:'char', attribute:'company.name', readonly:true}
+  }
+});
+module.exports = Resource;</code></pre><p>This is a pretty good overview of tastypie, and we are still just scratching the surface. However, with less than 100 lines of code, we have a pretty feature rich and expressive CRUD API. Next time we'll cover adding custom endpoints beyond CRUD, advanced data preparation through Resource fields and access control.</p>
+</article>
+
+</section>
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	Eric Satterwhite &copy; 2015
+	</span>
+	<br />
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+	on 2015-06-18T13:43:31-05:00 using the <a
+	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<!--<script src="scripts/sunlight.js"></script>-->
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/bootstrap-dropdown.js"></script>
+<script src="scripts/toc.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "h1,h2,h3,h4",
+		showAndHide : false,
+		scrollTo    : "100px"
+	} );
+
+	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			lang = "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+</body>
+</html>

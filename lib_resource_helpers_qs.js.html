@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tastypie Source: lib/resource/helpers/qs.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Tastypie</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-tastypie_lib_resource_validator_toJoi.converters.html">tastypie/lib/resource/validator/toJoi.converters</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-tastypie.html">tastypie</a></li><li><a href="module-tastypie_cache.html">tastypie/cache</a></li><li><a href="module-tastypie_fields.html">tastypie/fields</a></li><li><a href="module-tastypie_http.html">tastypie/http</a></li><li><a href="module-tastypie_lib_api.html">tastypie/lib/api</a></li><li><a href="module-tastypie_lib_api_helpers_qs.html">tastypie/lib/api/helpers/qs</a></li><li><a href="module-tastypie_lib_class.html">tastypie/lib/class</a></li><li><a href="module-tastypie_lib_class_options.html">tastypie/lib/class/options</a></li><li><a href="module-tastypie_lib_constants.html">tastypie/lib/constants</a></li><li><a href="module-tastypie_lib_exceptions.html">tastypie/lib/exceptions</a></li><li><a href="module-tastypie_lib_mime.html">tastypie/lib/mime</a></li><li><a href="module-tastypie_lib_paginator.html">tastypie/lib/paginator</a></li><li><a href="module-tastypie_lib_resource.html">tastypie/lib/resource</a></li><li><a href="module-tastypie_lib_resource_mongoose.html">tastypie/lib/resource/mongoose</a></li><li><a href="module-tastypie_lib_resource_validator.html">tastypie/lib/resource/validator</a></li><li><a href="module-tastypie_lib_resource_validator_oid.html">tastypie/lib/resource/validator/oid</a></li><li><a href="module-tastypie_lib_resource_validator_querystring.html">tastypie/lib/resource/validator/querystring</a></li><li><a href="module-tastypie_lib_resource_validator_toJoi.html">tastypie/lib/resource/validator/toJoi</a></li><li><a href="module-tastypie_lib_serializer.html">tastypie/lib/serializer</a></li><li><a href="module-tastypie_lib_throttle.html">tastypie/lib/throttle</a></li><li><a href="module-tastypie_lib_util.html">tastypie/lib/util</a></li><li><a href="module-tastypie_lib_validators.html">tastypie/lib/validators</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_cache.Cache.html">tastypie/cache.Cache</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-getting-started.html">Getting Started</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+    		<h1 class="page-title">Source: lib/resource/helpers/qs.js</h1>
+			
+
+		<h1 class="page-title">Source: lib/resource/helpers/qs.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript ">
+/*jshint node:true, laxcomma: true, smarttabs: true*/
+'use strict';
+/**
+ * Collection of helpers for dealing with query string params and filters for api resources
+ * @module tastypie/lib/api/helpers/qs
+ * @author Eric Satterwhite
+ * @since 0.1.0
+ * @requires mout/lang
+ * @requires mout/string
+ * @requires mout/array
+ * @requires mout/object
+ * @requires tastypie/lib/constants
+ */
+
+var qs         = require( 'qs' )
+	, isFunction = require('mout/lang').isFunction       // standard lib isFunction check
+	, toArray    = require('mout/lang').toArray          // standard lib function to cast values to arrays
+	, typecast   = require('mout/string').typecast       // function to type cast strings
+	, merge      = require('mout/object').merge
+	, isPrimitive = require('mout/lang').isPrimitive
+	, constants = require('../../constants')
+	, orderExp   = /^(\-)?([\w]+)/                       // expression to pick off sorting order
+	, buildFilters                                       // Funcion to generate a filter object for mongoose
+	, applySorting                                       // function to apply sorting to a mongoose mquery object
+	, terms                                              // interal filter type mappings
+	;
+
+
+
+/**
+ * @readonly
+ * @name terms
+ * @memberof module:tastypie/lib/helpers/qs
+ * @property terms {Object} Defines querystring filter types
+ * @property terms.gt Greater Than Filter type
+ * @property terms.gte Greater Than or Equal To Filter Type
+ * @property terms.in In Filter type for array value lookups
+ * @property terms.lt Less Than filter Type
+ * @property terms.lte Less Than or Equal To filter type
+ * @property terms.ne Not Equal To filter type
+ * @property terms.nin Non-In Filter type. The inverse of what `in` does
+ * @property terms.regex literal regular expression lookup
+ * @property terms.all Match agains all values in an array field
+ * @property terms.size Array length filter type
+ * @property terms.iexact Case in-sensitive filter type for exact string matches
+ * @property terms.contains Contains filter type for string matching
+ * @property terms.icontains case insensitive version of `Contains`
+ * @property terms.startswith Starts with filter type for string matching
+ * @property terms.istartswith Case insensitive version of `startswith`
+ * @property terms.endswith Ends with filter type for string matching
+ * @property terms.iendswith Case insensitive version of `endswith`
+ */
+terms = {
+	'gt'            : { value: function( term ){ return {'$gt'       : term} } }
+	, 'gte'         : { value: function( term ){ return {'$gte'      : term} } }
+	, 'in'          : { value: function( term ){ return {'$in'       : term} } }
+	, 'lt'          : { value: function( term ){ return {'$lt'       : term} } }
+	, 'lte'         : { value: function( term ){ return {'$lte'      : term} } }
+	, 'ne'          : { value: function( term ){ return {'$ne'       : term} } }
+	, 'nin'         : { value: function( term ){ return {'$nin'      : term} } }
+	, 'regex'       : { value: function( term ){ return {'$regex'    : term} } }
+	, 'all'         : { value: function( term ){ return {'$all'      : term} } }
+	, 'size'        : { value: function( term ){ return {'$size'     : term} } }
+	, 'match'       : { value: function( term ){ return {'$elemMatch': term} } }
+	, 'iexact'      : { value: function( term ){ return {'$regex'    : new RegExp( term, 'i' ) }  } }
+	, 'contains'    : { value: function( term ){ return {'$regex'    : new RegExp( term )}  } }
+	, 'icontains'   : { value: function( term ){ return {'$regex'    : new RegExp(term, 'i')}  } }
+	, 'startswith'  : { value: function( term ){ return {'$regex'    : new RegExp( '^' + term ) }  } }
+	, 'istartswith' : { value: function( term ){ return {'$regex'    : new RegExp( '^' + term, 'i' )}  } }
+	, 'endswith'    : { value: function( term ){ return {'$regex'    : new RegExp( term + '$' ) }  } }
+	, 'iendswith'   : { value: function( term ){ return {'$regex'    : new RegExp( term + '$', 'i') }  } }
+}
+
+/**
+ * Applies multi level sorting to a mongoose query object based on querystring parameters
+ * @name applySorting
+ * @function
+ * @static
+ * @memberof module:tastypie/lib/helpers/qs
+ * @param {mquery} query An instance of an Mongoose Query
+ * @param {Object|String} querystring A querystring suitable for parsing via the `qs` module or a parsed querystring object
+ * @return {mquery}
+ * @example
+var query = Model.find({name:'Matt'})
+helpers.qs.applySorting( query, "orderby=firstname&amp;orderby=-lastname");
+query.exec( console.log );
+ */
+applySorting = function( mquery, rquery ){
+	var ordering = {};
+	var qstring = qs.parse( rquery )
+	toArray( qstring.orderby ).forEach( function( param ){
+		var bits = orderExp.exec( param );
+		if( !bits ){
+			return;
+		}
+		ordering[ bits[2] ] = bits[1] ? -1 : 1;
+	});
+
+	mquery.sort( ordering );
+	return mquery;
+}
+
+/**
+ * Constructs databae filters based on a data model and query string
+ * @static
+ * @function
+ * @name buildFilters
+ * @memberof module:tastypie/lib/helpers/qs
+ * @param {Object} model A valid Mongoose Model
+ * @param {String|Object} query a valid query string parseable by the `qs` module or an object to use as the querystring object
+ * @example
+ var TestSchema = new Schema({
+	firstname:{type:String}
+	,lastname:{type:String}
+ });
+var Test = mongoose.model('Test', TestSchema)
+helpers.qs.buildFilters( Test, {firstname:'Matt'})
+helpers.qs.buildFilters( Test, {firstname__startswith:'Ma'})
+helpers.qs.buildFilters(Test, 'firstname__istartswith=m&amp;lastname__icontains=t')
+ */
+buildFilters = function( Model, obj, filters, fieldmap ){
+	var remaining = {};
+	var paths = Object.keys( Model.schema.paths );
+	var query = qs.parse( obj );
+	filters = filters || {};
+	fieldmap = fieldmap || {}
+	var allowablepaths = paths.filter( function( p ){
+		return ( p !== '_id' &amp;&amp; p !== '__v');
+	});
+ 
+	for( var key in query ){
+		var bits = key.split('__')
+			 , filter = {}
+			 , filtername = 'exact'
+			 , bitlength
+			 , value
+			 , fieldname
+			 , filtertype
+			 , last
+			 , attr
+			 ;
+
+
+		value      = query[key];
+		fieldname  = bits.shift();
+		bitlength  = bits.length - 1;
+		filtername = bits[ bitlength ] || filtername
+		filtertype = terms[ filtername ] ? terms[bits.pop()] : filtername;
+
+		// exact isn't really a filter...
+		if(filtername == 'exact' || filters[fieldname] === constants.ALL || !fieldmap[fieldname] ) {
+			// pass
+		} else if( !filters[ fieldname ] ){
+			var e  = new Error("filtering on " + fieldname + " is not allowed");
+			e.code = 400;
+			throw e
+		} else if( ( filters[fieldname] || []).indexOf( filtername ) == -1 ){
+			var e   = new Error(filtername + " filter is not allowed on field " + fieldname );
+			e.code  = 400;
+			throw e
+		}
+
+		// should be defined on resource instance
+		attr      = fieldmap[ fieldname ] ? fieldmap[fieldname].options.attribute || fieldname : fieldname
+		fieldname = bits.unshift( attr ) &amp;&amp; bits.join('.');
+	
+		if( allowablepaths.indexOf( fieldname ) >=0 ){
+			remaining[fieldname] = remaining[fieldname] || {};
+			filter = isFunction( filtertype.value ) ? filtertype.value( value ) : typecast( value ) ;
+			remaining[ fieldname ] = isPrimitive( filter ) ? filter : merge( remaining[ fieldname ], filter );
+		}
+	}
+	return remaining;
+};
+
+exports.terms        = terms
+exports.buildFilters = buildFilters
+exports.applySorting = applySorting
+</pre>
+	</article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	Eric Satterwhite &copy; 2015
+	</span>
+	<br />
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+	on 2015-06-18T13:43:30-05:00 using the <a
+	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<!--<script src="scripts/sunlight.js"></script>-->
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/bootstrap-dropdown.js"></script>
+<script src="scripts/toc.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "h1,h2,h3,h4",
+		showAndHide : false,
+		scrollTo    : "100px"
+	} );
+
+	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			lang = "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+</body>
+</html>

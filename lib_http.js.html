@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tastypie Source: lib/http.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Tastypie</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-tastypie_lib_resource_validator_toJoi.converters.html">tastypie/lib/resource/validator/toJoi.converters</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-tastypie.html">tastypie</a></li><li><a href="module-tastypie_cache.html">tastypie/cache</a></li><li><a href="module-tastypie_fields.html">tastypie/fields</a></li><li><a href="module-tastypie_http.html">tastypie/http</a></li><li><a href="module-tastypie_lib_api.html">tastypie/lib/api</a></li><li><a href="module-tastypie_lib_api_helpers_qs.html">tastypie/lib/api/helpers/qs</a></li><li><a href="module-tastypie_lib_class.html">tastypie/lib/class</a></li><li><a href="module-tastypie_lib_class_options.html">tastypie/lib/class/options</a></li><li><a href="module-tastypie_lib_constants.html">tastypie/lib/constants</a></li><li><a href="module-tastypie_lib_exceptions.html">tastypie/lib/exceptions</a></li><li><a href="module-tastypie_lib_mime.html">tastypie/lib/mime</a></li><li><a href="module-tastypie_lib_paginator.html">tastypie/lib/paginator</a></li><li><a href="module-tastypie_lib_resource.html">tastypie/lib/resource</a></li><li><a href="module-tastypie_lib_resource_mongoose.html">tastypie/lib/resource/mongoose</a></li><li><a href="module-tastypie_lib_resource_validator.html">tastypie/lib/resource/validator</a></li><li><a href="module-tastypie_lib_resource_validator_oid.html">tastypie/lib/resource/validator/oid</a></li><li><a href="module-tastypie_lib_resource_validator_querystring.html">tastypie/lib/resource/validator/querystring</a></li><li><a href="module-tastypie_lib_resource_validator_toJoi.html">tastypie/lib/resource/validator/toJoi</a></li><li><a href="module-tastypie_lib_serializer.html">tastypie/lib/serializer</a></li><li><a href="module-tastypie_lib_throttle.html">tastypie/lib/throttle</a></li><li><a href="module-tastypie_lib_util.html">tastypie/lib/util</a></li><li><a href="module-tastypie_lib_validators.html">tastypie/lib/validators</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_cache.Cache.html">tastypie/cache.Cache</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-getting-started.html">Getting Started</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+    		<h1 class="page-title">Source: lib/http.js</h1>
+			
+
+		<h1 class="page-title">Source: lib/http.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript ">'use strict';
+/*jshint laxcomma: true, smarttabs: true*/
+/*globals module,process,require,exports,__dirname,__filename */
+/**
+ * provides helper methods to send appropriate responses to http requests
+ * @module  module:tastypie/http
+ * @author Eric Satterwhite
+ * @since 0.0.1
+ */
+
+var http = require( 'http' )
+  , STATUS_CODES = http.STATUS_CODES
+  ;
+
+/**
+ * Http 100 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.continue = function( res, data, type ){
+	return res( data || STATUS_CODES[ status ] ).code( 100 ).type( type )
+};
+
+/**
+ * Http 101 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.switching = function( res, data, type ){
+	return res( data || STATUS_CODES[ status ] ).code( 101 ).type( type )
+};
+
+
+/**
+ * Http 103 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.checkpoint = function( res, data, type ){
+	return res( data || STATUS_CODES[ status ] ).code( 103 ).type( type )
+};
+
+
+
+/**
+ * Base response Class
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.ok = function( res, data, type ){
+	return res( data || STATUS_CODES[ status ] ).code( 200 ).type( type );
+};
+
+/**
+ * Http 201 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.created = function( res, data, type, location ){
+	return res( data || STATUS_CODES[ status ] ).created( location || data.uri || '' )
+};
+
+/**
+ * Http 202 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.accepted = function( res, data, type, location ){
+	return res( data || STATUS_CODES[ 202 ] ).code( 202 ).type( type )
+};
+
+
+/**
+ * Http 203 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.nonAutoritative = function( res, data, type ){
+	return res( data || STATUS_CODES[ status ] ).code( 203 ).type( type )
+};
+
+/**
+ * Http 204 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.noContent = function( res, data, type ){
+	return res( ).code( 204 ).type( type )
+};
+
+
+/**
+ * Http 205 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.resetContent = function( res, data, type ){
+	return res( data || STATUS_CODES[ status ] ).code( 205 ).type( type )
+};
+
+/**
+ * Http 206 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.partialContent = function( res, data, type ){
+	return res( data || STATUS_CODES[ status ] ).code( 206 ).type( type )
+};
+
+
+/**
+ * Http 300 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.multipleChoices = function( res, data, type ){
+	return res( data || STATUS_CODES[ status ] ).code( 300 ).type( type )
+};
+
+/**
+ * Http 301 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.movedPermanently = function( res, data, type, location ){
+	return res( 301 || STATUS_CODES[ status ] ).code( status ).type( type );
+};
+
+/**
+ * Http 302 status
+ * @param {String} name Name of the exception
+ * @param {String} message message to be displayed
+ **/
+exports.found = function( res, data, type, location ){
+	return res( 302 || STATUS_CODES[ status ] ).code( status ).type( type );
+};
+
+
+
+/**
+ * Http 303 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.seeOther = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 303 ).type( type )
+};
+
+/**
+ * Http 306 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.switchProxy = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 306 ).type( type )
+}
+
+/**
+ * Http 308 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.resumeIncomplete = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 308 ).type( type )
+};
+
+/**
+ * Http 404 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.notFound = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 404 ).type( type )
+};
+
+/**
+ * Http 401 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.unauthorized = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 401 ).type( type )
+};
+
+/**
+ * Http 403 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.forbidden = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 403 ).type( type )
+};
+
+/**
+ * Http 405 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.methodNotAllowed = function( res, data, type ){
+	return res(data || STATUS_CODES[ 405 ] ).code( 405 ).type( type )
+};
+
+/**
+ * Http 407 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.proxyAuthenticationRequired = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 407 ).type( type )
+};
+
+/**
+ * Http 409 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.conflict = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 409 ).type( type )
+};
+
+/**
+ * Http 411 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.lengthRequired = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 411 ).type( type )
+};
+
+/**
+ * Http 413 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.requestEntityTooLarge = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 413 ).type( type )
+};
+
+/**
+ * Http 415 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.unsupportedMediaType = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 415 ).type( type )
+};
+
+/**
+ * Http 417 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.expectationFailed = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 417 ).type( type )
+};
+
+/**
+ * Http 501 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.notImplemented = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 501 ).type( type )
+};
+
+/**
+ * Http 503 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.serviceUnavailable = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 503 ).type( type )
+};
+
+/**
+ * Http 505 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.httpVersionNotSupported = function( res, data, type ){
+	return res(data || STATUS_CODES[ status ] ).code( 505 ).type( type )
+};
+</pre>
+	</article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	Eric Satterwhite &copy; 2015
+	</span>
+	<br />
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+	on 2015-06-18T13:43:30-05:00 using the <a
+	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<!--<script src="scripts/sunlight.js"></script>-->
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/bootstrap-dropdown.js"></script>
+<script src="scripts/toc.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "h1,h2,h3,h4",
+		showAndHide : false,
+		scrollTo    : "100px"
+	} );
+
+	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			lang = "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+</body>
+</html>
