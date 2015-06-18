@@ -10,7 +10,7 @@
 	<![endif]-->
 	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
 
-	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+	<link type="text/css" rel="stylesheet" href="styles/site.journal.css">
 
 </head>
 
@@ -82,7 +82,7 @@
 <p><em>T he source code for the examples can be found <a href="https://bitbucket.org/esatterwhite/tastypie-get-started">here</a></em></p>
 <p>We start by making a pretty simple data model with Mongoose</p>
 <pre class="prettyprint source"><code>{@lang bash}
-npm install -s hapi mongoose joi boom tastypie@0.2.2</code></pre><h4>Define A Model</h4><pre class="prettyprint source lang-js"><code>// model.js
+npm install -s hapi mongoose joi boom tastypie@0.2.2</code></pre><h4>Define A Model</h4><pre class="prettyprint source"><code>// model.js
 var mongoose = require('mongoose')
 mongoose.set('debug',true)
 var connection = mongoose.createConnection('mongodb://localhost:27017/test')
@@ -107,7 +107,7 @@ User = new Schema({
 },{collection:'tastypie_user'});
 
 module.exports = connection.model('User', User)</code></pre><h4>Define A Resource</h4><p>The next step is to define a Resource for this data model. While tastypie resources are not inherently tied to mongoose, it does ship with a Resource class specifically for mongoose. Basically, give it a query constructor, and a field definition. Done!</p>
-<pre class="prettyprint source lang-js"><code>// resource.js
+<pre class="prettyprint source"><code>// resource.js
 var tastypie = require('tastypie')
 var MongoResource = tastypie.Resource.Mongoose;
 var User  = require('./model')
@@ -124,7 +124,7 @@ var Resource = MongoResource.extend({
 });
 module.exports = Resource;</code></pre><p>This is the bare bones set up of a resource which will give us full CRUD support. You must give it a query constructor using the <code>toConstructor</code> method on a mongoose query. We're using the simple case here. And a <code>fields</code> definition which defines the data fields you want to expose. The resource class will auto add an <code>id</code> field and <code>uri</code> field. But we'll come back to that.</p>
 <h4>Plug Into Hapi</h4><p>Now we just need to wire it up to Hapi.</p>
-<pre class="prettyprint source lang-js"><code>// server.js
+<pre class="prettyprint source"><code>// server.js
 
 var hapi = require('hapi')
 var tastypie = require('tastypie')
@@ -160,7 +160,7 @@ app.register([v1], function( e ){
 </ul>
 <p>Tastypie uses the standard HTTP Headers <code>Accept</code> and <code>Content-Type</code> to deal with serialization / serialization of data. You can use whatever HTTP client you like. <a href="http://linux.die.net/man/1/curl">Curl</a> will do us OK here.</p>
 <h4>API Schema</h4><p>Each <code>API</code> instance registers an endpoint which provides all of the defined routes under it as a means for endpoint discovery. In our example it is just the <code>list</code>, <code>detail</code>, and <code>schema</code> endpoints, as you add more resources, this becomes a bit more dense.</p>
-<pre class="prettyprint source lang-js"><code>// curl http://localhost:3000/api/v1
+<pre class="prettyprint source"><code>// curl http://localhost:3000/api/v1
 {
     &quot;user&quot;: {
         &quot;detail&quot;: &quot;/api/v1/user/{pk}&quot;,
@@ -169,7 +169,8 @@ app.register([v1], function( e ){
     }
 }</code></pre><p>Internally Tastypie maps each of the routes to an instance method using the HTTP verb. For example creating a user with <code>POST /api/v1/user</code> maps to <code>post_list</code>, where as <code>GET /api/v1/user</code> maps to the <code>get_list</code> method. Most functionality on a resource is granular and function based so you can subclass &amp; change things if you like. If not granular, there is probably a config option for it.</p>
 <p>From here we can take a look at the list endpoint which will return a paged set of data. The default page size is set to 25.</p>
-<pre class="prettyprint source lang-js"><code>    &quot;meta&quot;: {
+<pre class="prettyprint source"><code>{
+    &quot;meta&quot;: {
         &quot;count&quot;: 100,
         &quot;limit&quot;: 25,
         &quot;next&quot;: &quot;/api/v1/meth?limit=25&offset=25&quot;,
@@ -194,9 +195,9 @@ app.register([v1], function( e ){
     ]
 }</code></pre><p>You can see here we have a structured response with two primary blocks, <code>meta</code> and <code>data</code>. The <code>meta</code> block gives you some information about the response. Namely how many records are in the actual data set ( of the query you created ), the current page size or <code>limit</code>,and URIs to the <code>next</code> and <code>previous</code> page, if they exist.</p>
 <p>The <code>data</code> block is an array of objects mapping be to the model we defined with the auto included <code>id</code> and <code>uri</code> field which is the unique identifier for that specific object. You can also see here that there is a <code>companyName</code> field which surfaced the nested value from our model. This is because our field definition specified a name path in the <code>attribute</code> property.</p>
-<pre class="prettyprint source lang-js"><code>companyName:{type:'char', attribute:'company.name', readonly:true}</code></pre><p>There are a number of ways to reshape the data, the <code>attribute</code> field is the easiest. It works in both directions, so one could actually send data in the <code>companyName</code> field and tastypie would resolve it to <code>company.name</code>. But in general, it is best to use a data structure that mirrors your model, so we marked this as <code>readonly</code>.</p>
+<pre class="prettyprint source"><code>companyName:{type:'char', attribute:'company.name', readonly:true}</code></pre><p>There are a number of ways to reshape the data, the <code>attribute</code> field is the easiest. It works in both directions, so one could actually send data in the <code>companyName</code> field and tastypie would resolve it to <code>company.name</code>. But in general, it is best to use a data structure that mirrors your model, so we marked this as <code>readonly</code>.</p>
 <h4>Resource Schema</h4><p>Each defined resource comes standard with a simple schema definition mapped to the <code>/schema</code> uri which defines default format, allowed methods, and field definitions.</p>
-<pre class="prettyprint source lang-js"><code>// curl http://localhost:3000/api/v1/user/schema
+<pre class="prettyprint source"><code>// curl http://localhost:3000/api/v1/user/schema
 {
     &quot;fields&quot;: {
         &quot;age&quot;: {
@@ -268,7 +269,7 @@ app.register([v1], function( e ){
 <h4>Sorting</h4><p>sorting is handled query param <code>orderby</code> where you can pass it the name of a field to sort on. Sorting is descending by default. Specifying a negetive field ( <code>-&lt;FOO&gt;</code> ) would flip the order</p>
 <pre class="prettyprint source"><code>{@lang bash}
 orderby=-age</code></pre><h4>Advanced Querying</h4><p>You might have noticed the <code>filtering</code> field on the schema. One of the things that makes an API &quot;Good&quot; is the ability to use query and filter the data to get very specific subsets of data. Tastypie exposes this through the query string as <code>field</code> and <code>filter</code> combinations. By default, the resource doesn't have anything enabled, you need to specify which filters are allowed on which fields, or specify <code>1</code> to allow everything</p>
-<pre class="prettyprint source lang-js"><code>var Resource = MongoResource.extend({
+<pre class="prettyprint source"><code>var Resource = MongoResource.extend({
   options:{
     queryset: User.find().toConstructor(),
     filtering:{
@@ -393,7 +394,7 @@ http://localhost:3000/api/v1/user?age=44</code></pre><h4>Serialization</h4><p>Ta
   &lt;/object>
  &lt;/data>
 &lt;/response></code></pre><h4>Validation</h4><p>At the time of writing, Tastypie ( <code>0.2.2</code> ) delegates validation responsibility to <a href="http://hapijs.com/api#route-options">Hapi</a>. You can specifiy a <code>validation</code> object in the Resource options which is passed to the Route configuration untouched. So to validate that the <code>Age</code> Param of incoming post / put data is an integer and less than 100, we could update our resource to hold the following</p>
-<pre class="prettyprint source lang-js"><code>// resource.js
+<pre class="prettyprint source"><code>// resource.js
 var tastypie = require('tastypie')
 var MongoResource = tastypie.Resource.Mongoose;
 var User  = require('./model')
@@ -440,7 +441,7 @@ module.exports = Resource;</code></pre><p>This is a pretty good overview of tast
 
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-06-18T13:43:31-05:00 using the <a
+	on 2015-06-18T13:53:23-05:00 using the <a
 	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 </span>
 </footer>
