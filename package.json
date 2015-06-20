@@ -57,8 +57,9 @@
     "joi": ">=6.0.0"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
+    "async": "^1.2.1",
     "forms": "^1.1.1",
+    "grunt": "^0.4.5",
     "hapi": "^8.4.0",
     "ink-docstrap": "^0.5.2",
     "joi": "^6.1.0",
