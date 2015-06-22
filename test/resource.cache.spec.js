@@ -13,12 +13,12 @@ describe('resource', function(){
 			callback(null, { key:new Date() } )
 		}
 	})
-
+	var c =  new Cache({engine:'catbox-memory'})
 	describe('cached', function(){
 		before(function( done ){
 			var api = new Api('resource/spec')			
 			api.use('cached', new resource({
-					cache: new Cache.Memory()
+					cache: c
 				})
 			);
 
@@ -55,7 +55,12 @@ describe('resource', function(){
 					})
 				}
 			], function( err, results ){
-				Object.keys(process._cache).length.should.be.greaterThan(0)
+				var _cache = c.client._cache.connection.cache
+				Object
+					.keys( _cache  )
+					.forEach(function( partition ){
+						Object.keys( _cache[ partition ] ).length.should.be.greaterThan(0)
+					})
 				done();
 			})
 		});
