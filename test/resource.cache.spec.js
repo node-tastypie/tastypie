@@ -28,7 +28,7 @@ describe('resource', function(){
 			})
 		});
 
-		it('should pass', function( done ){
+		it('should cache detail GET requests', function( done ){
 			async.series([
 				function( callback ){
 					server.inject({
