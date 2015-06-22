@@ -19,11 +19,11 @@ describe('resource', function(){
 
 		before(function( done ){
 			api = new Api('spec/resource')
-			endpoints = new Base({
-				throttle: new Throttle.Memory({ at: 5, timeframe:1000 })
-			});
 
-			api.use('throttled', endpoints )
+			api.use('throttled', new Base({
+					throttle: new Throttle.Memory({ at: 5, timeframe:1000 })
+				})
+			)
 
 			server.register( [api], function(e ){
 				server.start( done )
