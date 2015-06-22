@@ -58,6 +58,7 @@
   },
   "devDependencies": {
     "async": "^1.2.1",
+    "bench-rest": "^1.0.2",
     "forms": "^1.1.1",
     "grunt": "^0.4.5",
     "hapi": "^8.4.0",
@@ -69,6 +70,7 @@
     "jsdoc": "^3.3.0-beta3",
     "mocha": "~1.18.2",
     "mongoose": "^4.0.2",
+    "node-status": "^0.1.4",
     "should": "^5.2.0"
   }
 }
