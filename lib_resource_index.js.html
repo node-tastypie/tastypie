@@ -41,7 +41,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_cache.Cache.html">tastypie/cache.Cache</a></li><li><a href="module-tastypie_fields.ApiField.html">tastypie/fields.ApiField</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_fields.ApiField.html">tastypie/fields.ApiField</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
 				</ul>
 			</li>
 			
@@ -109,14 +109,14 @@ var path             = require( 'path' )                       // path
   , fs               = require( 'fs' )                         // fs
   , path             = require( 'path' )                       // fs
   , urljoin          = require( 'urljoin' )
+  , joi              = require( 'joi' )
+  , Boom             = require( 'boom' )
   , object           = require( 'mout/object' )
   , qs               = require( 'querystring' )                  // qs
   , merge            = require( 'mout/object/merge' )            // merge
   , clone            = require( 'mout/lang/clone' )              // clone
   , isFunction       = require( 'mout/lang/isFunction' )
   , interpolate      = require( 'mout/string/interpolate' )      // interpolate
-  , joi              = require( 'joi' )
-  , Boom             = require( 'boom' )
   , set              = require( 'mout/object/set' )
   , object           = require( 'mout/object' )
   , Parentize        = require( 'prime-util/prime/parentize' )
@@ -129,9 +129,11 @@ var path             = require( 'path' )                       // path
   , exceptions       = require( '../exceptions' )                // exceptions
   , Serializer       = require( '../serializer' )                // serializer
   , cache            = require( '../cache' )
+  , Throttle         = require( '../throttle')
   , fields           = require( '../fields' )
   , EMPTY_OBJECT     = {}
-  ,filterschema
+  , mutableMethods   = ['put','post','delete', 'patch']
+  , filterschema
   , Resource
   ;
 
@@ -197,6 +199,7 @@ Resource = new Class({
 	  , defaultFormat: 'application/json'
 	  , serializer: new Serializer()
 	  , cache: new cache()
+	  , throttle: new Throttle()
 	  , collection: 'data'
 	  , paginator: paginator
 	  , objectTpl: Object
@@ -221,6 +224,8 @@ Resource = new Class({
 		this.setOptions( options );
 		this._uricache = null;
 		this.domain.on( 'error', this.exception.bind( this ) );
+		
+		this.modified = undefined;
 
 		if( !this.options.listMethodsAllowed ){
 			this.options.listMethodsAllowed = clone( this.options.methodsAllowed );
@@ -348,24 +353,51 @@ Resource = new Class({
 		methodsallowed = options[ util.format( '%sMethodsAllowed', action )] || {};
 		canDispatch    = this.check( requestmethod, methodsallowed );
 		if( !method ){
-			err = new exceptions.NotImplemented({
-				message: util.format( '%s for %s', requestmethod.toUpperCase(), req.path )
-			});
-			err.req = req;
-			err.res = res;
-			return res( err );
-			return this.emit( 'error',  err );
+			bundle.data = {
+				message: util.format( "%s is not implemented ", httpmethod ),
+				request:util.format( requestmethod.toUpperCase(), req.path ),
+				statusCode:501
+			}
+			return this.respond( bundle, http.notImplemented )
 		}
 
 		if( !canDispatch ){
-			return http.methodNotAllowed( bundle.res );
+			return this.respond( bundle, http.methodNotAllowed );
 		}
 
-		debug( 'dispatching %s %s', httpmethod, action );
-		//this.is_authenticated( bundle )
-		this.domain.run( method.bind( this, bundle ) );
+		if(this.throttle( bundle )){
+			bundle.data = {
+				message: util.format( "Too Many Requests ", httpmethod ),
+				statusCode:429
+			};
+			return this.respond( bundle, http.tooManyRequests );
+		}
+
+		debug( 'dispatching %s %s', httpmethod, action, req.path );
+		//this.is_authenticated( bnudle )
+		this.domain.run(method.bind( this, bundle ));
 	}
 
+	, throttle: function throttle( bundle ){
+		var throttle
+		  , request_id
+		  ;
+
+		request_id = util.format(
+			'%s:%s:%s'
+			, bundle.req.method.toLowerCase()
+			, bundle.req.info.remoteAddress || "noaddr"
+			, bundle.req.path
+		);
+		throttle = this.options.throttle.toThrottle( request_id )
+
+		if( !throttle ){
+			this.options.throttle.incr( request_id );
+		}else{
+		}
+
+		return throttle;
+	}
 	/**
 	 * disaptches a list request operating on a collection of objects.
 	 * If any additional check / balances or processing needs to occur before a request is actually
@@ -375,7 +407,6 @@ Resource = new Class({
 	 * @param {Function} reply A hapis reply function
 	 **/
 	, dispatch_list: function list( req, reply ){
-
 		return this.dispatch( 'list', this.bundle( req, reply ) );
 	}
 
@@ -391,7 +422,7 @@ Resource = new Class({
 			  , paginator
 			  ;
 
-			objects = objects || [];
+			objects = objects || '[]';
 			objects = this.sort( JSON.parse( objects ) );
 			debug( 'paging' );
 			paginator = new this.options.paginator({
@@ -581,9 +612,10 @@ Resource = new Class({
 			var that = this;
 
 			if( obj ){
+				debug("cached object found")
 				return callback( err, obj );
 			}
-
+			debug('cahed object miss');
 			this.get_object( bundle, function( err, obj ){
 				that.options.cache.set( key, obj );
 				callback( err, obj );
@@ -858,9 +890,15 @@ var MyResource = new Class({
 	, respond: function respond( bundle, cls, cb ){
 		cls = cls || http.ok;
 		var format = this.format( bundle, this.options.serializer.types );
+		var that = this;
 		debug('requested format: %s', format,bundle.req.headers )
 		this.serialize( bundle.data, format, null, function( err, data ){
 			var reply = cls( bundle.res, data, format );
+			var mutable = mutableMethods.indexOf( bundle.req.method.toLowerCase() ) != -1
+			that.modified = mutable ? (new Date()).toUTCString() : that.modified;
+			that.modified &amp;&amp; reply.header('Last-Modified', that.modified );
+			mutable = null;
+
 			return cb &amp;&amp; cb( null, reply );
 		})
 	}
@@ -911,7 +949,7 @@ var MyResource = new Class({
 		this.serialize( {error: err.name, message: err.message, statusCode: code}, format, EMPTY_OBJECT, function( serr, data ){
 			var e = Boom.wrap( err, code, data.message );
 			e.output.payload = data;
-			return reply( e );
+			reply( e );
 		}.bind( this ) );
 	}
 	/**
@@ -984,6 +1022,7 @@ var MyResource = new Class({
 	 * @param {Nodeback} callback
 	 **/
 	, deserialize: function deserialize( data, format, callback ){
+		console.log( data )
 		this.options.serializer.deserialize( data, format, callback );
 	}
 
@@ -1082,7 +1121,7 @@ Resource.defineMutator = Class.defineMutator;
  * @static
  * @function
  * @name extend
- * @memberof module:tastypie/lib/resources.Resource
+ * @memberof module:tastypie/lib/resource
  * @param {Object} proto An object to use as the prototyp of a new resource type
  * @return {module:tastypie/lib/resources/Resource}
  **/
@@ -1120,7 +1159,7 @@ module.exports = Resource;
 
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-06-18T14:29:25-05:00 using the <a
+	on 2015-06-23T11:12:32-05:00 using the <a
 	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 </span>
 </footer>

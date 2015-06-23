@@ -41,7 +41,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_cache.Cache.html">tastypie/cache.Cache</a></li><li><a href="module-tastypie_fields.ApiField.html">tastypie/fields.ApiField</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_fields.ApiField.html">tastypie/fields.ApiField</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
 				</ul>
 			</li>
 			
@@ -87,36 +87,73 @@ var events = require( 'events' )
   , Class = require('./class')
   , Options             = require('./class/options')               // Options
   , Parentize        = require('prime-util/prime/parentize')
+  , catbox = require('catbox')
+  , catbox
   , Cache
   ;
 
 /**
- * DESCRIPTION
- * @class module:tastypie/cache.Cache
+ * A no op cache type
+ * @constructor
+ * @alias module:tastypie/cache
  * @param {Object} options 
  */
-Cache = Class(/** @lends module:tastypie/cache.Cache.prototype */{
+Cache = Class({
 	mixin:[Options, Parentize]
 	,options:{
 		timeout:60
+		,engine: 'catbox-noop'
+		,segment:'tastypie'
+		,partition:'tastypie'
 		,varies:[ 'Accept' ]
+		,opts:{
+			expiresIn: 1000 * 60 * 5
+		}
 		,control: {
 			no_cache:true
 		}
 	}
 	, constructor: function( options ){
-		this.setOptions( options );
+		var policy, client;
 		
-		process._cache = process._cache || {};
+		this.setOptions( options );
+		client = new catbox.Client( require( this.options.engine ),this.options )
+		client.start(function(){
+			policy = new catbox.Policy(  
+				this.options.opts
+			  , client
+			  , this.options.segment + '-' + (+ new Date).toString( 32 )
+			)
+		}.bind( this ));
+
+		Object.defineProperty(this, 'client', {
+			enumerable: false,
+			get:function( ){
+				return policy;
+			}
+		})
 	}
+
 	/**
-	 * This does something
-	 * @param {TYPE} name DESCRPTION
-	 * @param {TYPE} name DESCRIPTION
-	 * @returns {TYPE} DESCRIPTION
+	 * Sets a value at a given cache key
+	 * @method module:tastypie/lib/cache.Cache#get
+	 * @param {String} key A unique key to retrieve a value from
+	 * @param {Function} [callback] A callback function to be called once the cache key has been set
 	 */ 
-	, get: function get( key, callback){ return callback( null, null ) }
-	, set: function set( key, value, callback ){ return callback(null) }
+	, get: function get( key, callback ){
+		return this.client.get( key, callback )
+	}
+
+	/**
+	 * Sets a value at a given cache key
+	 * @method module:tastypie/lib/cache.Cache#set
+	 * @param {String} key A unique ket to set a value at
+	 * @param {Mixed} value The value to set at the given key
+	 * @param {Function} [callback] A callback function to be called once the cache key has been set
+	 */ 
+	, set: function set( key, value, callback ){
+		return this.client.set( key, value, 0, callback)
+	}
 	, cacheable: function cacheable( req ){
 		return req.method.toLowerCase() == 'get';
 	}
@@ -132,41 +169,6 @@ Object.defineProperties( Cache.prototype, {
 		}
 	}
 
-});
-
-/**
- * Dummy cache the stores data in memory on a per process basis
- * Don't use this for anything that looks
- * like a production server
- * @class module:tastypie/cache.Cache
- * @param {Object} options 
- */
-Cache.Memory = Class(/* @lends module:tastypie/cache.Memory */{
-	inherits:Cache
-	,constructor: function( options ){
-		this.parent('constructor', options )
-	}
-	,get: function get( key, callback ){
-		return callback( null, process._cache[ key ] )
-	}
-	,set: function set(key, value, timeout, callback ){
-		var timerkey = key + ":timer"
-		  , cache = process._cache
-		  ;
-
-		cache[ key ] = value;
-		// clear the timer for this key...
-		clearTimeout(process._cache[ timerkey ])
-
-		// set a new timer
-		cache[timerkey] = setTimeout(function(){
-			cache[key] = cache[timerkey] = undefined;
-		},(timeout || this.options.timeout) * 1000 )
-
-		// dereference the timer
-		cache[timerkey].unref();
-		return callback &amp;&amp; callback(null, null)
-	}
 });
 
 module.exports = Cache;
@@ -199,7 +201,7 @@ module.exports = Cache;
 
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-06-18T14:29:25-05:00 using the <a
+	on 2015-06-23T11:12:32-05:00 using the <a
 	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 </span>
 </footer>

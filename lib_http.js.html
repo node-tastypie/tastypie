@@ -41,7 +41,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_cache.Cache.html">tastypie/cache.Cache</a></li><li><a href="module-tastypie_fields.ApiField.html">tastypie/fields.ApiField</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_fields.ApiField.html">tastypie/fields.ApiField</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
 				</ul>
 			</li>
 			
@@ -93,7 +93,7 @@ var http = require( 'http' )
  * @param {String} message message to be displayed
  **/
 exports.continue = function( res, data, type ){
-	return res( data || STATUS_CODES[ status ] ).code( 100 ).type( type )
+	return res( data || STATUS_CODES[ 100 ] ).code( 100 ).type( type )
 };
 
 /**
@@ -102,7 +102,7 @@ exports.continue = function( res, data, type ){
  * @param {String} message message to be displayed
  **/
 exports.switching = function( res, data, type ){
-	return res( data || STATUS_CODES[ status ] ).code( 101 ).type( type )
+	return res( data || STATUS_CODES[ 101 ] ).code( 101 ).type( type )
 };
 
 
@@ -112,7 +112,7 @@ exports.switching = function( res, data, type ){
  * @param {String} message message to be displayed
  **/
 exports.checkpoint = function( res, data, type ){
-	return res( data || STATUS_CODES[ status ] ).code( 103 ).type( type )
+	return res( data || STATUS_CODES[ 103 ] ).code( 103 ).type( type )
 };
 
 
@@ -123,7 +123,7 @@ exports.checkpoint = function( res, data, type ){
  * @param {String} message message to be displayed
  **/
 exports.ok = function( res, data, type ){
-	return res( data || STATUS_CODES[ status ] ).code( 200 ).type( type );
+	return res( data || STATUS_CODES[ 200 ] ).code( 200 ).type( type );
 };
 
 /**
@@ -132,7 +132,7 @@ exports.ok = function( res, data, type ){
  * @param {String} message message to be displayed
  **/
 exports.created = function( res, data, type, location ){
-	return res( data || STATUS_CODES[ status ] ).created( location || data.uri || '' )
+	return res( data || STATUS_CODES[ location ] ).created( location || data.uri || '' )
 };
 
 /**
@@ -151,7 +151,7 @@ exports.accepted = function( res, data, type, location ){
  * @param {String} message message to be displayed
  **/
 exports.nonAutoritative = function( res, data, type ){
-	return res( data || STATUS_CODES[ status ] ).code( 203 ).type( type )
+	return res( data || STATUS_CODES[ 203 ] ).code( 203 ).type( type )
 };
 
 /**
@@ -170,7 +170,7 @@ exports.noContent = function( res, data, type ){
  * @param {String} message message to be displayed
  **/
 exports.resetContent = function( res, data, type ){
-	return res( data || STATUS_CODES[ status ] ).code( 205 ).type( type )
+	return res( data || STATUS_CODES[ 205 ] ).code( 205 ).type( type )
 };
 
 /**
@@ -179,7 +179,7 @@ exports.resetContent = function( res, data, type ){
  * @param {String} message message to be displayed
  **/
 exports.partialContent = function( res, data, type ){
-	return res( data || STATUS_CODES[ status ] ).code( 206 ).type( type )
+	return res( data || STATUS_CODES[ 206 ] ).code( 206 ).type( type )
 };
 
 
@@ -189,7 +189,7 @@ exports.partialContent = function( res, data, type ){
  * @param {String} message message to be displayed
  **/
 exports.multipleChoices = function( res, data, type ){
-	return res( data || STATUS_CODES[ status ] ).code( 300 ).type( type )
+	return res( data || STATUS_CODES[ 300 ] ).code( 300 ).type( type )
 };
 
 /**
@@ -198,7 +198,7 @@ exports.multipleChoices = function( res, data, type ){
  * @param {String} message message to be displayed
  **/
 exports.movedPermanently = function( res, data, type, location ){
-	return res( 301 || STATUS_CODES[ status ] ).code( status ).type( type );
+	return res( 301 || STATUS_CODES[ 301 ] ).code( 301 ).type( type ).location( location );
 };
 
 /**
@@ -207,7 +207,7 @@ exports.movedPermanently = function( res, data, type, location ){
  * @param {String} message message to be displayed
  **/
 exports.found = function( res, data, type, location ){
-	return res( 302 || STATUS_CODES[ status ] ).code( status ).type( type );
+	return res( 302 || STATUS_CODES[ 301 ] ).code( 301 ).type( type ).location( 302 );
 };
 
 
@@ -219,7 +219,7 @@ exports.found = function( res, data, type, location ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.seeOther = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 303 ).type( type )
+	return res(data || STATUS_CODES[ 303 ] ).code( 303 ).type( type )
 };
 
 /**
@@ -229,7 +229,7 @@ exports.seeOther = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.switchProxy = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 306 ).type( type )
+	return res(data || STATUS_CODES[ 306 ] ).code( 306 ).type( type )
 }
 
 /**
@@ -239,7 +239,7 @@ exports.switchProxy = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.resumeIncomplete = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 308 ).type( type )
+	return res(data || STATUS_CODES[ 308 ] ).code( 308 ).type( type )
 };
 
 /**
@@ -249,7 +249,7 @@ exports.resumeIncomplete = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.notFound = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 404 ).type( type )
+	return res(data || STATUS_CODES[ 404 ] ).code( 404 ).type( type )
 };
 
 /**
@@ -259,7 +259,7 @@ exports.notFound = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.unauthorized = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 401 ).type( type )
+	return res(data || STATUS_CODES[ 401 ] ).code( 401 ).type( type )
 };
 
 /**
@@ -269,7 +269,7 @@ exports.unauthorized = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.forbidden = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 403 ).type( type )
+	return res(data || STATUS_CODES[ 403 ] ).code( 403 ).type( type )
 };
 
 /**
@@ -289,7 +289,7 @@ exports.methodNotAllowed = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.proxyAuthenticationRequired = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 407 ).type( type )
+	return res(data || STATUS_CODES[ 407 ] ).code( 407 ).type( type )
 };
 
 /**
@@ -299,7 +299,7 @@ exports.proxyAuthenticationRequired = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.conflict = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 409 ).type( type )
+	return res(data || STATUS_CODES[ 409 ] ).code( 409 ).type( type )
 };
 
 /**
@@ -309,7 +309,7 @@ exports.conflict = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.lengthRequired = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 411 ).type( type )
+	return res(data || STATUS_CODES[ 411 ] ).code( 411 ).type( type )
 };
 
 /**
@@ -319,7 +319,7 @@ exports.lengthRequired = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.requestEntityTooLarge = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 413 ).type( type )
+	return res(data || STATUS_CODES[ 413 ] ).code( 413 ).type( type )
 };
 
 /**
@@ -329,7 +329,7 @@ exports.requestEntityTooLarge = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.unsupportedMediaType = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 415 ).type( type )
+	return res(data || STATUS_CODES[ 415 ] ).code( 415 ).type( type )
 };
 
 /**
@@ -339,7 +339,17 @@ exports.unsupportedMediaType = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.expectationFailed = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 417 ).type( type )
+	return res(data || STATUS_CODES[ 417 ] ).code( 417 ).type( type )
+};
+
+/**
+ * Http 429 status
+ * @param {Response} reply Hapijs reply object
+ * @param {String} data String data to send in the response
+ * @param {Number} status The http status code to set on the response
+ **/
+exports.tooManyRequests = function( res, data, type ){
+	return res(data || STATUS_CODES[ 429 ] ).code( 429 ).type( type )
 };
 
 /**
@@ -349,7 +359,7 @@ exports.expectationFailed = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.notImplemented = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 501 ).type( type )
+	return res(data || STATUS_CODES[ 501 ] ).code( 501 ).type( type )
 };
 
 /**
@@ -359,7 +369,7 @@ exports.notImplemented = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.serviceUnavailable = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 503 ).type( type )
+	return res(data || STATUS_CODES[ 503 ] ).code( 503 ).type( type )
 };
 
 /**
@@ -369,7 +379,7 @@ exports.serviceUnavailable = function( res, data, type ){
  * @param {Number} status The http status code to set on the response
  **/
 exports.httpVersionNotSupported = function( res, data, type ){
-	return res(data || STATUS_CODES[ status ] ).code( 505 ).type( type )
+	return res(data || STATUS_CODES[ 505 ] ).code( 505 ).type( type )
 };
 </pre>
 	</article>
@@ -400,7 +410,7 @@ exports.httpVersionNotSupported = function( res, data, type ){
 
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-06-18T14:29:25-05:00 using the <a
+	on 2015-06-23T11:12:32-05:00 using the <a
 	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 </span>
 </footer>

@@ -41,7 +41,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_cache.Cache.html">tastypie/cache.Cache</a></li><li><a href="module-tastypie_fields.ApiField.html">tastypie/fields.ApiField</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_fields.ApiField.html">tastypie/fields.ApiField</a></li><li><a href="module-tastypie_fields.ArrayField.html">tastypie/fields.ArrayField</a></li><li><a href="module-tastypie_fields.BooleanField.html">tastypie/fields.BooleanField</a></li><li><a href="module-tastypie_fields.CharField.html">tastypie/fields.CharField</a></li><li><a href="module-tastypie_fields.DateField.html">tastypie/fields.DateField</a></li><li><a href="module-tastypie_fields.DateTimeField.html">tastypie/fields.DateTimeField</a></li><li><a href="module-tastypie_fields.FloatField.html">tastypie/fields.FloatField</a></li><li><a href="module-tastypie_fields.IntegerField.html">tastypie/fields.IntegerField</a></li><li><a href="module-tastypie_fields.ObjectField.html">tastypie/fields.ObjectField</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li><li><a href="module-throttle.js.Thing.html">throttle.js.Thing</a></li>
 				</ul>
 			</li>
 			
@@ -690,6 +690,160 @@ caching, throttling and error handling</p></div>
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
+            
+<dt>
+    <h4 class="name" id=".extend"><span class="type-signature">&lt;static> </span>extend<span class="signature">(proto)</span><span class="type-signature"> &rarr; {module:tastypie/lib/resources/Resource}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Helper method to subclass the base resource</p>
+    </div>
+    
+
+    
+
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>proto</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An object to use as the prototyp of a new resource type</p></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="lib_resource_index.js.html">lib/resource/index.js</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+    
+    
+
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">module:tastypie/lib/resources/Resource</span>
+
+
+	</dd>
+</dl>
+
+
+        
+    
+    
+</dd>
+
+        
             
 <dt>
     <h4 class="name" id="build_schema"><span class="type-signature"></span> build_schema<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
@@ -7123,7 +7277,7 @@ of the associated resource</p>
 
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-06-18T14:29:25-05:00 using the <a
+	on 2015-06-23T11:12:32-05:00 using the <a
 	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 </span>
 </footer>
