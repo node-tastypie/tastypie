@@ -21,8 +21,8 @@ var hapi = require('hapi')
 var server = new hapi.server
 var v1 = new Api('api/v1' )
 
-v1.add('test', new Resource() );
-v1.add('fake', new Resource() );
+v1.use('test', new Resource() );
+v1.use('fake', new Resource() );
 
 server.connection({port:2000})
 server.register( v1, function( ){
@@ -304,7 +304,7 @@ var api = new Api('api/v1', {
 
 app.connection({port:process.env.PORT || 2000 });
 
-api.add('data', new Base() );
+api.user('data', new Base() );
 
 app.register( api, function(e){
 	app.start(function(){
