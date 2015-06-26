@@ -34,7 +34,7 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-tastypie.html">tastypie</a></li><li><a href="module-tastypie_cache.html">tastypie/cache</a></li><li><a href="module-tastypie_fields.html">tastypie/fields</a></li><li><a href="module-tastypie_http.html">tastypie/http</a></li><li><a href="module-tastypie_lib_api.html">tastypie/lib/api</a></li><li><a href="module-tastypie_lib_api_helpers_qs.html">tastypie/lib/api/helpers/qs</a></li><li><a href="module-tastypie_lib_class.html">tastypie/lib/class</a></li><li><a href="module-tastypie_lib_class_options.html">tastypie/lib/class/options</a></li><li><a href="module-tastypie_lib_constants.html">tastypie/lib/constants</a></li><li><a href="module-tastypie_lib_exceptions.html">tastypie/lib/exceptions</a></li><li><a href="module-tastypie_lib_mime.html">tastypie/lib/mime</a></li><li><a href="module-tastypie_lib_paginator.html">tastypie/lib/paginator</a></li><li><a href="module-tastypie_lib_resource.html">tastypie/lib/resource</a></li><li><a href="module-tastypie_lib_resource_mongoose.html">tastypie/lib/resource/mongoose</a></li><li><a href="module-tastypie_lib_resource_validator.html">tastypie/lib/resource/validator</a></li><li><a href="module-tastypie_lib_resource_validator_oid.html">tastypie/lib/resource/validator/oid</a></li><li><a href="module-tastypie_lib_resource_validator_querystring.html">tastypie/lib/resource/validator/querystring</a></li><li><a href="module-tastypie_lib_resource_validator_toJoi.html">tastypie/lib/resource/validator/toJoi</a></li><li><a href="module-tastypie_lib_serializer.html">tastypie/lib/serializer</a></li><li><a href="module-tastypie_lib_throttle.html">tastypie/lib/throttle</a></li><li><a href="module-tastypie_lib_util.html">tastypie/lib/util</a></li><li><a href="module-tastypie_lib_validators.html">tastypie/lib/validators</a></li>
+					<li><a href="module-tastypie.html">tastypie</a></li><li><a href="module-tastypie_cache.html">tastypie/cache</a></li><li><a href="module-tastypie_fields.html">tastypie/fields</a></li><li><a href="module-tastypie_lib_api.html">tastypie/lib/api</a></li><li><a href="module-tastypie_lib_api_helpers_qs.html">tastypie/lib/api/helpers/qs</a></li><li><a href="module-tastypie_lib_class.html">tastypie/lib/class</a></li><li><a href="module-tastypie_lib_class_options.html">tastypie/lib/class/options</a></li><li><a href="module-tastypie_lib_constants.html">tastypie/lib/constants</a></li><li><a href="module-tastypie_lib_exceptions.html">tastypie/lib/exceptions</a></li><li><a href="module-tastypie_lib_http.html">tastypie/lib/http</a></li><li><a href="module-tastypie_lib_mime.html">tastypie/lib/mime</a></li><li><a href="module-tastypie_lib_paginator.html">tastypie/lib/paginator</a></li><li><a href="module-tastypie_lib_resource.html">tastypie/lib/resource</a></li><li><a href="module-tastypie_lib_resource_mongoose.html">tastypie/lib/resource/mongoose</a></li><li><a href="module-tastypie_lib_resource_validator.html">tastypie/lib/resource/validator</a></li><li><a href="module-tastypie_lib_resource_validator_oid.html">tastypie/lib/resource/validator/oid</a></li><li><a href="module-tastypie_lib_resource_validator_querystring.html">tastypie/lib/resource/validator/querystring</a></li><li><a href="module-tastypie_lib_resource_validator_toJoi.html">tastypie/lib/resource/validator/toJoi</a></li><li><a href="module-tastypie_lib_serializer.html">tastypie/lib/serializer</a></li><li><a href="module-tastypie_lib_throttle.html">tastypie/lib/throttle</a></li><li><a href="module-tastypie_lib_util.html">tastypie/lib/util</a></li><li><a href="module-tastypie_lib_validators.html">tastypie/lib/validators</a></li>
 				</ul>
 			</li>
 			
@@ -94,13 +94,13 @@
  * @requires module:mout/lang/clone
  * @requires module:mout/string/interpolate
  * @requires module:prime-util/prime/Parentize
- * @requires module:tastypie/Class
- * @requires module:tastypie/http
- * @requires module:tastypie/mime
- * @requires module:tastypie/paginator
- * @requires module:tastypie/Options
- * @requires module:tastypie/exceptions
- * @requires module:tastypie/serializer
+ * @requires module:tastypie/lib/class
+ * @requires module:tastypie/lib/http
+ * @requires module:tastypie/lib/mime
+ * @requires module:tastypie/lib/paginator
+ * @requires module:tastypie/lib/class/options
+ * @requires module:tastypie/lib/exceptions
+ * @requires module:tastypie/lib/serializer
  **/
 var path             = require( 'path' )                       // path
   , domain           = require( 'domain' )                     // domain
@@ -142,11 +142,7 @@ filterschema = joi.alternatives().try(
 	joi.number()
 	, joi.array().items( joi.string().valid('gt','gte','in','lt','lte','ne','nin','regex','all','size','match','contains','icontains','startswith','istartswith','endswith','iendswith') )
 )
-/**
- * DESCRIPTION
- * @function to_json
- * @return {Object}
- **/
+
 function to_json(){
 	return ( this.data || EMPTY_OBJECT );
 };
@@ -170,21 +166,48 @@ function to_json(){
  **/
 
 
+ /**
+  * An easy way to pass around request, and reply objects
+  * @typedef {Error} RequestError
+  * @property {Request} req
+  * @property {Reply} res
+  **/
+
+
 /**
  * The base resource implementation providing hooks for extension
  * @constructor
  * @alias module:tastypie/lib/resource
  * @param {Object} [options] Options data configuration
- * @param {string} [options.callbackKey=callback] callback key to be used for jsop responsed
+ * @param {?String} [options.name=null] The primary mount path for the resource /&lt;name>, /&lt;name>/{pk}. This will be set by the Api instance if not set
+ * @param {String} options.pk=id The field name to use as the unique identifier for each entity
+ * @param {Boolean} options.includeUri=true If set to true, a field named uri will be added to the resource instance
+ * @param {string} [options.callbackKey=callback] callback key to be used for jsonp responsed
  * @param {string} [options.defaultFormat='application/json'] the default serialziion format if one is not specified
- * @param {Serializer} [options.serializer=serializer] an instance of a serializer to be used to translate data objects
- * @param {Object[]} [routes=null] An array of route definitions add to the resources default crud routes
- * @param {string} [options.collection=data] the name of the key to be used lists of objects on list endpoints
- * @param {Paginator} [options.paginator=paginator] a Paginator Class used to page large list
+ * @param {module:tastypie/lib/serializer} [options.serializer=serializer] an instance of a serializer to be used to translate data objects
+ * @param {Object[]} [options.routes=null] An array of route definitions add to the resources default crud routes
+ * @param {String} [options.collection=data] the name of the key to be used lists of objects on list endpoints
+ * @param {Number} [options.limit=25] The maximum number of results to return per page for the list endpoint
+ * @param {module:tastypie/lib/paginator} [options.paginator=paginator] a Paginator Class used to page large list
+ * @param {module:tastypie/lib/cache} [options.cache] A cache instance to be used for response caching.
  * @param {Object} [options.methodsAllowed] an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined
  * @param {Object} [options.listMethodsAllowed=null] an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined
  * @param {Object} [options.detailMethodsAllowed=null] an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined
- * @example var x = new NAME.Thing({});
+ * @param {Boolean} [options.returnData=true] return data after put, post requests.
+ * @param {?Object} [options.filtering=null] And object defining an array of allowable filter types for each field
+ * @example vaar Resource = require('tastypie').Resource
+var instnace = new Resource({
+	limit:10,
+	pk:'user_id',
+	defaultFormat:'text/xml',
+	collection:'users'
+	listMethodsAllowed:{
+		get:true,
+		put:false,
+		post:false
+		delete:false
+	}
+})
  */
 Resource = new Class({
 	inherits: events.EventEmitter
@@ -203,7 +226,7 @@ Resource = new Class({
 	  , collection: 'data'
 	  , paginator: paginator
 	  , objectTpl: Object
-	  , filtering: 'all'
+	  , filtering: null
 	  , methodsAllowed: {
 			get: true
 		  , put: true
@@ -285,7 +308,7 @@ Resource = new Class({
 {
 	base_urls: fuinction(){
 		return [{
-			route:decodeURIComponent('/api/v1/test/{action}'),
+			path:decodeURIComponent('/api/v1/test/{action}'),
 			name:"test",
 			handler: this.dispatch_test.bind( this )
 		}];		
@@ -294,17 +317,17 @@ Resource = new Class({
 	 **/
 	, base_urls: function base_urls( ){
 		return [{
-			route: interpolate( decodeURIComponent( urljoin( '/', '{{apiname}}', '{{name}}', 'schema' ) ), this.options ).replace( /\/\//g, "/" )
+			path: interpolate( decodeURIComponent( urljoin( '/', '{{apiname}}', '{{name}}', 'schema' ) ), this.options ).replace( /\/\//g, "/" )
 		  , handler: this.get_schema.bind( this )
 		  , name: 'schema'
 		}
 		, {
-			route: interpolate( decodeURIComponent( urljoin( '/', '{{apiname}}', '{{name}}', '{pk}' ) ), this.options ).replace( /\/\//g, "/" )
+			path: interpolate( decodeURIComponent( urljoin( '/', '{{apiname}}', '{{name}}', '{pk}' ) ), this.options ).replace( /\/\//g, "/" )
 		  , handler: this.dispatch_detail.bind( this )
 		  , name: 'detail'
 		}
 		, {
-			route: interpolate( decodeURIComponent( urljoin( '/', '{{apiname}}', '{{name}}' ) ), this.options ).replace( /\/\//g, "/" )
+			path: interpolate( decodeURIComponent( urljoin( '/', '{{apiname}}', '{{name}}' ) ), this.options ).replace( /\/\//g, "/" )
 		  , handler: this.dispatch_list.bind( this )
 		  , name: 'list'
 		}];
@@ -362,6 +385,11 @@ Resource = new Class({
 		}
 
 		if( !canDispatch ){
+			bundle.data = {
+				message: util.format( "method not allowed - %s", requestmethod ),
+				request:util.format( requestmethod.toUpperCase(), req.path ),
+				statusCode:405
+			}
 			return this.respond( bundle, http.methodNotAllowed );
 		}
 
@@ -374,7 +402,6 @@ Resource = new Class({
 		}
 
 		debug( 'dispatching %s %s', httpmethod, action, req.path );
-		//this.is_authenticated( bnudle )
 		this.domain.run(method.bind( this, bundle ));
 	}
 
@@ -393,7 +420,6 @@ Resource = new Class({
 
 		if( !throttle ){
 			this.options.throttle.incr( request_id );
-		}else{
 		}
 
 		return throttle;
@@ -420,11 +446,13 @@ Resource = new Class({
 			var that = this
 			  , to_be_serialize
 			  , paginator
+			  , name
+			  , apiname
 			  ;
 
 			objects = objects || '[]';
 			objects = this.sort( JSON.parse( objects ) );
-			debug( 'paging' );
+			debug( ' %s %s : paging', apiname, name )
 			paginator = new this.options.paginator({
 				limit: bundle.req.query.limit || this.options.limit
 			  , req: bundle.req
@@ -434,14 +462,15 @@ Resource = new Class({
 			});
 
 			to_be_serialize = paginator.page();
-			debug( 'serializing' )
+			debug( ' %s %s : serializing', apiname, this.options.name );
 
 			to_be_serialize[ this.options.collection ] = to_be_serialize[ this.options.collection ].map( function( item ){
 				return that.full_dehydrate( item, bundle );
 			});
 
 			bundle.data = to_be_serialize;
-			debug( 'responding' );
+			debug( ' %s %s : responding', apiname, name );
+			apiname = name = paginator = to_be_serialize = null;
 			return this.respond( bundle );
 		}.bind( this ) );
 	}
@@ -722,7 +751,7 @@ var MyResource = new Class({
 									  .filter( function( method ){
 										return !!that.options.methodsAllowed[ method ]
 									  })
-			  , filtering: this.options.filtering || 'all'
+			  , filtering: this.options.filtering || {}
 			  , limit: this.options.limit
 			  , format: this.options.serializer.options.defaultFormat
 			  , fields: object.map( this.fields, function( field ){
@@ -904,28 +933,9 @@ var MyResource = new Class({
 	}
 
 	/**
-	 * DESCRIPTION
-	 * @method module:tastypie/lib/resource#error
-	 * @param {Bundle} bundle
-	 * @param {Error} err
-	 * @param {Response} [cls=moduletastypie/lib/http.badRequest] The response instance
-	 **/
-	, error: function error( bundle, err, cls ){
-		cls = cls || http.badRequest;
-		var format = this.format( bundle.req, bundle.res, this.options.serializer.types );
-
-		this.serialize({
-			status: 400
-		  , msg: err.message
-		}, format, function( err, data ){
-			cls( bundle.res, data, format );
-		}.bind( this ) );
-	}
-
-	/**
-	 * DESCRIPTION
+	 * Used to handle uncaught caugt errors during the request life cycle.
 	 * @method module:tastypie/lib/resource#exception
-	 * @param {Error} err
+	 * @param {RequestError} Error The error generated during the request
 	 **/
 	, exception: function exception( err ){
 		var req   = err.req
@@ -950,7 +960,7 @@ var MyResource = new Class({
 			var e = Boom.wrap( err, code, data.message );
 			e.output.payload = data;
 			reply( e );
-		}.bind( this ) );
+		});
 	}
 	/**
 	 * Attempts to determin the best serialization format for a given request
@@ -1015,14 +1025,13 @@ var MyResource = new Class({
 	}
 
 	/**
-	 * DESCRIPTION
+	 * converts a data string into an object
 	 * @method module:tastypie/lib/resource#deserialize
-	 * @param {String} data
-	 * @param {String} format
+	 * @param {String} data A string of data to be parsed
+	 * @param {String} format the content type ( application/json, text/xml, etc ) of the in coming data string 
 	 * @param {Nodeback} callback
 	 **/
 	, deserialize: function deserialize( data, format, callback ){
-		console.log( data )
 		this.options.serializer.deserialize( data, format, callback );
 	}
 
@@ -1083,16 +1092,16 @@ Object.defineProperties( Resource.prototype, {
 			}
 			return this._uricache.map(function( route ){
 				return {
-					path: route.route
+					path: route.path
 					, method: route.method || "*"
 					, handler: route.handler
-					, config: object.merge(that.options.config || {}, {
+					, config: object.merge( that.options.config || {}, route.config || {}, {
 						plugins: {
 							tastypie: {
 								name: route.name
 							}
 						}
-					, validate: that.options.validation || undefined
+						, validate: that.options.validation || undefined
 					})
 				};
 			});
@@ -1159,7 +1168,7 @@ module.exports = Resource;
 
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-06-23T11:23:19-05:00 using the <a
+	on 2015-06-26T11:16:19-05:00 using the <a
 	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 </span>
 </footer>
