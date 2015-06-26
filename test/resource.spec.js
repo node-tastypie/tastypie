@@ -35,7 +35,7 @@ describe('resoruce', function(){
 					}
 					,prepend_urls: function(){
 						return[{
-							route:'/api/resource/candy/fudge'
+							path:'/api/resource/candy/fudge'
 							,handler:this.dispatch_fudge.bind( this )
 							,name:'fudge'
 						}]
