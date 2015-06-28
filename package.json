@@ -17,7 +17,9 @@
     "class",
     "oop",
     "api",
-    "django"
+    "django",
+	"hapi",
+	"resource"
   ],
   "author": {
     "name": "Eric Satterwhite",
