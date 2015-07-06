@@ -18,8 +18,8 @@
     "oop",
     "api",
     "django",
-	"hapi",
-	"resource"
+    "hapi",
+    "resource"
   ],
   "author": {
     "name": "Eric Satterwhite",
@@ -75,6 +75,7 @@
     "mocha": "~1.18.2",
     "mongoose": "^4.0.2",
     "node-status": "^0.1.4",
-    "should": "^5.2.0"
+    "should": "^5.2.0",
+    "thinky": "^2.0.8"
   }
 }
