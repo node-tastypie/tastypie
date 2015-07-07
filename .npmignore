@@ -9,3 +9,4 @@ test*
 *.yml
 .npmignore
 .jscsrc
+documentation/
