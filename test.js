@@ -29,6 +29,8 @@ mocha = child_process.spawn("mocha", [
 	, util.format("--reporter=%s", production ? 'xunit':'spec')
 	, 'test/*.spec.js'
 ])
-
+mocha.on('exit', function( code, sig){
+	process.exit( code )
+})
 mocha.stdout.pipe( reporter );
 mocha.stderr.pipe( reporter );
