@@ -6,4 +6,4 @@ before_install:
   - sudo apt-get update
   - sudo apt-cache search rethink
   - sudo apt-get install rethinkdb
-  - sudo rethinkdb
+  - sudo service rethinkdb start
