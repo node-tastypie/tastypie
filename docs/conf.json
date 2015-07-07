@@ -1,0 +1,32 @@
+{
+    "source":{
+       "excludePattern":"\\.spec*",
+       "include": [
+            "./README.md"
+          , "./index.js"
+          , "./lib"
+      ],
+       "exclude":["test/", "./**/node_modules/"]
+    }
+    ,"tags":{
+        "allowUnknownTags":true
+    }
+    ,"opts":{
+        "recurse":true
+        ,"template":"node_modules/ink-docstrap/template"
+        ,"destination":"documentation"
+        ,"tutorials":"docs/tutorials"
+    }
+    ,"plugins":["plugins/markdown", "plugins/partial"]
+    ,"markdown":{"parser":"gfm", "hardwrap":true}
+	,"templates": {
+		"systemName"            : "Tastypie",
+		"copyright"             :  "Eric Satterwhite &copy; 2015",
+		"navType"               : "horizontal",
+		"theme"                 : "yeti",
+		"outputSourceFiles"     : true ,
+		"outputSourcePath"      : true,
+		"highlightTutorialCode" : true,
+		"linenums"              : false
+	}
+}
