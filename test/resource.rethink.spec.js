@@ -114,8 +114,11 @@ describe('RethinkResource', function( ){
 					Accept:'application/json'
 				}
 			},function( response ){
+				assert.equal(response.statusCode, 200, "resource should only allow filtering on specified fields")
 				var content = JSON.parse( response.result )
-				done()
+				content.data.length.should.be.greaterThan( 0 );
+				content.data.length.should.be.lessThan( 101 );
+				done();
 			})
 		})
 
@@ -127,7 +130,7 @@ describe('RethinkResource', function( ){
 					Accept:'application/json'
 				}
 			},function( response ){
-				assert.equal(response.statusCode, 400)
+				assert.equal(response.statusCode, 400, "resource should only allow filtering on specified fields")
 				done()
 			})
 		});
