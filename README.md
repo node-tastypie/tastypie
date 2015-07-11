@@ -64,6 +64,12 @@ curl http://localhost:3000/api/v1/test?format=xml
 
 #### Example Mongoose Resource
 
+##### Install Mongoose Resource
+
+```js
+npm install mongoose tastypie-mongoose
+```
+
 ##### Make A mongoose Model
 ```js
 // Make A Mongoose Model
