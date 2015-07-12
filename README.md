@@ -76,6 +76,9 @@ curl http://localhost:3000/api/v1/test?format=xml
 
 ##### Install Mongoose Resource
 
+* [Official Monogoose Resource](https://github.com/esatterwhite/tastypie-mongo)
+* [Official RethinkDB Resource](https://github.com/esatterwhite/tastypie-rethink)
+
 ```js
 npm install mongoose tastypie-mongoose
 ```
