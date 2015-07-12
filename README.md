@@ -52,6 +52,15 @@ curl -XPUT  -H "Content-Type: applciation/json" -d '{"test":"real"}' http://loca
 curl -XDELETE http://localhost:3000/api/v1/test/fake
 ```
 
+#### HTTP CRUD Verbs
+
+This is how tastypie handles the base CRUD Methods 
+
+* GET returns a list of resource instance or a specific resource instance
+* DELETE removes a specific resource instance
+* PUT **REPLACES** a resource instance. This is not a partial update. Any optional fields not define we be set to undefined
+* PATCH a **PARTIAL** update to a specific resource instance. 
+
 ### Serialization
 The base serializer can deal with `xml`, `json` and `jsonp` out of the box. Serialization method is determined by the `Accept` header or a `format` query string param
 
@@ -61,6 +70,7 @@ curl http://localhost:3000/api/v1/test?format=xml
 ```
 
 **NOTE:** hapi captures application/foo so for custom serialization, we must use text/foo
+
 
 #### Example Mongoose Resource
 
