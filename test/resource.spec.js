@@ -16,6 +16,7 @@ describe('resoruce', function(){
 	before(function( done ){
 		api = new Api('api/resource')
 		api.use('more', new Resource)
+		require('../lib');
 		server.register([api], function( e ){
 			server.start( done );
 		});
