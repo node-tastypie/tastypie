@@ -1,31 +1,34 @@
 var should = require('should')
   , async = require('async')
-  , server = require('./server')
+  , hapi = require('hapi')
   , Api = require('../lib/api')
   , Resource = require("../lib/resource")
   , Cache = require('../lib/cache')
   ;
 
 describe('resource', function(){
-	var resource = Resource.extend({
+	var reqsource, server, c;
+	before( function( done ){
+		server = new hapi.Server({minimal: true});
+		server.connection({host:'localhost'})
+		resource = Resource.extend({
 
-		get_object:function( bundle, callback ){
-			callback(null, { key:new Date() } )
-		}
+			get_object:function( bundle, callback ){
+				callback(null, { key:new Date() } )
+			}
+		});
+		c =  new Cache({engine:'catbox-memory'})
+		done();
 	})
-	var c =  new Cache({engine:'catbox-memory'})
 	describe('cached', function(){
 		before(function( done ){
-			var api = new Api('resource/spec')			
+			var api = new Api('resource/spec')
 			api.use('cached', new resource({
 					cache: c
 				})
 			);
 
-			server.register( [api], function(){
-
-				server.start( done )
-			})
+			server.register( [api], done )
 		});
 
 		it('should cache detail GET requests', function( done ){

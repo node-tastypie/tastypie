@@ -1,7 +1,7 @@
 /*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
 var should   = require('should')
   , assert   = require('assert')
-  , server   = require('./server')
+  , hapi     = require('hapi')
   , Api      = require('../lib/api')
   , Resource = require( '../lib/resource' )
   , xml2js   = require( 'xml2js' )
@@ -12,13 +12,13 @@ var should   = require('should')
   ;
 
 describe('resoruce', function(){
-	var api;
+	var api, server
 	before(function( done ){
 		api = new Api('api/resource')
 		api.use('more', new Resource)
-		server.register([api], function( e ){
-			server.start( done );
-		});
+		server = new hapi.Server({minimal:true})
+		server.connection({host:'localhost'})
+		server.register([api], done );
 	});
 
 	describe('Resource', function( ){
