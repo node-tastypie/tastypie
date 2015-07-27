@@ -1,6 +1,8 @@
 var should = require('should')
 var fields = require('../lib/fields')
 var assert = require('assert');
+var fs = require('fs')
+var path = require('path')
 
 describe("Api Fields", function(){
 	describe("ArrayField", function(){
@@ -71,6 +73,7 @@ describe("Api Fields", function(){
 		})
 
 	})
+	
 	describe('Datefield', function(){
 		var f, now;
 		before(function( done ){
@@ -121,6 +124,7 @@ describe("Api Fields", function(){
 			});
 		})
 	});
+
 	describe('ArrayField', function( ){
 		var f;
 		before( function( ){
@@ -146,6 +150,89 @@ describe("Api Fields", function(){
 				value[0].should.equal(1);
 			});
 		})
+	})
+
+	describe('FileFIeld', function(){
+		var f, location, dir;
+
+		before(function(){
+			dir = 'uploads' 
+			location = path.join( __dirname, dir, 'data.json' )
+			f = new fields.FileField({
+				dir: dir
+				, attribute: 'file'
+				, name: 'file'
+				,root:__dirname
+				,create:true
+			});
+		});
+
+		after(function( done ){
+			fs.unlink( location, function( err ){
+				done();
+			});
+		});
+
+		describe('#hydrate', function(  ){
+			var bundle = {
+				req:{
+					payload:{
+						
+					}
+				},
+				res:{},
+				data:{
+					file: fs.createReadStream( path.resolve(__dirname,'..' , 'example', 'data.json' ) ) 
+				},
+				object:{}
+			}
+
+			bundle.data.file.hapi = {
+				filename:'data.json'
+			}
+
+			it('should consume streams', function( done ) {
+				f.hydrate( bundle, function( err, d ){
+					d.should.equal( path.join(__dirname, 'uploads', 'data.json'))
+					done()
+				})
+			});
+		});
+		describe('#dehydrate', function( ){
+			var bundle = {
+				req:{
+					payload:{
+						
+					}
+				},
+				res:{},
+				data:{
+					file: '/tmp/uploads/data.json'
+				},
+				object:{}
+			}
+
+			bundle.data.file.hapi = {
+				filename:'data.json'
+			}
+			it('should return a path', function( done ){
+				f.dehydrate( bundle, function( err, value ){
+					console.log( value )
+					done();
+				})
+			})
+		});
+	});
+
+	describe('FilePathField', function(){
+		var f;
+
+		before(function(){
+			f = new fields.FileField();
+		});
+
+		describe('#hydrate', function( done ){  })
+		describe('#dehydrat', function( done ){  })
 	})
 })
 

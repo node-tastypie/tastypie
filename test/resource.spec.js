@@ -138,7 +138,7 @@ describe('resoruce', function(){
 						,pk:'guid'
 					}
 					,fields:{
-						name:{type:'char', attribute:'name.first'}
+						name:{type:'char', attribute:'company.name'}
 						,value:{type:'integer'}
 					}
 					,_get_list: function( bundle, callback ){
