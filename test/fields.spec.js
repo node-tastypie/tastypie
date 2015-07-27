@@ -215,11 +215,44 @@ describe("Api Fields", function(){
 		var f;
 
 		before(function(){
-			f = new fields.FileField();
+			f = new fields.FilePathField({
+				name:'file'
+				,attribute:'file'
+			});
 		});
 
-		describe('#hydrate', function( done ){  })
-		describe('#dehydrat', function( done ){  })
+		describe('#hydrate', function(){  
+
+			it('should not alter the file path location', function( done ){
+				
+				var bundle = {
+					data:{
+						file: path.join( __dirname, '..', 'example', 'data.json' )
+					}
+				};
+				bundle.data.file.hapi = {
+					filename:'data.json'
+				}
+				f.hydrate( bundle, function( err, value ){
+					value.should.equal( path.join( __dirname, '..', 'example', 'data.json' ) )
+
+					done(err)
+				})
+			})
+		});
+
+		describe('#dehydrate', function(){
+			it('should path relative to dir option', function( done ){
+				var data = {
+					file:path.join( f.options.root, f.options.dir, 'data.json' )
+				}
+
+				f.dehydrate( data, function( err, value ){
+					value.should.equal( f.options.dir + '/' + 'data.json');
+					done( err )
+				})
+			})
+		})
 	})
 })
 
