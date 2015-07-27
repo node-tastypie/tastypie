@@ -169,7 +169,7 @@ describe("Api Fields", function(){
 
 		after(function( done ){
 			fs.unlink( location, function( err ){
-				done();
+				done( err );
 			});
 		});
 
@@ -200,24 +200,11 @@ describe("Api Fields", function(){
 		});
 		describe('#dehydrate', function( ){
 			var bundle = {
-				req:{
-					payload:{
-						
-					}
-				},
-				res:{},
-				data:{
-					file: '/tmp/uploads/data.json'
-				},
-				object:{}
-			}
-
-			bundle.data.file.hapi = {
-				filename:'data.json'
+				file: '/tmp/uploads/data.json'
 			}
 			it('should return a path', function( done ){
 				f.dehydrate( bundle, function( err, value ){
-					console.log( value )
+					value.should.equal( dir + '/' + 'data.json')
 					done();
 				})
 			})

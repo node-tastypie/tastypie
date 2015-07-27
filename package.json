@@ -73,7 +73,7 @@
     "joi": "^6.1.0",
     "jscoverage": "~0.5.0-rc2",
     "jscs": "^1.11.3",
-    "jscs-jsdoc": "^0.4.5",
+    "jscs-jsdoc": "^1.1.0",
     "jsdoc": "^3.3.0-beta3",
     "mocha": "~1.18.2",
     "node-status": "^0.1.4",
