@@ -1,6 +1,8 @@
 var should = require('should')
 var fields = require('../lib/fields')
 var assert = require('assert');
+var fs = require('fs')
+var path = require('path')
 
 describe("Api Fields", function(){
 	describe("ArrayField", function(){
@@ -71,6 +73,7 @@ describe("Api Fields", function(){
 		})
 
 	})
+	
 	describe('Datefield', function(){
 		var f, now;
 		before(function( done ){
@@ -121,6 +124,7 @@ describe("Api Fields", function(){
 			});
 		})
 	});
+
 	describe('ArrayField', function( ){
 		var f;
 		before( function( ){
@@ -145,6 +149,109 @@ describe("Api Fields", function(){
 				value[0].should.be.Number;
 				value[0].should.equal(1);
 			});
+		})
+	})
+
+	describe('FileFIeld', function(){
+		var f, location, dir;
+
+		before(function(){
+			dir = 'uploads' 
+			location = path.join( __dirname, dir, 'data.json' )
+			f = new fields.FileField({
+				dir: dir
+				, attribute: 'file'
+				, name: 'file'
+				,root:__dirname
+				,create:true
+			});
+		});
+
+		after(function( done ){
+			fs.unlink( location, function( err ){
+				done( err );
+			});
+		});
+
+		describe('#hydrate', function(  ){
+			var bundle = {
+				req:{
+					payload:{
+						
+					}
+				},
+				res:{},
+				data:{
+					file: fs.createReadStream( path.resolve(__dirname,'..' , 'example', 'data.json' ) ) 
+				},
+				object:{}
+			}
+
+			bundle.data.file.hapi = {
+				filename:'data.json'
+			}
+
+			it('should consume streams', function( done ) {
+				f.hydrate( bundle, function( err, d ){
+					d.should.equal( path.join(__dirname, 'uploads', 'data.json'))
+					done()
+				})
+			});
+		});
+		describe('#dehydrate', function( ){
+			var bundle = {
+				file: '/tmp/uploads/data.json'
+			}
+			it('should return a path', function( done ){
+				f.dehydrate( bundle, function( err, value ){
+					value.should.equal( dir + '/' + 'data.json')
+					done();
+				})
+			})
+		});
+	});
+
+	describe('FilePathField', function(){
+		var f;
+
+		before(function(){
+			f = new fields.FilePathField({
+				name:'file'
+				,attribute:'file'
+			});
+		});
+
+		describe('#hydrate', function(){  
+
+			it('should not alter the file path location', function( done ){
+				
+				var bundle = {
+					data:{
+						file: path.join( __dirname, '..', 'example', 'data.json' )
+					}
+				};
+				bundle.data.file.hapi = {
+					filename:'data.json'
+				}
+				f.hydrate( bundle, function( err, value ){
+					value.should.equal( path.join( __dirname, '..', 'example', 'data.json' ) )
+
+					done(err)
+				})
+			})
+		});
+
+		describe('#dehydrate', function(){
+			it('should path relative to dir option', function( done ){
+				var data = {
+					file:path.join( f.options.root, f.options.dir, 'data.json' )
+				}
+
+				f.dehydrate( data, function( err, value ){
+					value.should.equal( f.options.dir + '/' + 'data.json');
+					done( err )
+				})
+			})
 		})
 	})
 })

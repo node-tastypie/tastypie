@@ -1,7 +1,7 @@
 /*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
 var should   = require('should')
   , assert   = require('assert')
-  , server   = require('./server')
+  , hapi     = require('hapi')
   , Api      = require('../lib/api')
   , Resource = require( '../lib/resource' )
   , xml2js   = require( 'xml2js' )
@@ -12,14 +12,14 @@ var should   = require('should')
   ;
 
 describe('resoruce', function(){
-	var api;
+	var api, server
 	before(function( done ){
 		api = new Api('api/resource')
 		api.use('more', new Resource)
 		require('../lib');
-		server.register([api], function( e ){
-			server.start( done );
-		});
+		server = new hapi.Server({minimal:true})
+		server.connection({host:'localhost'})
+		server.register([api], done );
 	});
 
 	describe('Resource', function( ){
@@ -139,7 +139,7 @@ describe('resoruce', function(){
 						,pk:'guid'
 					}
 					,fields:{
-						name:{type:'char', attribute:'name.first'}
+						name:{type:'char', attribute:'company.name'}
 						,value:{type:'integer'}
 					}
 					,_get_list: function( bundle, callback ){

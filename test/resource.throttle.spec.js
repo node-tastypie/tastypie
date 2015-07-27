@@ -2,7 +2,7 @@ var should = require('should')
   , assert = require('assert')
   , async  = require('async')
   , Api    = require('../lib/api')
-  , server = require("./server")
+  , hapi = require("hapi")
   , Resource = require('../lib/resource')
   , Throttle = require('../lib/throttle')
 
@@ -14,7 +14,14 @@ var Base = Resource.extend({
 })
 
 describe('resource', function(){
-	var api, endpoints;
+	var api, endpoints, server;
+	
+	before(function(){
+		server = new hapi.Server({ minimal: true });
+		server.connection({host:'localhost'});
+
+	});
+
 	describe('throttled', function(){
 
 		before(function( done ){
