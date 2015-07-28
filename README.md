@@ -1,13 +1,11 @@
 node-tastypie
 =============
 
-[ ![Codeship Status for esatterwhite/node-tastypie](https://codeship.com/projects/c1cbe300-223a-0132-f5dd-46c80b892b0f/status?branch=master)](https://codeship.com/projects/36472)
+[![Codeship Status for esatterwhite/node-tastypie](https://codeship.com/projects/c1cbe300-223a-0132-f5dd-46c80b892b0f/status?branch=master)](https://codeship.com/projects/36472)
 [![Build Status](https://travis-ci.org/esatterwhite/node-tastypie.svg?branch=master)](https://travis-ci.org/esatterwhite/node-tastypie)
 
 
 A re-realization of the popular Django REST framework - Tasypie for Node.js
-
-* Project is in it's beta phase and missing some features found in the [python implementation](https://django-tastypie.readthedocs.org/en/latest/).
 
 [API Documentation](http://esatterwhite.github.io/node-tastypie)
 
@@ -43,6 +41,8 @@ server.register( v1, function( ){
 * float ( FloatField ) Converts values to floating point number using `parseFloat`
 * bool ( BooleanField ) Forces values to booleans
 * datetime ( DateTimeField ) Attempts to convert date time strings into date objects
+* file ( FileField ) A field that pipes a stream to a configured location, and store a path
+* filepath ( FilePathField ) A field that handles file locations rather than dealing with streams or binary data
 
 This allows for full HTTP support and basic CRUD operations on a single enpoint - api/v1/test
 
@@ -342,20 +342,6 @@ curl http://localhost:2000/api/v1/test/1
 curl http://localhost:2000/api/v1/test/2
 curl http://localhost:2000/api/v1/test/2?format=xml
 ```
-
-### What is Broke ?
-1. All APIFields are yet to be fleshed out
-2. Notion of streaming responses... 
-3. There is no concept of validators / validation of incoming data
-
-### What Works ?
-1. Serialization / Desrialization in xml, json, and serialization in JSONP
-2. Paginators.
-3. Basic Caching ( revamp to catbox support coming )
-4. GET, POST, PUT & DELETE
-	- Resources do not assume any ORM or backend, so the default resource does nothing. You will have to subclass and define all internal methods. Get is mostly done for you.
-5. Per Field dyhdration.
-6. Per Field Hydration
 
 ### Contributing
 
