@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tastypie Source: lib/fields/object.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.yeti.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Tastypie</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-tastypie.html">tastypie</a></li><li><a href="module-tastypie_cache.html">tastypie/cache</a></li><li><a href="module-tastypie_fields.html">tastypie/fields</a></li><li><a href="module-tastypie_fields_api.html">tastypie/fields/api</a></li><li><a href="module-tastypie_fields_array.html">tastypie/fields/array</a></li><li><a href="module-tastypie_fields_boolean.html">tastypie/fields/boolean</a></li><li><a href="module-tastypie_fields_char.html">tastypie/fields/char</a></li><li><a href="module-tastypie_fields_date.html">tastypie/fields/date</a></li><li><a href="module-tastypie_fields_file.html">tastypie/fields/file</a></li><li><a href="module-tastypie_fields_filepath.html">tastypie/fields/filepath</a></li><li><a href="module-tastypie_fields_float.html">tastypie/fields/float</a></li><li><a href="module-tastypie_fields_integer.html">tastypie/fields/integer</a></li><li><a href="module-tastypie_fields_related.html">tastypie/fields/related</a></li><li><a href="module-tastypie_lib_api.html">tastypie/lib/api</a></li><li><a href="module-tastypie_lib_class.html">tastypie/lib/class</a></li><li><a href="module-tastypie_lib_class_options.html">tastypie/lib/class/options</a></li><li><a href="module-tastypie_lib_constants.html">tastypie/lib/constants</a></li><li><a href="module-tastypie_lib_exceptions.html">tastypie/lib/exceptions</a></li><li><a href="module-tastypie_lib_http.html">tastypie/lib/http</a></li><li><a href="module-tastypie_lib_mime.html">tastypie/lib/mime</a></li><li><a href="module-tastypie_lib_paginator.html">tastypie/lib/paginator</a></li><li><a href="module-tastypie_lib_resource.html">tastypie/lib/resource</a></li><li><a href="module-tastypie_lib_resource_validator.html">tastypie/lib/resource/validator</a></li><li><a href="module-tastypie_lib_resource_validator_querystring.html">tastypie/lib/resource/validator/querystring</a></li><li><a href="module-tastypie_lib_serializer.html">tastypie/lib/serializer</a></li><li><a href="module-tastypie_lib_throttle.html">tastypie/lib/throttle</a></li><li><a href="module-tastypie_lib_util.html">tastypie/lib/util</a></li><li><a href="module-tastypie_lib_validators.html">tastypie/lib/validators</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_fields_datetime.html">tastypie/fields/datetime</a></li><li><a href="module-tastypie_fields_object.html">tastypie/fields/object</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-getting-started.html">Getting Started</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+    		<h1 class="page-title">Source: lib/fields/object.js</h1>
+			
+
+		<h1 class="page-title">Source: lib/fields/object.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript ">/*jshint laxcomma: true, smarttabs: true, node: true*/
+'use strict';
+/**
+ * No-Op Field class for returning plain objects
+ * @module tastypie/fields/date
+ * @author Eric Satterwhite
+ * @since 0.5.0
+ * @requires tastypie/lib/class
+ * @requires tastypie/lib/fields/api
+ */
+
+var Class          = require( '../class' )
+  , ApiField       = require('./api')
+  , ObjectField
+  ;
+
+/**
+ * @constructor
+ * @alias module:tastypie/fields/object
+ * @extends module:tastypie/fields/api
+ * @param {Object} options
+ */
+ObjectField = new Class({
+	inherits:ApiField
+
+	,convert: function convert( value ){
+		return value;
+	}
+
+	,type: function( ){
+		return 'object';
+	}
+});
+
+module.exports = ObjectField;</pre>
+	</article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	Eric Satterwhite &copy; 2015
+	</span>
+	<br />
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+	on 2015-07-28T18:18:13-05:00 using the <a
+	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<!--<script src="scripts/sunlight.js"></script>-->
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/bootstrap-dropdown.js"></script>
+<script src="scripts/toc.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "h1,h2,h3,h4",
+		showAndHide : false,
+		scrollTo    : "100px"
+	} );
+
+	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			lang = "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+</body>
+</html>
