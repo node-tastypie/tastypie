@@ -56,7 +56,7 @@ describe('resource', function(){
 						callback()
 					})
 				}
-			], function( err ){
+			], function( ){
 				var _cache = c.client._cache.connection.cache
 				Object
 					.keys( _cache  )
