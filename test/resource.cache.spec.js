@@ -1,5 +1,4 @@
-var should = require('should')
-  , async = require('async')
+var async = require('async')
   , hapi = require('hapi')
   , Api = require('../lib/api')
   , Resource = require("../lib/resource")
@@ -57,7 +56,7 @@ describe('resource', function(){
 						callback()
 					})
 				}
-			], function( err, results ){
+			], function( err ){
 				var _cache = c.client._cache.connection.cache
 				Object
 					.keys( _cache  )

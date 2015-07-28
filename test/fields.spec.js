@@ -1,5 +1,4 @@
-var should = require('should')
-var fields = require('../lib/fields')
+var fields = require('../lib/fields');
 var assert = require('assert');
 var fs = require('fs')
 var path = require('path')
@@ -75,7 +74,7 @@ describe("Api Fields", function(){
 	})
 	
 	describe('Datefield', function(){
-		var f, now;
+		var f;
 		before(function( done ){
 			f = new fields.DateField();
 			done()

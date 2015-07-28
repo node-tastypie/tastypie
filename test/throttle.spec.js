@@ -1,6 +1,4 @@
-var assert = require('assert')
-  , should = require('should')
-  , Throttle = require('../lib/throttle')
+var Throttle = require('../lib/throttle')
 
   describe("Throttle", function(){
   	describe("Memory", function(){

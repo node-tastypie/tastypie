@@ -1,6 +1,5 @@
 /*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
-var should   = require('should')
-  , assert   = require('assert')
+var assert   = require('assert')
   , hapi     = require('hapi')
   , Api      = require('../lib/api')
   , Resource = require( '../lib/resource' )
@@ -148,7 +147,7 @@ describe('resoruce', function(){
 							callback( err, buffer )
 						})
 					}
-					,dehydrate_value: function( obj, bundle, ret ){
+					,dehydrate_value: function( /* obj, bundle, ret */ ){
 						return 2
 					}
 				});
