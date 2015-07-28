@@ -7,7 +7,7 @@ var should = require('should')
   ;
 
 describe('resource', function(){
-	var reqsource, server, c;
+	var resource, server, c;
 	before( function( done ){
 		server = new hapi.Server({minimal: true});
 		server.connection({host:'localhost'})
