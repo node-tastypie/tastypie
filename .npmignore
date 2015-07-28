@@ -11,3 +11,4 @@ test*
 .jscsrc
 documentation/
 tp.json
+docs/

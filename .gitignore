@@ -6,3 +6,4 @@ tap.xml
 *.swp
 documentation
 example/
+*.save
