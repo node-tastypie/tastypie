@@ -3,7 +3,7 @@ node-tastypie
 
 [![Codeship Status for esatterwhite/node-tastypie](https://codeship.com/projects/c1cbe300-223a-0132-f5dd-46c80b892b0f/status?branch=master)](https://codeship.com/projects/36472)
 [![Build Status](https://travis-ci.org/esatterwhite/node-tastypie.svg?branch=master)](https://travis-ci.org/esatterwhite/node-tastypie)
-
+[![Codacy Badge](https://www.codacy.com/project/badge/35877cfd7e7e42f6bf82f1b8bf292b79)](https://www.codacy.com/app/esatterwhite/node-tastypie)
 
 A re-realization of the popular Django REST framework - Tasypie for Node.js
 
