@@ -19,14 +19,14 @@
     }
     ,"plugins":["plugins/markdown", "plugins/partial"]
     ,"markdown":{"parser":"gfm", "hardwrap":true}
-	,"templates": {
-		"systemName"            : "Tastypie",
-		"copyright"             :  "Eric Satterwhite &copy; 2015",
-		"navType"               : "horizontal",
-		"theme"                 : "yeti",
-		"outputSourceFiles"     : true ,
-		"outputSourcePath"      : true,
-		"highlightTutorialCode" : true,
-		"linenums"              : false
-	}
+    ,"templates": {
+        "systemName"            : "Tastypie",
+        "copyright"             :  "Eric Satterwhite &copy; 2015",
+        "navType"               : "horizontal",
+        "theme"                 : "yeti",
+        "outputSourceFiles"     : true ,
+        "outputSourcePath"      : true,
+        "highlightTutorialCode" : true,
+        "linenums"              : false
+    }
 }
