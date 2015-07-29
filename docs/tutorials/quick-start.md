@@ -75,6 +75,8 @@ server.register(v1,function(){
 })
 ```
 
+Now we have three urls registered **/api/v1/simple**, **/api/v1/simple/{id}**, and **/api/v1/simple/schema**, which support has support for the main CRUD Verbs.
+
 ## API Level Serializer
 
 A common _gotcha_ when attempting to respond directly to requests ( by using `bundle.res()` ) is that you lose content negotiation and proper serialization. As a remedy, you can specify a serializer {@link module:tastypie/lib/api|on an api instance} and it will attempt to serialize object appropriately. 
@@ -150,7 +152,7 @@ server.connection({
 
 // namespace setup
 v1 = new Api('api/v1');
-v1.use('simple', new Simple()) // creates /api/v1/simple/{id}
+v1.use('simple', new Simple())
 
 server.register(v1,function(){
     server.start(function(){
