@@ -1,0 +1,34 @@
+{
+	"getting-started":{
+		"title":"Getting Started",
+		"children":{
+			"quick-start":{
+				"title":"Quick Start"
+			}
+		}
+	}
+
+	,"serializers":{
+		"title":"Working With Serializers"
+	}
+	,"resources":{
+		"title":"Working With Resources",
+		"children":{
+			"filtering":{
+				"title":"Advanced Filtering"	
+			},
+			"hydration":{
+				"title":"Advanced Data Preparation"	
+			},
+			"routes":{
+				"title":"Defining Custom Routes"	
+			},
+			"mongo":{
+				"title":"Defining MongoDB Resources"
+			},
+			"rethink":{
+				"title":"Defining RethinkDB Resources"
+			}
+		}
+	}
+}
