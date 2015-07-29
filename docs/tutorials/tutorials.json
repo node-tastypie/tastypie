@@ -1,15 +1,20 @@
 {
 	"getting-started":{
 		"title":"Getting Started",
+		"ordering":1,
 		"children":{
 			"quick-start":{
 				"title":"Quick Start"
 			}
 		}
 	}
-
 	,"serializers":{
 		"title":"Working With Serializers"
+	}
+
+	,"wfields":{
+		"ordering":2,
+		"title":"Working With Fields"
 	}
 	,"resources":{
 		"title":"Working With Resources",
@@ -18,16 +23,16 @@
 				"title":"Advanced Filtering"	
 			},
 			"hydration":{
-				"title":"Advanced Data Preparation"	
+				"title":"Advanced Data Preparation"
 			},
 			"routes":{
 				"title":"Defining Custom Routes"	
 			},
 			"mongo":{
-				"title":"Defining MongoDB Resources"
+				"title":"Working with MongoDB"
 			},
 			"rethink":{
-				"title":"Defining RethinkDB Resources"
+				"title":"Working With RethinkDB"
 			}
 		}
 	}
