@@ -27,10 +27,12 @@ describe('resoruce', function(){
 			before(function(){
 				Extended = Resource.extend({
 					options:{
-						fudgeMethodsAllowed:{
-							get:true
-							,post:true
-							,put:false
+						allowed:{
+							fudge:{
+								get:true
+								,post:true
+								,put:false
+							}
 						}
 					}
 					,prepend_urls: function(){
