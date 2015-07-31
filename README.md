@@ -9,134 +9,34 @@ A re-realization of the popular Django REST framework - Tasypie for Node.js
 
 [API Documentation](http://esatterwhite.github.io/node-tastypie)
 
+
+### Officially Supported Resources Types
+
+* [Official Monogoose Resource](https://github.com/esatterwhite/tastypie-mongo)
+* [Official RethinkDB Resource](https://github.com/esatterwhite/tastypie-rethink)
+
 ### Create a simple Api
 
 ```js
 var tastypie = require('tastypie')
 var Api = tastypie.Api
-var Resource = tastypie.Resource
 var hapi = require('hapi')
 var server = new hapi.server
 var v1 = new Api('api/v1' )
+var Resource = tastypie.Resource.extend({
+	lastName:{ type:'char', attribute:'name.first' },
+	fisrtName:{type:'char', attribute: 'name.last'}
+})
 
 v1.use('test', new Resource() );
-v1.use('fake', new Resource() );
 
 server.connection({port:2000})
 server.register( v1, function( ){
-	
 	server.start(function(){
 		console.log('server listening localhost:2000')	
 	});
 })
 ```
-
-#### Built-in Fields
-
-* field ( ApiField ) - Generic noop field
-* object ( ObjectField ) - Generic no-op field
-* char ( character / CharField ) - Converts values to strings
-* array ( ArrayField ) Converts comma sparated strings into arrays
-* int ( int / IntegerField ) converts numeric values into integers using `parseInt`
-* float ( FloatField ) Converts values to floating point number using `parseFloat`
-* bool ( BooleanField ) Forces values to booleans
-* datetime ( DateTimeField ) Attempts to convert date time strings into date objects
-* file ( FileField ) A field that pipes a stream to a configured location, and store a path
-* filepath ( FilePathField ) A field that handles file locations rather than dealing with streams or binary data
-
-This allows for full HTTP support and basic CRUD operations on a single enpoint - api/v1/test
-
-```sh
-curl -XPOST -H "Content-Type: applciation/json" -d '{"test":"fake"}' http://localhost:3000/api/v1/test
-curl -XPUT  -H "Content-Type: applciation/json" -d '{"test":"real"}' http://localhost:3000/api/v1/test
-curl -XDELETE http://localhost:3000/api/v1/test/fake
-```
-
-#### HTTP CRUD Verbs
-
-This is how tastypie handles the base CRUD Methods 
-
-* GET returns a list of resource instance or a specific resource instance
-* DELETE removes a specific resource instance
-* PUT **REPLACES** a resource instance. This is not a partial update. Any optional fields not define we be set to undefined
-* PATCH a **PARTIAL** update to a specific resource instance. 
-
-### Serialization
-The base serializer can deal with `xml`, `json` and `jsonp` out of the box. Serialization method is determined by the `Accept` header or a `format` query string param
-
-```sh
-curl -H "Accept: text/xml" http://localhost:3000/api/v1/test
-curl http://localhost:3000/api/v1/test?format=xml
-```
-
-**NOTE:** hapi captures application/foo so for custom serialization, we must use text/foo
-
-
-#### Example Mongoose Resource
-
-##### Install Mongoose Resource
-
-* [Official Monogoose Resource](https://github.com/esatterwhite/tastypie-mongo)
-* [Official RethinkDB Resource](https://github.com/esatterwhite/tastypie-rethink)
-
-```js
-npm install mongoose tastypie-mongoose
-```
-
-##### Make A mongoose Model
-```js
-// Make A Mongoose Model
-var Schema = new mongoose.Schema({ 
-	name:{
-		first:{type:String}
-		,last:{type:String}
-	}
-	,index:{type:Number, required:false}
-	,guid:{type:String, requierd:false}
-	,tags:[{type:String}]
-}, {collection:'tastypie'})
-
-var Test = connection.model('Test', Schema)
-```
-
-##### Define A Resource
-```js
-var tastypie = require("tastypie");
-var MongoseResource = tastypie.Resource.Mongoose;
-
-// Default Query
-var queryset = Test.find().lean().toConstructor()
-
-// Define A Mongo Resource
-var Mongo = MongoseResource.extend({
-	options:{
-		queryset: queryset
-	}
-	,fields:{
-		firstName: {type:'CharField', attribute:'name.first'} // Remaps name.first to firstName
-		,lastName: {type:'CharField', attribute:'name.last'} // Remaps name.last to lastName
-	}
-})
-```
-
-##### Register Resource
-```js
-// Define API Namespace
-var Api = require('tastypie').Api;
-var api = new Api('api/v1')
-var app = new Hapi.server()
-
-// Register Resource
-api.add('mongo', new Mongo() );
-
-// Register API w/ Hapi
-app.register(api , function(e){
-	app.start(function(){
-		console.log('server is ready')
-	});
-});
-```
-
 
 ##### Get Data
 
@@ -161,10 +61,11 @@ app.register(api , function(e){
 
 ```
 
+
 ##### Auto Schema
 
 ```js
-// GET /api/v1/mongo/schema
+// GET /api/v1/test/schema
 
 {
 	"fields": {
@@ -211,6 +112,48 @@ app.register(api , function(e){
 
 }
 ```
+
+#### Built-in Fields
+
+* field ( ApiField ) - Generic noop field
+* object ( ObjectField ) - Generic no-op field
+* char ( character / CharField ) - Converts values to strings
+* array ( ArrayField ) Converts comma sparated strings into arrays
+* int ( int / IntegerField ) converts numeric values into integers using `parseInt`
+* float ( FloatField ) Converts values to floating point number using `parseFloat`
+* bool ( BooleanField ) Forces values to booleans
+* datetime ( DateTimeField ) Attempts to convert date time strings into date objects
+* file ( FileField ) A field that pipes a stream to a configured location, and store a path
+* filepath ( FilePathField ) A field that handles file locations rather than dealing with streams or binary data
+
+This allows for full HTTP support and basic CRUD operations on a single enpoint - api/v1/test
+
+```sh
+curl -XPOST -H "Content-Type: applciation/json" -d '{"test":"fake"}' http://localhost:3000/api/v1/test
+curl -XPUT  -H "Content-Type: applciation/json" -d '{"test":"real"}' http://localhost:3000/api/v1/test
+curl -XDELETE http://localhost:3000/api/v1/test/fake
+```
+
+#### HTTP Verbs
+
+This is how tastypie handles the base HTTP Methods 
+
+* GET returns a list of resource instance or a specific resource instance
+* DELETE removes a specific resource instance
+* PUT **REPLACES** a resource instance. This is not a partial update. Any optional fields not define we be set to undefined
+* PATCH a **PARTIAL** update to a specific resource instance. 
+* **OPTIONS**, **HEAD**, **TRACE**, and **CONNECT** are left to implementation on a per resource bases
+
+
+### Serialization
+The base serializer can deal with `xml`, `json` and `jsonp` out of the box. Serialization method is determined by the `Accept` header or a `format` query string param
+
+```sh
+curl -H "Accept: text/xml" http://localhost:3000/api/v1/test
+curl http://localhost:3000/api/v1/test?format=xml
+```
+
+**NOTE:** hapi captures application/foo so for custom serialization, we must use text/foo
 
 #### Example FS resourse
 Of course, Tastypie is not tied to Mongo or mongose, you can use the default resource type to create to put a Rest API around anything. The mongo resource just does a lot of the set up for you.
