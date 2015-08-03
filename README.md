@@ -42,7 +42,7 @@ server.register( v1, function( ){
 
 ```js
 
-// GET /api/v1/mongo
+// GET /api/v1/test
 
 {
 
@@ -55,7 +55,7 @@ server.register( v1, function( ){
 	"data":[{
 		firstName:"Bill",
 		lastName:"Bucks",
-		uri:"/api/v1/mongo/54fe9cfb1738a8aa47ddf150"	
+		uri:"/api/v1/test/1"	
 	}]
 } 
 
@@ -189,31 +189,31 @@ function Schema(){
 
 
 var Base = Class({
-	inherits:Resource
-	,options:{
+    inherits:Resource
+    ,options:{
 		objectTpl: Schema // Set the schema as the Object template
-	}
-	,fields:{
-	   // remap _id to id
-		id       : { type:'ApiField', attribute:'_id' }
-	  , age      : { type:'IntegerField' } 
+    }
+    ,fields:{
+ 	// remap _id to id
+	id       : { type:'ApiField', attribute:'_id' }
+	, age      : { type:'IntegerField' } 
 
-	  // can also be a field instance
-	  , eyeColor : new fields.CharField({'null':true})
-	  , range    : { type:'ArrayField', 'null': true }
-	  , fullname : { type:"CharField", 'null':true }
+	// can also be a field instance
+	, eyeColor : new fields.CharField({'null':true})
+	, range    : { type:'ArrayField', 'null': true }
+	, fullname : { type:"CharField", 'null':true }
 
-	  // remap the uid property to uuid. 
-	  , uuid     : { type:'CharField', attribute:'guid'}
-	  , name     : { type:'ApiField'}
-	}
-	,constructor: function( meta ){
-		this.parent('constructor', meta )
-	}
+	// remap the uid property to uuid. 
+	, uuid     : { type:'CharField', attribute:'guid'}
+	, name     : { type:'ApiField'}
+   }
+   , constructor: function( meta ){
+   	this.parent('constructor', meta )
+   }
 
 	// internal lower level method responsible for getting the raw data
     , _get_list: function(bundle, callback){
-		fs.readFile( path.join(__dirname, 'example','data.json') , callback)
+	fs.readFile( path.join(__dirname, 'example','data.json') , callback)
     }
 
 
@@ -224,41 +224,40 @@ var Base = Class({
     	callback && callback(null, bundle )
     }
 	// per field dehydration method - generates a full name field from name.first & name.last
-	, dehydrate_fullname:function( obj, bundle ){
-		return obj.name.first + " " + obj.name.last
-	}
+    , dehydrate_fullname:function( obj, bundle ){
+	return obj.name.first + " " + obj.name.last
+    }
 
-	// top level method for custom GET /upload 
-	, get_upload: function( bundle ){
-		this.respond({data:{key:'value'}})
-	}
+    // top level method for custom GET /upload 
+    , get_upload: function( bundle ){
+        this.respond({data:{key:'value'}})
+    }
 	
-	// method that retreives an individual object by id.
-	// becuase it's in a flat file, read it, filter and return first object
-	,get_object: function(bundle, callback){
-		this._get_list(bundle,function(e, objects){
-			var obj = JSON.parse( objects ).filter(function( obj ){
-				return obj._id = bundle.req.params.id
-			})[0]
-			callback( null, obj )
-		})
-	}
+    // method that retreives an individual object by id.
+    // becuase it's in a flat file, read it, filter and return first object
+    ,get_object: function(bundle, callback){
+        this._get_list(bundle,function(e, objects){
+		var obj = JSON.parse( objects ).filter(function( obj ){
+			return obj._id = bundle.req.params.id
+		})[0]
+		callback( null, obj )
+	})
+    }
 
-	// Proxy method for delegeting HTTP methods to approriate resource method
-	, dispatch_upload: function(req, reply ){
-		// Do additional magic here.
-		return this.dispatch('upload', this.bundle( req, reply ) )
-	}
+    // Proxy method for delegeting HTTP methods to approriate resource method
+    , dispatch_upload: function(req, reply ){
+	// Do additional magic here.
+	return this.dispatch('upload', this.bundle( req, reply ) )
+    }
 	
-	// adds a custom route for upload in addition to standard crud methods
-	, prepend_urls:function(){
-		return [{
-			route: '/api/v1/data/upload'
-		  , handler: this.dispatch_upload.bind( this )
-		  , name:'upload'
-
-		}]
-	}
+    // adds a custom route for upload in addition to standard crud methods
+    , prepend_urls:function(){
+	return [{
+	  route: '/api/v1/data/upload'
+	  , handler: this.dispatch_upload.bind( this )
+	  , name:'upload'
+	}]
+    }
 });
 var api = new Api('api/v1', {
 	serializer:new Serializer()
