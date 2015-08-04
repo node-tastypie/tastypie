@@ -69,45 +69,45 @@ server.register( v1, function( ){
 
 {
 	"fields": {
-	      "firstName": {
-	          "blank": false,
-	          "default": null,
-	          "help_text": "Forces values to string values by calling toString",
-	          "nullable": false,
-	          "readonly": false,
-	          "type": "string",
-	          "unique": false
-	      },
-	      "lastName": {
-	          "blank": false,
-	          "default": null,
-	          "help_text": "Forces values to string values by calling toString",
-	          "nullable": false,
-	          "readonly": false,
-	          "type": "string",
-	          "unique": false
-	      },
-	      "uri": {
-	          "blank": false,
-	          "default": null,
-	          "help_text": "Forces values to string values by calling toString",
-	          "nullable": false,
-	          "readonly": false,
-	          "type": "string",
-	          "unique": false
-	      }
+		  "firstName": {
+			  "blank": false,
+			  "default": null,
+			  "help_text": "Forces values to string values by calling toString",
+			  "nullable": false,
+			  "readonly": false,
+			  "type": "string",
+			  "unique": false
+		  },
+		  "lastName": {
+			  "blank": false,
+			  "default": null,
+			  "help_text": "Forces values to string values by calling toString",
+			  "nullable": false,
+			  "readonly": false,
+			  "type": "string",
+			  "unique": false
+		  },
+		  "uri": {
+			  "blank": false,
+			  "default": null,
+			  "help_text": "Forces values to string values by calling toString",
+			  "nullable": false,
+			  "readonly": false,
+			  "type": "string",
+			  "unique": false
+		  }
 	  },
 	  "filtering": {},
 	  "format": "application/json",
 	  "limit": 0,
 	  "methodsAllowed": [
-	      "get",
-	      "put",
-	      "post",
-	      "delete",
-	      "patch",
-	      "head",
-	      "options"
+		  "get",
+		  "put",
+		  "post",
+		  "delete",
+		  "patch",
+		  "head",
+		  "options"
 	  ]
 
 }
@@ -189,14 +189,14 @@ function Schema(){
 
 
 var Base = Class({
-    inherits:Resource
-    ,options:{
+	inherits:Resource
+	,options:{
 		objectTpl: Schema // Set the schema as the Object template
-    }
-    ,fields:{
- 	// remap _id to id
-	id       : { type:'ApiField', attribute:'_id' }
-	, age      : { type:'IntegerField' } 
+	}
+	,fields:{
+		// remap _id to id
+		id       : { type:'ApiField', attribute:'_id' }
+	  , age      : { type:'IntegerField' } 
 
 	// can also be a field instance
 	, eyeColor : new fields.CharField({'null':true})
@@ -208,56 +208,56 @@ var Base = Class({
 	, name     : { type:'ApiField'}
    }
    , constructor: function( meta ){
-   	this.parent('constructor', meta )
+		this.parent('constructor', meta )
    }
 
 	// internal lower level method responsible for getting the raw data
-    , _get_list: function(bundle, callback){
-	fs.readFile( path.join(__dirname, 'example','data.json') , callback)
-    }
+	, get_objects: function(bundle, callback){
+		fs.readFile( path.join(__dirname, 'example','data.json') , callback)
+	}
 
 
-    // internal low level method reponsible for dealing with a POST request
-    , _post_list: function _post_list( bundle, opt, callback ){
-    	bundle = this.full_hydrate( bundle )
-    	// this.save( bundle, callback )
-    	callback && callback(null, bundle )
-    }
+	// internal low level method reponsible for dealing with a POST request
+	, create_object: function create_object( bundle, opt, callback ){
+		bundle = this.full_hydrate( bundle )
+		// this.save( bundle, callback )
+		callback && callback(null, bundle )
+	}
 	// per field dehydration method - generates a full name field from name.first & name.last
-    , dehydrate_fullname:function( obj, bundle ){
-	return obj.name.first + " " + obj.name.last
-    }
+	, dehydrate_fullname:function( obj, bundle ){
+		return obj.name.first + " " + obj.name.last
+	}
 
-    // top level method for custom GET /upload 
-    , get_upload: function( bundle ){
-        this.respond({data:{key:'value'}})
-    }
+	// top level method for custom GET /upload 
+	, get_upload: function( bundle ){
+		this.respond({data:{key:'value'}})
+	}
 	
-    // method that retreives an individual object by id.
-    // becuase it's in a flat file, read it, filter and return first object
-    ,get_object: function(bundle, callback){
-        this._get_list(bundle,function(e, objects){
+	// method that retreives an individual object by id.
+	// becuase it's in a flat file, read it, filter and return first object
+	,get_object: function(bundle, callback){
+		this._get_list(bundle,function(e, objects){
 		var obj = JSON.parse( objects ).filter(function( obj ){
 			return obj._id = bundle.req.params.id
 		})[0]
 		callback( null, obj )
 	})
-    }
+	}
 
-    // Proxy method for delegeting HTTP methods to approriate resource method
-    , dispatch_upload: function(req, reply ){
-	// Do additional magic here.
-	return this.dispatch('upload', this.bundle( req, reply ) )
-    }
+	// Proxy method for delegeting HTTP methods to approriate resource method
+	, dispatch_upload: function(req, reply ){
+		// Do additional magic here.
+		return this.dispatch('upload', this.bundle( req, reply ) )
+	}
 	
-    // adds a custom route for upload in addition to standard crud methods
-    , prepend_urls:function(){
-	return [{
-	  route: '/api/v1/data/upload'
-	  , handler: this.dispatch_upload.bind( this )
-	  , name:'upload'
-	}]
-    }
+	// adds a custom route for upload in addition to standard crud methods
+	, prepend_urls:function(){
+		return [{
+		  route: '/api/v1/data/upload'
+		  , handler: this.dispatch_upload.bind( this )
+		  , name:'upload'
+		}]
+	}
 });
 var api = new Api('api/v1', {
 	serializer:new Serializer()
