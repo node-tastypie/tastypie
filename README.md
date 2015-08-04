@@ -5,7 +5,7 @@ node-tastypie
 [![Build Status](https://travis-ci.org/esatterwhite/node-tastypie.svg?branch=master)](https://travis-ci.org/esatterwhite/node-tastypie)
 [![Codacy Badge](https://www.codacy.com/project/badge/35877cfd7e7e42f6bf82f1b8bf292b79)](https://www.codacy.com/app/esatterwhite/node-tastypie)
 
-A re-realization of the popular Django REST framework - Tasypie for Node.js
+A re-realization of the popular Django REST framework - Tasypie for Node.js and [Hapi.js](http://hapijs.com/)
 
 [API Documentation](http://esatterwhite.github.io/node-tastypie)
 
