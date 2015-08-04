@@ -210,7 +210,6 @@ describe('resoruce', function(){
 					url:'/api/resource/file'
 					,method:"get"
 				}, function( response ){
-					console.log( response.statusCode)
 					var data = JSON.parse( response.result )
 					var obj = data.data[0]
 					assert.ok(obj.hasOwnProperty( 'name' ) )
