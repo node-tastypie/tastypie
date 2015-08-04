@@ -143,7 +143,7 @@ describe('resoruce', function(){
 						name:{type:'char', attribute:'company.name'}
 						,value:{type:'integer'}
 					}
-					,_get_list: function( bundle, callback ){
+					,get_objects: function( bundle, callback ){
 						var data = path.resolve(__dirname, '..', 'example', 'data.json')
 						fs.readFile(data,function( err, buffer ){
 							callback( err, buffer )
@@ -210,6 +210,7 @@ describe('resoruce', function(){
 					url:'/api/resource/file'
 					,method:"get"
 				}, function( response ){
+					console.log( response.statusCode)
 					var data = JSON.parse( response.result )
 					var obj = data.data[0]
 					assert.ok(obj.hasOwnProperty( 'name' ) )
