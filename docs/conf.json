@@ -22,8 +22,7 @@
     ,"templates": {
         "systemName"            : "Tastypie",
         "copyright"             :  "Eric Satterwhite &copy; 2015",
-        "navType"               : "horizontal",
-        "theme"                 : "yeti",
+        "theme"                 : "paper",
         "outputSourceFiles"     : true ,
         "outputSourcePath"      : true,
         "highlightTutorialCode" : true,
