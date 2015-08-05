@@ -33,5 +33,31 @@ Tastypie has two cycles for managing and shaping data as it flows between `clien
 There are a number of ways to respond to incoming requests. 
 
 * Passing a bundle to the {@link module:tastypie/lib/resource#respond|respond} method, which will handle content negotiation, serialization, etc
+
+```
+function( bundle ){
+	bundle.data = {key:'value'};
+	return this.respond( bundle );
+}
+```
+
 * Calling the res function directly from the bundle
+
+```
+function( bundle ){
+	bundle.data = {key:'value'};
+	return this.respond( bundle );
+}
+```
+
 * Calling the reply function directly from the main rout handler
+
+```
+function( bundle ){
+	bundle.res({key:'value'});
+}
+```
+
+### Error Handling
+
+When using the {@link module:tastypie/lib/resource#dispatch|dispatching} functionality, all actions are run under a node domain. All thrown errors and error events will be captured and an appropriate response will pbe returned to the client. If the error that is throw is a Boom error, it will be returned immediately as is. If the error object has a reply function attached to it under the `res` property, it will be serialized and returned to the client in the approriate format. As a last resort, the error will be throw again to surface the error
