@@ -24,8 +24,10 @@ var hapi = require('hapi')
 var server = new hapi.server
 var v1 = new Api('api/v1' )
 var Resource = tastypie.Resource.extend({
-	lastName:{ type:'char', attribute:'name.first' },
-	fisrtName:{type:'char', attribute: 'name.last'}
+	fields:{
+		lastName:{ type:'char', attribute:'name.first' },
+		fisrtName:{type:'char', attribute: 'name.last'}
+	}
 })
 
 v1.use('test', new Resource() );
