@@ -7223,27 +7223,25 @@ input[type="checkbox"]:disabled:checked:after,
   padding-right: 20px;
 }
 .navbar .dropdown-menu {
-  padding: 20px;
-  max-height: 300px;
-  overflow: auto;
-  width: 300px;
-  background-color: #2196f3;
+  max-height:800px;
+  overflow-y: auto;
+  width: auto;
 }
 .navbar .dropdown-menu a,
 .navbar .dropdown-menu a:visited {
-  color: #b2dbfb;
+  color: #666;
 }
 .navbar .dropdown-menu a:hover {
   color: #ffffff;
-  background-color: transparent;
+  background-color: #2196f3;
+  /*background-color: transparent;*/
 }
 .navbar .dropdown-menu a:active {
   color: #ffffff;
   background-color: #0c7cd5;
 }
 .navbar .dropdown-menu a {
-  padding-left: 0;
-  padding-right: 5px;
+  padding: 3px 20px;
   font-weight: 500;
   font-size: 115%;
 }

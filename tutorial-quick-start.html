@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tastypie </title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.paper.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Tastypie</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-tastypie.html">tastypie</a></li><li><a href="module-tastypie_fields.html">tastypie/fields</a></li><li><a href="module-tastypie_fields_api.html">tastypie/fields/api</a></li><li><a href="module-tastypie_fields_array.html">tastypie/fields/array</a></li><li><a href="module-tastypie_fields_boolean.html">tastypie/fields/boolean</a></li><li><a href="module-tastypie_fields_char.html">tastypie/fields/char</a></li><li><a href="module-tastypie_fields_date.html">tastypie/fields/date</a></li><li><a href="module-tastypie_fields_datetime.html">tastypie/fields/datetime</a></li><li><a href="module-tastypie_fields_file.html">tastypie/fields/file</a></li><li><a href="module-tastypie_fields_filepath.html">tastypie/fields/filepath</a></li><li><a href="module-tastypie_fields_float.html">tastypie/fields/float</a></li><li><a href="module-tastypie_fields_integer.html">tastypie/fields/integer</a></li><li><a href="module-tastypie_fields_object.html">tastypie/fields/object</a></li><li><a href="module-tastypie_fields_related.html">tastypie/fields/related</a></li><li><a href="module-tastypie_lib_api.html">tastypie/lib/api</a></li><li><a href="module-tastypie_lib_cache.html">tastypie/lib/cache</a></li><li><a href="module-tastypie_lib_class.html">tastypie/lib/class</a></li><li><a href="module-tastypie_lib_class_options.html">tastypie/lib/class/options</a></li><li><a href="module-tastypie_lib_constants.html">tastypie/lib/constants</a></li><li><a href="module-tastypie_lib_exceptions.html">tastypie/lib/exceptions</a></li><li><a href="module-tastypie_lib_http.html">tastypie/lib/http</a></li><li><a href="module-tastypie_lib_mime.html">tastypie/lib/mime</a></li><li><a href="module-tastypie_lib_paginator.html">tastypie/lib/paginator</a></li><li><a href="module-tastypie_lib_resource.html">tastypie/lib/resource</a></li><li><a href="module-tastypie_lib_resource_detail.html">tastypie/lib/resource/detail</a></li><li><a href="module-tastypie_lib_resource_list.html">tastypie/lib/resource/list</a></li><li><a href="module-tastypie_lib_resource_schema.html">tastypie/lib/resource/schema</a></li><li><a href="module-tastypie_lib_resource_validator.html">tastypie/lib/resource/validator</a></li><li><a href="module-tastypie_lib_resource_validator_querystring.html">tastypie/lib/resource/validator/querystring</a></li><li><a href="module-tastypie_lib_serializer.html">tastypie/lib/serializer</a></li><li><a href="module-tastypie_lib_throttle.html">tastypie/lib/throttle</a></li><li><a href="module-tastypie_lib_util.html">tastypie/lib/util</a></li><li><a href="module-tastypie_lib_validators.html">tastypie/lib/validators</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-resources.html">Working With Resources</a></li><li><a href="tutorial-serializers.html">Working With Serializers</a></li><li><a href="tutorial-wfields.html">Working With Fields</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			<section class="tutorial-section">
+
+<header>
+    <h2>Quick Start</h2>
+    
+
+</header>
+
+<article>
+    <p>The primary thing you need to do to get started with tastypie, is define a resource which will expose the URIs for your API. The Base resource is set up with 2 primary actions ( <code>list</code> and <code>detail</code> ) and allows the base CRUD http verbs - <code>GET</code>, <code>PUT</code>, <code>POST</code>, <code>DELETE</code>, and optionally <code>PATCH</code>. </p>
+<h2>Define A Resource</h2><p>A functional resource, by convention, should define method handlers for each of the actions &amp; verbs where it makes sense - where the resource method name is <code>&lt;VERB&gt;_&lt;ACTION&gt;</code>.</p>
+<pre class="prettyprint source"><code>var tastypie = require('tastypie')
+var Resource = tastypie.Resource;
+var http     = tasypie.http
+var Simple;
+
+Simple = Resource.extend({
+    get_list: function( bundle ){
+        // the data property is what gets returnedt
+        bundle.data = { key:'value' }; 
+
+        // use the respond method if you
+        // want serialization, status code, etc...
+        return this.respond( bundle )
+    }
+    , get_detail: function( bundle ){
+        bundle.data = {success:1}
+        return this.respond( bundle )
+    }
+    , put_detail: function( bundle ){
+        budnel.data = {key:'updated'}
+        return this.respond( bundle, http.accepted )
+    }
+    , post_list: function( bundle ){
+        var data = bundle.req.payload;
+        // do something with the data.
+        return this.respond( bundle, http.created)
+    }
+    , delete_detail: function( bundle ){
+        bundle.data = null;
+        return this.respond( bundle, http.noContent )
+    }
+    , patch_detail: function( bundle ){
+        // or just send a straight response.
+        return bundle.res({any:'data you want'}).code( 201 )
+    }
+});
+
+module.exports = Simple;</code></pre><p>That is pretty much all there is to it. You can use the <a href="module-tastypie_lib_resource.html#respond">respond</a> method on the resource if you would like to have some level of consistency. The respond method will take care of Content negotiation, serialization, and set some headers for you. If you want to <em>skip</em> all of that, you can just use the <code>res</code> method on the <code>bundle</code>, which is a <a href="http://hapijs.com/api#replyerr-result">hapi reply function</a>.</p>
+<h2>Registring Resource With Hapi</h2><p>Once you have a resource, you need to add it to an <a href="module-tastypie_lib_api.html">API Namespace</a> and register with a <a href="http://hapijs.com/api#server">Hapi Server</a> instance</p>
+<pre class="prettyprint source"><code>var Hapi = require('hapi');
+var Api  = require('tastypie').Api;
+var Simple = require('./simple');
+var server, v1
+
+server = new Hapi.Server();
+server.connection({
+    host:'0.0.0.0',
+    port:3000,
+    labels:['api']
+});
+
+v1 = new Api('api/v1');
+v1.use('simple', new Simple())
+
+server.register(v1,function(){
+    server.start(function(){
+        console.log('server running at http://localhost:3000/')
+    });
+})</code></pre><p>Now we have three urls registered <strong>/api/v1/simple</strong>, <strong>/api/v1/simple/{id}</strong>, and <strong>/api/v1/simple/schema</strong>, which support has support for the main CRUD Verbs.</p>
+<h2>API Level Serializer</h2><p>A common <em>gotcha</em> when attempting to respond directly to requests ( by using <code>bundle.res()</code> ) is that you lose content negotiation and proper serialization. As a remedy, you can specify a serializer <a href="module-tastypie_lib_api.html">on an api instance</a> and it will attempt to serialize object appropriately. </p>
+<pre class="prettyprint source"><code>var Api = require('tastypie').Api;
+var Serializer = require('tastypie').Serializer;
+var server = new( require('hapi') ).Server();
+var v1 = new Api('api/v1', {
+    serializer: new Serializer()
+});
+
+v1.use('simple', new Simple());
+server.register( v1, console.log );</code></pre><p>When a serializer is present, the <code>Api</code> instance will inject itself into the request life-cycle and do the heavy lifting. Now you can use reply with plain old JSON objects ( <code>return bundle.res({})</code> ). Really nice for prototyping or quick iterations with front-end teams. </p>
+<h2>Final Source</h2><p>Here is the example code in its entirety</p>
+<pre class="prettyprint source"><code>var tastypie = require('tastypie')
+var Resource = tastypie.Resource;
+var http     = tastypie.http
+var Hapi     = require('hapi');
+var Api      = require('tastypie').Api;
+var server, v1, Simple;
+
+// resource
+Simple = Resource.extend({
+
+     get_list: function( bundle ){
+        // the data property is what gets returned
+        bundle.data = {'key': 'value'};
+
+        // use the respond method if you
+        // want serialization, status code, etc...
+        return this.respond( bundle )
+    }
+    , get_detail: function( bundle ){
+        bundle.data = {success:1}
+        return this.respond( bundle )
+    }
+    , put_detail: function( bundle ){
+        budnel.data = {key:'updated'}
+        return this.respond( bundle, http.accepted )
+    }
+    , post_list: function( bundle ){
+        var data = bundle.req.payload;
+        // do something with the data.
+        return this.respond( bundle, http.created)
+    }
+    , delete_detail: function( bundle ){
+        bundle.data = null;
+        return this.respond( bundle, http.noContent )
+    }
+    , patch_detail: function( bundle ){
+        // or just send a straight response.
+        return bundle.res({any:'data you want'}).code( 201 )
+    }
+});
+
+// server setup
+server = new Hapi.Server();
+server.connection({
+    host:'0.0.0.0',
+    port:3000,
+    labels:['api']
+});
+
+// namespace setup
+v1 = new Api('api/v1');
+v1.use('simple', new Simple())
+
+server.register(v1,function(){
+    server.start(function(){
+        console.log('server running at http://localhost:3000/')
+    });
+})</code></pre>
+</article>
+
+</section>
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	Eric Satterwhite &copy; 2015
+	</span>
+	<br />
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+	on 2015-08-05T14:50:43-05:00 using the <a
+	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<!--<script src="scripts/sunlight.js"></script>-->
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/bootstrap-dropdown.js"></script>
+<script src="scripts/toc.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "h1,h2,h3,h4",
+		showAndHide : false,
+		scrollTo    : "100px"
+	} );
+
+	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			lang = "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+</body>
+</html>
