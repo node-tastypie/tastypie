@@ -1,3 +1,8 @@
+v2.0.1
+------
+
+* bug fix where resource mixins did not propogate errors in all known situations. 
+
 v2.0.0 - Blueberry Pie
 ----------------------
 Introduces breaking changes from 1.0
