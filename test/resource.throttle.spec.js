@@ -8,7 +8,7 @@ var should = require('should')
 
 
 var Base = Resource.extend({
-	_get_list: function( bundle, cb ){
+	get_objects: function( bundle, cb ){
 		cb(null,JSON.stringify( [{key:'value'}] ) );	
 	}
 })
@@ -129,11 +129,12 @@ describe('resource', function(){
 					})
 				}
 			}, function( err, results ){
-				results.zero.should.equal( 200 )
-				results.one.should.equal( 200 )
-				results.two.should.equal( 200 )
-				results.three.should.equal( 200 )
-				results.four.should.equal( 200 )
+
+				results.zero.should.equal( 200, "zero should be a 200 response" )
+				results.one.should.equal( 200, "one should be a 200 response" )
+				results.two.should.equal( 200, "two should be a 200 response" )
+				results.three.should.equal( 200, "three should be a 200 response" )
+				results.four.should.equal( 200, "four should be a 200 response" )
 				results.five.should.equal( 429  )
 				results.six.should.equal( 429  )
 				done()
