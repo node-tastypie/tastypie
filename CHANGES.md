@@ -3,6 +3,9 @@ v2.0.0 - Blueberry Pie
 Introduces breaking changes from 1.0
 
 * the methodsAllowed and ACTIONMethodsAllowed options have been broken compbined into a single object called allowed. Where keys are actions and values are methods to allow.
+* Remove all underscore methods on internal resource methods
+* break resource into logical mixins
+* replace all setTimeout of 0 with process.nextTick
 
 v1.0.0 - Apple Pie
 ------------------
