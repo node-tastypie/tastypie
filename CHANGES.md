@@ -1,3 +1,13 @@
+v2.0.3
+------
+
+* fixes non enumerable properties on fields - resource and name. They were lost on related fields
+
+v2.0.2
+------
+
+* Bug with the defition of the querystring joi validator
+
 v2.0.1
 ------
 
