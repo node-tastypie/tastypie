@@ -41,6 +41,12 @@ describe("Api Fields", function(){
 				var value = f.convert( 'false' )
 				assert.strictEqual( value, false)
 			})
+
+			it('should treat false as false', function(){
+				var value = f.convert( false )
+				assert.strictEqual( value, false)
+			})
+
 		})
 		describe('truthy values', function(){
 			it('should convert strings with chars as true', function(){
@@ -57,6 +63,11 @@ describe("Api Fields", function(){
 				var value = f.convert( 'true' )
 				assert.strictEqual( value, true );
 			})
+
+			it('should treat true as true', function(){
+				var value = f.convert( true )
+				assert.strictEqual( value, true)
+			})
 		});
 
 		describe('boolean values', function(){
@@ -70,35 +81,6 @@ describe("Api Fields", function(){
 				assert.strictEqual( value, true );
 			})	
 		})
-
-	})
-	
-	describe('Datefield', function(){
-		var f;
-		before(function( done ){
-			f = new fields.DateField();
-			done()
-		})
-
-		describe('#convert',function(){
-			it('should convert strings to dates', function(){
-				var value = f.convert('2014-01-22')
-				value.getFullYear().should.equal( 2014 )
-				value.getMonth().should.equal(0)
-				value.getDate().should.equal(22)
-				value.getHours().should.equal(0)
-				value.getMinutes().should.equal(0)
-				value.getSeconds().should.equal(0)
-			})
-			
-		});
-	});
-
-	describe('BooleanField', function(){
-		var f;
-		before(function(){
-			f = new fields.BooleanField();
-		});
 
 		describe('#convert',function(){
 			it('should convert string to boolean', function(){
@@ -122,6 +104,28 @@ describe("Api Fields", function(){
 				value.should.equal( false );
 			});
 		})
+
+	})
+	
+	describe('Datefield', function(){
+		var f;
+		before(function( done ){
+			f = new fields.DateField();
+			done()
+		})
+
+		describe('#convert',function(){
+			it('should convert strings to dates', function(){
+				var value = f.convert('2014-01-22')
+				value.getFullYear().should.equal( 2014 )
+				value.getMonth().should.equal(0)
+				value.getDate().should.equal(22)
+				value.getHours().should.equal(0)
+				value.getMinutes().should.equal(0)
+				value.getSeconds().should.equal(0)
+			})
+			
+		});
 	});
 
 	describe('ArrayField', function( ){
