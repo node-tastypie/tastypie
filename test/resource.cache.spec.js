@@ -8,7 +8,7 @@ var async = require('async')
 describe('resource', function(){
 	var resource, server, c;
 	before( function( done ){
-		server = new hapi.Server({minimal: true});
+		server = new hapi.Server({});
 		server.connection({host:'localhost'})
 		resource = Resource.extend({
 

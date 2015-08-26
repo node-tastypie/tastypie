@@ -17,7 +17,7 @@ describe('resource', function(){
 	var api, endpoints, server;
 	
 	before(function(){
-		server = new hapi.Server({ minimal: true });
+		server = new hapi.Server({  });
 		server.connection({host:'localhost'});
 
 	});

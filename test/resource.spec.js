@@ -16,7 +16,7 @@ describe('resoruce', function(){
 		api = new Api('api/resource')
 		api.use('more', new Resource)
 		require('../lib');
-		server = new hapi.Server({minimal:true})
+		server = new hapi.Server({})
 		server.connection({host:'localhost'})
 		server.register([api], done );
 	});
