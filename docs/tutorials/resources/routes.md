@@ -113,7 +113,7 @@ If you want to make use of defined fields for advanced data preperation, you can
 
 #### Define Method Access
 
-A resource allows you to specifiy which HTTP Verbs are allowed for each action that is defined, `foobar` in our case. To do that you can define an object in options, `<ACTION>MethodsAllowed` where the **keys** are the verb, and the **values** is a Boolean. So too allow get requests, we set the get property to true.
+A resource allows you to specifiy which HTTP Verbs are allowed for each action that is defined, `foobar` in our case. To do that you can define an object in options, `allowed` where the **keys** a hash of the actions & the allowed http verbs for the actions. So too allow get requests, we set the get property to true.
 
 If the property is set to `false`, tastypie will automatically respond with a `405` Method Not Allowed. If the property is true, but you have not defined the appropriate instance methods, tastypie will respond with a `501` Not Implemented.
 
@@ -122,7 +122,9 @@ If the property is set to `false`, tastypie will automatically respond with a `4
 ```
 var Simple = Resource.extend({
     options:{
-       foobarMethodsAllowed:{ get: true }
+      allowed:{ 
+        foobar:{ get: true }
+      }
     }
 });
 ```
@@ -134,7 +136,9 @@ var Resource = require('tastypie').Resource;
  
 var Simple = Resource.extend({
     options:{
-       foobarMethodsAllowed: { get: true }
+      allowed: {
+        foobar:{ get: true }
+      }
     }
 
    , fields: {
