@@ -79,8 +79,37 @@ describe("Api Fields", function(){
 			it('should treat "1" as 1', function(){
 				var value = f.convert( '1' );
 				assert.strictEqual( value, true );
-			})	
-		})
+			})
+		});
+
+		describe('dehydrate',function(){
+			describe('default values', function(){
+				it('should accept `false` as a default value', function( done ){
+					var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:false });
+
+					f.dehydrate({}, function( err, value ){
+						assert.strictEqual( value, false, 'expected false, got ' + value );
+						done();
+					})
+				});
+
+				it('should cast an empty string default value to `false`', function( done ){
+					var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:'' });
+					f.dehydrate({}, function( err, value ){
+						assert.strictEqual( value, false, 'expected false, got ' + value );
+						done();
+					});
+				});
+
+				it('should cast a null default value to `false` ', function( done ){
+					var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:null });
+					f.dehydrate({}, function( err, value ){
+						assert.strictEqual( value, false, 'expected false, got ' + value );
+						done();
+					});
+				});
+			});
+		});
 
 		describe('#convert',function(){
 			it('should convert string to boolean', function(){
@@ -106,7 +135,7 @@ describe("Api Fields", function(){
 		})
 
 	})
-	
+
 	describe('Datefield', function(){
 		var f;
 		before(function( done ){
@@ -124,7 +153,7 @@ describe("Api Fields", function(){
 				value.getMinutes().should.equal(0)
 				value.getSeconds().should.equal(0)
 			})
-			
+
 		});
 	});
 
@@ -159,7 +188,7 @@ describe("Api Fields", function(){
 		var f, location, dir;
 
 		before(function(){
-			dir = 'uploads' 
+			dir = 'uploads'
 			location = path.join( __dirname, dir, 'data.json' )
 			f = new fields.FileField({
 				dir: dir
@@ -180,12 +209,12 @@ describe("Api Fields", function(){
 			var bundle = {
 				req:{
 					payload:{
-						
+
 					}
 				},
 				res:{},
 				data:{
-					file: fs.createReadStream( path.resolve(__dirname,'..' , 'example', 'data.json' ) ) 
+					file: fs.createReadStream( path.resolve(__dirname,'..' , 'example', 'data.json' ) )
 				},
 				object:{}
 			}
@@ -224,10 +253,10 @@ describe("Api Fields", function(){
 			});
 		});
 
-		describe('#hydrate', function(){  
+		describe('#hydrate', function(){
 
 			it('should not alter the file path location', function( done ){
-				
+
 				var bundle = {
 					data:{
 						file: path.join( __dirname, '..', 'example', 'data.json' )
