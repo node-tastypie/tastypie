@@ -1,5 +1,6 @@
 var fields = require('../lib/fields');
 var assert = require('assert');
+var kindOf = require('mout/lang/kindOf')
 var fs = require('fs')
 var path = require('path')
 
@@ -154,6 +155,31 @@ describe("Api Fields", function(){
 				value.getSeconds().should.equal(0)
 			})
 
+		});
+	});
+
+	describe('DateTimeField', function(){
+		var f;
+		beforeEach(function(){
+			f = new fields.DateTimeField({ name:'dtf', attribute:'dtf'});
+		});
+
+		describe('#hydrate', function(){
+			it('should convert a date string into a date object', function( done ){
+				var bundle = {
+					data:{},
+					object:{
+						dtf:'2014-02-27T15:54:04.000Z'
+					}
+				};
+
+				f.hydrate( bundle, function( err, value ){
+					assert( kindOf( value ), 'Date');
+					assert.equal( value.getYear(), 2014 )
+					assert.equal( value.getMinutes(), 54 )
+					done();
+				})
+			})
 		});
 	});
 
