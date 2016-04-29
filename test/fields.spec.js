@@ -175,7 +175,7 @@ describe("Api Fields", function(){
 
 				f.hydrate( bundle, function( err, value ){
 					assert( kindOf( value ), 'Date');
-					assert.equal( value.getYear(), 2014 )
+					assert.equal( value.getFullYear(), 2014 )
 					assert.equal( value.getMinutes(), 54 )
 					done();
 				})
@@ -207,6 +207,27 @@ describe("Api Fields", function(){
 				value[0].should.be.Number;
 				value[0].should.equal(1);
 			});
+		})
+
+		describe('#hydrate', function( ){
+			var f;
+			before( function( ){
+				f = new fields.ArrayField({name:'afld', attribute:'afld'});
+			});
+
+			it('should hydrate an array string to an array', function( done ){
+				var bundle = {
+					data:{},
+					object:{
+						'afld':'1,2,3'
+					}
+				}
+
+				f.hydrate( bundle, function( err, value ){
+					assert.equal( kindOf( value ), 'Array' )
+					done()
+				})
+			})
 		})
 	})
 
