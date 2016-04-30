@@ -124,6 +124,7 @@ server.register( v1, function( ){
 * int ( int / IntegerField ) converts numeric values into integers using `parseInt`
 * float ( FloatField ) Converts values to floating point number using `parseFloat`
 * bool ( BooleanField ) Forces values to booleans
+* date ( DateField ) Converts date strings to Date objects with out any time data
 * datetime ( DateTimeField ) Attempts to convert date time strings into date objects
 * file ( FileField ) A field that pipes a stream to a configured location, and store a path
 * filepath ( FilePathField ) A field that handles file locations rather than dealing with streams or binary data
@@ -213,10 +214,10 @@ var Base = Class({
 		this.parent('constructor', meta )
    }
 
-	// internal lower level method responsible for getting the raw data
-	, get_objects: function(bundle, callback){
-		fs.readFile( path.join(__dirname, 'example','data.json') , callback)
-	}
+    // internal lower level method responsible for getting the raw data
+    , get_objects: function(bundle, callback){
+    	fs.readFile( path.join(__dirname, 'example','data.json') , callback)
+    }
 
 
 	// internal low level method reponsible for dealing with a POST request
