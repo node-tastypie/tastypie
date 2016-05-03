@@ -5,26 +5,6 @@ var fs = require('fs')
 var path = require('path')
 
 describe("Api Fields", function(){
-	describe("ArrayField", function(){
-		var f = new fields.ArrayField();
-		it("Should convert strings into to An Array", function(){
-			var result = f.convert('Hello')
-
-			assert.ok(Array.isArray( result ) )
-
-			result = f.convert('Hello,world')
-			assert.ok( Array.isArray( result ) )
-			assert.equal( result[0], 'Hello')
-			assert.equal( result[1], 'world')
-		});
-
-		it('should leave array values untouched', function(){
-			var a = [1,2,3];
-			var b = f.convert( a );
-
-			assert.deepEqual( a, b )
-		})
-	})
 
 	describe("BooleanField", function(){
 		var f = new fields.BooleanField()
@@ -188,11 +168,30 @@ describe("Api Fields", function(){
 		before( function( ){
 			f = new fields.ArrayField();
 		});
-		describe('#convert', function( ){
+
+        describe('#convert', function( ){
 			it('should convert single values to an array', function(){
 				var value = f.convert( 1 );
 				value.should.be.a.Array
 			})
+
+            it("Should convert strings into to An Array", function(){
+                var result = f.convert('Hello')
+
+                assert.ok(Array.isArray( result ) )
+
+                result = f.convert('Hello,world')
+                assert.ok( Array.isArray( result ) )
+                assert.equal( result[0], 'Hello')
+                assert.equal( result[1], 'world')
+            });
+
+            it('should leave array values untouched', function(){
+                var a = [1,2,3];
+                var b = f.convert( a );
+
+                assert.deepEqual( a, b )
+            })
 
 			it("should conver comma separate string values", function(){
 				var value = f.convert('1, 2, 3');
