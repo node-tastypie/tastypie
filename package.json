@@ -36,6 +36,7 @@
     "catbox-noop": "0.0.1",
     "co": "^4.6.0",
     "debug": "^2.0.0",
+    "ink-docstrap": "^1.1.4",
     "jstoxml": "~0.2.2",
     "mime": "^1.2.11",
     "mkdirp": "^0.5.1",
