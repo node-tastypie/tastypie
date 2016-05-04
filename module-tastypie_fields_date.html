@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 	<title>Tastypie Module: tastypie/fields/date</title>
 
 	<!--[if lt IE 9]>
@@ -20,8 +21,13 @@
 <div class="container">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="index.html">Tastypie</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
 	</div>
-	<div class="navbar-collapse">
+	<div class="navbar-collapse collapse" id="topNavigation">
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
@@ -46,12 +52,23 @@
 			</li>
 			
 		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
 	</div>
+
 </div>
 </div>
 
 
-<div class="container">
+<div class="container" id="toc-content">
 <div class="row">
 
 	
@@ -81,13 +98,14 @@
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="module:tastypie/fields/date"><span class="type-signature"></span>new (require("tastypie/fields/date"))<span class="signature">(<span class="optional">options</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="module:tastypie/fields/date"><span class="type-signature"></span>new (require("tastypie/fields/date"))(<span class="optional">options</span>)</h4>
     
     
 </dt>
 <dd>
-    
+
     
 
     
@@ -103,7 +121,7 @@
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -111,25 +129,25 @@
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -140,6 +158,7 @@
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -160,32 +179,32 @@
             
 
             <td class="description last">
-                <h6>Properties</h6>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
                 
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
-		<th>Default</th>
-		
+        
+        <th>Default</th>
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -196,6 +215,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -224,22 +244,22 @@
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
             </td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -268,7 +288,7 @@
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -285,7 +305,11 @@
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -293,11 +317,7 @@
     
 
     
-    
-    
-    
-    
-    
+
     
         <h5>Example</h5>
         
@@ -336,13 +356,14 @@
 
         <dl>
             
+<hr>
 <dt>
-    <h4 class="name" id="augment"><span class="type-signature">&lt;protected> </span>augment<span class="signature">(resource, name)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="augment"><span class="type-signature">&lt;protected> </span>augment(resource, name)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Injects dynamic properties onto field instance for later use</p>
@@ -352,7 +373,7 @@
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -360,23 +381,23 @@
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -389,6 +410,7 @@
 <span class="param-type">Resource</span>
 
 
+
             
             </td>
 
@@ -399,7 +421,7 @@
             <td class="description last"><p>the resource instance this field is attached to</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -412,6 +434,7 @@
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -422,22 +445,22 @@
             <td class="description last"><p>The property name this field is associated to</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -468,7 +491,7 @@
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -485,7 +508,11 @@
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -493,23 +520,20 @@
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="convert"><span class="type-signature"></span>convert<span class="signature">(val)</span><span class="type-signature"> &rarr; {Mixed}</span></h4>
+    <h4 class="name" id="convert"><span class="type-signature"></span>convert(val)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Converts data value into the serialization specific type.</p>
@@ -519,7 +543,7 @@
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -527,23 +551,23 @@
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -556,6 +580,7 @@
 <span class="param-type">Mixed</span>
 
 
+
             
             </td>
 
@@ -566,22 +591,22 @@
             <td class="description last"><p>value to convert</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -612,7 +637,7 @@
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -629,17 +654,17 @@
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -651,32 +676,34 @@
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Mixed</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="dehydrate"><span class="type-signature"></span>dehydrate<span class="signature">(object, attribute)</span><span class="type-signature"> &rarr; {Mixed}</span></h4>
+    <h4 class="name" id="dehydrate"><span class="type-signature"></span>dehydrate(object, attribute)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Converts a javascript object / value into something sutable for seriaation. ex. Date formatting</p>
@@ -686,7 +713,7 @@
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -694,23 +721,23 @@
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -723,6 +750,7 @@
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -733,7 +761,7 @@
             <td class="description last"><p>Object to dehydrate before serialization</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -749,6 +777,7 @@
 <span class="param-type">function</span>
 
 
+
             
             </td>
 
@@ -759,22 +788,22 @@
             <td class="description last"><p>a name path or function to use to retrieve a value from the object</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -805,7 +834,7 @@
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -822,17 +851,17 @@
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -844,32 +873,34 @@
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Mixed</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="hydrate"><span class="type-signature"></span>hydrate<span class="signature">(bundle)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="hydrate"><span class="type-signature"></span>hydrate(bundle)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Converts a serialized value in to a javascript object value</p>
@@ -879,7 +910,7 @@
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -887,23 +918,23 @@
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -916,6 +947,7 @@
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -926,22 +958,22 @@
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -972,7 +1004,7 @@
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -989,7 +1021,11 @@
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -997,11 +1033,7 @@
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
@@ -1025,13 +1057,27 @@
 
 	
 		<div class="col-md-3">
-			<div id="toc" class="col-md-3"></div>
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
 		</div>
 	
 
 </div>
 </div>
 
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
 
 <footer>
 
@@ -1039,19 +1085,19 @@
 	<span class="copyright">
 	Eric Satterwhite &copy; 2015
 	</span>
-	<br />
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-10-04T13:45:14-05:00 using the <a
-	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on 2016-05-04T12:30:48-05:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
 </footer>
 
-<!--<script src="scripts/sunlight.js"></script>-->
 <script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/bootstrap-dropdown.js"></script>
 <script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
 
 <script>
 $( function () {
@@ -1060,22 +1106,6 @@ $( function () {
 
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
-
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
-		},
-		selectors   : "h1,h2,h3,h4",
-		showAndHide : false,
-		scrollTo    : "100px"
-	} );
-
-	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
 
 	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
 		var $this = $( this );
@@ -1088,7 +1118,8 @@ $( function () {
 			example.html( exampleText );
 			lang = lang[1];
 		} else {
-			lang = "javascript";
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
 		}
 
 		if ( lang ) {
@@ -1106,6 +1137,28 @@ $( function () {
 		showMenu : true,
 		enableDoclinks : true
 	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
 } );
 </script>
 
@@ -1116,6 +1169,12 @@ $( function () {
 
 <!--Google Analytics-->
 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
 
 </body>
 </html>

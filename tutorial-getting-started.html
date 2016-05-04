@@ -3,7 +3,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Tastypie </title>
+	<meta name="viewport" content="width=device-width">
+	<title>Tastypie Tutorial: Getting Started</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,8 +21,13 @@
 <div class="container">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="index.html">Tastypie</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
 	</div>
-	<div class="navbar-collapse">
+	<div class="navbar-collapse collapse" id="topNavigation">
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
@@ -46,12 +52,23 @@
 			</li>
 			
 		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
 	</div>
+
 </div>
 </div>
 
 
-<div class="container">
+<div class="container" id="toc-content">
 <div class="row">
 
 	
@@ -61,13 +78,13 @@
 			<section class="tutorial-section">
 
 <header>
-    <h2>Getting Started</h2>
     
     <ul>
         <li><a href="tutorial-quick-start.html">Quick Start</a></li>
     </ul>
     
 
+    <h2>Getting Started</h2>
 </header>
 
 <article>
@@ -281,61 +298,7 @@ orderby=-age</code></pre><h4>Advanced Querying</h4><p>You might have noticed the
     ,companyName:{type:'char', attribute:'company.name', readonly:true}
   }
 });</code></pre><p>All of the primary query types in mongo query filters are exposed. </p>
-<h5>Built In Filters</h5><table class="table table-striped table-hover">
-  <thead>
-    <th>Filter</th><th>function</th>
-  </thead>
-  <tbody>
-    <tr>
-      <td>gt</td><td>greater than</td>
-    </tr>
-    <tr>
-      <td>gte</td><td>greater than or equal to</td>
-    </tr>
-    <tr>
-      <td>lt</td><td>less than</td>
-    </tr>
-    <tr>
-      <td>lte</td><td>less than or equal to</td>
-    </tr>
-    <tr>
-      <td>in</td><td>Value in set ( [ 1,2,3 ])</td>
-    </tr>
-    <tr>
-      <td>nin</td><td>Value <strong>Not</strong> in set</td>
-    </tr>
-    <tr>
-      <td>size</td><td>Size of set ( array length )</td>
-    </tr>
-    <tr>
-      <td>startswith</td><td>Case Sensitive string match</td>
-    </tr>
-    <tr>
-      <td>istartswith</td><td>Case <strong>Insensitive</strong> string match</td>
-    </tr>
-    <tr>
-      <td>endswith</td><td>Case Sensitive string match</td>
-    </tr>
-    <tr>
-      <td>iendswith</td><td>Case <strong>Insensitive</strong> string match</td>
-    </tr>
-    <tr>
-      <td>contains</td><td>Case Sensitive global string match</td>
-    </tr> 
-    <tr>
-      <td>icontains</td><td>Case <strong>Insensitive</strong> global string match</td>
-    </tr>
-    <tr>
-      <td>exact ( = )</td><td>Exact Case Sensitive string match</td>
-    </tr>
-    <tr>
-      <td>iexact</td><td>Exact Case <strong>Insensitive</strong> string match</td>
-    </tr>
-    <tr>
-      <td>match</td><td>Matches an item in an array ( elemMatch )</td>
-    </tr>
-  </tbody>
-</table>
+<h5>Built In Filters</h5><table class="table table-striped table-hover"><br>  <thead><br>    <th>Filter</th><th>function</th><br>  </thead><br>  <tbody><br>    <tr><br>      <td>gt</td><td>greater than</td><br>    </tr><br>    <tr><br>      <td>gte</td><td>greater than or equal to</td><br>    </tr><br>    <tr><br>      <td>lt</td><td>less than</td><br>    </tr><br>    <tr><br>      <td>lte</td><td>less than or equal to</td><br>    </tr><br>    <tr><br>      <td>in</td><td>Value in set ( [ 1,2,3 ])</td><br>    </tr><br>    <tr><br>      <td>nin</td><td>Value <strong>Not</strong> in set</td><br>    </tr><br>    <tr><br>      <td>size</td><td>Size of set ( array length )</td><br>    </tr><br>    <tr><br>      <td>startswith</td><td>Case Sensitive string match</td><br>    </tr><br>    <tr><br>      <td>istartswith</td><td>Case <strong>Insensitive</strong> string match</td><br>    </tr><br>    <tr><br>      <td>endswith</td><td>Case Sensitive string match</td><br>    </tr><br>    <tr><br>      <td>iendswith</td><td>Case <strong>Insensitive</strong> string match</td><br>    </tr><br>    <tr><br>      <td>contains</td><td>Case Sensitive global string match</td><br>    </tr><br>    <tr><br>      <td>icontains</td><td>Case <strong>Insensitive</strong> global string match</td><br>    </tr><br>    <tr><br>      <td>exact ( = )</td><td>Exact Case Sensitive string match</td><br>    </tr><br>    <tr><br>      <td>iexact</td><td>Exact Case <strong>Insensitive</strong> string match</td><br>    </tr><br>    <tr><br>      <td>match</td><td>Matches an item in an array ( elemMatch )</td><br>    </tr><br>  </tbody><br></table>
 
 <p>Filters are added by appending a double underscore <code>__</code> and the filter type to the end of a field name. Given our example, if we wanted to find people who were older than 25, we would use the following URI syntax</p>
 <pre class="prettyprint source"><code>{@lang bash}
@@ -348,8 +311,7 @@ http://localhost:3000/api/v1/user?age__gt=25&age__lt=45&company__name__istartswi
 http://localhost:3000/api/v1/user?age__gt=25&age__lt=45&companyName__istartswith=w</code></pre><p>Resources provide a simple and expressive syntax to query for very specific subsets of data without any of the boilerplate work to set it up. And as you would expect, regular params will map back to <code>exact</code> where applicable</p>
 <pre class="prettyprint source"><code>{@lang bash}
 http://localhost:3000/api/v1/user?age=44</code></pre><h4>Serialization</h4><p>Tastypie supports multiple serialization formats out of the box as well as a way to define your own custom formats. The base <code>serializer</code> class supports <code>xml</code>, <code>json</code> &amp; <code>jsonp</code> by default. You add formats or create your own serialization formats by subclassing the <code>Serializer</code> class and defining the approriate methods. Each format must define a <code>to_&lt;FORMAT&gt;</code> and a <code>from_&lt;FORMAT&gt;</code>. For example, tastypie defines the <code>to_xml</code> and <code>from_xml</code> methods. JSON is defined by <code>to_json</code>, <code>from_json</code></p>
-<p>To get back xml just change the <code>Accept</code> header
-<strong>NOTE:</strong> <em>Hapi deals with most <code>application/foo</code> formats, but is blind to <code>text/foo</code>. So the safe bet here is to use <code>text/xml</code></em></p>
+<p>To get back xml just change the <code>Accept</code> header<br><strong>NOTE:</strong> <em>Hapi deals with most <code>application/foo</code> formats, but is blind to <code>text/foo</code>. So the safe bet here is to use <code>text/xml</code></em></p>
 <pre class="prettyprint source"><code>{@lang xml}
 // curl -H &quot;Accept: text/xml&quot; http://localhost:3000/api/v1/user
 
@@ -408,6 +370,20 @@ module.exports = Resource;</code></pre><p>This is a pretty good overview of tast
 </div>
 </div>
 
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
 
 <footer>
 
@@ -415,19 +391,19 @@ module.exports = Resource;</code></pre><p>This is a pretty good overview of tast
 	<span class="copyright">
 	Eric Satterwhite &copy; 2015
 	</span>
-	<br />
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-10-04T13:45:14-05:00 using the <a
-	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on 2016-05-04T12:30:48-05:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
 </footer>
 
-<!--<script src="scripts/sunlight.js"></script>-->
 <script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/bootstrap-dropdown.js"></script>
 <script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
 
 <script>
 $( function () {
@@ -436,22 +412,6 @@ $( function () {
 
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
-
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
-		},
-		selectors   : "h1,h2,h3,h4",
-		showAndHide : false,
-		scrollTo    : "100px"
-	} );
-
-	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
 
 	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
 		var $this = $( this );
@@ -464,7 +424,8 @@ $( function () {
 			example.html( exampleText );
 			lang = lang[1];
 		} else {
-			lang = "javascript";
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
 		}
 
 		if ( lang ) {
@@ -482,6 +443,28 @@ $( function () {
 		showMenu : true,
 		enableDoclinks : true
 	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
 } );
 </script>
 
@@ -492,6 +475,12 @@ $( function () {
 
 <!--Google Analytics-->
 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
 
 </body>
 </html>

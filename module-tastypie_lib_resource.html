@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 	<title>Tastypie Module: tastypie/lib/resource</title>
 
 	<!--[if lt IE 9]>
@@ -20,8 +21,13 @@
 <div class="container">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="index.html">Tastypie</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
 	</div>
-	<div class="navbar-collapse">
+	<div class="navbar-collapse collapse" id="topNavigation">
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
@@ -46,12 +52,23 @@
 			</li>
 			
 		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
 	</div>
+
 </div>
 </div>
 
 
-<div class="container">
+<div class="container" id="toc-content">
 <div class="row">
 
 	
@@ -76,19 +93,19 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Provides the base resource for defining expressive APIs, handling serialization, deserialization, validation,
-caching, throttling and error handling</p></div>
+            <div class="description"><p>Provides the base resource for defining expressive APIs, handling serialization, deserialization, validation,<br>caching, throttling and error handling</p></div>
         
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="module:tastypie/lib/resource"><span class="type-signature"></span>new (require("tastypie/lib/resource"))<span class="signature">(<span class="optional">options</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="module:tastypie/lib/resource"><span class="type-signature"></span>new (require("tastypie/lib/resource"))(<span class="optional">options</span>)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>The base resource implementation providing hooks for extension</p>
@@ -98,7 +115,7 @@ caching, throttling and error handling</p></div>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -106,25 +123,25 @@ caching, throttling and error handling</p></div>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -135,6 +152,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -155,32 +173,32 @@ caching, throttling and error handling</p></div>
             
 
             <td class="description last"><p>Options data configuration</p>
-                <h6>Properties</h6>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
                 
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
-		<th>Default</th>
-		
+        
+        <th>Default</th>
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -191,6 +209,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -221,7 +240,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>The primary mount path for the resource /<name>, /<name>/{pk}. This will be set by the Api instance if not set</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -232,6 +251,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -258,7 +278,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>The field name to use as the unique identifier for each entity</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -269,6 +289,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">Boolean</span>
+
 
 
             
@@ -295,7 +316,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>If set to true, a field named uri will be added to the resource instance</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -306,6 +327,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">string</span>
+
 
 
             
@@ -334,7 +356,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>callback key to be used for jsonp responsed</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -345,6 +367,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">string</span>
+
 
 
             
@@ -373,7 +396,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>the default serialziion format if one is not specified</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -384,6 +407,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type"><a href="module-tastypie_lib_serializer.html">module:tastypie/lib/serializer</a></span>
+
 
 
             
@@ -412,7 +436,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>an instance of a serializer to be used to translate data objects</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -423,6 +447,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">Array.&lt;Object></span>
+
 
 
             
@@ -451,7 +476,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>An array of route definitions add to the resources default crud routes</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -462,6 +487,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -490,7 +516,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>the name of the key to be used lists of objects on list endpoints</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -501,6 +527,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -529,7 +556,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>A field to be included in minimal responses</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -540,6 +567,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">Number</span>
+
 
 
             
@@ -568,7 +596,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>The maximum number of results to return per page for the list endpoint</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -579,6 +607,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type"><a href="module-tastypie_lib_paginator.html">module:tastypie/lib/paginator</a></span>
+
 
 
             
@@ -607,7 +636,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>a Paginator Class used to page large list</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -618,6 +647,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type"><a href="module-tastypie_lib_cache.html">module:tastypie/lib/cache</a></span>
+
 
 
             
@@ -644,7 +674,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>A cache instance to be used for response caching.</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -657,6 +687,7 @@ caching, throttling and error handling</p></div>
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -681,7 +712,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -694,6 +725,7 @@ caching, throttling and error handling</p></div>
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -720,7 +752,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -733,6 +765,7 @@ caching, throttling and error handling</p></div>
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -759,7 +792,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -770,6 +803,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">Boolean</span>
+
 
 
             
@@ -798,7 +832,7 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>return data after put, post requests.</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -809,6 +843,7 @@ caching, throttling and error handling</p></div>
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -839,22 +874,22 @@ caching, throttling and error handling</p></div>
             <td class="description last"><p>And object defining an array of allowable filter types for each field</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
             </td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -899,7 +934,7 @@ caching, throttling and error handling</p></div>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -910,7 +945,7 @@ caching, throttling and error handling</p></div>
 	
 
 	
-	<dt class="tag-tutorial">Tutorials:</dt>
+	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
 	<dd class="tag-tutorial">
 		<ul>
 			<li><a href="tutorial-resources.html">Working With Resources</a></li>
@@ -923,7 +958,11 @@ caching, throttling and error handling</p></div>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -931,11 +970,7 @@ caching, throttling and error handling</p></div>
     
 
     
-    
-    
-    
-    
-    
+
     
         <h5>Example</h5>
         
@@ -1028,13 +1063,14 @@ var instnace = new Resource({
 
         <dl>
             
+<hr>
 <dt>
-    <h4 class="name" id=".extend"><span class="type-signature">&lt;static> </span>extend<span class="signature">(proto)</span><span class="type-signature"> &rarr; {<a href="module-tastypie_lib_resource.html">module:tastypie/lib/resource</a>}</span></h4>
+    <h4 class="name" id=".extend"><span class="type-signature">&lt;static> </span>extend(proto)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Helper method to subclass the base resource</p>
@@ -1044,7 +1080,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -1052,23 +1088,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -1081,6 +1117,7 @@ var instnace = new Resource({
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -1091,15 +1128,15 @@ var instnace = new Resource({
             <td class="description last"><p>An object to use as the prototyp of a new resource type</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -1128,7 +1165,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -1145,17 +1182,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1163,32 +1200,34 @@ var instnace = new Resource({
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="module-tastypie_lib_resource.html">module:tastypie/lib/resource</a></span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="base_urls"><span class="type-signature"></span>base_urls<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="base_urls"><span class="type-signature"></span>base_urls()</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Defines the base urls for this resource</p>
@@ -1198,13 +1237,13 @@ var instnace = new Resource({
     
 
     
+
     
     
-    
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -1233,7 +1272,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -1250,17 +1289,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1273,7 +1312,7 @@ var instnace = new Resource({
 
 
         
-    
+
     
         <h5>Example</h5>
         
@@ -1283,7 +1322,7 @@ var instnace = new Resource({
 			path:decodeURIComponent(&#x27;/api/v1/test/{action}&#x27;),
 			name:&quot;test&quot;,
 			handler: this.dispatch_test.bind( this )
-		}];		
+		}];
 	}
 }</pre>
 
@@ -1293,13 +1332,14 @@ var instnace = new Resource({
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="build_schema"><span class="type-signature"></span>build_schema<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="build_schema"><span class="type-signature"></span>build_schema()</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>function used to generate a resource schema</p>
@@ -1309,13 +1349,13 @@ var instnace = new Resource({
     
 
     
+
     
     
-    
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -1344,7 +1384,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -1361,17 +1401,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1383,43 +1423,44 @@ var instnace = new Resource({
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Object</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="buildFilters"><span class="type-signature"></span>buildFilters<span class="signature">(fiters)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="buildFilters"><span class="type-signature"></span>buildFilters(fiters)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
-        <p>creates an object to be used to filter data before it is returns.
-<strong>NOTE</strong> this needs to be implemented to suit the the data source backend</p>
+        <p>creates an object to be used to filter data before it is returns.<br><strong>NOTE</strong> this needs to be implemented to suit the the data source backend</p>
     </div>
     
 
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -1427,23 +1468,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -1456,6 +1497,7 @@ var instnace = new Resource({
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -1466,15 +1508,15 @@ var instnace = new Resource({
             <td class="description last"><p>An object of requested filters</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -1503,7 +1545,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -1520,17 +1562,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1542,32 +1584,34 @@ var instnace = new Resource({
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Object</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="bundle"><span class="type-signature"></span>bundle<span class="signature">(req, rep, next, <span class="optional">data</span>, <span class="optional">obj</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="bundle"><span class="type-signature"></span>bundle(req, rep, next, <span class="optional">data</span>, <span class="optional">obj</span>)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Packages peices of the express request in a single object for easy passing</p>
@@ -1577,7 +1621,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -1585,27 +1629,27 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
-		<th>Default</th>
-		
+        
+        <th>Default</th>
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -1616,6 +1660,7 @@ var instnace = new Resource({
             
                 
 <span class="param-type">Request</span>
+
 
 
             
@@ -1640,7 +1685,7 @@ var instnace = new Resource({
             <td class="description last"><p>An express request object</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1651,6 +1696,7 @@ var instnace = new Resource({
             
                 
 <span class="param-type">Response</span>
+
 
 
             
@@ -1675,7 +1721,7 @@ var instnace = new Resource({
             <td class="description last"><p>An express response object</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1686,6 +1732,7 @@ var instnace = new Resource({
             
                 
 <span class="param-type">function</span>
+
 
 
             
@@ -1710,7 +1757,7 @@ var instnace = new Resource({
             <td class="description last"><p>An express next callback</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1721,6 +1768,7 @@ var instnace = new Resource({
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -1749,7 +1797,7 @@ var instnace = new Resource({
             <td class="description last"><p>The data object to package</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1760,6 +1808,7 @@ var instnace = new Resource({
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -1786,15 +1835,15 @@ var instnace = new Resource({
             <td class="description last"><p>and object instance used for hydration</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -1823,7 +1872,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -1840,17 +1889,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1863,19 +1912,20 @@ var instnace = new Resource({
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="cacheKey"><span class="type-signature">&lt;protected> </span>cacheKey<span class="signature">(type, uri, method, resource, query, params)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="cacheKey"><span class="type-signature">&lt;protected> </span>cacheKey(type, uri, method, resource, query, params)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>function used to generate a unique cache key</p>
@@ -1885,7 +1935,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -1893,23 +1943,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -1922,6 +1972,7 @@ var instnace = new Resource({
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -1932,7 +1983,7 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1945,6 +1996,7 @@ var instnace = new Resource({
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -1955,7 +2007,7 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1968,6 +2020,7 @@ var instnace = new Resource({
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -1978,7 +2031,7 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1991,6 +2044,7 @@ var instnace = new Resource({
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -2001,7 +2055,7 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -2014,6 +2068,7 @@ var instnace = new Resource({
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -2024,7 +2079,7 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -2037,6 +2092,7 @@ var instnace = new Resource({
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -2047,15 +2103,15 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -2084,7 +2140,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -2101,17 +2157,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -2123,32 +2179,34 @@ var instnace = new Resource({
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">String</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="create_object"><span class="type-signature">&lt;protected> </span>create_object<span class="signature">(bundle, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="create_object"><span class="type-signature">&lt;protected> </span>create_object(bundle, callback)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Internal method used during the <code>post_list</code> method</p>
@@ -2158,7 +2216,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -2166,23 +2224,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -2195,6 +2253,7 @@ var instnace = new Resource({
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -2205,7 +2264,7 @@ var instnace = new Resource({
             <td class="description last"><p>A bundle representing the current request</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -2218,6 +2277,7 @@ var instnace = new Resource({
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Nodeback">module:tastypie/lib/resource~Nodeback</a></span>
 
 
+
             
             </td>
 
@@ -2228,15 +2288,15 @@ var instnace = new Resource({
             <td class="description last"><p>a callback function to call when the operation is complete</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -2265,7 +2325,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -2282,7 +2342,11 @@ var instnace = new Resource({
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -2290,23 +2354,20 @@ var instnace = new Resource({
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="dehydrate"><span class="type-signature"></span>dehydrate<span class="signature">(obj)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="dehydrate"><span class="type-signature"></span>dehydrate(obj)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>A final hook to run and last deydration operations before a response is returned</p>
@@ -2316,7 +2377,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -2324,23 +2385,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -2351,6 +2412,7 @@ var instnace = new Resource({
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -2363,15 +2425,15 @@ var instnace = new Resource({
             <td class="description last"><p>An object to dehydrate</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -2400,7 +2462,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -2417,17 +2479,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -2435,32 +2497,34 @@ var instnace = new Resource({
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Object</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="dehydrate_uri"><span class="type-signature"></span>dehydrate_uri<span class="signature">(obj, bundle, result)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="dehydrate_uri"><span class="type-signature"></span>dehydrate_uri(obj, bundle, result)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Generates a uri for a specific object related to this resource</p>
@@ -2470,7 +2534,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -2478,23 +2542,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -2507,6 +2571,7 @@ var instnace = new Resource({
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -2517,7 +2582,7 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -2530,6 +2595,7 @@ var instnace = new Resource({
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -2540,7 +2606,7 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -2553,6 +2619,7 @@ var instnace = new Resource({
 <span class="param-type">Objectd</span>
 
 
+
             
             </td>
 
@@ -2563,15 +2630,15 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -2600,7 +2667,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -2617,17 +2684,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -2639,32 +2706,34 @@ var instnace = new Resource({
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">String</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="deserialize"><span class="type-signature"></span>deserialize<span class="signature">(data, format, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="deserialize"><span class="type-signature"></span>deserialize(data, format, callback)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>converts a data string into an object</p>
@@ -2674,7 +2743,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -2682,23 +2751,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -2711,6 +2780,7 @@ var instnace = new Resource({
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -2721,7 +2791,7 @@ var instnace = new Resource({
             <td class="description last"><p>A string of data to be parsed</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -2734,6 +2804,7 @@ var instnace = new Resource({
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -2744,7 +2815,7 @@ var instnace = new Resource({
             <td class="description last"><p>the content type ( application/json, text/xml, etc ) of the in coming data string</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -2757,6 +2828,7 @@ var instnace = new Resource({
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Nodeback">module:tastypie/lib/resource~Nodeback</a></span>
 
 
+
             
             </td>
 
@@ -2767,15 +2839,15 @@ var instnace = new Resource({
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -2804,7 +2876,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -2821,7 +2893,11 @@ var instnace = new Resource({
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -2829,23 +2905,20 @@ var instnace = new Resource({
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="dispatch"><span class="type-signature"></span>dispatch<span class="signature">(action, bundle)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="dispatch"><span class="type-signature"></span>dispatch(action, bundle)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Primary entry point for a request into the resource. maps Http methods to resource methods</p>
@@ -2855,7 +2928,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -2863,23 +2936,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -2892,6 +2965,7 @@ var instnace = new Resource({
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -2902,7 +2976,7 @@ var instnace = new Resource({
             <td class="description last"><p>the resource action to route the request to</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -2918,6 +2992,7 @@ var instnace = new Resource({
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -2928,15 +3003,15 @@ var instnace = new Resource({
             <td class="description last"><p>A bundle representing the current request</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -2965,7 +3040,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -2982,7 +3057,11 @@ var instnace = new Resource({
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -2990,23 +3069,20 @@ var instnace = new Resource({
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="dispatch_detail"><span class="type-signature"></span>dispatch_detail<span class="signature">(req, rep, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="dispatch_detail"><span class="type-signature"></span>dispatch_detail(req, rep, next)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Dispatches detail requests which operated on a sigular, specific object</p>
@@ -3016,7 +3092,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -3024,23 +3100,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -3053,6 +3129,7 @@ var instnace = new Resource({
 <span class="param-type">Request</span>
 
 
+
             
             </td>
 
@@ -3063,7 +3140,7 @@ var instnace = new Resource({
             <td class="description last"><p>An express request object</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -3076,6 +3153,7 @@ var instnace = new Resource({
 <span class="param-type">Response</span>
 
 
+
             
             </td>
 
@@ -3086,7 +3164,7 @@ var instnace = new Resource({
             <td class="description last"><p>An express response object</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -3099,6 +3177,7 @@ var instnace = new Resource({
 <span class="param-type">function</span>
 
 
+
             
             </td>
 
@@ -3109,15 +3188,15 @@ var instnace = new Resource({
             <td class="description last"><p>An express next callback</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -3146,7 +3225,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -3163,7 +3242,11 @@ var instnace = new Resource({
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -3171,23 +3254,20 @@ var instnace = new Resource({
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="exception"><span class="type-signature"></span>exception<span class="signature">(Error)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="exception"><span class="type-signature"></span>exception(Error)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Used to handle uncaught caugt errors during the request life cycle.</p>
@@ -3197,7 +3277,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -3205,23 +3285,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -3234,6 +3314,7 @@ var instnace = new Resource({
 <span class="param-type">RequestError</span>
 
 
+
             
             </td>
 
@@ -3244,15 +3325,15 @@ var instnace = new Resource({
             <td class="description last"><p>The error generated during the request</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -3281,7 +3362,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -3298,7 +3379,11 @@ var instnace = new Resource({
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -3306,23 +3391,20 @@ var instnace = new Resource({
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(bundle, filters)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="filter"><span class="type-signature"></span>filter(bundle, filters)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Applies custom filtering to a given set of objects.</p>
@@ -3332,7 +3414,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -3340,23 +3422,23 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -3369,6 +3451,7 @@ var instnace = new Resource({
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -3379,7 +3462,7 @@ var instnace = new Resource({
             <td class="description last"><p>A request bundle</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -3392,6 +3475,7 @@ var instnace = new Resource({
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -3402,15 +3486,15 @@ var instnace = new Resource({
             <td class="description last"><p>An implementation specific object used to filter data sets</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -3439,7 +3523,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -3456,17 +3540,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -3474,32 +3558,34 @@ var instnace = new Resource({
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Object</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="format"><span class="type-signature"></span>format<span class="signature">(bundle, <span class="optional">types</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="format"><span class="type-signature"></span>format(bundle, <span class="optional">types</span>)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Attempts to determin the best serialization format for a given request</p>
@@ -3509,7 +3595,7 @@ var instnace = new Resource({
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -3517,25 +3603,25 @@ var instnace = new Resource({
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -3549,6 +3635,7 @@ var instnace = new Resource({
 |
 
 <span class="param-type">Object</span>
+
 
 
             
@@ -3569,7 +3656,7 @@ var instnace = new Resource({
             <td class="description last"><p>A bundle object or similar object</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -3580,6 +3667,7 @@ var instnace = new Resource({
             
                 
 <span class="param-type">Array</span>
+
 
 
             
@@ -3602,15 +3690,15 @@ var instnace = new Resource({
             <td class="description last"><p>An array of possible content types this resource can deal with.</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -3639,7 +3727,7 @@ var instnace = new Resource({
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -3656,17 +3744,17 @@ var instnace = new Resource({
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -3678,43 +3766,44 @@ var instnace = new Resource({
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">String</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="from_cache"><span class="type-signature">&lt;protected> </span>from_cache<span class="signature">(type, bundle, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="from_cache"><span class="type-signature">&lt;protected> </span>from_cache(type, bundle, callback)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
-        <p>reads a valeue from the specified cache backend by name. If nothing is found in
-cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_object</a></p>
+        <p>reads a valeue from the specified cache backend by name. If nothing is found in<br>cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_object</a></p>
     </div>
     
 
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -3722,23 +3811,23 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -3751,6 +3840,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -3761,7 +3851,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
             <td class="description last"><p>of request ( list, detail, updload, etc)</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -3772,6 +3862,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
             
                 
 <span class="param-type">Bundle</span>
+
 
 
             
@@ -3784,7 +3875,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
             <td class="description last"><p>A bundle representing the current request</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -3797,6 +3888,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 <span class="param-type">function</span>
 
 
+
             
             </td>
 
@@ -3807,15 +3899,15 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
             <td class="description last"><p>A calback function to use whkf</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -3844,7 +3936,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -3861,7 +3953,11 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -3869,23 +3965,20 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="full_dehydrate"><span class="type-signature"></span>full_dehydrate<span class="signature">(obj)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="full_dehydrate"><span class="type-signature"></span>full_dehydrate(obj)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>A hook before serialization to converte and complex objects or classes into simple serializable objects</p>
@@ -3895,7 +3988,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -3903,23 +3996,23 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -3932,6 +4025,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -3942,15 +4036,15 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
             <td class="description last"><p>an object to dehydrate object</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -3979,7 +4073,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -3996,17 +4090,17 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -4019,19 +4113,20 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="full_hydrate"><span class="type-signature"></span>full_hydrate<span class="signature">(bundle)</span><span class="type-signature"> &rarr; {Bundle}</span></h4>
+    <h4 class="name" id="full_hydrate"><span class="type-signature"></span>full_hydrate(bundle)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Responsible for converting a raw data object into a resource mapped object</p>
@@ -4041,7 +4136,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -4049,23 +4144,23 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -4078,6 +4173,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -4088,15 +4184,15 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -4125,7 +4221,7 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -4142,17 +4238,17 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -4160,43 +4256,44 @@ cache it wil call <a href="module-tastypie_lib_resource.html#get_object">get_obj
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Bundle</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="get_detail"><span class="type-signature"></span>get_detail<span class="signature">(bundle)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="get_detail"><span class="type-signature"></span>get_detail(bundle)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
-        <p>Top level method used to retreive indiidual objects by id.
-This method handles caching results as well as reading from the cache</p>
+        <p>Top level method used to retreive indiidual objects by id.<br>This method handles caching results as well as reading from the cache</p>
     </div>
     
 
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -4204,23 +4301,23 @@ This method handles caching results as well as reading from the cache</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -4233,6 +4330,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -4243,15 +4341,15 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"><p>A bundle representing the current request.</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -4280,7 +4378,7 @@ This method handles caching results as well as reading from the cache</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -4297,7 +4395,11 @@ This method handles caching results as well as reading from the cache</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -4305,23 +4407,20 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="get_list"><span class="type-signature"></span>get_list<span class="signature">(bundle)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="get_list"><span class="type-signature"></span>get_list(bundle)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Top level function used to handle get requests for listing endpoints. It handles paging and serialization</p>
@@ -4331,7 +4430,7 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -4339,23 +4438,23 @@ This method handles caching results as well as reading from the cache</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -4368,6 +4467,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -4378,15 +4478,15 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"><p>A bundle representing the current request</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -4415,7 +4515,7 @@ This method handles caching results as well as reading from the cache</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -4432,7 +4532,11 @@ This method handles caching results as well as reading from the cache</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -4440,34 +4544,30 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="get_object"><span class="type-signature"></span>get_object<span class="signature">(bundle, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="get_object"><span class="type-signature"></span>get_object(bundle, callback)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
-        <p>Method used to retrieve a specific object
-<strong>NOTE</strong> This method <em>must</em> be implement for specific use cases. The default does not implement this method</p>
+        <p>Method used to retrieve a specific object<br><strong>NOTE</strong> This method <em>must</em> be implement for specific use cases. The default does not implement this method</p>
     </div>
     
 
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -4475,23 +4575,23 @@ This method handles caching results as well as reading from the cache</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -4504,6 +4604,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Bundle">module:tastypie/lib/resource~Bundle</a></span>
 
 
+
             
             </td>
 
@@ -4514,7 +4615,7 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -4527,6 +4628,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Nodeback">module:tastypie/lib/resource~Nodeback</a></span>
 
 
+
             
             </td>
 
@@ -4537,15 +4639,15 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -4574,7 +4676,7 @@ This method handles caching results as well as reading from the cache</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -4591,7 +4693,11 @@ This method handles caching results as well as reading from the cache</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -4599,11 +4705,7 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
-    
-    
-    
-    
+
     
         <h5>Examples</h5>
         
@@ -4631,13 +4733,14 @@ This method handles caching results as well as reading from the cache</p>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="get_objects"><span class="type-signature"></span>get_objects<span class="signature">(bundle, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="get_objects"><span class="type-signature"></span>get_objects(bundle, callback)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Internal method used to retrieve a full list of objects for a resource</p>
@@ -4647,7 +4750,7 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -4655,23 +4758,23 @@ This method handles caching results as well as reading from the cache</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -4684,6 +4787,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Bundle">module:tastypie/lib/resource~Bundle</a></span>
 
 
+
             
             </td>
 
@@ -4694,7 +4798,7 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -4707,6 +4811,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Nodeback">module:tastypie/lib/resource~Nodeback</a></span>
 
 
+
             
             </td>
 
@@ -4717,15 +4822,15 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"><p>callback function to call when data retrieval is</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -4754,7 +4859,7 @@ This method handles caching results as well as reading from the cache</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -4771,7 +4876,11 @@ This method handles caching results as well as reading from the cache</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -4779,23 +4888,20 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="get_schema"><span class="type-signature"></span>get_schema<span class="signature">(request, reply)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="get_schema"><span class="type-signature"></span>get_schema(request, reply)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Top level method for generating resource specific schemas for <em>GET</em> requests</p>
@@ -4805,7 +4911,7 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -4813,23 +4919,23 @@ This method handles caching results as well as reading from the cache</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -4842,6 +4948,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type">Request</span>
 
 
+
             
             </td>
 
@@ -4852,7 +4959,7 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"><p>A Hapi.js request object</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -4865,6 +4972,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type">function</span>
 
 
+
             
             </td>
 
@@ -4875,15 +4983,15 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"><p>A hapi.js reply function</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -4912,7 +5020,7 @@ This method handles caching results as well as reading from the cache</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -4929,7 +5037,11 @@ This method handles caching results as well as reading from the cache</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -4937,23 +5049,20 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="hydrate"><span class="type-signature"></span>hydrate<span class="signature">(bundle)</span><span class="type-signature"> &rarr; {Bundle}</span></h4>
+    <h4 class="name" id="hydrate"><span class="type-signature"></span>hydrate(bundle)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Final hydration hook method. Is a noop by default</p>
@@ -4963,7 +5072,7 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -4971,23 +5080,23 @@ This method handles caching results as well as reading from the cache</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -5000,6 +5109,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -5010,15 +5120,15 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -5047,7 +5157,7 @@ This method handles caching results as well as reading from the cache</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -5064,17 +5174,17 @@ This method handles caching results as well as reading from the cache</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -5082,32 +5192,34 @@ This method handles caching results as well as reading from the cache</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Bundle</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="pk"><span class="type-signature"></span>pk<span class="signature">(orig, bundle, result)</span><span class="type-signature"> &rarr; {String|Number}</span></h4>
+    <h4 class="name" id="pk"><span class="type-signature"></span>pk(orig, bundle, result)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Attempts to determine the primary key value of the specific object related to a resource request</p>
@@ -5117,7 +5229,7 @@ This method handles caching results as well as reading from the cache</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -5125,23 +5237,23 @@ This method handles caching results as well as reading from the cache</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -5154,6 +5266,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -5164,7 +5277,7 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -5177,6 +5290,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -5187,7 +5301,7 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -5200,6 +5314,7 @@ This method handles caching results as well as reading from the cache</p>
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -5210,15 +5325,15 @@ This method handles caching results as well as reading from the cache</p>
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -5247,7 +5362,7 @@ This method handles caching results as well as reading from the cache</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -5264,17 +5379,17 @@ This method handles caching results as well as reading from the cache</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -5286,46 +5401,47 @@ This method handles caching results as well as reading from the cache</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">String</span>
 |
 
 <span class="param-type">Number</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="post_list"><span class="type-signature"></span>post_list<span class="signature">(bundle)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="post_list"><span class="type-signature"></span>post_list(bundle)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
-        <p>Top level method used to handle post request to listing endpoints. Used to create new instances
-of the associated resource</p>
+        <p>Top level method used to handle post request to listing endpoints. Used to create new instances<br>of the associated resource</p>
     </div>
     
 
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -5333,23 +5449,23 @@ of the associated resource</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -5362,6 +5478,7 @@ of the associated resource</p>
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -5372,15 +5489,15 @@ of the associated resource</p>
             <td class="description last"><p>An object represneting the current <code>POST</code> request</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -5409,7 +5526,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -5426,7 +5543,11 @@ of the associated resource</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -5434,23 +5555,20 @@ of the associated resource</p>
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="prepend_urls"><span class="type-signature"></span>prepend_urls<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="prepend_urls"><span class="type-signature"></span>prepend_urls()</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>A method which returns additaional urls to be added to the default uri defintion of a resource</p>
@@ -5460,13 +5578,13 @@ of the associated resource</p>
     
 
     
+
     
     
-    
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -5495,7 +5613,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -5512,17 +5630,17 @@ of the associated resource</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -5535,19 +5653,20 @@ of the associated resource</p>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="put_detail"><span class="type-signature"></span>put_detail<span class="signature">(bundle)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="put_detail"><span class="type-signature"></span>put_detail(bundle)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Top level method used to handle post request to listing endpoints. Used to update instances with supplied data</p>
@@ -5557,7 +5676,7 @@ of the associated resource</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -5565,23 +5684,23 @@ of the associated resource</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -5594,6 +5713,7 @@ of the associated resource</p>
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Bundle">module:tastypie/lib/resource~Bundle</a></span>
 
 
+
             
             </td>
 
@@ -5604,15 +5724,15 @@ of the associated resource</p>
             <td class="description last"><p>An object represneting the current <code>PUT</code> request</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -5641,7 +5761,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -5658,7 +5778,11 @@ of the associated resource</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -5666,23 +5790,20 @@ of the associated resource</p>
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="replace_object"><span class="type-signature"></span>replace_object<span class="signature">(bundle, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="replace_object"><span class="type-signature"></span>replace_object(bundle, callback)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Low level function called to replace existing objects</p>
@@ -5692,7 +5813,7 @@ of the associated resource</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -5700,23 +5821,23 @@ of the associated resource</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -5729,6 +5850,7 @@ of the associated resource</p>
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Bundle">module:tastypie/lib/resource~Bundle</a></span>
 
 
+
             
             </td>
 
@@ -5739,7 +5861,7 @@ of the associated resource</p>
             <td class="description last"><p>An object represneting the current <code>PUT</code> request</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -5752,6 +5874,7 @@ of the associated resource</p>
 <span class="param-type">module:tastypie/lib/resource~NodeBack</span>
 
 
+
             
             </td>
 
@@ -5762,15 +5885,15 @@ of the associated resource</p>
             <td class="description last"><p>a callback to be caled when finished</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -5799,7 +5922,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -5816,7 +5939,11 @@ of the associated resource</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -5824,23 +5951,20 @@ of the associated resource</p>
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="respond"><span class="type-signature"></span>respond<span class="signature">(bundle, cls)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="respond"><span class="type-signature"></span>respond(bundle, cls)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Method to generate a response for a bundled request. Will set contnent-type and length headers</p>
@@ -5850,7 +5974,7 @@ of the associated resource</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -5858,23 +5982,23 @@ of the associated resource</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -5890,6 +6014,7 @@ of the associated resource</p>
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -5900,7 +6025,7 @@ of the associated resource</p>
             <td class="description last"><p>A bundle or similar object</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -5916,6 +6041,7 @@ of the associated resource</p>
 <span class="param-type">function</span>
 
 
+
             
             </td>
 
@@ -5926,15 +6052,15 @@ of the associated resource</p>
             <td class="description last"><p>An HttpResponse function to call to finish the request. Function should accept a response object, and data to send</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -5963,7 +6089,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -5980,17 +6106,17 @@ of the associated resource</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -6003,19 +6129,20 @@ of the associated resource</p>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="serialize"><span class="type-signature"></span>serialize<span class="signature">(data, format, <span class="optional">options</span>, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="serialize"><span class="type-signature"></span>serialize(data, format, <span class="optional">options</span>, callback)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Converts a valid object in to a string of the specified format</p>
@@ -6025,7 +6152,7 @@ of the associated resource</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -6033,27 +6160,27 @@ of the associated resource</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
-		<th>Default</th>
-		
+        
+        <th>Default</th>
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -6064,6 +6191,7 @@ of the associated resource</p>
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -6088,7 +6216,7 @@ of the associated resource</p>
             <td class="description last"><p>Data object to be serialized before delivery</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -6099,6 +6227,7 @@ of the associated resource</p>
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -6123,7 +6252,7 @@ of the associated resource</p>
             <td class="description last"><p>the</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -6134,6 +6263,7 @@ of the associated resource</p>
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -6164,7 +6294,7 @@ of the associated resource</p>
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -6175,6 +6305,7 @@ of the associated resource</p>
             
                 
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Nodeback">module:tastypie/lib/resource~Nodeback</a></span>
+
 
 
             
@@ -6199,15 +6330,15 @@ of the associated resource</p>
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -6236,7 +6367,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -6253,7 +6384,11 @@ of the associated resource</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -6261,23 +6396,20 @@ of the associated resource</p>
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="sort"><span class="type-signature"></span>sort<span class="signature">(list)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="sort"><span class="type-signature"></span>sort(list)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Applies custome sorting to a given list of objects. Default applies no sorting</p>
@@ -6287,7 +6419,7 @@ of the associated resource</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -6295,23 +6427,23 @@ of the associated resource</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -6324,6 +6456,7 @@ of the associated resource</p>
 <span class="param-type">Array</span>
 
 
+
             
             </td>
 
@@ -6334,15 +6467,15 @@ of the associated resource</p>
             <td class="description last"><p>The list of objects to be sorted</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -6371,7 +6504,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -6388,17 +6521,17 @@ of the associated resource</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -6411,19 +6544,20 @@ of the associated resource</p>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="to_uri"><span class="type-signature"></span>to_uri<span class="signature">(obj, bundle, result)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="to_uri"><span class="type-signature"></span>to_uri(obj, bundle, result)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>creates a resource uri for a specific object</p>
@@ -6433,7 +6567,7 @@ of the associated resource</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -6441,23 +6575,23 @@ of the associated resource</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -6470,6 +6604,7 @@ of the associated resource</p>
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -6480,7 +6615,7 @@ of the associated resource</p>
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -6493,6 +6628,7 @@ of the associated resource</p>
 <span class="param-type">Bundle</span>
 
 
+
             
             </td>
 
@@ -6503,7 +6639,7 @@ of the associated resource</p>
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -6516,6 +6652,7 @@ of the associated resource</p>
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -6526,15 +6663,15 @@ of the associated resource</p>
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -6563,7 +6700,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -6580,17 +6717,17 @@ of the associated resource</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -6598,32 +6735,34 @@ of the associated resource</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">String</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>returns the internal string representation of a resource</p>
@@ -6633,13 +6772,13 @@ of the associated resource</p>
     
 
     
+
     
     
-    
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -6668,7 +6807,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -6685,17 +6824,17 @@ of the associated resource</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -6707,32 +6846,34 @@ of the associated resource</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">String</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="update_object"><span class="type-signature"></span>update_object<span class="signature">(bundle, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="update_object"><span class="type-signature"></span>update_object(bundle, callback)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Method that is responsibe for updating a specific object during a <em>PUT</em> request</p>
@@ -6742,7 +6883,7 @@ of the associated resource</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -6750,23 +6891,23 @@ of the associated resource</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -6779,6 +6920,7 @@ of the associated resource</p>
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Bundle">module:tastypie/lib/resource~Bundle</a></span>
 
 
+
             
             </td>
 
@@ -6789,7 +6931,7 @@ of the associated resource</p>
             <td class="description last"><p>The data bundle representing the current request</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -6802,6 +6944,7 @@ of the associated resource</p>
 <span class="param-type"><a href="module-tastypie_lib_resource.html#~Nodeback">module:tastypie/lib/resource~Nodeback</a></span>
 
 
+
             
             </td>
 
@@ -6812,15 +6955,15 @@ of the associated resource</p>
             <td class="description last"><p>callback to be called when the operation finishes.</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -6849,7 +6992,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -6866,7 +7009,11 @@ of the associated resource</p>
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -6874,11 +7021,7 @@ of the associated resource</p>
     
 
     
-    
-    
-    
-    
-    
+
     
 </dd>
 
@@ -6890,6 +7033,7 @@ of the associated resource</p>
 
         <dl>
                 
+<hr>
 <dt class="name" id="~Bundle">
     <h4>Bundle</h4>
 
@@ -6910,39 +7054,40 @@ of the associated resource</p>
 <span class="param-type">Object</span>
 
 
+
             </li>
         </ul>
     
 
     
 <dl class="details">
-	
+    
 
-	<h5 class="subsection-title">Properties:</h5>
+    <h5 class="subsection-title">Properties:</h5>
 
-	<dl>
+    <dl>
 
 <table class="props table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -6953,6 +7098,7 @@ of the associated resource</p>
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -6971,7 +7117,7 @@ of the associated resource</p>
             <td class="description last"><p>A Hapijs request object</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -6982,6 +7128,7 @@ of the associated resource</p>
             
                 
 <span class="param-type">function</span>
+
 
 
             
@@ -7000,7 +7147,7 @@ of the associated resource</p>
             <td class="description last"><p>A hapi reply function</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -7011,6 +7158,7 @@ of the associated resource</p>
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -7029,7 +7177,7 @@ of the associated resource</p>
             <td class="description last"><p>A data object representing an entity for serialization / deserialization</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -7040,6 +7188,7 @@ of the associated resource</p>
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -7060,12 +7209,12 @@ of the associated resource</p>
             <td class="description last"><p>A fully populated data entity. Mostly used internally</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 </dl>
 
-	
+    
 
 	
 
@@ -7094,7 +7243,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -7117,6 +7266,7 @@ of the associated resource</p>
 
             
                 
+<hr>
 <dt class="name" id="~Nodeback">
     <h4>Nodeback</h4>
 
@@ -7137,39 +7287,40 @@ of the associated resource</p>
 <span class="param-type">Object</span>
 
 
+
             </li>
         </ul>
     
 
     
 <dl class="details">
-	
+    
 
-	<h5 class="subsection-title">Properties:</h5>
+    <h5 class="subsection-title">Properties:</h5>
 
-	<dl>
+    <dl>
 
 <table class="props table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -7180,6 +7331,7 @@ of the associated resource</p>
             
                 
 <span class="param-type">Error</span>
+
 
 
             
@@ -7200,7 +7352,7 @@ of the associated resource</p>
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -7214,6 +7366,7 @@ of the associated resource</p>
 |
 
 <span class="param-type">Array.&lt;Object></span>
+
 
 
             
@@ -7234,12 +7387,12 @@ of the associated resource</p>
             <td class="description last"><p>Data returned from an asyn operation</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 </dl>
 
-	
+    
 
 	
 
@@ -7268,7 +7421,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -7291,6 +7444,7 @@ of the associated resource</p>
 
             
                 
+<hr>
 <dt class="name" id="~RequestError">
     <h4>RequestError</h4>
 
@@ -7311,37 +7465,38 @@ of the associated resource</p>
 <span class="param-type">Error</span>
 
 
+
             </li>
         </ul>
     
 
     
 <dl class="details">
-	
+    
 
-	<h5 class="subsection-title">Properties:</h5>
+    <h5 class="subsection-title">Properties:</h5>
 
-	<dl>
+    <dl>
 
 <table class="props table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -7354,6 +7509,7 @@ of the associated resource</p>
 <span class="param-type">Request</span>
 
 
+
             
             </td>
 
@@ -7364,7 +7520,7 @@ of the associated resource</p>
             <td class="description last"></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -7377,6 +7533,7 @@ of the associated resource</p>
 <span class="param-type">Reply</span>
 
 
+
             
             </td>
 
@@ -7387,12 +7544,12 @@ of the associated resource</p>
             <td class="description last"></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 </dl>
 
-	
+    
 
 	
 
@@ -7421,7 +7578,7 @@ of the associated resource</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -7460,13 +7617,27 @@ of the associated resource</p>
 
 	
 		<div class="col-md-3">
-			<div id="toc" class="col-md-3"></div>
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
 		</div>
 	
 
 </div>
 </div>
 
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
 
 <footer>
 
@@ -7474,19 +7645,19 @@ of the associated resource</p>
 	<span class="copyright">
 	Eric Satterwhite &copy; 2015
 	</span>
-	<br />
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-10-04T13:45:14-05:00 using the <a
-	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on 2016-05-04T12:30:48-05:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
 </footer>
 
-<!--<script src="scripts/sunlight.js"></script>-->
 <script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/bootstrap-dropdown.js"></script>
 <script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
 
 <script>
 $( function () {
@@ -7495,22 +7666,6 @@ $( function () {
 
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
-
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
-		},
-		selectors   : "h1,h2,h3,h4",
-		showAndHide : false,
-		scrollTo    : "100px"
-	} );
-
-	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
 
 	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
 		var $this = $( this );
@@ -7523,7 +7678,8 @@ $( function () {
 			example.html( exampleText );
 			lang = lang[1];
 		} else {
-			lang = "javascript";
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
 		}
 
 		if ( lang ) {
@@ -7541,6 +7697,28 @@ $( function () {
 		showMenu : true,
 		enableDoclinks : true
 	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
 } );
 </script>
 
@@ -7551,6 +7729,12 @@ $( function () {
 
 <!--Google Analytics-->
 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
 
 </body>
 </html>

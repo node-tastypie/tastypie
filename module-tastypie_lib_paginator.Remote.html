@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 	<title>Tastypie Class: Remote</title>
 
 	<!--[if lt IE 9]>
@@ -20,8 +21,13 @@
 <div class="container">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="index.html">Tastypie</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
 	</div>
-	<div class="navbar-collapse">
+	<div class="navbar-collapse collapse" id="topNavigation">
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
@@ -46,12 +52,23 @@
 			</li>
 			
 		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
 	</div>
+
 </div>
 </div>
 
 
-<div class="container">
+<div class="container" id="toc-content">
 <div class="row">
 
 	
@@ -79,13 +96,14 @@
     <div class="container-overview">
     
         
+<hr>
 <dt>
-    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote<span class="signature">(options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote(options)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Assumes paging is done at the data store level. Slice method returns the objects array untouched</p>
@@ -95,7 +113,7 @@
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -103,23 +121,23 @@
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -132,6 +150,7 @@
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -140,32 +159,32 @@
             
 
             <td class="description last">
-                <h6>Properties</h6>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
                 
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
-		<th>Argument</th>
-		
+        
+        <th>Argument</th>
+        
 
-		
-		<th>Default</th>
-		
+        
+        <th>Default</th>
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -176,6 +195,7 @@
             
                 
 <span class="param-type">Array.&lt;Object></span>
+
 
 
             
@@ -204,7 +224,7 @@
             <td class="description last"><p>The data to page</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -215,6 +235,7 @@
             
                 
 <span class="param-type">Number</span>
+
 
 
             
@@ -245,7 +266,7 @@
             <td class="description last"><p>The maximum number of object to include in a page</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -256,6 +277,7 @@
             
                 
 <span class="param-type">Number</span>
+
 
 
             
@@ -284,7 +306,7 @@
             <td class="description last"><p>The number of object to skip</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -295,6 +317,7 @@
             
                 
 <span class="param-type">Request</span>
+
 
 
             
@@ -319,7 +342,7 @@
             <td class="description last"><p>A hapi.js request object</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -330,6 +353,7 @@
             
                 
 <span class="param-type">Reply</span>
+
 
 
             
@@ -354,22 +378,22 @@
             <td class="description last"><p>A hapi.js reply object</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
             </td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
@@ -398,7 +422,7 @@
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -415,7 +439,11 @@
 	
 </dl>
 
+
     
+
+    
+
     
 
     
@@ -423,11 +451,7 @@
     
 
     
-    
-    
-    
-    
-    
+
     
         <h5>Example</h5>
         
@@ -477,13 +501,14 @@ to_be_serialize = paginator.page();</pre>
 
         <dl>
             
+<hr>
 <dt>
-    <h4 class="name" id="count"><span class="type-signature"></span>count<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id="count"><span class="type-signature"></span>count()</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>returns the number of objects in the current data set</p>
@@ -493,20 +518,20 @@ to_be_serialize = paginator.page();</pre>
     
 
     
+
     
     
-    
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -537,7 +562,7 @@ to_be_serialize = paginator.page();</pre>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -554,17 +579,17 @@ to_be_serialize = paginator.page();</pre>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -572,56 +597,57 @@ to_be_serialize = paginator.page();</pre>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Number</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="limit"><span class="type-signature"></span>limit<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id="limit"><span class="type-signature"></span>limit()</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
-        <p>returns the number of items that should be included in the data set.
-Checks req.query for limit or a configured limit option</p>
+        <p>returns the number of items that should be included in the data set.<br>Checks req.query for limit or a configured limit option</p>
     </div>
     
 
     
 
     
+
     
     
-    
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -652,7 +678,7 @@ Checks req.query for limit or a configured limit option</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -669,17 +695,17 @@ Checks req.query for limit or a configured limit option</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -687,32 +713,34 @@ Checks req.query for limit or a configured limit option</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Number</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="next"><span class="type-signature"></span>next<span class="signature">(limit, offset, count)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="next"><span class="type-signature"></span>next(limit, offset, count)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Returns  the uri for the next page if their is one</p>
@@ -722,7 +750,7 @@ Checks req.query for limit or a configured limit option</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -730,23 +758,23 @@ Checks req.query for limit or a configured limit option</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -759,6 +787,7 @@ Checks req.query for limit or a configured limit option</p>
 <span class="param-type">Number</span>
 
 
+
             
             </td>
 
@@ -769,7 +798,7 @@ Checks req.query for limit or a configured limit option</p>
             <td class="description last"><p>the number of items in the page</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -782,6 +811,7 @@ Checks req.query for limit or a configured limit option</p>
 <span class="param-type">Number</span>
 
 
+
             
             </td>
 
@@ -792,7 +822,7 @@ Checks req.query for limit or a configured limit option</p>
             <td class="description last"><p>where in the data set to derive the page from</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -805,6 +835,7 @@ Checks req.query for limit or a configured limit option</p>
 <span class="param-type">Number</span>
 
 
+
             
             </td>
 
@@ -815,22 +846,22 @@ Checks req.query for limit or a configured limit option</p>
             <td class="description last"><p>the length of the current data set</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -861,7 +892,7 @@ Checks req.query for limit or a configured limit option</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -878,17 +909,17 @@ Checks req.query for limit or a configured limit option</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -900,32 +931,34 @@ Checks req.query for limit or a configured limit option</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">String</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="offset"><span class="type-signature"></span>offset<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id="offset"><span class="type-signature"></span>offset()</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>determines the offset for the current data set using options, or pased in request</p>
@@ -935,20 +968,20 @@ Checks req.query for limit or a configured limit option</p>
     
 
     
+
     
     
-    
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -979,7 +1012,7 @@ Checks req.query for limit or a configured limit option</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -996,17 +1029,17 @@ Checks req.query for limit or a configured limit option</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1018,32 +1051,34 @@ Checks req.query for limit or a configured limit option</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Number</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="page"><span class="type-signature"></span>page<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="page"><span class="type-signature"></span>page()</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Generates a page of a data set</p>
@@ -1053,20 +1088,20 @@ Checks req.query for limit or a configured limit option</p>
     
 
     
+
     
     
-    
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -1097,7 +1132,7 @@ Checks req.query for limit or a configured limit option</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -1114,17 +1149,17 @@ Checks req.query for limit or a configured limit option</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1136,32 +1171,34 @@ Checks req.query for limit or a configured limit option</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Object</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="previous"><span class="type-signature"></span>previous<span class="signature">(limit, offset)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="previous"><span class="type-signature"></span>previous(limit, offset)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>Returns  the uri for the previous page if their is one</p>
@@ -1171,7 +1208,7 @@ Checks req.query for limit or a configured limit option</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -1179,23 +1216,23 @@ Checks req.query for limit or a configured limit option</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -1208,6 +1245,7 @@ Checks req.query for limit or a configured limit option</p>
 <span class="param-type">Number</span>
 
 
+
             
             </td>
 
@@ -1218,7 +1256,7 @@ Checks req.query for limit or a configured limit option</p>
             <td class="description last"><p>the number of items in the page</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1231,6 +1269,7 @@ Checks req.query for limit or a configured limit option</p>
 <span class="param-type">Number</span>
 
 
+
             
             </td>
 
@@ -1241,22 +1280,22 @@ Checks req.query for limit or a configured limit option</p>
             <td class="description last"><p>where in the data set to derive the page from</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -1287,7 +1326,7 @@ Checks req.query for limit or a configured limit option</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -1304,17 +1343,17 @@ Checks req.query for limit or a configured limit option</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1326,32 +1365,34 @@ Checks req.query for limit or a configured limit option</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">String</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="slice"><span class="type-signature"></span>slice<span class="signature">(limit, offset)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="slice"><span class="type-signature"></span>slice(limit, offset)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>retuns a slice from the current data set to represent a page</p>
@@ -1361,7 +1402,7 @@ Checks req.query for limit or a configured limit option</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -1369,23 +1410,23 @@ Checks req.query for limit or a configured limit option</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -1398,6 +1439,7 @@ Checks req.query for limit or a configured limit option</p>
 <span class="param-type">Number</span>
 
 
+
             
             </td>
 
@@ -1408,7 +1450,7 @@ Checks req.query for limit or a configured limit option</p>
             <td class="description last"><p>The maximum number of items to include in the slice</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1421,6 +1463,7 @@ Checks req.query for limit or a configured limit option</p>
 <span class="param-type">Number</span>
 
 
+
             
             </td>
 
@@ -1431,22 +1474,22 @@ Checks req.query for limit or a configured limit option</p>
             <td class="description last"><p>The starting position in the data set at which to start the slice</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -1477,7 +1520,7 @@ Checks req.query for limit or a configured limit option</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -1494,17 +1537,17 @@ Checks req.query for limit or a configured limit option</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1512,32 +1555,34 @@ Checks req.query for limit or a configured limit option</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Array</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
         
             
+<hr>
 <dt>
-    <h4 class="name" id="uri"><span class="type-signature"></span>uri<span class="signature">(limit, offset)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="uri"><span class="type-signature"></span>uri(limit, offset)</h4>
     
     
 </dt>
 <dd>
-    
+
     
     <div class="description">
         <p>generates a URI that will return page of data</p>
@@ -1547,7 +1592,7 @@ Checks req.query for limit or a configured limit option</p>
     
 
     
-    
+
     
     
         <h5>Parameters:</h5>
@@ -1555,23 +1600,23 @@ Checks req.query for limit or a configured limit option</p>
 
 <table class="params table table-striped">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
+    <tr>
+        
+        <th>Name</th>
+        
 
-		<th>Type</th>
+        <th>Type</th>
 
-		
+        
 
-		
+        
 
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-	<tbody>
-	
+    <tbody>
+    
 
         <tr>
             
@@ -1584,6 +1629,7 @@ Checks req.query for limit or a configured limit option</p>
 <span class="param-type">Number</span>
 
 
+
             
             </td>
 
@@ -1594,7 +1640,7 @@ Checks req.query for limit or a configured limit option</p>
             <td class="description last"><p>The maximum number of items to include in the slice</p></td>
         </tr>
 
-	
+    
 
         <tr>
             
@@ -1607,6 +1653,7 @@ Checks req.query for limit or a configured limit option</p>
 <span class="param-type">Number</span>
 
 
+
             
             </td>
 
@@ -1617,22 +1664,22 @@ Checks req.query for limit or a configured limit option</p>
             <td class="description last"><p>The starting position in the data set at which to start the slice</p></td>
         </tr>
 
-	
-	</tbody>
+    
+    </tbody>
 </table>
 
     
-    
+
     
 <dl class="details">
-	
+    
 
 	
 
 	
 
 	
-	<dt class="inherited-from">Inherited From:</dt>
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
@@ -1663,7 +1710,7 @@ Checks req.query for limit or a configured limit option</p>
 
 
 	
-	<dt class="tag-source">Source:</dt>
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
@@ -1680,17 +1727,17 @@ Checks req.query for limit or a configured limit option</p>
 	
 </dl>
 
-    
-    
 
     
 
     
 
     
+
     
+
     
-    
+
     
     <h5>Returns:</h5>
     
@@ -1702,20 +1749,21 @@ Checks req.query for limit or a configured limit option</p>
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">String</span>
 
 
-	</dd>
+
+    </dd>
 </dl>
 
 
         
-    
+
     
 </dd>
 
@@ -1739,13 +1787,27 @@ Checks req.query for limit or a configured limit option</p>
 
 	
 		<div class="col-md-3">
-			<div id="toc" class="col-md-3"></div>
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
 		</div>
 	
 
 </div>
 </div>
 
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
 
 <footer>
 
@@ -1753,19 +1815,19 @@ Checks req.query for limit or a configured limit option</p>
 	<span class="copyright">
 	Eric Satterwhite &copy; 2015
 	</span>
-	<br />
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-10-04T13:45:14-05:00 using the <a
-	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on 2016-05-04T12:30:48-05:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
 </footer>
 
-<!--<script src="scripts/sunlight.js"></script>-->
 <script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/bootstrap-dropdown.js"></script>
 <script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
 
 <script>
 $( function () {
@@ -1774,22 +1836,6 @@ $( function () {
 
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
-
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
-		},
-		selectors   : "h1,h2,h3,h4",
-		showAndHide : false,
-		scrollTo    : "100px"
-	} );
-
-	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
 
 	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
 		var $this = $( this );
@@ -1802,7 +1848,8 @@ $( function () {
 			example.html( exampleText );
 			lang = lang[1];
 		} else {
-			lang = "javascript";
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
 		}
 
 		if ( lang ) {
@@ -1820,6 +1867,28 @@ $( function () {
 		showMenu : true,
 		enableDoclinks : true
 	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
 } );
 </script>
 
@@ -1830,6 +1899,12 @@ $( function () {
 
 <!--Google Analytics-->
 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
 
 </body>
 </html>

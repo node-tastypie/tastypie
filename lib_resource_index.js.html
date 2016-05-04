@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 	<title>Tastypie Source: lib/resource/index.js</title>
 
 	<!--[if lt IE 9]>
@@ -20,8 +21,13 @@
 <div class="container">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="index.html">Tastypie</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
 	</div>
-	<div class="navbar-collapse">
+	<div class="navbar-collapse collapse" id="topNavigation">
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
@@ -46,12 +52,23 @@
 			</li>
 			
 		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
 	</div>
+
 </div>
 </div>
 
 
-<div class="container">
+<div class="container" id="toc-content">
 <div class="row">
 
 	
@@ -63,9 +80,9 @@
 		<h1 class="page-title">Source: lib/resource/index.js</h1>
     
 <section>
-	<article>
-		<pre
-			class="sunlight-highlight-javascript ">/*jshint laxcomma: true, smarttabs: true, node:true */
+    <article>
+        <pre
+            class="sunlight-highlight-javascript ">/*jshint laxcomma: true, smarttabs: true, node:true */
 'use strict';
 /**
  * Provides the base resource for defining expressive APIs, handling serialization, deserialization, validation,
@@ -107,6 +124,7 @@ var domain           = require( 'domain' )                     // domain
   , object           = require( 'mout/object' )
   , qs               = require( 'querystring' )                  // qs module from npm
   , merge            = require( 'mout/object/merge' )            // mout object merge function
+  , get              = require( 'mout/object/get' )            // mout object get function
   , clone            = require( 'mout/lang/clone' )              // mout clone function
   , isFunction       = require( 'mout/lang/isFunction' )
   , interpolate      = require( 'mout/string/interpolate' )      // string template interpolation interpolate
@@ -138,10 +156,7 @@ var domain           = require( 'domain' )                     // domain
 
 filterschema = joi.alternatives().try(
 	joi.number()
-	, joi.array().items( joi.string().valid('gt','gte','in','lt','lte','ne','nin','regex','all', 'active'
-											,'size','match','contains','icontains','startswith','exact','iexact', 'isnull',
-											'istartswith','endswith','iendswith', 'range', 'pk', 'year', 'month', 'day', 'hour', 'minute') 
-	)
+	, joi.array().items( joi.string() )
 );
 
 
@@ -158,19 +173,19 @@ optionsSchema = joi.object().keys({
   , filtering     : joi.object().pattern(/.+/, filterschema ).allow( null )
   , ordering      : joi.array( joi.string() ).allow( null )
   , allowed       : joi.object()
-  						.pattern(
-  							/.+/
-  							, joi.object({
-  								'get'     :joi.boolean()
-  							  , 'put'     :joi.boolean()
-  							  , 'post'    :joi.boolean()
-  							  , 'delete'  :joi.boolean()
-  							  , 'options' :joi.boolean()
-  							  , 'head'    :joi.boolean()
-  							  , 'patch'   :joi.boolean()
-  							  , 'connect' :joi.boolean()
-  							  , 'trace' :joi.boolean()
-  							}).optionalKeys('get', 'put','post', 'delete', 'options','head', 'patch', 'connect' ) )
+						.pattern(
+							/.+/
+							, joi.object({
+								'get'     :joi.boolean()
+							  , 'put'     :joi.boolean()
+							  , 'post'    :joi.boolean()
+							  , 'delete'  :joi.boolean()
+							  , 'options' :joi.boolean()
+							  , 'head'    :joi.boolean()
+							  , 'patch'   :joi.boolean()
+							  , 'connect' :joi.boolean()
+							  , 'trace' :joi.boolean()
+							}).optionalKeys('get', 'put','post', 'delete', 'options','head', 'patch', 'connect' ) )
 }).unknown();
 
 function to_json(){
@@ -188,8 +203,8 @@ checks = {
 
 		return util.format( '%s_%s', httpmethod, bundle.action );
 	},
-	
-	access: function( bundle ){ 
+
+	access: function( bundle ){
 		var httpmethod = ( bundle.req.headers['x-method-override'] || bundle.req.method ).toLowerCase();
 		var action = bundle.action;
 		var method_name = util.format('%s_%s', httpmethod, action );
@@ -285,8 +300,7 @@ var instnace = new Resource({
 })
  */
 Resource = new Class({
-	inherits: events.EventEmitter
-  , mixin: [ Options, Parentize, Schema, List, Detail ]
+	mixin: [events.EventEmitter, Options, Parentize, Schema, List, Detail ]
   , options: {
 		name: null
 	  , apiname: null
@@ -306,7 +320,7 @@ Resource = new Class({
 	  , ordering: null
 	  , allowed:{
 
-	  		methods:{
+			methods:{
 				get: true
 			  , put: true
 			  , post: true
@@ -314,20 +328,19 @@ Resource = new Class({
 			  , patch: true
 			  , head: true
 			  , options: true
-		  	}
-		  	
-		  	, schema:{ 
-		  		get: true 
-		  	}
+			}
+
+			, schema:{
+				get: true
+			}
 	  }
 	}
 
 	, constructor: function( options ){
 		var _fields, pkattr, allowed, isValid;
-
-		// events.EventEmitter.call( this );
+		events.EventEmitter.call( this );
 		this.setOptions( options );
-		
+
 		isValid        = optionsSchema.validate( this.options );
 		allowed        = this.options.allowed;
 		pkattr         = this.options.pk;
@@ -337,7 +350,7 @@ Resource = new Class({
 
 		isValid.error&amp;&amp; this.emit('error', isValid.error );
 		this.domain.on( 'error', this.exception.bind( this ) );
-		
+
 
 		if( !allowed.list ){
 			this.options.allowed.list = clone( allowed.methods );
@@ -350,20 +363,19 @@ Resource = new Class({
 		allowed = undefined;
 
 		// field inheritance
-		_fields    = merge( clone( this.constructor.parent.fields || EMPTY_OBJECT ), this.fields );
+		_fields    = merge( clone( get(this.constructor, 'parent.fields' ) || EMPTY_OBJECT ), this.fields );
 		_fields.id = _fields.id ? _fields.id : {type:'field', attribute:pkattr, readonly:true};
 
 		Object
 			.keys( _fields )
 			.forEach(function( key ){
 				var fieldopt = _fields[key];
-				// if
 				if( fieldopt.type &amp;&amp; fields[ fieldopt.type ] ){
-					fieldopt.attribute = fieldopt.attribute || key;
+					fieldopt.attribute = fieldopt.hasOwnProperty('attribute') ? fieldopt.attribute : key;
 					_fields[key] = new fields[fieldopt.type]( fieldopt );
 					_fields[key].setOptions({name: key});
 				} else{
-					 fieldopt.options.attribute = fieldopt.options.attribute || key;
+					fieldopt.options.attribute = fieldopt.options.hasOwnProperty('attribute') ? fieldopt.options.attribute : key;
 					_fields[ key ] = fieldopt;
 				}
 				_fields[key].augment( this, key );
@@ -395,7 +407,7 @@ Resource = new Class({
 			path:decodeURIComponent('/api/v1/test/{action}'),
 			name:"test",
 			handler: this.dispatch_test.bind( this )
-		}];		
+		}];
 	}
 }
 	 **/
@@ -417,9 +429,9 @@ Resource = new Class({
 		  , path: interpolate( decodeURIComponent( urljoin(  '{{apiname}}', '{{name}}' ) ), this.options ).replace( /\/\//g, "/" )
 		  , handler: this.dispatch_list.bind( this )
 		  , config:{
-		  		tags:['api']
-		  		, validate:{ query: validators.query }
-		  	}
+				tags:['api']
+				, validate:{ query: validators.query }
+			}
 		}];
 	}
 
@@ -527,7 +539,7 @@ Resource = new Class({
 	 * converts a data string into an object
 	 * @method module:tastypie/lib/resource#deserialize
 	 * @param {String} data A string of data to be parsed
-	 * @param {String} format the content type ( application/json, text/xml, etc ) of the in coming data string 
+	 * @param {String} format the content type ( application/json, text/xml, etc ) of the in coming data string
 	 * @param {module:tastypie/lib/resource~Nodeback} callback
 	 **/
 	, deserialize: function deserialize( data, format, callback ){
@@ -555,6 +567,8 @@ Resource = new Class({
 			method_name = this.check('dispatch', bundle );
 			method = this.check('access', bundle );
 		} catch( err ){
+			err.res = res;
+			err.req = req;
 			return this.exception( err );
 		}
 
@@ -675,25 +689,29 @@ Resource = new Class({
 		  , fields = this.fields
 		  , dehydrate = this.dehydrate
 		  , that = this
-		  , methodname
-		  , method
 		  ;
 
 		async.forEachOf( fields, function eachfield( fld, field, cb){
+
+			if( !!fld.options.exclude ){
+			  return cb();
+			}
+
 			fld.dehydrate( obj, function asyncFieldDehy( err, data ){
+				var methodname   = 'dehydrate_' + field
+				  , method       = that[ methodname ]
+				  ;
+
 				ret[ field ] = data;
-				methodname   = 'dehydrate_' + field;
-				method       = that[ methodname ];
 
 				if( method ){
 					ret[field] = method.call(that, obj,  bundle, ret );
 				}
 
-				dehydrate( ret );
 				return cb &amp;&amp; cb( err );
 			});
 		}, function( err ){
-			done( err, ret );
+			done( err, dehydrate( ret ) );
 		});
 	}
 
@@ -705,17 +723,17 @@ Resource = new Class({
 	 **/
 	, full_hydrate: function full_hydrate( bundle, done ){
 		var Tpl        = this.options.objectTpl
-		  , methodname 
-		  , method     
-		  , attr
-		  ;
-
 		bundle = this.hydrate( bundle );
 		bundle.object = bundle.object || ( typeof Tpl === 'function' ? new Tpl() : Object.create( Tpl ) );
 
 		async.forEachOf( this.fields, function(field, fieldname, cb ){
+			var methodname
+			  , method
+			  , attr
+			  ;
+
 			field = this.fields[ fieldname ];
-			
+
 			if( field.options.readonly ){
 				return cb &amp;&amp; cb( );
 			}
@@ -767,7 +785,7 @@ Resource = new Class({
 
 		return orig[pk_field] || result[pk_field] || ( bundle.data &amp;&amp; bundle.data[pk_field] ) || null;
 	}
-	
+
 	/**
 	 * A method which returns additaional urls to be added to the default uri defintion of a resource
 	 * @method module:tastypie/lib/resource#prepend_urls
@@ -785,13 +803,22 @@ Resource = new Class({
 	 * @param {HttpResponse|Function} cls An HttpResponse function to call to finish the request. Function should accept a response object, and data to send
 	 * @return Resource
 	 **/
-	, respond: function respond( bundle, cls, cb ){
+	, respond: function respond( bundle, cls, location, cb ){
 		cls = cls || http.ok;
-		var format = this.format( bundle, this.options.serializer.types );
-		var that = this;
+		var format = this.format( bundle, this.options.serializer.types )
+		  , that = this
+		  ;
+
 		debug('requested format: %s', format,bundle.req.headers.accept );
+
+		// if location is omitted
+		// respond( bundle, cls, callback )
+		if( arguments.length === 3 &amp;&amp; typeof location === 'function' ){
+			cb = location;
+			location = '';
+		}
 		this.serialize( bundle.data, format, bundle.req.query, function( err, data ){
-			var reply = cls( bundle.res, data, format );
+			var reply = cls( bundle.res, data, format, location );
 			var mutable = mutableMethods.indexOf( bundle.req.method.toLowerCase() ) !== -1;
 			that.modified = mutable ? (new Date()).toUTCString() : that.modified;
 			that.modified &amp;&amp; reply.header('Last-Modified', that.modified );
@@ -941,7 +968,7 @@ Resource.extend = function( proto ){
 module.exports = Resource;
 
 </pre>
-	</article>
+    </article>
 </section>
 
 
@@ -958,6 +985,20 @@ module.exports = Resource;
 </div>
 </div>
 
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
 
 <footer>
 
@@ -965,19 +1006,19 @@ module.exports = Resource;
 	<span class="copyright">
 	Eric Satterwhite &copy; 2015
 	</span>
-	<br />
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on 2015-10-04T13:45:13-05:00 using the <a
-	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on 2016-05-04T12:30:48-05:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
 </footer>
 
-<!--<script src="scripts/sunlight.js"></script>-->
 <script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/bootstrap-dropdown.js"></script>
 <script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
 
 <script>
 $( function () {
@@ -986,22 +1027,6 @@ $( function () {
 
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
-
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
-		},
-		selectors   : "h1,h2,h3,h4",
-		showAndHide : false,
-		scrollTo    : "100px"
-	} );
-
-	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
 
 	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
 		var $this = $( this );
@@ -1014,7 +1039,8 @@ $( function () {
 			example.html( exampleText );
 			lang = lang[1];
 		} else {
-			lang = "javascript";
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
 		}
 
 		if ( lang ) {
@@ -1032,6 +1058,28 @@ $( function () {
 		showMenu : true,
 		enableDoclinks : true
 	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
 } );
 </script>
 
@@ -1042,6 +1090,12 @@ $( function () {
 
 <!--Google Analytics-->
 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
 
 </body>
 </html>
