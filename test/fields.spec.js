@@ -226,6 +226,23 @@ describe("Api Fields", function(){
 					assert.equal( kindOf( value ), 'Array' )
 					done()
 				})
+			});
+
+			it('should parse an array', function( done ){
+				var bundle = {
+					data:{},
+					object:{
+						'afld':['123']
+					}
+				};
+
+				f.hydrate( bundle, function( err, value ){
+					assert.equal( kindOf( value ),'Array');
+					assert.equal( kindOf( value[0] ),'String');
+					done( )
+
+				})
+
 			})
 		})
 	})
