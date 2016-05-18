@@ -1,3 +1,26 @@
+v3.0.0
+------
+* Default resources handle deserializtion rather than delegating
+
+v2.2.0
+------
+
+* post_list performs deserialization
+* field attributes can contain fals-y values
+* char fields allow for an enum and validate against values
+
+v2.1.5
+------
+* corrects array field hydration
+* Adds better hydration on datetime fields
+* Rework on event emitter inheritance on base resource
+
+v2.1.0
+------
+* removes strict validation from filter configurlation
+* corrects an bad scope references
+
+
 v2.0.3
 ------
 
