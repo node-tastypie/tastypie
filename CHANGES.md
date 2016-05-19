@@ -1,3 +1,13 @@
+v3.1.1
+------
+
+* Fixes bug in field hydrate where the default functions were being passed bundle.object instead of data
+
+v3.1.0
+------
+
+* Passes raw data to field default functions
+
 v3.0.0
 ------
 * Default resources handle deserializtion rather than delegating
