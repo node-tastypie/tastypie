@@ -1,6 +1,6 @@
 {
   "name": "tastypie",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Tastypie is a webservice API framework for Node.js based on Django's Tastypie Framework. It provides a convenient, yet powerful and highly customizable, abstraction for creating REST-style interfaces",
   "main": "index.js",
   "scripts": {
