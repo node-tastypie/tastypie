@@ -7,6 +7,55 @@ var path = require('path');
 
 describe("Api Fields", function(){
 
+	describe("CharField",function(){
+		describe('#dehydrate', function(){
+			var f = new fields.CharField({name:'char',attribute:'char'});
+			it('should convert values to strings', function(done){
+				f.dehydrate({
+					char:1
+				}, function( err, value ){
+					assert.strictEqual( err, null);
+					value.should.be.a.String();
+					assert.strictEqual( value, "1");
+					done()
+				})
+			})
+
+			it('should allow empty strings', function( done ){
+				f.dehydrate({
+					char:''
+				}, function( err, value ){
+					value.should.be.a.String();
+					value.should.equal( '' )
+					done();
+				})
+			});
+		});
+		describe("#hydrate",function(){
+
+			describe('~enum', function(){
+				var field = new fields.CharField({
+					name:'char'
+				  , attribute:'char'
+				  , enum:['a','b','c']
+				  , default:'a'
+				});
+
+				it('should return a default if not matched', function(done){
+					field.hydrate({
+						data:{
+							char:''
+						}
+					}, function( err, value ){
+						value.should.be.a.String();
+						value.should.equal( 'a' );
+						done();
+					});
+				});
+			});
+
+		})
+	});
 	describe("BooleanField", function(){
 		var f = new fields.BooleanField();
 		describe('falsy values', function(){
@@ -344,11 +393,53 @@ describe("Api Fields", function(){
 
 				f.dehydrate( data, function( err, value ){
 					value.should.equal( f.options.dir + '/' + 'data.json');
-					done( err )
-				})
-			})
-		})
-	})
+					done( err );
+				});
+			});
+		});
+	});
+
+	describe('IntegerField', function(){
+		describe('#dehydrate', function(){
+			var f;
+			before(function(){
+				f = new fields.IntegerField({
+					name:'num'
+					,attribute:'num'
+				});
+			});
+
+			it('convert strings numbers to number numbers', function(done){
+				f.dehydrate({
+					num:"1"
+				},function( err, value){
+					value.should.be.a.Number( );
+					value.should.equal( 1 );
+					done();
+				});
+			});
+
+			it('should convert float strings to integers', function(done){
+				f.dehydrate({
+					num:"1.1"
+				},function( err, value){
+					value.should.be.a.Number( );
+					value.should.equal( 1 );
+					done();
+				});
+			});
+
+			it('should return 0 for non number strings', function( done){
+				f.dehydrate({
+					num:"foo"
+				},function( err, value){
+					value.should.be.a.Number( );
+					value.should.equal( 0 );
+					done();
+				});
+			});
+		});
+	});
 })
 
 
