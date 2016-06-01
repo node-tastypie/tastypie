@@ -1,5 +1,9 @@
 install: npm install
 script: npm test
+language: node_js
+node_js:
+  - "0.12"
+  - "4"
 services:
   - mongodb
 before_install:
