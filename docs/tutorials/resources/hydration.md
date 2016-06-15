@@ -81,14 +81,13 @@ The {@link module:tastypie/fields.options.attribute|attribute} property on each 
 ```
 var tastypie = require('tastypie')
   , Resource = tastypie.Resource
-  , template
   , MyResource
   ;
 
 
 MyResource = Resource.extend({
 	options:{
-
+		// resource specific defaults
 	}	
 	
 	,fields:{
@@ -158,19 +157,80 @@ MyResource = Resource.extend({
 
 Here the value of the `fake` field is dependent on the value of a different field. This soft of logic simply isn't possible with a name path style attribute, but is the same every time and a field hydration function is a good fit. At the time of writing, the per field hydration and dehydration functions are synchronous and must return a {@link module:tastypie/lib/resource~Bundle|Bundle} object.
 
+
 ### Dehydration
+
+{@link module:tastypie/lib/resource#full_dehydrate|Dehydration} is the inverse of `hydration`, taking a javascript object representing some internal data and reshaping it for serialization for delivery to the client by casting un-serializable object, removing circular references and some general type casting.   
+
+Using the same resource as above:
+
+```
+MyResource = Resource.extend({
+	options:{
+		// resource specific defaults
+	}	
+	
+	,fields:{
+		shallow : { type:'int' }
+	  , nested  : { type:'char', attribute:'a.b.c' }
+	}
+})
+```
+
+We could pass a nested object through the {@link module:tastypie/lib/resource#full_dehydrate|dehydrate} methods:
+
+```
+{
+	"shallow": 10,
+	"a":{
+		"b":{
+			"c":"goodbye world"	
+		}
+	}
+}
+```
+
+which would yield an object ready for serialization which looks like such:
+
+```
+{
+	"shallow": 10,
+	"nested":"goodbye world"
+}
+```
 
 #### Per Field Dehydration
 
-```
-Client Request  
-	-> Resource Handler & Access check & Throttle
-		-> Deserialize 
-			-> hydrate
-				-> reesource actions
-					-> dehydrate
-						-> Cache actions
-							-> serialize
-								-> Client response
+As with the hydration process, you are able to define a dehydrate method for each field to control values returned for specific fields during the dehydration process prior to data being returned to the client. The method should have a `dehydrate_` prefix followed by the name of the field you want to manage. Unlike the hydration methods, the dehydration methods are passed the individual object being dehydrated, the {@link module:tastypie/lib/resource~Bundle|Bundle} object for the current request, and the the final dehydrated object that is being populated. These methods must return an individual value that is intended to populate the final field value
 
+```
+var tastypie = require('tastypie')
+  , Resource = tastypie.Resource
+  , MyResource
+  ;
+
+
+MyResource = Resource.extend({
+	options:{
+		// resource specific defaults
+	}	
+	
+	,fields:{
+		shallow : { type:'int' }
+	  , nested  : { type:'char', attribute:'a.b.c' }
+	  , fake    : { type:'bool' }
+	}
+
+	,dehydrate_shallow: function( item, bundle, dehydrated ){
+		var value = 0;
+		
+		if( item.fake ){
+			value = item.shallow + 10
+		} else {
+			value = item.shallow - 10
+		}
+
+		return value;
+	}
+})
 ```
