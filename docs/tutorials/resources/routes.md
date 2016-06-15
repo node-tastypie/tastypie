@@ -37,8 +37,7 @@ var Simple = Resource.extend({
 
 #### Define A Route
 
-For this example we are going to add a sub resource onto the detail endpoint ( `/api/v1/simple/{id}/foobar` ). Resources have two instance methods that are used to create route definitions, [base\_urls](https://github.com/esatterwhite/node-tastypie/blob/v0.4.4/lib/resource/index.js#L242) and [prepend\_urls](https://github.com/esatterwhite/node-tastypie/blob/v0.4.4/lib/resource/index.js#L715). `base_urls` is the method that defines the `list`, `detail` and `schema` routes. You don't really need to worry about this one unless you want to remove something. `prepend_url` returns an array of objects that gets added on to the base urls. By default it returns an empty array, so we just need to fill it in. Each definition in the array needs to have a `name`, `route` and `handler` property
-
+For this example we are going to add a sub resource onto the detail endpoint ( `/api/v1/simple/{id}/foobar` ). Resources have two instance methods that are used to create route definitions, [base\_urls](https://github.com/esatterwhite/node-tastypie/blob/v0.4.4/lib/resource/index.js#L242) and [prepend\_urls](https://github.com/esatterwhite/node-tastypie/blob/v0.4.4/lib/resource/index.js#L715). `base_urls` is the method that defines the `list`, `detail` and `schema` routes. You don't really need to worry about this one unless you want to remove something. `prepend_url` returns an array of objects that gets added on to the base urls. By default it returns an empty array, so we just need to fill it in. Each definition in the array needs to have a `name`, `route` and `handler` property.
 <table class="striped hoverable">
   <thead>
      <th>property</th><th>usage</th>
