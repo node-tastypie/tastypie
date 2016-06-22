@@ -235,15 +235,19 @@ Each defined resource comes standard with a simple schema definition mapped to t
     "filtering": null,
     "format": "application/json",
     "limit": 25,
-    "methodsAllowed": [
-        "get",
-        "put",
-        "post",
-        "delete",
-        "patch",
-        "head",
-        "options"
-    ]
+    "allowed": 
+      "methods":{
+        "get":true,
+        "put":true,
+        "post":true,
+        "delete":true,
+        "patch":true,
+        "head":true,
+        "options":true
+    },
+    "schema":{
+      get:true
+    }
 }
 ```
 This sort of information can come in very hand for auto generating user interfaces for example.

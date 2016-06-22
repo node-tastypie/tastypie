@@ -12,7 +12,13 @@ var http     = tasypie.http
 var Simple;
 
 Simple = Resource.extend({
-    get_list: function( bundle ){
+    fields:{
+        key:{type:'char'}
+    }
+    ,constructor:function( options ){
+        this.parent('constructor', options)
+    }
+    ,get_list: function( bundle ){
         // the data property is what gets returnedt
         bundle.data = { key:'value' }; 
 
