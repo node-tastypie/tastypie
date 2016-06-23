@@ -11,13 +11,13 @@ var assert   = require('assert')
   ;
 
 describe('resoruce', function(){
-	var api, server
+	var api, server;
 	before(function( done ){
-		api = new Api('api/resource')
-		api.use('more', new Resource)
+		api = new Api('api/resource');
+		api.use('more', new Resource);
 		require('../lib');
-		server = new hapi.Server({})
-		server.connection({host:'localhost'})
+		server = new hapi.Server({});
+		server.connection({host:'localhost'});
 		server.register([api], done );
 	});
 
@@ -33,31 +33,35 @@ describe('resoruce', function(){
 						}
 					}
 					,constructor: function( options ){
-						this.parent('constructor', options)
+						this.parent('constructor', options);
 					}
 
-					, update_object( bundle, cb ){
-						var e = new Error('PatchError')
-						e.name = 'PatchError'
-						cb( e);
+					, update_object:function( bundle, cb ){
+						var e = new Error('PatchError');
+						e.name = 'PatchError';
+						cb( e );
 					}
 
-					, replace_object( bundle, cb ){
-						cb(new Error('PutError'))
+					, replace_object:function( bundle, cb ){
+						cb(new Error('PutError'));
 					}
 
-					, get_object( bundle, cb ){
-						cb(new Error("GetError"))
+					, get_object:function( bundle, cb ){
+						cb(new Error("GetError"));
 					}
 
-					,detele_detail: function( bundle ){
+					,delete_detail: function( bundle ){
 						this.delete_object( bundle, function( err, obj ){
 							if( err ){
 								err.req = bundle.req;
 								err.res = bundle.res;
 								return this.emit( 'error', err );
 							}
-						}.bind( this ))
+						}.bind( this ));
+					}
+
+					,delete_object:function( bundle, cb){
+						cb(new Error('DeleteError') );
 					}
 				});
 				api.use('errors', new ErrorResource );
@@ -72,12 +76,12 @@ describe('resoruce', function(){
 						,'Content-Type':'application/json'
 					}
 				},function( response ){
-					var result = JSON.parse( response.result )
-					assert.equal(result.statusCode, 500)
-					assert.equal(result.message, 'PatchError')
+					var result = JSON.parse( response.result );
+					assert.equal(result.statusCode, 500);
+					assert.equal(result.message, 'PatchError');
 					done();
-				})
-			})
+				});
+			});
 
 			it('should return a GetError', function( done ){
 				server.inject({
@@ -88,12 +92,12 @@ describe('resoruce', function(){
 						,'Content-Type':'application/json'
 					}
 				},function( response ){
-					var result = JSON.parse( response.result )
-					assert.equal(result.statusCode, 500)
-					assert.equal(result.message, 'GetError')
+					var result = JSON.parse( response.result );
+					assert.equal(result.statusCode, 500);
+					assert.equal(result.message, 'GetError');
 					done();
-				})
-			})
+				});
+			});
 			it('should return a PutError', function( done ){
 				server.inject({
 					url:'/api/resource/errors/1'
@@ -103,12 +107,12 @@ describe('resoruce', function(){
 						,'Content-Type':'application/json'
 					}
 				},function( response ){
-					var result = JSON.parse( response.result )
-					assert.equal(result.statusCode, 500)
-					assert.equal(result.message, 'PutError')
+					var result = JSON.parse( response.result );
+					assert.equal(result.statusCode, 500);
+					assert.equal(result.message, 'PutError');
 					done();
-				})
-			})
+				});
+			});
 			it('should return a DeleteError', function( done ){
 				server.inject({
 					url:'/api/resource/errors/1'
@@ -118,12 +122,12 @@ describe('resoruce', function(){
 						,'Content-Type':'application/json'
 					}
 				},function( response ){
-					var result = JSON.parse( response.result )
-					assert.equal(result.statusCode, 500)
-					assert.equal(result.message, 'DeleteError')
+					var result = JSON.parse( response.result );
+					assert.equal(result.statusCode, 500);
+					assert.equal(result.message, 'DeleteError');
 					done();
-				})
-			})
+				});
+			});
 		});
 
 		describe('Extension', function( ){
