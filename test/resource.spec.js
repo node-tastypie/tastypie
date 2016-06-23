@@ -22,6 +22,110 @@ describe('resoruce', function(){
 	});
 
 	describe('Resource', function( ){
+		describe('Method Behavior', function(){
+
+			var ErrorResource;
+			before(function(){
+				ErrorResource = Resource.extend({
+					options:{
+						allowed:{
+							detail:{get:true, put: true, patch:true, post: true, delete: true}
+						}
+					}
+					,constructor: function( options ){
+						this.parent('constructor', options)
+					}
+
+					, update_object( bundle, cb ){
+						var e = new Error('PatchError')
+						e.name = 'PatchError'
+						cb( e);
+					}
+
+					, replace_object( bundle, cb ){
+						cb(new Error('PutError'))
+					}
+
+					, get_object( bundle, cb ){
+						cb(new Error("GetError"))
+					}
+
+					,detele_detail: function( bundle ){
+						this.delete_object( bundle, function( err, obj ){
+							if( err ){
+								err.req = bundle.req;
+								err.res = bundle.res;
+								return this.emit( 'error', err );
+							}
+						}.bind( this ))
+					}
+				});
+				api.use('errors', new ErrorResource );
+			});
+
+			it('should return a PatchError', function( done ){
+				server.inject({
+					url:'/api/resource/errors/1'
+					,method:'patch'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+				},function( response ){
+					var result = JSON.parse( response.result )
+					assert.equal(result.statusCode, 500)
+					assert.equal(result.message, 'PatchError')
+					done();
+				})
+			})
+
+			it('should return a GetError', function( done ){
+				server.inject({
+					url:'/api/resource/errors/1'
+					,method:'get'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+				},function( response ){
+					var result = JSON.parse( response.result )
+					assert.equal(result.statusCode, 500)
+					assert.equal(result.message, 'GetError')
+					done();
+				})
+			})
+			it('should return a PutError', function( done ){
+				server.inject({
+					url:'/api/resource/errors/1'
+					,method:'put'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+				},function( response ){
+					var result = JSON.parse( response.result )
+					assert.equal(result.statusCode, 500)
+					assert.equal(result.message, 'PutError')
+					done();
+				})
+			})
+			it('should return a DeleteError', function( done ){
+				server.inject({
+					url:'/api/resource/errors/1'
+					,method:'delete'
+					,headers:{
+						Accept:'application/json'
+						,'Content-Type':'application/json'
+					}
+				},function( response ){
+					var result = JSON.parse( response.result )
+					assert.equal(result.statusCode, 500)
+					assert.equal(result.message, 'DeleteError')
+					done();
+				})
+			})
+		});
+
 		describe('Extension', function( ){
 			var Extended
 			before(function(){
