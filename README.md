@@ -7,6 +7,8 @@ node-tastypie
 
 A re-realization of the popular Django REST framework - Tasypie for Node.js and [Hapi.js](http://hapijs.com/)
 
+Looking for active contributors / collaborators to help shape the way people build APIs!
+
 [API Documentation](http://esatterwhite.github.io/node-tastypie)
 
 
