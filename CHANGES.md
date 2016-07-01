@@ -1,3 +1,10 @@
+v3.2.0
+------
+
+* Includes a default DELETE implementation using the internal remove_object function to perform deletion
+* remove the unused prime-util module
+* include bug fixes from 2.3
+
 v3.1.1
 ------
 
@@ -11,6 +18,10 @@ v3.1.0
 v3.0.0
 ------
 * Default resources handle deserializtion rather than delegating
+
+v2.3.0
+------
+* field defaults are passed the object being hydrated if default is a function
 
 v2.2.0
 ------
