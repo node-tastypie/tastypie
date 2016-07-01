@@ -1,3 +1,8 @@
+v3.2.1
+------
+
+* Bug that didn't allow the use of the ALL constant in the filters definition. Joi doesn't support symbols
+
 v3.2.0
 ------
 
