@@ -1,3 +1,9 @@
+v4.0.0
+------
+
+* Changes behavior in full_hydrate for patch requests allowing for partial updates
+* Fixes an async bug in field dehydration where if called from a subclass, function calls may not finish before a second iteration begins causing parent chain problems
+
 v3.2.1
 ------
 
