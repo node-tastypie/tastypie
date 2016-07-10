@@ -1,3 +1,21 @@
+v4.0.0
+------
+
+* Changes behavior in full_hydrate for patch requests allowing for partial updates
+* Fixes an async bug in field dehydration where if called from a subclass, function calls may not finish before a second iteration begins causing parent chain problems
+
+v3.2.1
+------
+
+* Bug that didn't allow the use of the ALL constant in the filters definition. Joi doesn't support symbols
+
+v3.2.0
+------
+
+* Includes a default DELETE implementation using the internal remove_object function to perform deletion
+* remove the unused prime-util module
+* include bug fixes from 2.3
+
 v3.1.1
 ------
 
@@ -11,6 +29,10 @@ v3.1.0
 v3.0.0
 ------
 * Default resources handle deserializtion rather than delegating
+
+v2.3.0
+------
+* field defaults are passed the object being hydrated if default is a function
 
 v2.2.0
 ------
