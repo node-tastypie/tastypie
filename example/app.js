@@ -47,11 +47,12 @@ var Base = _Resource.extend({
 
 	,fields:{
 	    age      : { type:'int' }
-	  , fake     : new fields.ApiFIeld()
-	  , name     : {type:'field'}
-	  , fullname : {type:'field'}
+	  , fake     : new fields.ApiFIeld({readonly:true})
+	  , name     : {type:'char'}
+	  , fullname : {type:'char'}
 	  , city     : {type:'char', attribute:'company.address.city'}
 	  , date     : {type:'datetime', attribute:'registered'}
+	  , location : {type:'field', readonly: true}
 	}
 
 	, constructor: function( opts ){
@@ -66,6 +67,9 @@ var Base = _Resource.extend({
 		return obj.gender + " " + obj.company.address.state;
 	}
 
+	, dehydrate_location: function( obj, bundle ){
+		return [ obj.longitude, obj.latitude ];
+	}
 	, dehydrate_fake:function( obj, bundle ){
 		return bundle.req.method + " " + obj.index
 	}
