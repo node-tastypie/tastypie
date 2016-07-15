@@ -7,3 +7,4 @@ tap.xml
 documentation
 example/
 *.save
+coverage/

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
+	,"cover":"istanbul cover _mocha"
   },
   "repository": {
     "type": "git",
@@ -69,6 +70,7 @@
     "hapi": "^13.0.0",
     "inert": "^4.0.0",
     "ink-docstrap": "^1.1.4",
+    "istanbul": "^0.4.4",
     "jscs": "^3.0.4",
     "jscs-jsdoc": "^2.0.0",
     "jsdoc": "^3.3.0-beta3",
