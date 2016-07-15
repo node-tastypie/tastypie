@@ -53,7 +53,7 @@ var Base = _Resource.extend({
 	  , city     : {type:'char', attribute:'company.address.city'}
 	  , date     : {type:'datetime', attribute:'registered'}
 	  , location : {type:'field', readonly: true}
-	  , file     : new fields.FileField({create:true, root:path.resolve(__dirname)})
+	  , file     : new fields.FileField({create:true, root:path.resolve(__dirname), exclude: true})
 	}
 
 	, constructor: function( opts ){
