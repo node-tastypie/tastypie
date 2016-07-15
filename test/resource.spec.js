@@ -24,109 +24,189 @@ describe('resoruce', function(){
 	describe('Resource', function( ){
 		describe('Method Behavior', function(){
 
-			var ErrorResource;
-			before(function(){
-				ErrorResource = Resource.extend({
-					options:{
-						allowed:{
-							detail:{get:true, put: true, patch:true, post: true, delete: true}
-						}
-					}
-					,constructor: function( options ){
-						this.parent('constructor', options);
-					}
-
-					, update_object:function( bundle, cb ){
-						var e = new Error('PatchError');
-						e.name = 'PatchError';
-						cb( e );
-					}
-
-					, replace_object:function( bundle, cb ){
-						cb(new Error('PutError'));
-					}
-
-					, get_object:function( bundle, cb ){
-						cb(new Error("GetError"));
-					}
-
-					,delete_detail: function( bundle ){
-						this.delete_object( bundle, function( err, obj ){
-							if( err ){
-								err.req = bundle.req;
-								err.res = bundle.res;
-								return this.emit( 'error', err );
+			describe('Error handling', function(){
+				var ErrorResource;
+				before(function(){
+					ErrorResource = Resource.extend({
+						options:{
+							allowed:{
+								detail:{get:true, put: true, patch:true, post: true, delete: true}
 							}
-						}.bind( this ));
-					}
+						}
+						,constructor: function( options ){
+							this.parent('constructor', options);
+						}
 
-					,delete_object:function( bundle, cb){
-						cb(new Error('DeleteError') );
-					}
+						, update_object:function( bundle, cb ){
+							var e = new Error('PatchError');
+							e.name = 'PatchError';
+							cb( e );
+						}
+
+						, replace_object:function( bundle, cb ){
+							cb(new Error('PutError'));
+						}
+
+						, get_object:function( bundle, cb ){
+							cb(new Error("GetError"));
+						}
+
+						,delete_detail: function( bundle ){
+							this.delete_object( bundle, function( err, obj ){
+								if( err ){
+									err.req = bundle.req;
+									err.res = bundle.res;
+									return this.emit( 'error', err );
+								}
+							}.bind( this ));
+						}
+
+						,delete_object:function( bundle, cb){
+							cb(new Error('DeleteError') );
+						}
+					});
+					api.use('errors', new ErrorResource );
 				});
-				api.use('errors', new ErrorResource );
+
+				it('should return a PatchError', function( done ){
+					server.inject({
+						url:'/api/resource/errors/1'
+						,method:'patch'
+						,headers:{
+							Accept:'application/json'
+							,'Content-Type':'application/json'
+						}
+					},function( response ){
+						var result = JSON.parse( response.result );
+						assert.equal(result.statusCode, 500);
+						assert.equal(result.message, 'PatchError');
+						done();
+					});
+				});
+
+				it('should return a GetError', function( done ){
+					server.inject({
+						url:'/api/resource/errors/1'
+						,method:'get'
+						,headers:{
+							Accept:'application/json'
+							,'Content-Type':'application/json'
+						}
+					},function( response ){
+						var result = JSON.parse( response.result );
+						assert.equal(result.statusCode, 500);
+						assert.equal(result.message, 'GetError');
+						done();
+					});
+				});
+				it('should return a PutError', function( done ){
+					server.inject({
+						url:'/api/resource/errors/1'
+						,method:'put'
+						,headers:{
+							Accept:'application/json'
+							,'Content-Type':'application/json'
+						}
+					},function( response ){
+						var result = JSON.parse( response.result );
+						assert.equal(result.statusCode, 500);
+						assert.equal(result.message, 'PutError');
+						done();
+					});
+				});
+				it('should return a DeleteError', function( done ){
+					server.inject({
+						url:'/api/resource/errors/1'
+						,method:'delete'
+						,headers:{
+							Accept:'application/json'
+							,'Content-Type':'application/json'
+						}
+					},function( response ){
+						var result = JSON.parse( response.result );
+						assert.equal(result.statusCode, 500);
+						assert.equal(result.message, 'DeleteError');
+						done();
+					});
+				});
+
 			});
 
-			it('should return a PatchError', function( done ){
-				server.inject({
-					url:'/api/resource/errors/1'
-					,method:'patch'
-					,headers:{
-						Accept:'application/json'
-						,'Content-Type':'application/json'
-					}
-				},function( response ){
-					var result = JSON.parse( response.result );
-					assert.equal(result.statusCode, 500);
-					assert.equal(result.message, 'PatchError');
-					done();
-				});
-			});
 
-			it('should return a GetError', function( done ){
-				server.inject({
-					url:'/api/resource/errors/1'
-					,method:'get'
-					,headers:{
-						Accept:'application/json'
-						,'Content-Type':'application/json'
-					}
-				},function( response ){
-					var result = JSON.parse( response.result );
-					assert.equal(result.statusCode, 500);
-					assert.equal(result.message, 'GetError');
-					done();
+			describe('~Default Behaviors', function(){
+				var ListResource, data;
+
+
+				before(function( done ){
+					data = [
+						{ name:'test', id:0, color:'red' }
+						,{ name:'foo', id:1, color:'blue' }
+					];
+
+					ListResource = Resource.extend({
+						options:{
+							allowed:{
+								detail:{get:true, put: true, patch:true, post: true, delete: true}
+							}
+						}
+						, fields:{
+							name:{type:'char'}
+							,color: {type:'char', required:true, nullable: false}
+						}
+						,constructor: function( options ){
+							this.parent('constructor', options);
+						}
+
+						, update_object:function( bundle, cb ){
+							bundle.object = data[ bundle.req.params.pk ];
+							this.full_hydrate(bundle,cb);
+						}
+
+						, replace_object:function( bundle, cb ){
+							cb(new Error('PutError'));
+						}
+
+						, get_object:function( bundle, cb ){
+							cb(new Error("GetError"));
+						}
+
+						,delete_detail: function( bundle ){
+							this.delete_object( bundle, function( err, obj ){
+								if( err ){
+									err.req = bundle.req;
+									err.res = bundle.res;
+									return this.emit( 'error', err );
+								}
+							}.bind( this ));
+						}
+
+						,delete_object:function( bundle, cb){
+							cb(new Error('DeleteError') );
+						}
+					});
+					api.use('list', new ListResource() );
+					done()
 				});
-			});
-			it('should return a PutError', function( done ){
-				server.inject({
-					url:'/api/resource/errors/1'
-					,method:'put'
-					,headers:{
-						Accept:'application/json'
-						,'Content-Type':'application/json'
-					}
-				},function( response ){
-					var result = JSON.parse( response.result );
-					assert.equal(result.statusCode, 500);
-					assert.equal(result.message, 'PutError');
-					done();
-				});
-			});
-			it('should return a DeleteError', function( done ){
-				server.inject({
-					url:'/api/resource/errors/1'
-					,method:'delete'
-					,headers:{
-						Accept:'application/json'
-						,'Content-Type':'application/json'
-					}
-				},function( response ){
-					var result = JSON.parse( response.result );
-					assert.equal(result.statusCode, 500);
-					assert.equal(result.message, 'DeleteError');
-					done();
-				});
+
+				it('should allow partial updates with PATCH', function( done ){
+
+					var payload = {name:'abacadaba'};
+
+					server.inject({
+						url:'/api/resource/list/1'
+						,method:'patch'
+						,headers:{
+							Accept:'application/json'
+							,'Content-Type':'application/json'
+						}
+						,payload:payload
+					},function( response ){
+						var data = JSON.parse( response.result );
+
+						assert.equal( data.name, payload.name )
+						done();
+					})
+				})
 			});
 		});
 
