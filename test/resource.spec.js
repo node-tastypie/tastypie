@@ -163,50 +163,153 @@ describe('resoruce', function(){
 						}
 
 						, replace_object:function( bundle, cb ){
-							cb(new Error('PutError'));
+							bundle.object ={};
+							this.full_hydrate(bundle, function( err, b ){
+								data[bundle.req.params.pk] = b.object;
+								cb( err, b );
+							})
+						}
+
+						, create_object: function( bundle, cb ){
+							bundle.object = { id: data.length + 1 }
+							this.full_hydrate( bundle, function( err, b ){
+								cb( err, bundle );
+								data.push( b.object );
+							})
 						}
 
 						, get_object:function( bundle, cb ){
-							cb(new Error("GetError"));
+							cb(null, data[bundle.req.params.pk])
 						}
 
-						,delete_detail: function( bundle ){
-							this.delete_object( bundle, function( err, obj ){
-								if( err ){
-									err.req = bundle.req;
-									err.res = bundle.res;
-									return this.emit( 'error', err );
-								}
-							}.bind( this ));
-						}
-
-						,delete_object:function( bundle, cb){
-							cb(new Error('DeleteError') );
+						,remove_object:function( bundle, cb){
+							var obj = data[ bundle.req.params.pk ];
+							delete data[ bundle.req.params.pk ];
+							cb( null, obj );
 						}
 					});
 					api.use('list', new ListResource() );
 					done()
 				});
 
-				it('should allow partial updates with PATCH', function( done ){
 
-					var payload = {name:'abacadaba'};
+				describe('#POST list', function( ){
+					it('should reject partial data', function( done ){
+						var payload = {name:'missing data'}
+						server.inject({
+							url:'/api/resource/list'
+							,method:'post'
+							,payload: payload
+							,headers:{
+								Accept:'application/json'
+								,'Content-Type':'application/json'
+							}
+						}, function( response ){
+							assert.equal( response.statusCode, 400 )
+							done()
+						})
+					});
 
-					server.inject({
-						url:'/api/resource/list/1'
-						,method:'patch'
-						,headers:{
-							Accept:'application/json'
-							,'Content-Type':'application/json'
-						}
-						,payload:payload
-					},function( response ){
-						var data = JSON.parse( response.result );
+					it('should generate a new object', function( done ){
+						var payload = {name:'full data', color:'fuscia'}
+						server.inject({
+							url:'/api/resource/list'
+							,method:'post'
+							,payload: payload
+							,headers:{
+								Accept:'application/json'
+								,'Content-Type':'application/json'
+							}
+						}, function( response ){
+							var res = JSON.parse( response.result )
+							assert.equal( response.statusCode, 201 );
+							assert.equal( data.length, 3);
+							assert.equal( data[2].name, res.name );
+							assert.equal( data[2].color, res.color );
+							done()
+						})
+					})
+				});
 
-						assert.equal( data.name, payload.name )
-						done();
+				describe('#PATCH detail', function(){
+					it('should allow partial updates with PATCH', function( done ){
+
+						var payload = {name:'abacadaba'};
+
+						server.inject({
+							url:'/api/resource/list/1'
+							,method:'patch'
+							,headers:{
+								Accept:'application/json'
+								,'Content-Type':'application/json'
+							}
+							,payload:payload
+						},function( response ){
+							var res = JSON.parse( response.result );
+							assert.equal( res.name, payload.name )
+							done();
+						})
+					});
+				});
+
+				describe('#GET Detail', function( ){
+					it('should return a 404 for incorrect ids', function( done ){
+						server.inject({
+							url:'/api/resource/list/5'
+							,method:'get'
+							,headers:{
+								Accept:'application/json'
+								,'Content-Type':'application/json'
+							}
+						},function( response ){
+							assert.equal( response.statusCode, 404 );
+							done();
+						})
 					})
 				})
+
+				describe('#PUT detail', function(){
+					it('should allow for full replacement with PATCH', function( done ){
+						var payload = {
+							name:'hocuspocus',
+							color:'green'
+						};
+
+						server.inject({
+							url:'/api/resource/list/1'
+							,method:'put'
+							,headers:{
+								Accept:'application/json'
+								,'Content-Type':'application/json'
+							}
+							,payload: payload
+						}, function( response ){
+							var res = JSON.parse( response.result );
+							assert.equal( response.statusCode, 200 );
+							assert.equal( res.name = data.name );
+							assert.equal( res.color = data.color );
+							done( );
+						});
+					});
+
+					it('should reject partial updates with PUT', function( done ){
+						var payload = {'name':'foobar'}
+						server.inject({
+							url:'/api/resource/list/1'
+							,method:'put'
+							,headers:{
+								Accept:'application/json'
+								,'Content-Type':'application/json'
+							}
+							,payload:payload
+						},function( response ){
+							assert.equal( response.statusCode, 400);
+							assert.notEqual(data[1].name, payload.name );
+							done();
+						})
+					})
+				});
+
 			});
 		});
 
