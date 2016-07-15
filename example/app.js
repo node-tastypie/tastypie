@@ -5,6 +5,7 @@ var hapi         = require("hapi")
   , util           = require('util')
   , path         = require('path')
   , Api          = require('../lib/api')
+  , http         = require('../lib/http')
   , _Resource    = require('../lib/resource')
   , Throttle     = require('../lib/throttle')
   , Cache        = require('../lib/cache')
@@ -31,7 +32,6 @@ server.connection({
 })
 
 
-debugger;
 var Base = _Resource.extend({
 	options:{
 		pk:'guid'
@@ -53,6 +53,7 @@ var Base = _Resource.extend({
 	  , city     : {type:'char', attribute:'company.address.city'}
 	  , date     : {type:'datetime', attribute:'registered'}
 	  , location : {type:'field', readonly: true}
+	  , file     : new fields.FileField({create:true, root:path.resolve(__dirname)})
 	}
 
 	, constructor: function( opts ){
@@ -95,9 +96,20 @@ var Base = _Resource.extend({
 		return bundle.res("done").code(201)
 	}
 
+	// Results should be sent using multipart/form-data 
 	, post_upload: function( bundle ){
-		bundle.data ={ key:'value'}
-		this.respond( bundle )
+		var format = this.format( bundle, this.options.serializer.types );
+		this.deserialize( bundle.req.payload, format, function( err, data ){
+			bundle.data = data;
+			bundle.object = {company:{address:{}}};
+
+			this.fields.file.hydrate( bundle, function( err, value ){
+				// quick and dirty respnose
+				bundle.data = {file: value}
+				this.respond( bundle )
+			}.bind( this ));
+
+		}.bind( this ));
 	}
 
 	, prepend_urls:function(){
@@ -106,13 +118,10 @@ var Base = _Resource.extend({
 			, handler: this.dispatch_upload.bind( this )
 			, name:'upload'
 			, config:{
-				validate:{
-					errorFields:{
-						age:true
-					},
-					payload:{
-						age:joi.number().greater(10).required()
-					}
+				payload:{
+					output:'stream'
+					,maxBytes: 3 + Math.pow(1024, 2)
+					,parse: true
 				}
 			}
 			}]
