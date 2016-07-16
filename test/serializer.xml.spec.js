@@ -20,6 +20,8 @@ describe('serializer#xml', function(){
 		});
 		s.deserialize(doc, 'text/xml', function( err, content){
 			assert.ok( content );
+			assert.equal( content.key, 'value')
+			assert.equal( content.foo.alt.test, 1 )
 		})
 	})
 
