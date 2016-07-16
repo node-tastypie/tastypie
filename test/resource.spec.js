@@ -512,22 +512,4 @@ describe('resoruce', function(){
 		})
 	});
 
-	describe('api', function(){
-		it('should accept a request',function( done ){
-			server.inject({
-				url:'/api/resource'
-				,method:'get'
-				,headers:{
-					Accept:'application/json',
-					'Content-Type':'application/json'
-				}
-			}, function( response ){
-				var reply = response.result
-				 reply.more.schema.should.equal( "/api/resource/more/schema" );
-				 reply.more.list.should.equal( "/api/resource/more" );
-				 reply.more.detail.should.equal( "/api/resource/more/{pk}" );
-				done();
-			});
-		});
-	});
 });
