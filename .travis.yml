@@ -1,5 +1,5 @@
 install: npm install
-script: npm test
+script: npm run coverage
 language: node_js
 node_js:
   - "4"
