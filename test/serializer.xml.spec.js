@@ -27,9 +27,7 @@ describe('serializer#xml', function(){
 
 	it('should do other things 2', function(){
 		var expected = '<?xml version="1.0" encoding="UTF-8"?>\n<response>\n <key type="string">value</key>\n <foo type="object">\n  <alt type="object">\n   <test type="number">1</test>\n  </alt>\n </foo>\n</response>\n'
-		var s = new serializer({
-			xmlattr:true
-		})
+		var s = new serializer()
 		s.serialize({key:'value', foo:{alt:{test:1}}}, 'text/xml', function(e,xml){
 			assert.equal( xml, expected )
 		})
