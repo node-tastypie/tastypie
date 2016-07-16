@@ -222,9 +222,9 @@ describe('Resource', function(){
 			})
 		});
 
-		it('should responsd with a 410 using http.resourceGone', function( done ){
+		it('should responsd with a 410 using http.gone', function( done ){
 			server.inject({
-				url:'/api/v1/http/status/resourceGone'
+				url:'/api/v1/http/status/gone'
 				,method:'GET'
 			},function( response ){
 				response.statusCode.should.equal( 410 );
@@ -252,9 +252,9 @@ describe('Resource', function(){
 			})
 		});
 
-		it('should responsd with a 413 using http.requestEntityTooLarge', function( done ){
+		it('should responsd with a 413 using http.payloadTooLarge', function( done ){
 			server.inject({
-				url:'/api/v1/http/status/requestEntityTooLarge'
+				url:'/api/v1/http/status/payloadTooLarge'
 				,method:'GET'
 			},function( response ){
 				response.statusCode.should.equal( 413 );
