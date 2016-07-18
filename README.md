@@ -298,9 +298,8 @@ var debug    = require('debug')('tastypie:example')
 var app;
 
 
-// make a simple object template to be populated
+// make a simple object template to be populated during the hydration process
 // This could be a Model class just as easily
-
 function Schema(){
     this.name = {
         first: undefined, last: undefined
