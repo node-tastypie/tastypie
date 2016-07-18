@@ -3,6 +3,13 @@ v4.0.0 - Derby Pie
 
 * Changes behavior in full_hydrate for patch requests allowing for partial updates
 * Fixes an async bug in field dehydration where if called from a subclass, function calls may not finish before a second iteration begins causing parent chain problems
+* Http helpers allow for an empty body be sending data as null
+* Adds support for OPTIONS requests for List / Detail actions
+* Better help text for the auto id & uri fields
+* bugfix when using a serializer on an API instance crashes on node v6
+* Better handling of partial updates for PATCH requests
+* cache option on resource is no a config object instead of a cache instance
+
 
 v3.2.1 - Cherry Pie
 ------
