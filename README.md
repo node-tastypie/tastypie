@@ -20,27 +20,106 @@ Looking for active contributors / collaborators to help shape the way people bui
 
 ```js
 var tastypie = require('tastypie')
-var Api = tastypie.Api
-var hapi = require('hapi')
-var server = new hapi.server
-var v1 = new Api('api/v1' )
-var Resource = tastypie.Resource.extend({
+  , Api      = tastypie.Api
+  , hapi     = require('hapi')
+  , server   = new hapi.Server()
+  , v1       = new Api('api/v1' )
+  , Resource
+  ;
+
+Resource = tastypie.Resource.extend({
     fields:{
-        lastName:{ type:'char', attribute:'name.first' },
-        fisrtName:{type:'char', attribute: 'name.last'}
+        lastName:{ type:'char', attribute:'name.first', help:'last name of the user'},
+        fisrtName:{type:'char', attribute: 'name.last', help:'first name of the user'}
     }
 })
 
 v1.use('test', new Resource() );
 
-server.connection({port:2000})
+server.connection({port:2000, host:'localhost'});
+
 server.register( v1, function( ){
     server.start(function(){
-        console.log('server listening localhost:2000')  
+        console.log('server listening localhost:2000');
     });
-})
+});
+```
+### Self Describing
+
+Tastypie exposes endpoint to descibe available resources and the contracts they expose
+
+
+#### Resource listing
+```js
+// GET /api/v1
+{
+    "test":{
+        "schema": "/api/v1/test/schema",
+        "detail": "/api/v1/test/{pk}",
+        "list": "/api/v1/test"
+    }
+}
 ```
 
+##### Auto Schema
+
+```js
+// GET /api/v1/test/schema
+
+{
+	"filtering": {},
+	"ordering": [],
+	"formats": ["application/json", "text/javascript", "text/xml"],
+	"limit": 25,
+	"fields": {
+		"lastName": {
+			"default": null,
+			"type": "string",
+			"nullable": false,
+			"blank": false,
+			"readonly": false,
+			"help": "last name of the user",
+			"unique": false,
+			"enum": []
+		},
+		"fisrtName": {
+			"default": null,
+			"type": "string",
+			"nullable": false,
+			"blank": false,
+			"readonly": false,
+			"help": "first name of the user",
+			"unique": false,
+			"enum": []
+		},
+		"id": {
+			"default": null,
+			"type": "string",
+			"nullable": false,
+			"blank": false,
+			"readonly": true,
+			"help": "Unique identifier of this resource",
+			"unique": false,
+			"enum": []
+		},
+		"uri": {
+			"default": null,
+			"type": "string",
+			"nullable": false,
+			"blank": false,
+			"readonly": true,
+			"help": "The URI pointing back the this resource instance",
+			"unique": false,
+			"enum": []
+		}
+	},
+	"allowed": {
+		"schema": ["get"],
+		"detail": ["get", "put", "post", "delete", "patch", "head", "options"],
+		"list": ["get", "put", "post", "delete", "patch", "head", "options"]
+	}
+}
+```
 ##### Get Data
 
 ```js
@@ -62,64 +141,20 @@ server.register( v1, function( ){
     }]
 } 
 
-```
 
-
-##### Auto Schema
-
-```js
-// GET /api/v1/test/schema
+// GET /api/v1/test/1
 
 {
-    "fields": {
-          "firstName": {
-              "blank": false,
-              "default": null,
-              "help_text": "Forces values to string values by calling toString",
-              "nullable": false,
-              "readonly": false,
-              "type": "string",
-              "unique": false
-          },
-          "lastName": {
-              "blank": false,
-              "default": null,
-              "help_text": "Forces values to string values by calling toString",
-              "nullable": false,
-              "readonly": false,
-              "type": "string",
-              "unique": false
-          },
-          "uri": {
-              "blank": false,
-              "default": null,
-              "help_text": "Forces values to string values by calling toString",
-              "nullable": false,
-              "readonly": false,
-              "type": "string",
-              "unique": false
-          }
-      },
-      "filtering": {},
-      "format": "application/json",
-      "limit": 0,
-      "methodsAllowed": [
-          "get",
-          "put",
-          "post",
-          "delete",
-          "patch",
-          "head",
-          "options"
-      ]
-
+    firstName:"Bill",
+    lastName:"Bucks",
+    uri:"/api/v1/test/1"    
 }
 ```
 
 #### Built-in Fields
 
-* field ( ApiField ) - Generic noop field
-* object ( ObjectField ) - Generic no-op field
+* field ( ApiField ) - Generic noop field - returns the data as it is given
+* object ( ObjectField ) - Generic no-op field - returns the data as it is given
 * char ( character / CharField ) - Converts values to strings
 * array ( ArrayField ) Converts comma sparated strings into arrays
 * int ( int / IntegerField ) converts numeric values into integers using `parseInt`
