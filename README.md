@@ -192,12 +192,97 @@ curl -H "Accept: text/xml" http://localhost:3000/api/v1/test
 curl http://localhost:3000/api/v1/test?format=xml
 ```
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+ <firstName type="string">bill</firstName>
+ <lastName type="string">Schaefer</lastName>
+</response>
+```
+
 **NOTE:** hapi captures application/foo so for custom serialization, we must use text/foo
 
-#### Example FS resourse
-Of course, Tastypie is not tied to Mongo or mongose, you can use the default resource type to create to put a Rest API around anything. The mongo resource just does a lot of the set up for you.
+#### Quick & Dirty Resource
 
-Here is a resource that will asyncronously read a JSON file from disk are respond to GET requests. Supports XML, JSON, paging and dummy cache out of the box.
+A functional resource, by convention, should define method handlers for each of the `actions` ( `list`, `detail`, `schema`, etc ) & `HTTP verbs` where it makes sense - where the resource method name is `<VERB>_<ACTION>`.
+
+```js
+var tastypie = require('tastypie')
+var Resource = tastypie.Resource;
+var http     = tasypie.http
+var Simple;
+
+Simple = Resource.extend({
+    options:{
+    	name:'simple'
+    }
+    ,fields:{
+        key:{type:'char'}
+    }
+    
+    ,constructor:function( options ){
+        this.parent('constructor', options)
+    }
+    
+    /**
+     * handles DELETE /{pk}
+     **/
+    , delete_detail: function( bundle ){
+        bundle.data = null;
+        return this.respond( bundle, http.noContent ) // Send a custom response code
+    }
+
+    /**
+     * handles GET /{pk}
+     **/    
+    , get_detail: function( bundle ){
+        bundle.data = {success:1}
+        return this.respond( bundle ) // defaults to 200 OK respose code
+    }
+    
+    /**
+     * handles GET /
+     **/
+    ,get_list: function( bundle ){
+        // the data property is what gets returnedt
+        bundle.data = { key:'value' }; 
+
+        // use the respond method if you
+        // want serialization, status code, etc...
+        return this.respond( bundle )
+    }
+    
+    /**
+     * handles PATCH /{pk}
+     **/
+    , patch_detail: function( bundle ){
+        // or just send a straight response.
+        // res is the hapi reply object
+        return bundle.res({any:'data you want'}).code( 201 );
+    }    
+
+    /**
+     * handles POST /
+     **/
+    , post_list: function( bundle ){
+        var data = bundle.req.payload;
+        // do something with the data.
+        return this.respond( bundle, http.created)
+    }
+    
+    /**
+     * handles PUT /{pk}
+     **/
+    , put_detail: function( bundle ){
+    	// Manually set the Bundle's data property to send back to the client
+        budnel.data = {key:'updated'}
+        return this.respond( bundle, http.accepted )
+    }
+});
+```
+#### Example FS resourse
+
+The base resource defines many of the required `<VERB>_<ACTION>` methods for you and delegates to smaller internal methods which you can over-ride to customize behaviors. Here is a resource that will asyncronously read a JSON file from disk are respond to GET requests. Supports **XML**, **JSON**, paging and dummy cache out of the box.
 
 ```js
 var hapi     = require('hapi');
@@ -259,7 +344,6 @@ var Base = Class({
     // internal low level method reponsible for dealing with a POST request
     , create_object: function create_object( bundle, opt, callback ){
         bundle = this.full_hydrate( bundle )
-        // this.save( bundle, callback )
         callback && callback(null, bundle )
     }
     // per field dehydration method - generates a full name field from name.first & name.last
