@@ -8,7 +8,7 @@ A re-realization of the popular Django REST framework - Tasypie for Node.js and 
 
 Looking for active contributors / collaborators to help shape the way people build APIs!
 
-[API Documentation](http://esatterwhite.github.io/node-tastypie)
+[API Documentation](http://esatterwhite.github.io/node-tastypie) [Working Example](./example/app.js)
 
 
 ### Officially Supported Resources Types
