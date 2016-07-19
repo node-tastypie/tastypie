@@ -215,6 +215,7 @@ var Simple;
 Simple = Resource.extend({
     options:{
     	name:'simple'
+    	,pk:'_id'
     }
     ,fields:{
         key:{type:'char'}
@@ -236,7 +237,7 @@ Simple = Resource.extend({
      * handles GET /{pk}
      **/    
     , get_detail: function( bundle ){
-        bundle.data = {success:1}
+        bundle.data = {key:'foo', _id:1};
         return this.respond( bundle ) // defaults to 200 OK respose code
     }
     
@@ -244,8 +245,8 @@ Simple = Resource.extend({
      * handles GET /
      **/
     ,get_list: function( bundle ){
-        // the data property is what gets returnedt
-        bundle.data = { key:'value' }; 
+        // the data property is what gets returned
+        bundle.data = [{ key:'foo', _id:1},{key:'bar', _id:2}]; 
 
         // use the respond method if you
         // want serialization, status code, etc...
