@@ -30,7 +30,7 @@ var tastypie = require('tastypie')
 Resource = tastypie.Resource.extend({
     fields:{
         lastName:{ type:'char', attribute:'name.first', help:'last name of the user'},
-        fisrtName:{type:'char', attribute: 'name.last', help:'first name of the user'}
+        firstName:{type:'char', attribute: 'name.last', help:'first name of the user'}
     }
 })
 
@@ -82,7 +82,7 @@ Tastypie exposes endpoint to descibe available resources and the contracts they 
 			"unique": false,
 			"enum": []
 		},
-		"fisrtName": {
+		"firstName": {
 			"default": null,
 			"type": "string",
 			"nullable": false,
@@ -319,17 +319,17 @@ var Base = Class({
     }
     ,fields:{
         // remap _id to id
-          id       : { type:'ApiField', attribute:'_id' }
-        , age      : { type:'IntegerField' } 
+          id       : { type:'field', attribute:'_id' }
+        , age      : { type:'int' } 
 
         // can also be a field instance
         , eyeColor : new fields.CharField({'null':true})
-        , range    : { type:'ArrayField', 'null': true }
-        , fullname : { type:"CharField", 'null':true }
+        , range    : { type:'array', 'null': true }
+        , fullname : { type:'char', 'null':true }
 
         // remap the uid property to uuid. 
-        , uuid     : { type:'CharField', attribute:'guid'}
-        , name     : { type:'ApiField'}
+        , uuid     : { type:'char', attribute:'guid'}
+        , name     : { type:'field'}
     }
    , constructor: function( meta ){
         this.parent('constructor', meta )
