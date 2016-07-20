@@ -1,8 +1,11 @@
-![node tastypie](./assets/tastypie-logo.png)
+![node tastypie](./assets/tastypie-logo.png) 
 
 [![NPM](https://nodei.co/npm/tastypie.png?downloads=true&downloadRank=true)](https://nodei.co/npm/tastypie/)
 
-[![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/tastypie)
+[![npm](https://img.shields.io/npm/l/tastypie.svg?style=flat-square)](https://github.com/esatterwhite/node-tastypie/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/tastypie.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/tastypie)
+[![node](https://img.shields.io/node/v/tastypie.svg?style=flat-square)](https://npmjs.org/package/tastypie)
+[![David](https://img.shields.io/david/esatterwhite/node-tastypie.svg?style=flat-square)](https://david-dm.org/esatterwhite/node-tastypie)
 [![Build Status](https://img.shields.io/travis/esatterwhite/node-tastypie.svg?maxAge=2592000&style=flat-square)](https://travis-ci.org/esatterwhite/node-tastypie)
 [![Codacy grade](https://img.shields.io/codacy/grade/35877cfd7e7e42f6bf82f1b8bf292b79.svg?maxAge=2592000&style=flat-square)](https://www.codacy.com/app/esatterwhite/node-tastypie)
 
