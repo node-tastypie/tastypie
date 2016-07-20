@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/tastypie.png?downloads=true&downloadRank=true)](https://nodei.co/npm/tastypie/)
 
-[![npm](https://img.shields.io/npm/l/tastypie.svg?style=flat-square)](https://github.com/esatterwhite/node-tastypie/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/esatterwhite/node-tastypie.svg?style=flat-square)](https://github.com/esatterwhite/node-tastypie/blob/master/LICENSE)
 [![npm](https://img.shields.io/npm/v/tastypie.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/tastypie)
 [![node](https://img.shields.io/node/v/tastypie.svg?style=flat-square)](https://npmjs.org/package/tastypie)
 [![David](https://img.shields.io/david/esatterwhite/node-tastypie.svg?style=flat-square)](https://david-dm.org/esatterwhite/node-tastypie)
