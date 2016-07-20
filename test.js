@@ -1,10 +1,17 @@
 var child_process = require('child_process')
   , fs = require('fs')
   , util = require("util")
+  , clone = require('mout/lang/clone')
   , production = (process.env.NODE_ENV === 'test')
   , html
   , coverage
   , mocha
+  , env 
+  ;
+
+env = clone( process.env );
+
+env.MOCHA_COLORS=1
 
 
 
@@ -28,7 +35,7 @@ mocha = child_process.spawn("mocha", [
 	, "--recursive"
 	, util.format("--reporter=%s", production ? 'xunit':'spec')
 	, 'test/*.spec.js'
-])
+],{env:env})
 mocha.on('exit', function( code ){
 	process.exit( code )
 })
