@@ -6,14 +6,11 @@ var child_process = require('child_process')
   , html
   , coverage
   , mocha
-  , env 
+  , env
   ;
 
 env = clone( process.env );
-
-env.MOCHA_COLORS=1
-
-
+env.MOCHA_COLORS = 1;
 
 if( production ){
 	reporter = fs.createWriteStream('tap.xml',{
