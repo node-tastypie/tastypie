@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/tastypie.png?downloads=true&downloadRank=true)](https://nodei.co/npm/tastypie/)
 
-[![Codeship Status for esatterwhite/node-tastypie](https://codeship.com/projects/c1cbe300-223a-0132-f5dd-46c80b892b0f/status?branch=master)](https://codeship.com/projects/36472)
+[![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/tastypie)
 [![Build Status](https://img.shields.io/travis/esatterwhite/node-tastypie.svg?maxAge=2592000&style=flat-square)](https://travis-ci.org/esatterwhite/node-tastypie)
 [![Codacy grade](https://img.shields.io/codacy/grade/35877cfd7e7e42f6bf82f1b8bf292b79.svg?maxAge=2592000&style=flat-square)](https://www.codacy.com/app/esatterwhite/node-tastypie)
 
