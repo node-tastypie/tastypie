@@ -76,7 +76,7 @@ var Base = _Resource.extend({
 	, get_object: function( bundle, callback ){
 		this.get_objects(bundle,function(e, objects){
 			var obj = JSON.parse( objects ).filter(function( obj ){
-					return obj.guid == bundle.req.params.pk
+					return obj.guid === bundle.req.params.pk
 				})[0]
 				callback( null, obj )
 			})
