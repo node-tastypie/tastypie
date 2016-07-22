@@ -62,28 +62,28 @@ var Base = _Resource.extend({
 		return [ obj.longitude, obj.latitude ];
 	}
 	, dehydrate_fake:function( obj, bundle ){
-		return bundle.req.method + " " + obj.index
+		return bundle.req.method + " " + obj.index;
 	}
 
 	, dispatch_upload: function(req, reply ){
-		return this.dispatch('upload', this.bundle( req, reply ) )
+		return this.dispatch('upload', this.bundle( req, reply ) );
 	}
 
 	, get_objects: function(bundle, callback){
-		fs.readFile( path.join(__dirname, 'data.json') , callback)
+		fs.readFile( path.join(__dirname, 'data.json') , callback);
 	}
 
 	, get_object: function( bundle, callback ){
 		this.get_objects(bundle,function(e, objects){
 			var obj = JSON.parse( objects ).filter(function( obj ){
-					return obj.guid === bundle.req.params.pk
-				})[0]
-				callback( null, obj )
+					return obj.guid === bundle.req.params.pk;
+				})[0];
+				callback( null, obj );
 			})
 	}
 
 	, post_list: function( bundle ){
-		return bundle.res("done").code(201)
+		return bundle.res("done").code(201);
 	}
 
 	// Results should be sent using multipart/form-data 
