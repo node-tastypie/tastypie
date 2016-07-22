@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/node-tastypie/node-tastypie"
+    "url": "git://github.com/node-tastypie/tastypie"
   },
   "keywords": [
     "tastypie",
