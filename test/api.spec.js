@@ -25,28 +25,6 @@ FakeResource = Resource.extend({
 	,constructor: function( options ){
 		this.parent('constructor', options);
 	}
-
-	, update_object:function( bundle, cb ){
-		bundle.object = data[ bundle.req.params.pk ];
-		this.full_hydrate(bundle,cb);
-	}
-
-	, replace_object:function( bundle, cb ){
-		bundle.object ={};
-		this.full_hydrate(bundle, function( err, b ){
-			data[bundle.req.params.pk] = b.object;
-			cb( err, b );
-		})
-	}
-
-	, create_object: function( bundle, cb ){
-		bundle.object = { id: data.length + 1 }
-		this.full_hydrate( bundle, function( err, b ){
-			cb( err, bundle );
-			data.push( b.object );
-		})
-	}
-
 	,get_list: function( bundle ){
 		bundle.res({
 			data:[
@@ -56,15 +34,7 @@ FakeResource = Resource.extend({
 		})
 	}
 
-	, get_object:function( bundle, cb ){
-		cb(null, data[bundle.req.params.pk])
-	}
 
-	,remove_object:function( bundle, cb){
-		var obj = data[ bundle.req.params.pk ];
-		delete data[ bundle.req.params.pk ];
-		cb( null, obj );
-	}
 })
 
 describe('api', function(){
