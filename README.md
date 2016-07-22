@@ -12,13 +12,13 @@
 A re-realization of the popular Django REST framework - Tasypie for Node.js and [Hapi.js](http://hapijs.com/).
 Looking for active contributors / collaborators to help shape the way people build APIs!
 
-[API Documentation](http://esatterwhite.github.io/node-tastypie) [Working Example](./example/app.js)
+[API Documentation](http://node-tastypie.github.io/tastypie) [Working Example](./example/app.js)
 
 
 ### Officially Supported Resources Types
 
-* [Official Monogoose Resource](https://github.com/esatterwhite/tastypie-mongo)
-* [Official RethinkDB Resource](https://github.com/esatterwhite/tastypie-rethink)
+* [Official Monogoose Resource](https://github.com/node-tastypie/tastypie-mongo)
+* [Official RethinkDB Resource](https://github.com/node-tastypie/tastypie-rethink)
 
 ### Create a simple Api
 
