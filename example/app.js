@@ -2,21 +2,11 @@
 'use strict'
 var hapi         = require("hapi")
   , fs           = require('fs')
-  , util           = require('util')
   , path         = require('path')
   , Api          = require('../lib/api')
-  , http         = require('../lib/http')
   , _Resource    = require('../lib/resource')
-  , Throttle     = require('../lib/throttle')
   , Cache        = require('../lib/cache')
-  , urljoin      = require('../lib').urljoin
   , fields       = require('../lib/fields')
-  , qs_validator = require('../lib/resource/validator/querystring')
-  , joi          = require('joi')
-  , Schema
-  , Model
-  , Endpoints
-  , connection
   , server
   , port
   , v1
@@ -68,7 +58,7 @@ var Base = _Resource.extend({
 		return obj.gender + " " + obj.company.address.state;
 	}
 
-	, dehydrate_location: function( obj, bundle ){
+	, dehydrate_location: function( obj /*, bundle */ ){
 		return [ obj.longitude, obj.latitude ];
 	}
 	, dehydrate_fake:function( obj, bundle ){
