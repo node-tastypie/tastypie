@@ -20,6 +20,11 @@ Looking for active contributors / collaborators to help shape the way people bui
 * [Official Monogoose Resource](https://github.com/node-tastypie/tastypie-mongo)
 * [Official RethinkDB Resource](https://github.com/node-tastypie/tastypie-rethink)
 
+### Exprimental Resource Types
+
+* [Bookshelf/knex Resource](https://github.com/node-tastypie/tastypie-bookshelf)
+ 
+
 ### Create a simple Api
 
 ```js
