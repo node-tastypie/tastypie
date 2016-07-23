@@ -34,6 +34,9 @@ FakeResource = Resource.extend({
 		})
 	}
 
+	,serialize:function( data, format, options, callback ){
+		callback( null, data )
+	}
 
 })
 
@@ -90,4 +93,14 @@ describe('api', function(){
 			})
 		})
 	})
+
+	it('should return an error for unsupported formats via url', function( done ){
+		server.inject({
+			url:'/api/v1/fake?format=fake'
+			,method:'get'
+		}, function( response ){
+			response.statusCode.should.equal( 415 )
+			done();
+		})
+	});
 });
