@@ -94,12 +94,30 @@ describe('api', function(){
 		})
 	})
 
-	it('should return an error for unsupported formats via url', function( done ){
+	it('should return an error for unsupported formats via querystring', function( done ){
 		server.inject({
 			url:'/api/v1/fake?format=fake'
 			,method:'get'
 		}, function( response ){
 			response.statusCode.should.equal( 415 )
+			done();
+		})
+	});
+
+
+	it('should return json when given an unexpected accept header', function( done ){
+		server.inject({
+			url:'/api/v1/fake'
+			,method:'get'
+			,headers:{
+				Accept:'text/fake'
+			}
+		}, function( response ){
+			response.statusCode.should.equal( 200 )
+			response.headers['content-type'].indexOf('application/json').should.be.greaterThan(-1)
+			assert.doesNotThrow(function(){
+				JSON.parse( response.result );
+			})
 			done();
 		})
 	});
