@@ -14,7 +14,7 @@ describe('serializer#xml', function(){
 	' </response>'
 	].join('\n');
 
-	it("should do some things 1", function(){
+	it("should deserialize an XML string into a javascript object", function(){
 		var s = new Serializer({
 			defaultFormat:"application/xml"
 		});
@@ -25,13 +25,12 @@ describe('serializer#xml', function(){
 		});
 	});
 
-	it('should do other things 2', function(){
+	it('should serialize a javascript object into an xml string', function(){
 		var expected = '<?xml version="1.0" encoding="UTF-8"?>\n<response>\n <key type="string">value</key>\n <foo type="object">\n  <alt type="object">\n   <test type="number">1</test>\n  </alt>\n </foo>\n</response>\n';
 		var s = new Serializer();
 		s.serialize({key:'value', foo:{alt:{test:1}}}, 'text/xml', function(e,xml){
 			assert.equal( xml, expected );
 		});
-
 	});
 });
 
