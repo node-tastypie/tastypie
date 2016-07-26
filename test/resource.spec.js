@@ -1,11 +1,14 @@
 /*jshint laxcomma: true, smarttabs: true, node: true, mocha: true*/
-var assert   = require('assert')
+'use strict';
+var should   = require('should')
+  , assert   = require('assert')
+  , fs       = require('fs')
+  , path     = require('path')
   , hapi     = require('hapi')
+  , lowerCase = require("mout/string/lowerCase")
   , Api      = require('../lib/api')
   , Resource = require( '../lib/resource' )
   , xml2js   = require( 'xml2js' )
-  , fs       = require('fs')
-  , path     = require('path')
   , fields   = require('../lib/fields')
   , http     = require('../lib/http')
   ;
@@ -130,6 +133,7 @@ describe('resoruce', function(){
 					});
 				});
 
+
 			});
 
 
@@ -229,6 +233,58 @@ describe('resoruce', function(){
 							done()
 						})
 					})
+				});
+
+				describe('#OPTIONS List', function(){
+					it('should set the allow header of allowable methods', function( done ){
+						server.inject({
+							url:'/api/resource/list'
+							,method:'options'
+							,headers:{
+								Accept:'applicatin/json'
+							}
+						},function(response){
+							let allowed = response
+											.headers
+											.allow
+											.split(',')
+											.map(lowerCase)
+
+							allowed.indexOf('get').should.not.equal(-1)
+							allowed.indexOf('put').should.not.equal(-1)
+							allowed.indexOf('post').should.not.equal(-1)
+							allowed.indexOf('delete').should.not.equal(-1)
+							allowed.indexOf('options').should.not.equal(-1)
+							done();
+						})
+					})
+
+				});
+
+				describe('#OPTIONS detail', function(){
+					it('should set the allow header of allowable methods', function( done ){
+						server.inject({
+							url:'/api/resource/list/1'
+							,method:'options'
+							,headers:{
+								Accept:'applicatin/json'
+							}
+						},function(response){
+							let allowed = response
+											.headers
+											.allow
+											.split(',')
+											.map(lowerCase)
+
+							allowed.indexOf('get').should.not.equal(-1)
+							allowed.indexOf('put').should.not.equal(-1)
+							allowed.indexOf('post').should.not.equal(-1)
+							allowed.indexOf('delete').should.not.equal(-1)
+							allowed.indexOf('options').should.not.equal(-1)
+							done();
+						})
+					})
+
 				});
 
 				describe('#PATCH detail', function(){
