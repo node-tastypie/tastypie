@@ -1,3 +1,12 @@
+v5.0.0 - Escarole Pie
+------
+* [BREAKING] The serializer creates an internal mime instance
+* [BREAKING] remove `options` from the serialize method stack
+* Make the serializer parser and mime objects hidden props
+* adding support for strict xml arrays
+* Moving the api plugin handler out of the constructor
+* update mime module to be a class
+
 v4.0.0 - Derby Pie
 ------
 
