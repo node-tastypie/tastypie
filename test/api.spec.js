@@ -2,11 +2,12 @@
 'use strict';
 
 var should = require("should")
+  , xml2js   = require('xml2js')
   , assert   = require('assert')
   , hapi     = require('hapi')
+  , http     = require('../lib/http')
   , Api      = require('../lib/api')
   , Resource = require( '../lib/resource' )
-  , xml2js   = require('xml2js')
   , Serializer = require('../lib/serializer')
   , FakeResource
   ;
@@ -34,6 +35,15 @@ FakeResource = Resource.extend({
 		})
 	}
 
+	,post_list: function(bundle){
+		if(typeof bundle.req.payload === 'string' ){
+			return this.respond(bundle, http.serverError)
+		}
+
+		bundle.data = {success:true}
+		this.respond(bundle, http.ok)
+	}
+
 	,serialize:function( data, format, options, callback ){
 		callback( null, data )
 	}
@@ -56,8 +66,7 @@ describe('api', function(){
 		server.register( v1, function( ){
 			server.start( done );
 		});
-	});
-
+	}); 
 	it('should accept a request',function( done ){
 		server.inject({
 			url:'/api/v1'
@@ -121,14 +130,40 @@ describe('api', function(){
 			done();
 		})
 	});
+
+	it('should deserialize incoming data',function( done ){
+		let data = {a:{b:{c:'foobar'}}}
+		  ;
+		server.inject({
+			url:'/api/v1/fake'
+			,method:'post'
+			,headers:{
+				'Content-Type':'text/xml'
+				,Accept:'application/json'
+			}
+			,payload: `
+				<object>
+					<a type="object">
+						<b type="object">
+							<c type="number">1</c>
+						</b>
+					</a>
+				</object>
+			`
+		}, function( response ){
+			response.statusCode.should.equal( 200 )
+			JSON.parse( response.result).success.should.be.a.Boolean()
+			done()
+		})
+	})
 	describe('#use', function(){
 		let server, v1
 		before(function( done ){
-
+			
 			server = new hapi.Server();
 			v1     = new Api('api/v1');
-
-			v1.use(new FakeResource({
+			
+			v1.use(new FakeResource({ 
 				name:'morefake'
 				,serializer: new Serializer()
 			}));
