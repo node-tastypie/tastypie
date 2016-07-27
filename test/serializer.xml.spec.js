@@ -11,12 +11,17 @@ describe('serializer#xml', function(){
 	'   <test type="number">1</test>',
 	'  </alt>',
 	' </foo>',
+	' <more type="array">',
+	'   <test type="number">1</test>',
+	'   <test type="number">1</test>',
+	'   <test type="number">1</test>',
+	' </more>',
 	' </response>'
 	].join('\n');
 
 	it("should deserialize an XML string into a javascript object", function(){
 		var s = new Serializer({
-			defaultFormat:"application/xml"
+			defaultFormat:"text/xml"
 		});
 		s.deserialize(doc, 'text/xml', function( err, content){
 			assert.ok( content );
