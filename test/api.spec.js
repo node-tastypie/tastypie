@@ -5,6 +5,7 @@ var should = require("should")
   , xml2js   = require('xml2js')
   , assert   = require('assert')
   , hapi     = require('hapi')
+  , typecast = require('mout/string/typecast')
   , http     = require('../lib/http')
   , Api      = require('../lib/api')
   , Resource = require( '../lib/resource' )
@@ -28,11 +29,12 @@ FakeResource = Resource.extend({
 	}
 	,get_list: function( bundle ){
 		bundle.res({
+			meta:{},
 			data:[
-				{a:1,b:2}
+				{a:1, b:2}
 				,{a:2,b:3}
 			]
-		})
+		});
 	}
 
 	,post_list: function(bundle){
@@ -40,11 +42,11 @@ FakeResource = Resource.extend({
 			return this.respond(bundle, http.serverError)
 		}
 
-		bundle.data = {success:true}
-		this.respond(bundle, http.ok)
+		bundle.data = bundle.req.payload;
+		this.respond(bundle, http.created)
 	}
 
-	,serialize:function( data, format, options, callback ){
+	,serialize:function( data, format, callback ){
 		callback( null, data )
 	}
 
@@ -57,7 +59,7 @@ describe('api', function(){
 		
 		server = new hapi.Server();
 		v1     = new Api('api/v1',{
-			serializer: new Serializer()
+			serializer: new Serializer({})
 		});
 		
 		v1.use('fake', new FakeResource({ }) );
@@ -94,10 +96,9 @@ describe('api', function(){
 			}
 		}, function( response ){
 			var xml = response.result
-
 			new Serializer().deserialize( xml, 'text/xml', function( err, data ){
 				assert.equal( err, null)
-				data.data.object.length.should.equal( 2 )
+				data.data.length.should.equal( 2 )
 				done()
 			})
 		})
@@ -126,8 +127,8 @@ describe('api', function(){
 			response.headers['content-type'].indexOf('application/json').should.be.greaterThan(-1)
 			assert.doesNotThrow(function(){
 				JSON.parse( response.result );
+				done();
 			})
-			done();
 		})
 	});
 
@@ -145,14 +146,19 @@ describe('api', function(){
 				<object>
 					<a type="object">
 						<b type="object">
-							<c type="number">1</c>
+							<c type="boolean">true</c>
 						</b>
+						<d type="number">1</d>
+						<d type="number">2</d>
+						<d type="number">3</d>
 					</a>
 				</object>
 			`
 		}, function( response ){
-			response.statusCode.should.equal( 200 )
-			JSON.parse( response.result).success.should.be.a.Boolean()
+			response.statusCode.should.equal( 201 )
+			let result = JSON.parse( response.result )
+			typecast(result.a.b.c).should.be.a.Boolean()
+			result.a.d.should.be.a.Array()
 			done()
 		})
 	})
