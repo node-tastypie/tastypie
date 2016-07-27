@@ -121,4 +121,35 @@ describe('api', function(){
 			done();
 		})
 	});
+	describe('#use', function(){
+		let server, v1
+		before(function( done ){
+
+			server = new hapi.Server();
+			v1     = new Api('api/v1');
+
+			v1.use(new FakeResource({
+				name:'morefake'
+				,serializer: new Serializer()
+			}));
+
+			server.connection({ host:'0.0.0.0' });
+			server.register( v1, function( ){
+				server.start( done );
+			});
+		});
+
+		it('should accept a resource with name as a singular argument',function(done){
+			server.inject({
+				url:'/api/v1/morefake'
+				,method:'get'
+				,headers:{
+					Accept:'application/json'
+				}
+			}, function( response ){
+				response.statusCode.should.equal( 200 )
+				done();
+			})
+		})
+	})
 });
