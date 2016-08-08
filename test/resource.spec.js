@@ -325,7 +325,7 @@ describe('resoruce', function(){
 				})
 
 				describe('#PUT detail', function(){
-					it('should allow for full replacement with PATCH', function( done ){
+					it('should allow for full replacement with PUT', function( done ){
 						var payload = {
 							name:'hocuspocus',
 							color:'green'
