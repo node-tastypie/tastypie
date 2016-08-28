@@ -221,12 +221,12 @@ describe("Api Fields", function(){
 		});
 
         describe('#convert', function( ){
-			it.skip('should convert single values to an array', function(){
+			it('should convert single values to an array', function(){
 				var value = f.convert( 1 );
 				value.should.be.a.Array();
 			});
 
-            it.skip("Should convert strings into to An Array", function(){
+            it("Should convert strings into to An Array", function(){
                 var result = f.convert('Hello');
 
                 assert.ok(Array.isArray( result ) );
@@ -237,21 +237,21 @@ describe("Api Fields", function(){
                 assert.equal( result[1], 'world');
             });
 
-            it.skip('should leave array values untouched', function(){
+            it('should leave array values untouched', function(){
                 var a = [1,2,3];
                 var b = f.convert( a );
 
                 assert.deepEqual( a, b );
             });
 
-			it.skip("should conver comma separate string values", function(){
+			it("should conver comma separate string values", function(){
 				var value = f.convert('1, 2, 3');
 				value.should.be.a.Array();
 				value[0].should.be.String();
 				value[0].should.equal('1');
 			});
 
-			it.skip("should no convert array values", function(){
+			it("should no convert array values", function(){
 				var value = f.convert([1,2,3]);
 				value.should.be.a.Array();
 				value[0].should.be.Number();
@@ -265,7 +265,7 @@ describe("Api Fields", function(){
 				f = new fields.ArrayField({name:'afld', attribute:'afld'});
 			});
 
-			it.skip('should hydrate an array string to an array', function( done ){
+			it('should hydrate an array string to an array', function( done ){
 				var bundle = {
 					data:{},
 					object:{
@@ -273,13 +273,13 @@ describe("Api Fields", function(){
 					}
 				};
 
-				f.hydrate( bundle, function( err, value ){
+				f.hydrate( bundle).then(function( value ){
 					assert.equal( kindOf( value ), 'Array' );
 					done();
-				});
+				},done);
 			});
 
-			it.skip('should parse an array', function( done ){
+			it('should parse an array', function( done ){
 				var bundle = {
 					data:{},
 					object:{
@@ -287,12 +287,11 @@ describe("Api Fields", function(){
 					}
 				};
 
-				f.hydrate( bundle, function( err, value ){
+				f.hydrate( bundle ).then(function(  value ){
 					assert.equal( kindOf( value ),'Array');
 					assert.equal( kindOf( value[0] ),'String');
 					done( );
-
-				});
+				},done);
 
 			});
 		});
