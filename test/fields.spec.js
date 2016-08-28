@@ -196,7 +196,7 @@ describe("Api Fields", function(){
 		});
 
 		describe('#hydrate', function(){
-			it.skip('should convert a date string into a date object', function( done ){
+			it('should convert a date string into a date object', function( done ){
 				var bundle = {
 					data:{},
 					object:{
@@ -204,12 +204,12 @@ describe("Api Fields", function(){
 					}
 				};
 
-				f.hydrate( bundle, function( err, value ){
+				f.hydrate( bundle).then(function( value ){
 					assert( kindOf( value ), 'Date');
 					assert.equal( value.getFullYear(), 2014 );
 					assert.equal( value.getMinutes(), 54 );
 					done();
-				});
+				},done);
 			});
 		});
 	});
