@@ -60,55 +60,55 @@ describe("Api Fields", function(){
 	describe("BooleanField", function(){
 		var f = new fields.BooleanField();
 		describe('falsy values', function(){
-			it.skip('should convert empty strings to False', function(){
+			it('should convert empty strings to False', function(){
 				var value =  f.convert('');
 				assert.strictEqual( value, false);
 			});
 
-			it.skip('should treat "0" as false', function(){
+			it('should treat "0" as false', function(){
 				var value = f.convert( '0' );
 				assert.strictEqual( value, false);
 			});
-			it.skip('should treat "false" as false', function(){
+			it('should treat "false" as false', function(){
 				var value = f.convert( 'false' );
 				assert.strictEqual( value, false);
 			});
 
-			it.skip('should treat false as false', function(){
+			it('should treat false as false', function(){
 				var value = f.convert( false );
 				assert.strictEqual( value, false);
 			});
 
 		});
 		describe('truthy values', function(){
-			it.skip('should convert strings with chars as true', function(){
+			it('should convert strings with chars as true', function(){
 				var value =  f.convert('a');
 				assert.strictEqual( value, true );
 			});
 
-			it.skip('should treat "1" as true', function(){
+			it('should treat "1" as true', function(){
 				var value = f.convert( '1' );
 				assert.strictEqual( value, true );
 			});
 
-			it.skip('should treat "true" as true', function(){
+			it('should treat "true" as true', function(){
 				var value = f.convert( 'true' );
 				assert.strictEqual( value, true );
 			});
 
-			it.skip('should treat true as true', function(){
+			it('should treat true as true', function(){
 				var value = f.convert( true );
 				assert.strictEqual( value, true);
 			});
 		});
 
 		describe('boolean values', function(){
-			it.skip('should convert strings with chars as true', function(){
+			it('should convert strings with chars as true', function(){
 				var value =  f.convert('a');
 				assert.strictEqual( value, true );
 			});
 
-			it.skip('should treat "1" as 1', function(){
+			it('should treat "1" as 1', function(){
 				var value = f.convert( '1' );
 				assert.strictEqual( value, true );
 			});
@@ -116,35 +116,35 @@ describe("Api Fields", function(){
 
 		describe('dehydrate',function(){
 			describe('default values', function(){
-				it.skip('should accept `false` as a default value', function( done ){
+				it('should accept `false` as a default value', function( done ){
 					var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:false });
 
-					f.dehydrate({}, function( err, value ){
+					f.dehydrate({}).then(function( value ){
 						assert.strictEqual( value, false, 'expected false, got ' + value );
 						done();
-					});
+					}, done);
 				});
 
-				it.skip('should cast an empty string default value to `false`', function( done ){
+				it('should cast an empty string default value to `false`', function( done ){
 					var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:'' });
-					f.dehydrate({}, function( err, value ){
+					f.dehydrate({}).then(function( value ){
 						assert.strictEqual( value, false, 'expected false, got ' + value );
 						done();
-					});
+					},done);
 				});
 
-				it.skip('should cast a null default value to `false` ', function( done ){
+				it('should cast a null default value to `false` ', function( done ){
 					var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:null });
-					f.dehydrate({}, function( err, value ){
+					f.dehydrate({}).then(function( value ){
 						assert.strictEqual( value, false, 'expected false, got ' + value );
 						done();
-					});
+					},done);
 				});
 			});
 		});
 
 		describe('#convert',function(){
-			it.skip('should convert string to boolean', function(){
+			it('should convert string to boolean', function(){
 				var value = f.convert('true');
 				value.should.be.a.Boolean;
 				value.should.equal( true );
@@ -155,7 +155,7 @@ describe("Api Fields", function(){
 
 			});
 
-			it.skip('should convert numbers to boolean', function(){
+			it('should convert numbers to boolean', function(){
 				var value = f.convert(1);
 				value.should.be.a.Boolean;
 				value.should.equal( true );
@@ -176,7 +176,7 @@ describe("Api Fields", function(){
 		});
 
 		describe('#convert',function(){
-			it.skip('should convert strings to dates', function(){
+			it('should convert strings to dates', function(){
 				var value = f.convert('2014-01-22');
 				value.getFullYear().should.equal( 2014 );
 				value.getMonth().should.equal(0);
