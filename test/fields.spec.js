@@ -302,7 +302,7 @@ describe("Api Fields", function(){
 
 		before(function(){
 			dir = 'uploads';
-			location = path.join( __dirname, dir, 'data.json' );
+			location = path.join( __dirname, '..','example', 'data.json' );
 			f = new fields.FileField({
 				dir: dir
 				, attribute: 'file'
@@ -336,22 +336,23 @@ describe("Api Fields", function(){
 				filename:'data.json'
 			};
 
-			it.skip('should consume streams', function( done ) {
-				f.hydrate( bundle, function( err, d ){
+			it('should consume streams', function( done ) {
+				debugger;
+				f.hydrate( bundle).then(function( d ){
 					d.should.equal( path.join(__dirname, 'uploads', 'data.json'));
 					done();
-				});
+				},done );
 			});
 		});
 		describe('#dehydrate', function( ){
 			var bundle = {
 				file: '/tmp/uploads/data.json'
 			};
-			it.skip('should return a path', function( done ){
-				f.dehydrate( bundle, function( err, value ){
+			it('should return a path', function( done ){
+				f.dehydrate( bundle ).then(function( value ){
 					value.should.equal( dir + '/' + 'data.json');
 					done();
-				});
+				},done);
 			});
 		});
 	});
