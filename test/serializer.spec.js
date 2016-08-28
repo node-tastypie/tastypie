@@ -28,11 +28,11 @@ describe("serializer",function(){
 				,content_types:{
 					'application/vnd+fakescript':'fake'
 				}
-				,to_fake: function( data, callback ){
-					callback( null, qs.stringify( data, {encode: false}));
+				,to_fake: function( data ){
+					return Promise.resolve(qs.stringify( data, {encode: false}));
 				}
 				,from_fake: function( data, callback ){
-					callback( null, qs.parse( data ));
+					return Promise.resolve( qs.parse( data ) );
 				}
 			});
 			serializer = new Serializer();
@@ -40,17 +40,17 @@ describe("serializer",function(){
 
 		it('should serialize to a user defined format', function(done){
 			let reference = {a:{b:1}}
-			serializer.serialize(reference, 'application/vnd+fakescript', function(err, data){
+			serializer.serialize(reference, 'application/vnd+fakescript').then(function( data){
 				assert.equal( data, qs.stringify( reference,{encode: false} ))
 				done()
-			})
+			}).catch( done )
 		})
 
 		it('should deserialize a serialized string back to a javascript object', function(done){
-			serializer.deserialize( qs.stringify( {a:{b:1}}, {encode:false} ), 'application/vnd+fakescript', function(err, data ){
+			serializer.deserialize( qs.stringify( {a:{b:1}}, {encode:false} ), 'application/vnd+fakescript').then(function(data ){
 				parseInt(data.a.b,10).should.equal( 1 )
 				done()
-			})
+			}).catch( done )
 		})
 	})
 })

@@ -19,23 +19,25 @@ describe('serializer#xml', function(){
 	' </response>'
 	].join('\n');
 
-	it("should deserialize an XML string into a javascript object", function(){
+	it("should deserialize an XML string into a javascript object", function(done){
 		var s = new Serializer({
 			defaultFormat:"text/xml"
 		});
-		s.deserialize(doc, 'text/xml', function( err, content){
+		s.deserialize(doc).then(function(content){
 			assert.ok( content );
 			assert.equal( content.key, 'value');
 			assert.equal( content.foo.alt.test, 1 );
-		});
+			done();
+		}, done ).catch( done );
 	});
 
-	it('should serialize a javascript object into an xml string', function(){
+	it('should serialize a javascript object into an xml string', function( done ){
 		var expected = '<?xml version="1.0" encoding="UTF-8"?>\n<response>\n <key type="string">value</key>\n <foo type="object">\n  <alt type="object">\n   <test type="number">1</test>\n  </alt>\n </foo>\n</response>\n';
 		var s = new Serializer();
-		s.serialize({key:'value', foo:{alt:{test:1}}}, 'text/xml', function(e,xml){
+		s.serialize({key:'value', foo:{alt:{test:1}}}, 'text/xml').then(function(xml){
 			assert.equal( xml, expected );
-		});
+			done()
+		}, done )
 	});
 });
 
