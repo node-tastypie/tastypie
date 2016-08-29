@@ -37,7 +37,7 @@ var Base = _Resource.extend({
 
 	,fields:{
 	    age      : { type:'int' }
-	  , fake     : new fields.ApiFIeld({readonly:true})
+	  , fake     : new fields.ApiField({readonly:true})
 	  , name     : {type:'char'}
 	  , fullname : {type:'char'}
 	  , city     : {type:'char', attribute:'company.address.city'}
@@ -48,10 +48,6 @@ var Base = _Resource.extend({
 
 	, constructor: function( opts ){
 		this.parent('constructor', opts )
-	}
-
-	, dehydrate: function( obj ){
-		return obj;
 	}
 
 	, dehydrate_fullname: function( obj ){
@@ -69,36 +65,38 @@ var Base = _Resource.extend({
 		return this.dispatch('upload', this.bundle( req, reply ) );
 	}
 
-	, get_objects: function(bundle, callback){
-		fs.readFile( path.join(__dirname, 'data.json') , callback);
+	, get_objects: function(bundle){
+		return new Promise(function( resolve, reject){
+			fs.readFile( path.join(__dirname, 'data.json') , (err, buf)=>{
+				if( err ){
+					reject( err )
+				} else {
+					resolve( buf )
+				}
+			});
+		});
 	}
 
-	, get_object: function( bundle, callback ){
-		this.get_objects(bundle,function(e, objects){
-			var obj = JSON.parse( objects ).filter(function( obj ){
-					return obj.guid === bundle.req.params.pk;
-				})[0];
-				callback( null, obj );
-			})
+	, get_object: function*( bundle ){
+		let objects = yield this.get_objects(bundle)
+		return JSON.parse( objects ).filter(function( obj ){
+			return obj.guid === bundle.req.params.pk;
+		})[0];
 	}
 
 	, post_list: function( bundle ){
-		return bundle.res("done").code(201);
+		return Promise.resolve( bundle.res("done").code(201) )
 	}
 
 	// Results should be sent using multipart/form-data 
-	, post_upload: function( bundle ){
-		var format = this.format( bundle, this.options.serializer.types );
-		this.deserialize( bundle.req.payload, format, function( err, data ){
-			bundle.data = data;
-			bundle.object = {company:{address:{}}};
-
-			this.fields.file.hydrate( bundle, function( err, value ){
-				// quick and dirty respnose
-				bundle.data = {file: value}
-				this.respond( bundle )
-			}.bind( this ));
-
+	, post_upload: function*( bundle ){
+		let format = this.format( bundle, this.options.serializer.types );
+		bundle.data = yield this.deserialize( bundle.req.payload, format);
+		bundle.object = {company:{address:{}}};
+		this.fields.file.hydrate( bundle, function( err, value ){
+			// quick and dirty respnose
+			bundle.data = {file: value}
+			this.respond( bundle )
 		}.bind( this ));
 	}
 
