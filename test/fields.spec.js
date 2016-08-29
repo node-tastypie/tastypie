@@ -42,16 +42,16 @@ describe("Api Fields", function(){
 				  , default:'a'
 				});
 
-				it.skip('should return a default if not matched', function(done){
+				it('should return a default if not matched', function(done){
 					field.hydrate({
 						data:{
 							char:''
 						}
-					}, function( err, value ){
+					}).then(function( value ){
 						value.should.be.a.String();
 						value.should.equal( 'a' );
 						done();
-					});
+					},done);
 				});
 			});
 
@@ -302,7 +302,7 @@ describe("Api Fields", function(){
 
 		before(function(){
 			dir = 'uploads';
-			location = path.join( __dirname, '..','example', 'data.json' );
+			location = path.join( __dirname, dir, 'data.json' );
 			f = new fields.FileField({
 				dir: dir
 				, attribute: 'file'
@@ -337,7 +337,6 @@ describe("Api Fields", function(){
 			};
 
 			it('should consume streams', function( done ) {
-				debugger;
 				f.hydrate( bundle).then(function( d ){
 					d.should.equal( path.join(__dirname, 'uploads', 'data.json'));
 					done();
@@ -369,7 +368,7 @@ describe("Api Fields", function(){
 
 		describe('#hydrate', function(){
 
-			it.skip('should not alter the file path location', function( done ){
+			it('should not alter the file path location', function( done ){
 
 				var bundle = {
 					data:{
@@ -379,23 +378,23 @@ describe("Api Fields", function(){
 				bundle.data.file.hapi = {
 					filename:'data.json'
 				};
-				f.hydrate( bundle, function( err, value ){
+				f.hydrate( bundle ).then( function( value ){
 					value.should.equal( path.join( __dirname, '..', 'example', 'data.json' ) );
-					done(err);
-				});
+					done();
+				}, done );
 			});
 		});
 
 		describe('#dehydrate', function(){
-			it.skip('should path relative to dir option', function( done ){
+			it('should path relative to dir option', function( done ){
 				var data = {
 					file:path.join( f.options.root, f.options.dir, 'data.json' )
 				};
 
-				f.dehydrate( data, function( err, value ){
+				f.dehydrate( data ).then( function( value ){
 					value.should.equal( f.options.dir + '/' + 'data.json');
-					done( err );
-				});
+					done( );
+				}, done );
 			});
 		});
 	});
@@ -410,34 +409,34 @@ describe("Api Fields", function(){
 				});
 			});
 
-			it.skip('convert strings numbers to number numbers', function(done){
+			it('convert strings numbers to number numbers', function(done){
 				f.dehydrate({
 					num:"1"
-				},function( err, value){
+				}).then(function( value ){
 					value.should.be.a.Number( );
 					value.should.equal( 1 );
 					done();
-				});
+				}, done );
 			});
 
-			it.skip('should convert float strings to integers', function(done){
+			it('should convert float strings to integers', function(done){
 				f.dehydrate({
 					num:"1.1"
-				},function( err, value){
+				}).then(function( value ){
 					value.should.be.a.Number( );
 					value.should.equal( 1 );
 					done();
-				});
+				}, done );
 			});
 
-			it.skip('should return 0 for non number strings', function( done){
+			it('should return 0 for non number strings', function( done){
 				f.dehydrate({
 					num:"foo"
-				},function( err, value){
+				}).then(function( value ){
 					value.should.be.a.Number( );
 					value.should.equal( 0 );
 					done();
-				});
+				}, done );
 			});
 		});
 	});
