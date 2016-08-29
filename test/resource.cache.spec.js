@@ -1,5 +1,6 @@
 var async = require('async')
   , hapi = require('hapi')
+  , should = require("should")
   , sinon = require('sinon')
   , Api = require('../lib/api')
   , Resource = require("../lib/resource")
@@ -19,7 +20,9 @@ describe('resource', function(){
 				
 			}
 			,get_object:function( bundle, callback ){
-				callback(null, { key:new Date() } )
+				return new Promise(function( resolve, reject ){
+					resolve({ key:new Date() } )
+				})
 			}
 		});
 		done();
