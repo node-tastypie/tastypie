@@ -2,6 +2,7 @@
 'use strict';
 var should   = require('should')
   , assert   = require('assert')
+  , co       = require('co')
   , fs       = require('fs')
   , path     = require('path')
   , hapi     = require('hapi')
@@ -43,19 +44,19 @@ describe('resoruce', function(){
 						, update_object:function( bundle, cb ){
 							var e = new Error('PatchError');
 							e.name = 'PatchError';
-							cb( e );
+							return Promise.reject( e )
 						}
 
 						, replace_object:function( bundle, cb ){
-							cb(new Error('PutError'));
+							return Promise.reject(new Error('PutError'));
 						}
 
 						, get_object:function( bundle, cb ){
-							cb(new Error("GetError"));
+							return Promise.reject(new Error("GetError"));
 						}
 
 						,delete_detail: function( bundle ){
-							this.delete_object( bundle, function( err, obj ){
+							return this.delete_object( bundle ).catch(function( err ){
 								if( err ){
 									err.req = bundle.req;
 									err.res = bundle.res;
@@ -65,7 +66,7 @@ describe('resoruce', function(){
 						}
 
 						,delete_object:function( bundle, cb){
-							cb(new Error('DeleteError') );
+							return Promise.reject(new Error('DeleteError') );
 						}
 					});
 					api.use('errors', new ErrorResource );
@@ -126,7 +127,7 @@ describe('resoruce', function(){
 							,'Content-Type':'application/json'
 						}
 					},function( response ){
-						var result = JSON.parse( response.result );
+						var result = JSON.parse(response.result);
 						assert.equal(result.statusCode, 500);
 						assert.equal(result.message, 'DeleteError');
 						done();
@@ -161,35 +162,33 @@ describe('resoruce', function(){
 							this.parent('constructor', options);
 						}
 
-						, update_object:function( bundle, cb ){
+						, update_object:function( bundle ){
 							bundle.object = data[ bundle.req.params.pk ];
-							this.full_hydrate(bundle,cb);
+							return this.full_hydrate(bundle);
 						}
 
-						, replace_object:function( bundle, cb ){
+						, replace_object:co.wrap(function* ( bundle ){
 							bundle.object ={};
-							this.full_hydrate(bundle, function( err, b ){
-								data[bundle.req.params.pk] = b.object;
-								cb( err, b );
-							})
-						}
+							bundle = yield this.full_hydrate(bundle)
+							data[bundle.req.params.pk] = bundle.object;
+							return bundle;
+						})
 
-						, create_object: function( bundle, cb ){
+						, create_object:co.wrap(function*( bundle ){
 							bundle.object = { id: data.length + 1 }
-							this.full_hydrate( bundle, function( err, b ){
-								cb( err, bundle );
-								data.push( b.object );
-							})
-						}
+							bundle = yield this.full_hydrate( bundle ) 
+							data.push( bundle.object );
+							return bundle;
+						})
 
 						, get_object:function( bundle, cb ){
-							cb(null, data[bundle.req.params.pk])
+							return Promise.resolve(data[bundle.req.params.pk])
 						}
 
 						,remove_object:function( bundle, cb){
 							var obj = data[ bundle.req.params.pk ];
 							delete data[ bundle.req.params.pk ];
-							cb( null, obj );
+							return Promise.resolve( obj );
 						}
 					});
 					api.use('list', new ListResource() );
@@ -404,6 +403,7 @@ describe('resoruce', function(){
 					}
 
 					,post_fudge: function( bundle ){
+						debugger;
 						this.respond( bundle, http.created )
 					}
 				});
@@ -490,10 +490,17 @@ describe('resoruce', function(){
 						name:{type:'char', attribute:'company.name'}
 						,value:{type:'integer'}
 					}
-					,get_objects: function( bundle, callback ){
-						var data = path.resolve(__dirname, '..', 'example', 'data.json')
-						fs.readFile(data,function( err, buffer ){
-							callback( err, buffer )
+					,get_objects: function( bundle ){
+						return new Promise(function( resolve, reject){
+
+							var data = path.resolve(__dirname, '..', 'example', 'data.json')
+							fs.readFile(data,function( err, buffer ){
+								if( err ){
+									reject( err )
+								} else {
+									resolve( buffer )
+								}
+							})
 						})
 					}
 					,dehydrate_value: function( /* obj, bundle, ret */ ){
