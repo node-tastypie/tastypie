@@ -38,6 +38,7 @@ FakeResource = Resource.extend({
 	}
 
 	,post_list: function(bundle){
+		debugger;
 		if(typeof bundle.req.payload === 'string' ){
 			return this.respond(bundle, http.serverError)
 		}
@@ -47,7 +48,7 @@ FakeResource = Resource.extend({
 	}
 
 	,serialize:function( data, format, callback ){
-		callback( null, data )
+		return Promise.resolve( data );
 	}
 
 })
@@ -97,7 +98,6 @@ describe('api', function(){
 		}, function( response ){
 			var xml = response.result
 			new Serializer().deserialize( xml, 'text/xml').then(function(  data ){
-				assert.equal( err, null)
 				data.data.length.should.equal( 2 )
 				done()
 			}, ( err )=>{
