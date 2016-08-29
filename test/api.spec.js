@@ -96,11 +96,14 @@ describe('api', function(){
 			}
 		}, function( response ){
 			var xml = response.result
-			new Serializer().deserialize( xml, 'text/xml', function( err, data ){
+			new Serializer().deserialize( xml, 'text/xml').then(function(  data ){
 				assert.equal( err, null)
 				data.data.length.should.equal( 2 )
 				done()
-			})
+			}, ( err )=>{
+				console.log( err.stack )
+				done( err )
+			} )
 		})
 	})
 
