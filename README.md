@@ -28,27 +28,23 @@ Looking for active contributors / collaborators to help shape the way people bui
 ### Create a simple Api
 
 ```js
-var tastypie = require('tastypie')
-  , Api      = tastypie.Api
-  , hapi     = require('hapi')
-  , server   = new hapi.Server()
-  , v1       = new Api('api/v1' )
-  , Resource
-  ;
+const {Api, Resource} = require('tastypie');
+const {Server}          = require('hapi');
+const server            = new Server();
+const v1                = new Api('api/v1' );
 
-Resource = tastypie.Resource.extend({
+const UserResource = tastypie.Resource.extend({
     fields:{
         lastName:{ type:'char', attribute:'name.first', help:'last name of the user'},
-        firstName:{type:'char', attribute: 'name.last', help:'first name of the user'}
+        firstName:{ type:'char', attribute: 'name.last', help:'first name of the user'}
     }
-})
+});
 
 v1.use('test', new Resource() );
+server.connection({ port:2000 });
 
-server.connection({port:2000, host:'localhost'});
-
-server.register( v1, function( ){
-    server.start(function(){
+server.register( v1,( ) => {
+    server.start(()=>{
         console.log('server listening localhost:2000');
     });
 });
@@ -56,7 +52,6 @@ server.register( v1, function( ){
 ### Self Describing
 
 Tastypie exposes endpoint to descibe available resources and the contracts they expose
-
 
 #### Resource listing
 ```js
@@ -213,15 +208,12 @@ curl http://localhost:3000/api/v1/test?format=xml
 
 #### Quick & Dirty Resource
 
-A functional resource, by convention, should define method handlers for each of the `actions` ( `list`, `detail`, `schema`, etc ) & `HTTP verbs` where it makes sense - where the resource method name is `<VERB>_<ACTION>`.
+A functional resource, by convention, should define method handlers for each of the `actions` ( `list`, `detail`, `schema`, etc ) & `HTTP verbs` where it makes sense - where the resource method name is `<VERB>_<ACTION>`. These are hanled especially internally as asynchronous handlers, and can be `generator functions` functions that return a `Promise` or plain old functions if that is all that is needed 
 
 ```js
-var tastypie = require('tastypie')
-var Resource = tastypie.Resource;
-var http     = tasypie.http
-var Simple;
+const {Resource, http} = require('tastypie')
 
-Simple = Resource.extend({
+const Simple = Resource.extend({
     options:{
     	name:'simple'
     	,pk:'_id'
@@ -237,7 +229,7 @@ Simple = Resource.extend({
     /**
      * handles DELETE /{pk}
      **/
-    , delete_detail: function( bundle ){
+    , delete_detail: function*( bundle ){
         bundle.data = null;
         return this.respond( bundle, http.noContent ) // Send a custom response code
     }
@@ -245,7 +237,7 @@ Simple = Resource.extend({
     /**
      * handles GET /{pk}
      **/    
-    , get_detail: function( bundle ){
+    , get_detail: function*( bundle ){
         bundle.data = {key:'foo', _id:1};
         return this.respond( bundle ) // defaults to 200 OK respose code
     }
@@ -253,7 +245,7 @@ Simple = Resource.extend({
     /**
      * handles GET /
      **/
-    ,get_list: function( bundle ){
+    ,get_list: function*( bundle ){
         // the data property is what gets returned
         bundle.data = [{ key:'foo', _id:1},{key:'bar', _id:2}]; 
 
@@ -265,7 +257,7 @@ Simple = Resource.extend({
     /**
      * handles PATCH /{pk}
      **/
-    , patch_detail: function( bundle ){
+    , patch_detail: function*( bundle ){
         // or just send a straight response.
         // res is the hapi reply object
         return bundle.res({any:'data you want'}).code( 201 );
@@ -274,16 +266,16 @@ Simple = Resource.extend({
     /**
      * handles POST /
      **/
-    , post_list: function( bundle ){
+    , post_list: function*( bundle ){
         var data = bundle.req.payload;
         // do something with the data.
-        return this.respond( bundle, http.created)
+        return this.respond( bundle, http.created )
     }
     
     /**
      * handles PUT /{pk}
      **/
-    , put_detail: function( bundle ){
+    , put_detail: function*( bundle ){
     	// Manually set the Bundle's data property to send back to the client
         budnel.data = {key:'updated'}
         return this.respond( bundle, http.accepted )
@@ -295,18 +287,14 @@ Simple = Resource.extend({
 The base resource defines many of the required `<VERB>_<ACTION>` methods for you and delegates to smaller internal methods which you can over-ride to customize behaviors. Here is a resource that will asyncronously read a JSON file from disk are respond to GET requests. Supports **XML**, **JSON**, paging and dummy cache out of the box.
 
 ```js
-var hapi     = require('hapi');
-var fs       = require('fs')
-var path     = require('path')
-var Resource = require('tastypie/lib/resource')
-var Api      = require('tastypie/lib/api')
-var fields   = require("tastypie/lib/fields")
-var Class    = require('tastypie/lib/class')
-var Options  = require('tastypie/lib/class/options')
-var Serializer = require('tastypie/lib/serializer')
-var debug    = require('debug')('tastypie:example')
-var app;
+const {Resource, Api, fields, Class, Serializer} = require('tastypie')
+const path                                       = require('path')
+const {Server}                                   = require('hapi');
+const {readFile}                                 = require('fs')
+const Options                                    = require('tastypie/lib/class/options')
+const debug                                      = require('debug')('tastypie:example')
 
+const server = new Server();
 
 // make a simple object template to be populated during the hydration process
 // This could be a Model class just as easily
@@ -345,40 +333,48 @@ var Base = Class({
    }
 
     // internal lower level method responsible for getting the raw data
-    , get_objects: function(bundle, callback){
-        fs.readFile( path.join(__dirname, 'example','data.json') , callback)
+    // 
+    , get_objects: function(bundle){
+        return new Promise(function(resolve, reject){
+            readFile( path.join(__dirname, 'example','data.json') , (err, buff){
+                if( err ){
+                    reject( err )
+                } else {
+                    resolve(buff)
+                }
+            });
+        });
     }
 
 
     // internal low level method reponsible for dealing with a POST request
-    , create_object: function create_object( bundle, opt, callback ){
-        bundle = this.full_hydrate( bundle )
-        callback && callback(null, bundle )
+    , create_object: function* create_object( bundle ){
+        bundle.object = Object.create( null );
+        bundle = yield this.full_hydrate( bundle );
+        return bundle;
     }
     // per field dehydration method - generates a full name field from name.first & name.last
     , dehydrate_fullname:function( obj, bundle ){
-        return obj.name.first + " " + obj.name.last
+        return `${obj.name.first} ${obj.name.last}`
     }
 
     // top level method for custom GET /upload 
-    , get_upload: function( bundle ){
-        this.respond({data:{key:'value'}})
+    , get_upload: function*( bundle ){
+        return this.respond({data:{key:'value'}})
     }
 
     // method that retreives an individual object by id.
     // becuase it's in a flat file, read it, filter and return first object
-    ,get_object: function(bundle, callback){
-        this._get_list(bundle,function(e, objects){
-            var obj = JSON.parse( objects ).filter(function( obj ){
-                return obj._id = bundle.req.params.id
-            })[0]
-            callback( null, obj )
-        })
+    ,get_object: function*( bundle, callback ){
+        let objects = yield this.get_objects( bundle );
+        return JSON.parse( objects ).filter(function( obj ){
+            return obj._id = bundle.req.params.id
+        })[0]
     }
 
     // Proxy method for delegeting HTTP methods to approriate resource method
     , dispatch_upload: function(req, reply ){
-        // Do additional magic here.
+        // Do additional magic here if needed.
         return this.dispatch('upload', this.bundle( req, reply ) )
     }
     
@@ -395,12 +391,12 @@ var api = new Api('api/v1', {
     serializer:new Serializer()
 })
 
-app.connection({port:process.env.PORT || 2000 });
+server.connection({port:process.env.PORT || 2000 });
 
 api.user('data', new Base() );
 
-app.register( api, function(e){
-    app.start(function(){
+server.register( api, function(e){
+    server.start(function(){
         console.log('server is ready')
     });
 });
