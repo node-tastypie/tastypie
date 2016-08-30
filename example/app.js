@@ -51,17 +51,17 @@ var Base = _Resource.extend({
 	}
 
 	, dehydrate_fullname: function( obj ){
-		return obj.gender + " " + obj.company.address.state;
+		return `${obj.gender} ${obj.company.address.state}`;
 	}
 
 	, dehydrate_location: function( obj /*, bundle */ ){
 		return [ obj.longitude, obj.latitude ];
 	}
 	, dehydrate_fake:function( obj, bundle ){
-		return bundle.req.method + " " + obj.index;
+		return `${bundle.req.method} ${obj.index}`;
 	}
 
-	, dispatch_upload: function(req, reply ){
+	, dispatch_upload: function( req, reply ){
 		return this.dispatch('upload', this.bundle( req, reply ) );
 	}
 
@@ -84,10 +84,12 @@ var Base = _Resource.extend({
 		})[0];
 	}
 
+	// return a yieldable object
 	, post_list: function( bundle ){
 		return Promise.resolve( bundle.res("done").code(201) )
 	}
 
+	// use a generator function
 	// Results should be sent using multipart/form-data 
 	, post_upload: function*( bundle ){
 		let format = this.format( bundle, this.options.serializer.types );
