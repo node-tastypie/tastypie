@@ -533,7 +533,6 @@ describe('resoruce', function(){
 					,method:"get"
 				}, function( response ){
 					var data = JSON.parse( response.result ).data
-
 					data.forEach(function( instance ){
 						instance.should.have.property( 'name' )
 						instance.should.have.property( 'value' ) 
