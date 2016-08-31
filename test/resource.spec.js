@@ -483,7 +483,7 @@ describe('resoruce', function(){
 			before( function( done ){
 				File = Resource.extend({
 					options:{
-						objectTpl:function(){ this.range = [] }
+						template:function(){ this.range = [] }
 						,pk:'guid'
 					}
 					,fields:{
