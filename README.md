@@ -24,7 +24,6 @@ Looking for active contributors / collaborators to help shape the way people bui
 
 * [Bookshelf/knex Resource](https://github.com/node-tastypie/tastypie-bookshelf)
  
-
 ### Create a simple Api
 
 ```js
@@ -49,6 +48,7 @@ server.register( v1,( ) => {
     });
 });
 ```
+
 ### Self Describing
 
 Tastypie exposes endpoint to descibe available resources and the contracts they expose
@@ -210,13 +210,29 @@ curl http://localhost:3000/api/v1/test?format=xml
 
 A functional resource, by convention, should define method handlers for each of the `actions` ( `list`, `detail`, `schema`, etc ) & `HTTP verbs` where it makes sense - where the resource method name is `<VERB>_<ACTION>`. These are hanled especially internally as asynchronous handlers, and can be `generator functions` functions that return a `Promise` or plain old functions if that is all that is needed 
 
-```js
+```javascript
 const {Resource, http} = require('tastypie')
+
+const Template = function(){
+	this.key = null
+	this._id = null
+};
+
+Template.prototype.save = function(){
+	return new Promise( function( resolve, reject ){
+		setTimeout( ( )=>{ resolve( this ) }, 300 )
+	});
+};
+
+Template.prototype.toJSON = function(){
+	return { key, _id };
+}
 
 const Simple = Resource.extend({
     options:{
     	name:'simple'
     	,pk:'_id'
+		,template: Template
     }
     ,fields:{
         key:{type:'char'}
@@ -248,7 +264,7 @@ const Simple = Resource.extend({
     ,get_list: function*( bundle ){
         // the data property is what gets returned
         bundle.data = [{ key:'foo', _id:1},{key:'bar', _id:2}]; 
-
+		
         // use the respond method if you
         // want serialization, status code, etc...
         return this.respond( bundle )
@@ -260,15 +276,31 @@ const Simple = Resource.extend({
     , patch_detail: function*( bundle ){
         // or just send a straight response.
         // res is the hapi reply object
-        return bundle.res({any:'data you want'}).code( 201 );
+        
+		return bundle.res({any:'data you want'}).code( 201 );
     }    
 
     /**
      * handles POST /
+	 * -- includes all major steps
      **/
     , post_list: function*( bundle ){
-        var data = bundle.req.payload;
-        // do something with the data.
+		// determine the format of incomming request data
+		let format = this.format( bundle ) // application/json , text/xml, etc
+
+		// deserialize data into javascript object
+		bundle.data = yield this.deserialize( bundle.data, format );
+
+		// populate a new Template instance from data
+		bundle = yield this.full_hydrate( bundle );
+
+		// save the populated object
+		yield bundle.object.save();
+
+		// prep data for response
+		bundle.data = yield this.full_deydrate( bundle.object );
+		
+		// responsd w/ custom status
         return this.respond( bundle, http.created )
     }
     
@@ -277,7 +309,7 @@ const Simple = Resource.extend({
      **/
     , put_detail: function*( bundle ){
     	// Manually set the Bundle's data property to send back to the client
-        budnel.data = {key:'updated'}
+        bundle.data = {key:'updated'}
         return this.respond( bundle, http.accepted )
     }
 });
@@ -286,15 +318,15 @@ const Simple = Resource.extend({
 
 The base resource defines many of the required `<VERB>_<ACTION>` methods for you and delegates to smaller internal methods which you can over-ride to customize behaviors. Here is a resource that will asyncronously read a JSON file from disk are respond to GET requests. Supports **XML**, **JSON**, paging and dummy cache out of the box.
 
-```js
-const {Resource, Api, fields, Class, Serializer} = require('tastypie')
+
+```javascript
 const path                                       = require('path')
+const debug                                      = require('debug')('tastypie:example')
+const {Resource, Api, fields, Class, Serializer} = require('tastypie')
 const {Server}                                   = require('hapi');
 const {readFile}                                 = require('fs')
 const Options                                    = require('tastypie/lib/class/options')
-const debug                                      = require('debug')('tastypie:example')
-
-const server = new Server();
+const server                                     = new Server();
 
 // make a simple object template to be populated during the hydration process
 // This could be a Model class just as easily
@@ -312,7 +344,7 @@ function Schema(){
 var Base = Class({
     inherits:Resource
     ,options:{
-        objectTpl: Schema // Set the schema as the Object template
+        template: Schema // Set the schema as the Object template
     }
     ,fields:{
         // remap _id to id
@@ -333,7 +365,6 @@ var Base = Class({
    }
 
     // internal lower level method responsible for getting the raw data
-    // 
     , get_objects: function(bundle){
         return new Promise(function(resolve, reject){
             readFile( path.join(__dirname, 'example','data.json') , (err, buff){

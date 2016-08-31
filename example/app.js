@@ -86,13 +86,14 @@ var Base = _Resource.extend({
 
 	// return a yieldable object
 	, post_list: function( bundle ){
-		return Promise.resolve( bundle.res("done").code(201) )
+		let request_format = this.format( bundle );
+		return Promise.resolve( bundle.res(format).code(201) )
 	}
 
 	// use a generator function
 	// Results should be sent using multipart/form-data 
 	, post_upload: function*( bundle ){
-		let format = this.format( bundle, this.options.serializer.types );
+		let format = this.format( bundle );
 		bundle.data = yield this.deserialize( bundle.req.payload, format);
 		bundle.object = {company:{address:{}}};
 		this.fields.file.hydrate( bundle, function( err, value ){
