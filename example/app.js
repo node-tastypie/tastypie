@@ -37,7 +37,7 @@ var Base = _Resource.extend({
 
 	,fields:{
 	    age      : { type:'int' }
-	  , fake     : new fields.ApiFIeld({readonly:true})
+	  , fake     : new fields.ApiField({readonly:true})
 	  , name     : {type:'char'}
 	  , fullname : {type:'char'}
 	  , city     : {type:'char', attribute:'company.address.city'}
