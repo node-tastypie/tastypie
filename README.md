@@ -188,9 +188,10 @@ This is how tastypie handles the base HTTP Methods
 
 * GET returns a list of resource instance or a specific resource instance
 * DELETE removes a specific resource instance
-* PUT **REPLACES** a resource instance. This is not a partial update. Any optional fields not define we be set to undefined
-* PATCH a **PARTIAL** update to a specific resource instance. 
-* **OPTIONS**, **HEAD**, **TRACE**, and **CONNECT** are left to implementation on a per resource bases
+* PUT **REPLACES** a resource instance. This is not a partial update. Any optional fields not defined will be set to undefined
+* PATCH a **PARTIAL** update to a specific resource instance. Only the fields sent in the payload are dealt with. 
+* OPTIONS returns an empty response with the Allow header set
+* **HEAD**, **TRACE**, and **CONNECT** are left to implementation on a per resource bases
 
 
 ### Serialization
@@ -295,21 +296,21 @@ Simple = Resource.extend({
 The base resource defines many of the required `<VERB>_<ACTION>` methods for you and delegates to smaller internal methods which you can over-ride to customize behaviors. Here is a resource that will asyncronously read a JSON file from disk are respond to GET requests. Supports **XML**, **JSON**, paging and dummy cache out of the box.
 
 ```js
-var hapi     = require('hapi');
-var fs       = require('fs')
-var path     = require('path')
-var Resource = require('tastypie/lib/resource')
-var Api      = require('tastypie/lib/api')
-var fields   = require("tastypie/lib/fields")
-var Class    = require('tastypie/lib/class')
-var Options  = require('tastypie/lib/class/options')
-var Serializer = require('tastypie/lib/serializer')
-var debug    = require('debug')('tastypie:example')
-var app;
+const hapi     = require('hapi');
+const fs       = require('fs')
+const path     = require('path')
+const Resource = require('tastypie/lib/resource')
+const Api      = require('tastypie/lib/api')
+const fields   = require("tastypie/lib/fields")
+const Class    = require('tastypie/lib/class')
+const Options  = require('tastypie/lib/class/options')
+const Serializer = require('tastypie/lib/serializer')
+const debug    = require('debug')('tastypie:example')
+let app;
 
 
 // make a simple object template to be populated during the hydration process
-// This could be a Model class just as easily
+// This could be an ORM Model class just as easily
 function Schema(){
     this.name = {
         first: undefined, last: undefined
@@ -321,13 +322,12 @@ function Schema(){
 };
 
 
-var Base = Class({
-    inherits:Resource
-    ,options:{
+let Base = Resource.extend({
+    options:{
         objectTpl: Schema // Set the schema as the Object template
     }
     ,fields:{
-        // remap _id to id
+        // remap _id to id via attribute
           id       : { type:'field', attribute:'_id' }
         , age      : { type:'int' } 
 
@@ -344,17 +344,18 @@ var Base = Class({
         this.parent('constructor', meta )
    }
 
-    // internal lower level method responsible for getting the raw data
+    // internal lower level method called by get_list responsible for getting the raw data
     , get_objects: function(bundle, callback){
         fs.readFile( path.join(__dirname, 'example','data.json') , callback)
     }
 
 
-    // internal low level method reponsible for dealing with a POST request
+    // internal low level method called by post_detail reponsible for dealing with a POST request
     , create_object: function create_object( bundle, opt, callback ){
         bundle = this.full_hydrate( bundle )
         callback && callback(null, bundle )
     }
+
     // per field dehydration method - generates a full name field from name.first & name.last
     , dehydrate_fullname:function( obj, bundle ){
         return obj.name.first + " " + obj.name.last
@@ -365,10 +366,10 @@ var Base = Class({
         this.respond({data:{key:'value'}})
     }
 
-    // method that retreives an individual object by id.
+    // method called by get_detail that retreives an individual object by id.
     // becuase it's in a flat file, read it, filter and return first object
     ,get_object: function(bundle, callback){
-        this._get_list(bundle,function(e, objects){
+        this.get_objects(bundle,function(e, objects){
             var obj = JSON.parse( objects ).filter(function( obj ){
                 return obj._id = bundle.req.params.id
             })[0]
@@ -377,8 +378,11 @@ var Base = Class({
     }
 
     // Proxy method for delegeting HTTP methods to approriate resource method
+    // as defined below
     , dispatch_upload: function(req, reply ){
         // Do additional magic here.
+
+        // dispatch will call <HTTP_METHOD>_upload
         return this.dispatch('upload', this.bundle( req, reply ) )
     }
     
