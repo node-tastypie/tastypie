@@ -2,10 +2,10 @@
 
 [![NPM](https://nodei.co/npm/tastypie.png?downloads=true&downloadRank=true)](https://nodei.co/npm/tastypie/)
 
-[![license](https://img.shields.io/github/license/esatterwhite/node-tastypie.svg?style=flat-square&maxAge=2592000)](https://github.com/esatterwhite/node-tastypie/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/node-tastypie/tastypie.svg?style=flat-square&maxAge=2592000)](https://github.com/node-tastypie/tastypie/blob/master/LICENSE)
 [![npm](https://img.shields.io/npm/v/tastypie.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/tastypie)
 [![node](https://img.shields.io/node/v/tastypie.svg?style=flat-square&maxAge=2592000)](https://npmjs.org/package/tastypie)
-[![David](https://img.shields.io/david/esatterwhite/node-tastypie.svg?style=flat-square&maxAge=2592000)](https://david-dm.org/esatterwhite/node-tastypie)
+[![David](https://img.shields.io/david/node-tastypie/tastypie.svg?style=flat-square&maxAge=2592000)](https://david-dm.org/esatterwhite/node-tastypie)
 [![Travis](https://img.shields.io/travis/node-tastypie/tastypie.svg?maxAge=2592000&style=flat-square)](https://travis-ci.org/node-tastypie/tastypie)
 [![Codacy grade](https://img.shields.io/codacy/grade/115291230cab4064bed392dd30dfd32a.svg?style=flat-square)](https://www.codacy.com/app/esatterwhite/tastypie)
 
