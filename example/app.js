@@ -88,7 +88,7 @@ var Base = _Resource.extend({
 
 	// Results should be sent using multipart/form-data 
 	, post_upload: function( bundle ){
-		var format = this.format( bundle, this.options.serializer.types );
+		var format = this.format( bundle );
 		this.deserialize( bundle.req.payload, format, function( err, data ){
 			bundle.data = data;
 			bundle.object = {company:{address:{}}};
