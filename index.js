@@ -179,7 +179,7 @@ function Schema(){
 var Base = Class({
 	inherits:Resource
 	,options:{
-		objectTpl: Schema // Set the schema as the Object template
+		template: Schema // Set the schema as the Object template
 	}
 	,fields:{
 		// remap _id to id

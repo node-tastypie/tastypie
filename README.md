@@ -27,14 +27,13 @@ Looking for active contributors / collaborators to help shape the way people bui
 
 ### Create a simple Api
 
-```js
-var tastypie = require('tastypie')
-  , Api      = tastypie.Api
-  , hapi     = require('hapi')
-  , server   = new hapi.Server()
-  , v1       = new Api('api/v1' )
-  , Resource
-  ;
+```javascript
+const {Resource, Api} = require('tastypie')
+    , Api      = tastypie.Api
+    , hapi     = require('hapi')
+    , server   = new hapi.Server()
+    , v1       = new Api('api/v1' )
+    ;
 
 Resource = tastypie.Resource.extend({
     fields:{
@@ -217,15 +216,29 @@ curl http://localhost:3000/api/v1/test?format=xml
 A functional resource, by convention, should define method handlers for each of the `actions` ( `list`, `detail`, `schema`, etc ) & `HTTP verbs` where it makes sense - where the resource method name is `<VERB>_<ACTION>`.
 
 ```js
-var tastypie = require('tastypie')
-var Resource = tastypie.Resource;
-var http     = tasypie.http
-var Simple;
+const tastypie = require('tastypie')
+const Resource = tastypie.Resource;
+const http     = tasypie.http
+const Simple;
+
+const Template = function(){
+    this.key = null
+    this._id = null
+}
+
+Template.prototype.save = function( cb ){
+    setImmediate(cb, this)
+}
+
+Template.prototype.toJSON = function(){
+    return {key, _id}
+}
 
 Simple = Resource.extend({
     options:{
     	name:'simple'
     	,pk:'_id'
+        ,template: tempalte
     }
     ,fields:{
         key:{type:'char'}
@@ -278,6 +291,17 @@ Simple = Resource.extend({
     , post_list: function( bundle ){
         var data = bundle.req.payload;
         // do something with the data.
+        let format = this.format( bundle );
+        this.deserialize(bundle.data, format, ( err, data ) => {
+            bundle.data = data;
+            this.full_hydrate( bundle, ( err, bundle ) => {
+                bundle.object.save();
+                this.full_dehydrate( bundle.object, ( err, dehydrated ) => {
+                    bundle.data = dehydrated;
+                    this.respond( bundle, http.created );
+                }) 
+            })
+        })
         return this.respond( bundle, http.created)
     }
     
@@ -286,7 +310,7 @@ Simple = Resource.extend({
      **/
     , put_detail: function( bundle ){
     	// Manually set the Bundle's data property to send back to the client
-        budnel.data = {key:'updated'}
+        bundle.data = {key:'updated'}
         return this.respond( bundle, http.accepted )
     }
 });
@@ -295,18 +319,15 @@ Simple = Resource.extend({
 
 The base resource defines many of the required `<VERB>_<ACTION>` methods for you and delegates to smaller internal methods which you can over-ride to customize behaviors. Here is a resource that will asyncronously read a JSON file from disk are respond to GET requests. Supports **XML**, **JSON**, paging and dummy cache out of the box.
 
-```js
-const hapi     = require('hapi');
-const fs       = require('fs')
-const path     = require('path')
-const Resource = require('tastypie/lib/resource')
-const Api      = require('tastypie/lib/api')
-const fields   = require("tastypie/lib/fields")
-const Class    = require('tastypie/lib/class')
-const Options  = require('tastypie/lib/class/options')
-const Serializer = require('tastypie/lib/serializer')
-const debug    = require('debug')('tastypie:example')
-let app;
+```javascript
+const hapi                                       = require('hapi');
+const fs                                         = require('fs')
+const path                                       = require('path')
+const {Resource, Api, Fields, Class, Serializer} = require('tastypie')
+const Options                                    = Class.Options 
+const debug                                      = require('debug')('tastypie:example')
+
+const server = new hapi.Server()
 
 
 // make a simple object template to be populated during the hydration process
@@ -324,7 +345,7 @@ function Schema(){
 
 let Base = Resource.extend({
     options:{
-        objectTpl: Schema // Set the schema as the Object template
+        template: Schema // Set the schema as the Object template
     }
     ,fields:{
         // remap _id to id via attribute
