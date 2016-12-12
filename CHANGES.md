@@ -3,7 +3,7 @@ v6.0.0 - Fruit Pie
 * [BREAKING] rename resouce option `objTpl` to `template`
 * use setImmediate where possible
 * Support for Node v6 & v7
-* [BREAKING] drop support for node < 6
+* [BREAKING] drop support for node `< 6`
 * General Speed improvements
 
 
