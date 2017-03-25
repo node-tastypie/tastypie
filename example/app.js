@@ -58,22 +58,22 @@ var Base = _Resource.extend({
 		return obj.gender + " " + obj.company.address.state;
 	}
 
-	, dehydrate_location: function( obj /*, bundle */ ){
+	, dehydrate_location: ( obj /*, bundle */ ) => {
 		return [ obj.longitude, obj.latitude ];
 	}
-	, dehydrate_fake:function( obj, bundle ){
+	, dehydrate_fake: ( obj, bundle ) => {
 		return bundle.req.method + " " + obj.index;
 	}
 
-	, dispatch_upload: function(req, reply ){
+	, dispatch_upload: function(req, reply ) {
 		return this.dispatch('upload', this.bundle( req, reply ) );
 	}
 
-	, get_objects: function(bundle, callback){
+	, get_objects: (bundle, callback) => {
 		fs.readFile( path.join(__dirname, 'data.json') , callback);
 	}
 
-	, get_object: function( bundle, callback ){
+	, get_object: function( bundle, callback ) {
 		this.get_objects(bundle,function(e, objects){
 			var obj = JSON.parse( objects ).filter(function( obj ){
 					return obj.guid === bundle.req.params.pk;
@@ -83,26 +83,35 @@ var Base = _Resource.extend({
 	}
 
 	, post_list: function( bundle ){
-		return bundle.res("done").code(201);
+		var format = this.format( bundle );
+    const that = this;
+		this.deserialize(bundle.req.payload, format, (err, data) => {
+      bundle.obj = Object.create(that.options.template.prototype)
+      bundle.data = data
+      that.full_dehydrate(data, bundle, (err, b) => {
+        console.log(b)
+        return bundle.res("done").code(201);
+      })
+    })
 	}
 
 	// Results should be sent using multipart/form-data 
 	, post_upload: function( bundle ){
 		var format = this.format( bundle );
-		this.deserialize( bundle.req.payload, format, function( err, data ){
+		this.deserialize( bundle.req.payload, format, ( err, data ) => {
 			bundle.data = data;
 			bundle.object = {company:{address:{}}};
 
-			this.fields.file.hydrate( bundle, function( err, value ){
+			this.fields.file.hydrate( bundle, ( err, value ) => {
 				// quick and dirty respnose
 				bundle.data = {file: value}
 				this.respond( bundle )
-			}.bind( this ));
+			});
 
-		}.bind( this ));
+		});
 	}
 
-	, prepend_urls:function(){
+	, prepend_urls: function() {
 		return [{
 			path: '/api/v1/data/upload'
 			, handler: this.dispatch_upload.bind( this )
