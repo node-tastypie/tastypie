@@ -6,3 +6,6 @@ git:
 node_js:
   - "6"
   - "7"
+branches:
+  except:
+    - gh-pages
