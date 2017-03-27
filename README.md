@@ -1,4 +1,4 @@
-![node tastypie](./assets/tastypie-logo.png) 
+![node tastypie](./assets/tastypie-logo.png)
 
 [![NPM](https://nodei.co/npm/tastypie.png?downloads=true&downloadRank=true)](https://nodei.co/npm/tastypie/)
 

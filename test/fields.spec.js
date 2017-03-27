@@ -7,223 +7,223 @@ var path = require('path');
 
 describe("Api Fields", function(){
 
-	describe("CharField",function(){
-		describe('#dehydrate', function(){
-			var f = new fields.CharField({name:'char',attribute:'char'});
-			it('should convert values to strings', function(done){
-				f.dehydrate({
-					char:1
-				}, function( err, value ){
-					assert.strictEqual( err, null);
-					value.should.be.a.String();
-					assert.strictEqual( value, "1");
-					done()
-				})
-			})
+  describe("CharField",function(){
+    describe('#dehydrate', function(){
+      var f = new fields.CharField({name:'char',attribute:'char'});
+      it('should convert values to strings', function(done){
+        f.dehydrate({
+          char:1
+        }, function( err, value ){
+          assert.strictEqual( err, null);
+          value.should.be.a.String();
+          assert.strictEqual( value, "1");
+          done()
+        })
+      })
 
-			it('should allow empty strings', function( done ){
-				f.dehydrate({
-					char:''
-				}, function( err, value ){
-					value.should.be.a.String();
-					value.should.equal( '' )
-					done();
-				})
-			});
-		});
-		describe("#hydrate",function(){
+      it('should allow empty strings', function( done ){
+        f.dehydrate({
+          char:''
+        }, function( err, value ){
+          value.should.be.a.String();
+          value.should.equal( '' )
+          done();
+        })
+      });
+    });
+    describe("#hydrate",function(){
 
-			describe('~enum', function(){
-				var field = new fields.CharField({
-					name:'char'
-				  , attribute:'char'
-				  , enum:['a','b','c']
-				  , default:'a'
-				});
+      describe('~enum', function(){
+        var field = new fields.CharField({
+          name:'char'
+          , attribute:'char'
+          , enum:['a','b','c']
+          , default:'a'
+        });
 
-				it('should return a default if not matched', function(done){
-					field.hydrate({
-						data:{
-							char:''
-						}
-					}, function( err, value ){
-						value.should.be.a.String();
-						value.should.equal( 'a' );
-						done();
-					});
-				});
-			});
+        it('should return a default if not matched', function(done){
+          field.hydrate({
+            data:{
+              char:''
+            }
+          }, function( err, value ){
+            value.should.be.a.String();
+            value.should.equal( 'a' );
+            done();
+          });
+        });
+      });
 
-		})
-	});
-	describe("BooleanField", function(){
-		var f = new fields.BooleanField();
-		describe('falsy values', function(){
-			it('should convert empty strings to False', function(){
-				var value =  f.convert('');
-				assert.strictEqual( value, false);
-			});
+    })
+  });
+  describe("BooleanField", function(){
+    var f = new fields.BooleanField();
+    describe('falsy values', function(){
+      it('should convert empty strings to False', function(){
+        var value =  f.convert('');
+        assert.strictEqual( value, false);
+      });
 
-			it('should treat "0" as false', function(){
-				var value = f.convert( '0' );
-				assert.strictEqual( value, false);
-			});
-			it('should treat "false" as false', function(){
-				var value = f.convert( 'false' );
-				assert.strictEqual( value, false);
-			});
+      it('should treat "0" as false', function(){
+        var value = f.convert( '0' );
+        assert.strictEqual( value, false);
+      });
+      it('should treat "false" as false', function(){
+        var value = f.convert( 'false' );
+        assert.strictEqual( value, false);
+      });
 
-			it('should treat false as false', function(){
-				var value = f.convert( false );
-				assert.strictEqual( value, false);
-			});
+      it('should treat false as false', function(){
+        var value = f.convert( false );
+        assert.strictEqual( value, false);
+      });
 
-		});
-		describe('truthy values', function(){
-			it('should convert strings with chars as true', function(){
-				var value =  f.convert('a');
-				assert.strictEqual( value, true );
-			});
+    });
+    describe('truthy values', function(){
+      it('should convert strings with chars as true', function(){
+        var value =  f.convert('a');
+        assert.strictEqual( value, true );
+      });
 
-			it('should treat "1" as true', function(){
-				var value = f.convert( '1' );
-				assert.strictEqual( value, true );
-			});
+      it('should treat "1" as true', function(){
+        var value = f.convert( '1' );
+        assert.strictEqual( value, true );
+      });
 
-			it('should treat "true" as true', function(){
-				var value = f.convert( 'true' );
-				assert.strictEqual( value, true );
-			});
+      it('should treat "true" as true', function(){
+        var value = f.convert( 'true' );
+        assert.strictEqual( value, true );
+      });
 
-			it('should treat true as true', function(){
-				var value = f.convert( true );
-				assert.strictEqual( value, true);
-			});
-		});
+      it('should treat true as true', function(){
+        var value = f.convert( true );
+        assert.strictEqual( value, true);
+      });
+    });
 
-		describe('boolean values', function(){
-			it('should convert strings with chars as true', function(){
-				var value =  f.convert('a');
-				assert.strictEqual( value, true );
-			});
+    describe('boolean values', function(){
+      it('should convert strings with chars as true', function(){
+        var value =  f.convert('a');
+        assert.strictEqual( value, true );
+      });
 
-			it('should treat "1" as 1', function(){
-				var value = f.convert( '1' );
-				assert.strictEqual( value, true );
-			});
-		});
+      it('should treat "1" as 1', function(){
+        var value = f.convert( '1' );
+        assert.strictEqual( value, true );
+      });
+    });
 
-		describe('dehydrate',function(){
-			describe('default values', function(){
-				it('should accept `false` as a default value', function( done ){
-					var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:false });
+    describe('dehydrate',function(){
+      describe('default values', function(){
+        it('should accept `false` as a default value', function( done ){
+          var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:false });
 
-					f.dehydrate({}, function( err, value ){
-						assert.strictEqual( value, false, 'expected false, got ' + value );
-						done();
-					});
-				});
+          f.dehydrate({}, function( err, value ){
+            assert.strictEqual( value, false, 'expected false, got ' + value );
+            done();
+          });
+        });
 
-				it('should cast an empty string default value to `false`', function( done ){
-					var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:'' });
-					f.dehydrate({}, function( err, value ){
-						assert.strictEqual( value, false, 'expected false, got ' + value );
-						done();
-					});
-				});
+        it('should cast an empty string default value to `false`', function( done ){
+          var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:'' });
+          f.dehydrate({}, function( err, value ){
+            assert.strictEqual( value, false, 'expected false, got ' + value );
+            done();
+          });
+        });
 
-				it('should cast a null default value to `false` ', function( done ){
-					var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:null });
-					f.dehydrate({}, function( err, value ){
-						assert.strictEqual( value, false, 'expected false, got ' + value );
-						done();
-					});
-				});
-			});
-		});
+        it('should cast a null default value to `false` ', function( done ){
+          var f = new fields.BooleanField({name:'fakebool', attribute:'fakebool', default:null });
+          f.dehydrate({}, function( err, value ){
+            assert.strictEqual( value, false, 'expected false, got ' + value );
+            done();
+          });
+        });
+      });
+    });
 
-		describe('#convert',function(){
-			it('should convert string to boolean', function(){
-				var value = f.convert('true');
-				value.should.be.a.Boolean;
-				value.should.equal( true );
+    describe('#convert',function(){
+      it('should convert string to boolean', function(){
+        var value = f.convert('true');
+        value.should.be.a.Boolean;
+        value.should.equal( true );
 
-				value = f.convert('false');
-				value.should.be.a.Boolean;
-				value.should.equal( false );
+        value = f.convert('false');
+        value.should.be.a.Boolean;
+        value.should.equal( false );
 
-			});
+      });
 
-			it('should convert numbers to boolean', function(){
-				var value = f.convert(1);
-				value.should.be.a.Boolean;
-				value.should.equal( true );
+      it('should convert numbers to boolean', function(){
+        var value = f.convert(1);
+        value.should.be.a.Boolean;
+        value.should.equal( true );
 
-				value = f.convert(0);
-				value.should.be.a.Boolean;
-				value.should.equal( false );
-			});
-		});
+        value = f.convert(0);
+        value.should.be.a.Boolean;
+        value.should.equal( false );
+      });
+    });
 
-	});
+  });
 
-	describe('Datefield', function(){
-		var f;
-		before(function( done ){
-			f = new fields.DateField();
-			done();
-		});
+  describe('Datefield', function(){
+    var f;
+    before(function( done ){
+      f = new fields.DateField();
+      done();
+    });
 
-		describe('#convert',function(){
-			it('should convert strings to dates', function(){
-				var value = f.convert('2014-01-22');
-				value.getFullYear().should.equal( 2014 );
-				value.getMonth().should.equal(0);
-				value.getDate().should.equal(22);
-				value.getHours().should.equal(0);
-				value.getMinutes().should.equal(0);
-				value.getSeconds().should.equal(0);
-			});
+    describe('#convert',function(){
+      it('should convert strings to dates', function(){
+        var value = f.convert('2014-01-22');
+        value.getFullYear().should.equal( 2014 );
+        value.getMonth().should.equal(0);
+        value.getDate().should.equal(22);
+        value.getHours().should.equal(0);
+        value.getMinutes().should.equal(0);
+        value.getSeconds().should.equal(0);
+      });
 
-		});
-	});
+    });
+  });
 
-	describe('DateTimeField', function(){
-		var f;
-		beforeEach(function(){
-			f = new fields.DateTimeField({ name:'dtf', attribute:'dtf'});
-		});
+  describe('DateTimeField', function(){
+    var f;
+    beforeEach(function(){
+      f = new fields.DateTimeField({ name:'dtf', attribute:'dtf'});
+    });
 
-		describe('#hydrate', function(){
-			it('should convert a date string into a date object', function( done ){
-				var bundle = {
-					data:{},
-					object:{
-						dtf:'2014-02-27T15:54:04.000Z'
-					}
-				};
+    describe('#hydrate', function(){
+      it('should convert a date string into a date object', function( done ){
+        var bundle = {
+          data:{},
+          object:{
+            dtf:'2014-02-27T15:54:04.000Z'
+          }
+        };
 
-				f.hydrate( bundle, function( err, value ){
-					assert( kindOf( value ), 'Date');
-					assert.equal( value.getFullYear(), 2014 );
-					assert.equal( value.getMinutes(), 54 );
-					done();
-				});
-			});
-		});
-	});
+        f.hydrate( bundle, function( err, value ){
+          assert( kindOf( value ), 'Date');
+          assert.equal( value.getFullYear(), 2014 );
+          assert.equal( value.getMinutes(), 54 );
+          done();
+        });
+      });
+    });
+  });
 
-	describe('ArrayField', function( ){
-		var f;
-		before( function( ){
-			f = new fields.ArrayField();
-		});
+  describe('ArrayField', function( ){
+    var f;
+    before( function( ){
+      f = new fields.ArrayField();
+    });
 
         describe('#convert', function( ){
-			it('should convert single values to an array', function(){
-				var value = f.convert( 1 );
-				value.should.be.a.Array();
-			});
+      it('should convert single values to an array', function(){
+        var value = f.convert( 1 );
+        value.should.be.a.Array();
+      });
 
             it("Should convert strings into to An Array", function(){
                 var result = f.convert('Hello');
@@ -243,203 +243,203 @@ describe("Api Fields", function(){
                 assert.deepEqual( a, b );
             });
 
-			it("should conver comma separate string values", function(){
-				var value = f.convert('1, 2, 3');
-				value.should.be.a.Array();
-				value[0].should.be.String();
-				value[0].should.equal('1');
-			});
+      it("should conver comma separate string values", function(){
+        var value = f.convert('1, 2, 3');
+        value.should.be.a.Array();
+        value[0].should.be.String();
+        value[0].should.equal('1');
+      });
 
-			it("should no convert array values", function(){
-				var value = f.convert([1,2,3]);
-				value.should.be.a.Array();
-				value[0].should.be.Number();
-				value[0].should.equal(1);
-			});
-		});
+      it("should no convert array values", function(){
+        var value = f.convert([1,2,3]);
+        value.should.be.a.Array();
+        value[0].should.be.Number();
+        value[0].should.equal(1);
+      });
+    });
 
-		describe('#hydrate', function( ){
-			var f;
-			before( function( ){
-				f = new fields.ArrayField({name:'afld', attribute:'afld'});
-			});
+    describe('#hydrate', function( ){
+      var f;
+      before( function( ){
+        f = new fields.ArrayField({name:'afld', attribute:'afld'});
+      });
 
-			it('should hydrate an array string to an array', function( done ){
-				var bundle = {
-					data:{},
-					object:{
-						'afld':'1,2,3'
-					}
-				};
+      it('should hydrate an array string to an array', function( done ){
+        var bundle = {
+          data:{},
+          object:{
+            'afld':'1,2,3'
+          }
+        };
 
-				f.hydrate( bundle, function( err, value ){
-					assert.equal( kindOf( value ), 'Array' );
-					done();
-				});
-			});
+        f.hydrate( bundle, function( err, value ){
+          assert.equal( kindOf( value ), 'Array' );
+          done();
+        });
+      });
 
-			it('should parse an array', function( done ){
-				var bundle = {
-					data:{},
-					object:{
-						'afld':['123']
-					}
-				};
+      it('should parse an array', function( done ){
+        var bundle = {
+          data:{},
+          object:{
+            'afld':['123']
+          }
+        };
 
-				f.hydrate( bundle, function( err, value ){
-					assert.equal( kindOf( value ),'Array');
-					assert.equal( kindOf( value[0] ),'String');
-					done( );
+        f.hydrate( bundle, function( err, value ){
+          assert.equal( kindOf( value ),'Array');
+          assert.equal( kindOf( value[0] ),'String');
+          done( );
 
-				});
+        });
 
-			});
-		});
-	});
+      });
+    });
+  });
 
-	describe('FileFIeld', function(){
-		var f, location, dir;
+  describe('FileFIeld', function(){
+    var f, location, dir;
 
-		before(function(){
-			dir = 'uploads';
-			location = path.join( __dirname, dir, 'data.json' );
-			f = new fields.FileField({
-				dir: dir
-				, attribute: 'file'
-				, name: 'file'
-				,root:__dirname
-				,create:true
-			});
-		});
+    before(function(){
+      dir = 'uploads';
+      location = path.join( __dirname, dir, 'data.json' );
+      f = new fields.FileField({
+        dir: dir
+        , attribute: 'file'
+        , name: 'file'
+        ,root:__dirname
+        ,create:true
+      });
+    });
 
-		after(function( done ){
-			fs.unlink( location, function( err ){
-				done( err );
-			});
-		});
+    after(function( done ){
+      fs.unlink( location, function( err ){
+        done( err );
+      });
+    });
 
-		describe('#hydrate', function(  ){
-			var bundle = {
-				req:{
-					payload:{
+    describe('#hydrate', function(  ){
+      var bundle = {
+        req:{
+          payload:{
 
-					}
-				},
-				res:{},
-				data:{
-					file: fs.createReadStream( path.resolve(__dirname,'..' , 'example', 'data.json' ) )
-				},
-				object:{}
-			};
+          }
+        },
+        res:{},
+        data:{
+          file: fs.createReadStream( path.resolve(__dirname,'..' , 'example', 'data.json' ) )
+        },
+        object:{}
+      };
 
-			bundle.data.file.hapi = {
-				filename:'data.json'
-			};
+      bundle.data.file.hapi = {
+        filename:'data.json'
+      };
 
-			it('should consume streams', function( done ) {
-				f.hydrate( bundle, function( err, d ){
-					d.should.equal( path.join(__dirname, 'uploads', 'data.json'));
-					done();
-				});
-			});
-		});
-		describe('#dehydrate', function( ){
-			var bundle = {
-				file: '/tmp/uploads/data.json'
-			};
-			it('should return a path', function( done ){
-				f.dehydrate( bundle, function( err, value ){
-					value.should.equal( dir + '/' + 'data.json');
-					done();
-				});
-			});
-		});
-	});
+      it('should consume streams', function( done ) {
+        f.hydrate( bundle, function( err, d ){
+          d.should.equal( path.join(__dirname, 'uploads', 'data.json'));
+          done();
+        });
+      });
+    });
+    describe('#dehydrate', function( ){
+      var bundle = {
+        file: '/tmp/uploads/data.json'
+      };
+      it('should return a path', function( done ){
+        f.dehydrate( bundle, function( err, value ){
+          value.should.equal( dir + '/' + 'data.json');
+          done();
+        });
+      });
+    });
+  });
 
-	describe('FilePathField', function(){
-		var f;
+  describe('FilePathField', function(){
+    var f;
 
-		before(function(){
-			f = new fields.FilePathField({
-				name:'file'
-				,attribute:'file'
-			});
-		});
+    before(function(){
+      f = new fields.FilePathField({
+        name:'file'
+        ,attribute:'file'
+      });
+    });
 
-		describe('#hydrate', function(){
+    describe('#hydrate', function(){
 
-			it('should not alter the file path location', function( done ){
+      it('should not alter the file path location', function( done ){
 
-				var bundle = {
-					data:{
-						file: path.join( __dirname, '..', 'example', 'data.json' )
-					}
-				};
-				bundle.data.file.hapi = {
-					filename:'data.json'
-				};
-				f.hydrate( bundle, function( err, value ){
-					value.should.equal( path.join( __dirname, '..', 'example', 'data.json' ) );
-					done(err);
-				});
-			});
-		});
+        var bundle = {
+          data:{
+            file: path.join( __dirname, '..', 'example', 'data.json' )
+          }
+        };
+        bundle.data.file.hapi = {
+          filename:'data.json'
+        };
+        f.hydrate( bundle, function( err, value ){
+          value.should.equal( path.join( __dirname, '..', 'example', 'data.json' ) );
+          done(err);
+        });
+      });
+    });
 
-		describe('#dehydrate', function(){
-			it('should path relative to dir option', function( done ){
-				var data = {
-					file:path.join( f.options.root, f.options.dir, 'data.json' )
-				};
+    describe('#dehydrate', function(){
+      it('should path relative to dir option', function( done ){
+        var data = {
+          file:path.join( f.options.root, f.options.dir, 'data.json' )
+        };
 
-				f.dehydrate( data, function( err, value ){
-					value.should.equal( f.options.dir + '/' + 'data.json');
-					done( err );
-				});
-			});
-		});
-	});
+        f.dehydrate( data, function( err, value ){
+          value.should.equal( f.options.dir + '/' + 'data.json');
+          done( err );
+        });
+      });
+    });
+  });
 
-	describe('IntegerField', function(){
-		describe('#dehydrate', function(){
-			var f;
-			before(function(){
-				f = new fields.IntegerField({
-					name:'num'
-					,attribute:'num'
-				});
-			});
+  describe('IntegerField', function(){
+    describe('#dehydrate', function(){
+      var f;
+      before(function(){
+        f = new fields.IntegerField({
+          name:'num'
+          ,attribute:'num'
+        });
+      });
 
-			it('convert strings numbers to number numbers', function(done){
-				f.dehydrate({
-					num:"1"
-				},function( err, value){
-					value.should.be.a.Number( );
-					value.should.equal( 1 );
-					done();
-				});
-			});
+      it('convert strings numbers to number numbers', function(done){
+        f.dehydrate({
+          num:"1"
+        },function( err, value){
+          value.should.be.a.Number( );
+          value.should.equal( 1 );
+          done();
+        });
+      });
 
-			it('should convert float strings to integers', function(done){
-				f.dehydrate({
-					num:"1.1"
-				},function( err, value){
-					value.should.be.a.Number( );
-					value.should.equal( 1 );
-					done();
-				});
-			});
+      it('should convert float strings to integers', function(done){
+        f.dehydrate({
+          num:"1.1"
+        },function( err, value){
+          value.should.be.a.Number( );
+          value.should.equal( 1 );
+          done();
+        });
+      });
 
-			it('should return 0 for non number strings', function( done){
-				f.dehydrate({
-					num:"foo"
-				},function( err, value){
-					value.should.be.a.Number( );
-					value.should.equal( 0 );
-					done();
-				});
-			});
-		});
-	});
+      it('should return 0 for non number strings', function( done){
+        f.dehydrate({
+          num:"foo"
+        },function( err, value){
+          value.should.be.a.Number( );
+          value.should.equal( 0 );
+          done();
+        });
+      });
+    });
+  });
 })
 
 
