@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -106,49 +108,47 @@ var kindOf         = require( 'mout/lang/kindOf'  )
  * @extends module:tastypie/fields/api
  */
 ArrayField = new Class({
-	inherits: ApiField
-	,options:{
-		separator: ','
-	  , help:'converts comma separated string into an array of value'
+    inherits: ApiField
+    ,options:{
+        separator: ','
+      , help:'converts comma separated string into an array of value'
 
-	}
+    }
 
-	,type: function(){
-		return 'array';
-	}
+    ,type: function(){
+      return 'array';
+    }
 
-	,convert: function( value ){
-		var _val = [];
-		switch( kindOf( value ).toLowerCase() ){
-			case 'string':
-				_val = value.split( this.options.separator );
-				break;
-			case 'array':
-				_val = value;
-				break;
-			default:
-				_val = value ? [ value ] : _val;
-				break;
-		}
+    ,convert: function( value ){
+      var _val = [];
+      switch( kindOf( value ).toLowerCase() ){
+        case 'string':
+          _val = value.split( this.options.separator );
+          break;
+        case 'array':
+          _val = value;
+          break;
+        default:
+          _val = value ? [ value ] : _val;
+          break;
+      }
 
-		return _val;
-	}
+      return _val;
+    }
 
-	,hydrate: function( bundle, cb ){
-		this.parent('hydrate', bundle, function( err, value ){
-			if( err ){
-				return cb( err, null );
-			}
-
-			try{
-				value = this.convert( kindOf(value) === 'String' ? JSON.parse( value ) : value );
-			} catch( err ){
-				value = this.convert( value );
-			}
-
-			return cb(null, value );
-		}.bind(this));
-	}
+    ,hydrate: function( bundle, cb ){
+      this.parent('hydrate', bundle, ( err, value ) => {
+        if( err ){
+          return setImmediate(cb, err, null );
+        }
+        try{
+          value = this.convert( kindOf(value) === 'String' ? JSON.parse( value ) : value );
+        } catch( err ){
+          value = this.convert( value );
+        }
+        return setImmediate(cb, null, value );
+      });
+    }
 });
 
 module.exports = ArrayField;
@@ -170,20 +170,22 @@ module.exports = ArrayField;
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -193,9 +195,9 @@ module.exports = ArrayField;
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -203,7 +205,9 @@ module.exports = ArrayField;
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -213,7 +217,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -249,8 +253,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -276,11 +279,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>

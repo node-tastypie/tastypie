@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -122,42 +124,42 @@ var os       = require( 'os' )
  * @param {Boolean} [options.create=false] Auto create the resolved directory
  */
 FileField = new Class({
-	inherits: ApiField
-	, options:{
-		root: os.tmpDir(),
-		dir:'uploads',
-		create:false,
-	}
-	,constructor: function( options ){
-		this.parent('constructor', options );
+  inherits: ApiField
+  , options:{
+      root: os.tmpDir(),
+      dir: 'uploads',
+      create: false
+  }
+  ,constructor: function( options ){
+    this.parent('constructor', options );
 
-		try {
-			this.options.create &amp;&amp; mkdirp.sync( path.join( this.options.root, this.options.dir ) );
-		} catch( e ){
-			if( e.code &amp;&amp; e.code !== 'EEXIST' ){
-				this.emit('error', boom.wrap( e ) );
-			}
-			// pass. don't care;
-		}
-	}
+    try {
+      this.options.create &amp;&amp; mkdirp.sync( path.join( this.options.root, this.options.dir ) );
+    } catch( e ){
+      if( e.code &amp;&amp; e.code !== 'EEXIST' ){
+        this.emit('error', boom.wrap( e ) );
+      }
+      // pass. don't care;
+    }
+  }
 
-	, convert: function( value ){
-		return urljoin( this.options.dir, path.basename( value ) );
-	}
-	
-	, hydrate: function( bundle, cb ){
-		var fpath  // file path to write
-		  , out    // output write stream
-		  ;
+  , convert: function( value ){
+      return urljoin( this.options.dir, path.basename( value ) );
+  }
+  
+  , hydrate: function( bundle, cb ){
+      var fpath  // file path to write
+        , out    // output write stream
+        ;
 
-		this.parent('hydrate', bundle, function( err, value ){
-			fpath = path.join( this.options.root, this.options.dir,  value.hapi.filename );
-			out   = fs.createWriteStream( fpath );
-			value.once('error', cb );
-			value.once('end', cb.bind( null, null, fpath ) );
-			value.pipe( out );
-		}.bind( this ) );
-	}
+      this.parent('hydrate', bundle, ( err, value ) => {
+        fpath = path.join( this.options.root, this.options.dir,  value.hapi.filename );
+        out   = fs.createWriteStream( fpath );
+        value.once('error', cb );
+        value.once('end', cb.bind( null, null, fpath ) );
+        value.pipe( out );
+      });
+  }
 });
 module.exports = FileField;
 </pre>
@@ -178,20 +180,22 @@ module.exports = FileField;
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -201,9 +205,9 @@ module.exports = FileField;
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -211,7 +215,9 @@ module.exports = FileField;
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -221,7 +227,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -257,8 +263,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -284,11 +289,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>

@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -646,7 +648,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="module-tastypie_lib_cache.html">module:tastypie/lib/cache</a></span>
+<span class="param-type">Object</span>
 
 
 
@@ -671,14 +673,84 @@
                 </td>
             
 
-            <td class="description last"><p>A cache instance to be used for response caching.</p></td>
+            <td class="description last"><p>A cache instance to be used for response caching.</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>engine</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'catbox-noop'
+                
+                </td>
+            
+
+            <td class="description last"><p>The underlying engine type to use. This should be a requireable catbox module that is installed</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>methodsAllowed</code></td>
+                <td class="name"><code>allowed</code></td>
             
 
             <td class="type">
@@ -709,14 +781,35 @@
                 </td>
             
 
-            <td class="description last"><p>an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined</p></td>
-        </tr>
+            <td class="description last"><p>an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined</p>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
 
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>listMethodsAllowed</code></td>
+                <td class="name"><code>methods</code></td>
             
 
             <td class="type">
@@ -742,12 +835,6 @@
             
 
             
-                <td class="default">
-                
-                    null
-                
-                </td>
-            
 
             <td class="description last"><p>an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined</p></td>
         </tr>
@@ -756,7 +843,7 @@
 
         <tr>
             
-                <td class="name"><code>detailMethodsAllowed</code></td>
+                <td class="name"><code>list</code></td>
             
 
             <td class="type">
@@ -782,14 +869,49 @@
             
 
             
-                <td class="default">
+
+            <td class="description last"><p>Defines methods access for listing methods. Defaults to the definitions found in the methods object if not defined</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>detail</code></td>
+            
+
+            <td class="type">
+            
                 
-                    null
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
                 
                 </td>
             
 
-            <td class="description last"><p>an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined</p></td>
+            
+
+            <td class="description last"><p>Defines methods access for detail methods. Defaults to the definitions found in the methods object if not defined</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -976,23 +1098,23 @@
         
     <pre class="sunlight-highlight-javascript">vaar Resource = require(&#x27;tastypie&#x27;).Resource
 var instnace = new Resource({
-	limit:10,
-	pk:&#x27;user_id&#x27;,
-	defaultFormat:&#x27;text/xml&#x27;,
-	collection:&#x27;users&#x27;
-	allowed:{
-		list:{
-			get:true,
-			put:false,
-			post:false
-			delete:false
-		},
-		detail:{
-			get:true,
-			put:true,
-			post:false
-		}
-	}
+    limit:10,
+    pk:&#x27;user_id&#x27;,
+    defaultFormat:&#x27;text/xml&#x27;,
+    collection:&#x27;users&#x27;
+    allowed:{
+        list:{
+            get:true,
+            put:false,
+            post:false
+            delete:false
+        },
+        detail:{
+            get:true,
+            put:true,
+            post:false
+        }
+    }
 })</pre>
 
 
@@ -1019,41 +1141,51 @@ var instnace = new Resource({
         
             <li>module:util</li>
         
-            <li>module:fs</li>
+            <li>module:async</li>
         
-            <li>module:express</li>
+            <li>module:url-join</li>
         
-            <li>module:debug</li>
+            <li>module:joi</li>
         
-            <li>module:urljoin</li>
+            <li>module:boom</li>
         
-            <li>module:mout/object/merge</li>
+            <li>module:querystring</li>
         
-            <li>module:mout/lang/clone</li>
+            <li>module:mout/lang</li>
         
             <li>module:mout/string/interpolate</li>
         
-            <li><a href="module-tastypie_lib_class_parent.html">module:tastypie/lib/class/parent</a></li>
-        
-            <li><a href="module-tastypie_lib_resource_schema.html">module:tastypie/lib/resource/schema</a></li>
-        
-            <li><a href="module-tastypie_lib_resource_list.html">module:tastypie/lib/resource/list</a></li>
-        
-            <li><a href="module-tastypie_lib_resource_detail.html">module:tastypie/lib/resource/detail</a></li>
+            <li>module:debug</li>
         
             <li><a href="module-tastypie_lib_class.html">module:tastypie/lib/class</a></li>
+        
+            <li><a href="module-tastypie_lib_class_parent.html">module:tastypie/lib/class/parent</a></li>
+        
+            <li><a href="module-tastypie_lib_class_options.html">module:tastypie/lib/class/options</a></li>
         
             <li><a href="module-tastypie_lib_http.html">module:tastypie/lib/http</a></li>
         
             <li><a href="module-tastypie_lib_mime.html">module:tastypie/lib/mime</a></li>
         
-            <li><a href="module-tastypie_lib_paginator.html">module:tastypie/lib/paginator</a></li>
+            <li>module:tastypie/lib/utility</li>
         
-            <li><a href="module-tastypie_lib_class_options.html">module:tastypie/lib/class/options</a></li>
+            <li><a href="module-tastypie_lib_paginator.html">module:tastypie/lib/paginator</a></li>
         
             <li><a href="module-tastypie_lib_exceptions.html">module:tastypie/lib/exceptions</a></li>
         
-            <li><a href="module-tastypie_lib_serializer.html">module:tastypie/lib/serializer</a></li>
+            <li><a href="module-tastypie_lib_cache.html">module:tastypie/lib/cache</a></li>
+        
+            <li><a href="module-tastypie_lib_throttle.html">module:tastypie/lib/throttle</a></li>
+        
+            <li>module:tastypie/lib/fields</li>
+        
+            <li><a href="module-tastypie_lib_resource_detail.html">module:tastypie/lib/resource/detail</a></li>
+        
+            <li><a href="module-tastypie_lib_resource_list.html">module:tastypie/lib/resource/list</a></li>
+        
+            <li><a href="module-tastypie_lib_resource_schema.html">module:tastypie/lib/resource/schema</a></li>
+        
+            <li><a href="module-tastypie_lib_resource_validator.html">module:tastypie/lib/resource/validator</a></li>
         </ul>
     
 
@@ -1324,13 +1456,13 @@ var instnace = new Resource({
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">{
-	base_urls: fuinction(){
-		return [{
-			path:decodeURIComponent(&#x27;/api/v1/test/{action}&#x27;),
-			name:&quot;test&quot;,
-			handler: this.dispatch_test.bind( this )
-		}];
-	}
+    base_urls: fuinction(){
+        return [{
+            path:decodeURIComponent(&#x27;/api/v1/test/{action}&#x27;),
+            name:&quot;test&quot;,
+            handler: this.dispatch_test.bind( this )
+        }];
+    }
 }</pre>
 
 
@@ -1613,7 +1745,7 @@ var instnace = new Resource({
             
 <hr>
 <dt>
-    <h4 class="name" id="bundle"><span class="type-signature"></span>bundle(req, rep, next [, data] [, obj])</h4>
+    <h4 class="name" id="bundle"><span class="type-signature"></span>bundle(req, res [, data] [, obj])</h4>
     
     
 </dt>
@@ -1621,7 +1753,7 @@ var instnace = new Resource({
 
     
     <div class="description">
-        <p>Packages peices of the express request in a single object for easy passing</p>
+        <p>Packages peices of the request in a single object for easy passing</p>
     </div>
     
 
@@ -1689,14 +1821,14 @@ var instnace = new Resource({
                 </td>
             
 
-            <td class="description last"><p>An express request object</p></td>
+            <td class="description last"><p>A Hapijs request object request object</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>rep</code></td>
+                <td class="name"><code>res</code></td>
             
 
             <td class="type">
@@ -1725,43 +1857,7 @@ var instnace = new Resource({
                 </td>
             
 
-            <td class="description last"><p>An express response object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>next</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>An express next callback</p></td>
+            <td class="description last"><p>A Hapijs reply object</p></td>
         </tr>
 
     
@@ -4898,21 +4994,21 @@ var instnace = new Resource({
         <h5>Examples</h5>
         
     <pre class="sunlight-highlight-javascript">var MyResource = Resource.extend({
-	get_object: function( bundle, callback ){
-		Model.get( bundle.req.params.pk, callback )
-	}
+  get_object: function( bundle, callback ){
+    Model.get( bundle.req.params.pk, callback )
+  }
 })</pre>
 
     <pre class="sunlight-highlight-javascript">var MyResource = new Class({
-	inherits: Resource
-	, get_object: function( bundle, callback ){
-		this.get_objects(bundle,function(e, objects){
-			var obj = JSON.parse( objects ).filter(function( obj ){
-				return obj._id = bundle.req.params.pk
-			})[0]
-			callback( null, obj )
-		})
-	}
+  inherits: Resource
+  , get_object: function( bundle, callback ){
+    this.get_objects(bundle,function(e, objects){
+      var obj = JSON.parse( objects ).filter(function( obj ){
+        return obj._id = bundle.req.params.pk
+      })[0]
+      callback( null, obj )
+    })
+  }
 })</pre>
 
 
@@ -6147,167 +6243,6 @@ var instnace = new Resource({
             
 <hr>
 <dt>
-    <h4 class="name" id="replace_object"><span class="type-signature"></span>replace_object(bundle, callback)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Low level function called to delete existing objects</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>bundle</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-tastypie_lib_resource.html#~Bundle">module:tastypie/lib/resource~Bundle</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>An object represneting the current <code>DELETE</code> request</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">module:tastypie/lib/resource~NodeBack</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>a callback to be caled when finished</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="lib_resource_detail.js.html">lib/resource/detail.js</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="respond"><span class="type-signature"></span>respond(bundle, cls)</h4>
     
     
@@ -6819,6 +6754,167 @@ var instnace = new Resource({
             
 <hr>
 <dt>
+    <h4 class="name" id="throttle"><span class="type-signature"></span>throttle(bundle)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>manages request throttling. Default implementation usses the remote address of the incomming request</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>bundle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-tastypie_lib_resource.html#~Bundle">module:tastypie/lib/resource~Bundle</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A bundle representing the current request</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="lib_resource_index.js.html">lib/resource/index.js</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>true if the request should rejected</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="to_uri"><span class="type-signature"></span>to_uri(obj, bundle, result)</h4>
     
     
@@ -7302,7 +7398,7 @@ var instnace = new Resource({
                 
 <hr>
 <dt class="name" id="~Bundle">
-    <h4>Bundle</h4>
+    <h4 id="~Bundle">Bundle</h4>
 
     
 </dt>
@@ -7535,7 +7631,7 @@ var instnace = new Resource({
                 
 <hr>
 <dt class="name" id="~Nodeback">
-    <h4>Nodeback</h4>
+    <h4 id="~Nodeback">Nodeback</h4>
 
     
 </dt>
@@ -7713,7 +7809,7 @@ var instnace = new Resource({
                 
 <hr>
 <dt class="name" id="~RequestError">
-    <h4>RequestError</h4>
+    <h4 id="~RequestError">RequestError</h4>
 
     
 </dt>
@@ -7891,20 +7987,22 @@ var instnace = new Resource({
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -7914,9 +8012,9 @@ var instnace = new Resource({
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -7924,7 +8022,9 @@ var instnace = new Resource({
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -7934,7 +8034,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -7970,8 +8070,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -7997,11 +8096,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>

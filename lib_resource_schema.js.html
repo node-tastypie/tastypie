@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -109,68 +111,66 @@ var Class        = require('../class')
  * @alias module:tastypie/lib/resource/schema
  */
 Schema = new Class({
-    _schema_cache: null
-	/**
-	 * function used to generate a resource schema
-	 * @method module:tastypie/lib/resource/schema#build_schema
-	 * @return {Object} schema
-	 **/
-	,build_schema: function( fields, options ){
-		var schema;
+  _schema_cache: null
+  /**
+   * function used to generate a resource schema
+   * @method module:tastypie/lib/resource/schema#build_schema
+   * @return {Object} schema
+   **/
+  ,build_schema: function( fields, options ){
+    var schema;
 
-		options = options || this.options || EMPTY_OBJECT;
-		fields = fields || this.fields || EMPTY_OBJECT;
+    options = options || this.options || EMPTY_OBJECT;
+    fields = fields || this.fields || EMPTY_OBJECT;
 
-		if( !this._schema_cache ){
-			schema = {
-			    filtering: options.filtering || EMPTY_OBJECT
-		      , ordering: options.ordering || []
-			  , formats: Object.keys( options.serializer.options.content_types )
-			  , limit: options.limit
-			  , fields: object.map( this.fields, function( field ){
-					return {
-						'default'  : field.default
-					  , 'type'     : field.type()
-					  , 'format'   : field.format()
-					  , 'nullable' : field.options.nullable
-					  , 'blank'    : !!field.options.blank
-					  , 'readonly' : !!field.options.readonly
-					  , 'help'     : field.options.help
-					  , 'unique'   : !!field.options.unique
-					  , 'enum'     : field.options.enum || []
-					};
-				})
-			};
+    if( !this._schema_cache ){
+      schema = {
+        filtering: options.filtering || EMPTY_OBJECT
+      , ordering: options.ordering || []
+      , formats: Object.keys( options.serializer.options.content_types )
+      , limit: options.limit
+      , fields: object.map( this.fields, function( field ){
+          return {
+              'default'  : field.default
+            , 'type'     : field.type()
+            , 'format'   : field.format()
+            , 'nullable' : field.options.nullable
+            , 'blank'    : !!field.options.blank
+            , 'readonly' : !!field.options.readonly
+            , 'help'     : field.options.help
+            , 'unique'   : !!field.options.unique
+            , 'enum'     : field.options.enum || []
+          };
+        })
+      };
 
 
-			this.routes &amp;&amp; this.actions.forEach( function( action ){
-				var allowed = 'allowed.'+action;
-				set(
-					schema,
-					allowed,
-					Object
-						.keys( get( options, allowed ) ||  EMPTY_OBJECT)
-						.filter( function( method ){
-							return !!get( options, allowed )[method];
-					  	})
-				);
-			});
-			this._schema_cache = schema;
-		}
-		return this._schema_cache;
-	}
+      this.routes &amp;&amp; this.actions.forEach( function( action ){
+        var allowed = 'allowed.'+action;
+        set(
+            schema,
+            allowed,
+            Object
+                .keys( get( options, allowed ) ||  EMPTY_OBJECT)
+                .filter( function( method ){
+                    return !!get( options, allowed )[method];
+                })
+        );
+      });
+      this._schema_cache = schema;
+    }
+    return this._schema_cache;
+  }
 
-	/**
-	 * Top level method for generating resource specific schemas for *GET* requests
-	 * @method module:tastypie/lib/resource#get_schema
-	 * @param {Request} request A Hapi.js request object
-	 * @param {Function} reply A hapi.js reply function
-	 **/
-	, get_schema: function get_schema( req, res ){
-
-		this.respond( this.bundle( req, res, this.build_schema( ) ) );
-	}
-
+  /**
+   * Top level method for generating resource specific schemas for *GET* requests
+   * @method module:tastypie/lib/resource#get_schema
+   * @param {Request} request A Hapi.js request object
+   * @param {Function} reply A hapi.js reply function
+   **/
+  , get_schema: function get_schema( req, res ){
+      this.respond( this.bundle( req, res, this.build_schema( ) ) );
+  }
 });
 
 module.exports = Schema;
@@ -192,20 +192,22 @@ module.exports = Schema;
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -215,9 +217,9 @@ module.exports = Schema;
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -225,7 +227,9 @@ module.exports = Schema;
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -235,7 +239,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -271,8 +275,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -298,11 +301,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>

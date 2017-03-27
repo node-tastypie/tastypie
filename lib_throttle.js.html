@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -82,7 +84,7 @@
 <section>
     <article>
         <pre
-            class="sunlight-highlight-javascript ">/*jshint laxcomma: true, smarttabs: true, node: true */
+            class="sunlight-highlight-javascript ">/*jshint laxcomma: true, smarttabs: true, node: true, esnext: true */
 'use strict';
 /**
  * A No op resource throttle implementation, for testing / debuging
@@ -111,43 +113,43 @@ var Class   = require( './class' )
  * @param {Number} [options.at=150] number of request to start throttling
  */
 Throttle = new Class({
-	mixin:[ Options, Parent ]
-	,options:{
-		at:150
-	}
-	,constructor: function( options ){
-		this.setOptions( options );
-	}
+    mixin:[ Options, Parent ]
+    ,options:{
+        at:150
+    }
+    ,constructor: function( options ){
+        this.setOptions( options );
+    }
 
-	/**
-	 * Records an entry for a given keyf
-	 * @chainable
-	 * @method module:tastypie/lib/throttle#incr
-	 * @param {String} id the internal key to record
-	 **/
-	,incr: function incr(){
-		return this;
-	}
+    /**
+     * Records an entry for a given keyf
+     * @chainable
+     * @method module:tastypie/lib/throttle#incr
+     * @param {String} id the internal key to record
+     **/
+    ,incr: function incr(){
+        return this;
+    }
 
-	/**
-	 * Checks if a given key has reached the configured throttling limit
-	 * @method module:tastypie/lib/throttle#toThrottle
-	 * @param {String} id the internal key to record
-	 * @returns {Boolean}
-	 **/
-	,toThrottle: function toThrottle(){
-		return false;
-	}
+    /**
+     * Checks if a given key has reached the configured throttling limit
+     * @method module:tastypie/lib/throttle#toThrottle
+     * @param {String} id the internal key to record
+     * @returns {Boolean}
+     **/
+    ,toThrottle: function toThrottle(){
+        return false;
+    }
 
-	/**
-	 * creates a namespaced key based on an id
-	 * @method module:tastypie/lib/throttle#convert
-	 * @param {String} id the internal key to record
-	 * @return {String} key
-	 **/
-	,convert: function convert( id ){
-		return 'access-' + slugify( id );
-	}
+    /**
+     * creates a namespaced key based on an id
+     * @method module:tastypie/lib/throttle#convert
+     * @param {String} id the internal key to record
+     * @return {String} key
+     **/
+    ,convert: function convert( id ){
+        return `access-${slugify( id )}`;
+    }
 });
 
 
@@ -160,90 +162,87 @@ Throttle = new Class({
  * @param {?Number} [options.expires=null] time in ms after which to expire throttle records
  */
 Memory = new Class({
-	inherits:Throttle
-	,options:{
-		at: 150,
-		timeframe: ( 1000 * 60 * 5),
-		expires: null
-	}
-	,constructor: function( options ){
-		this.setOptions( options );
-		this._mem = {};
-		var expires = this.options.expires;
+    inherits:Throttle
+    ,options:{
+        at: 150,
+        timeframe: ( 1000 * 60 * 5),
+        expires: null
+    }
+    ,constructor: function( options ){
+        this.setOptions( options );
+        this._mem = Object.create(null)
+        const expires = this.options.expires;
 
-		expires &amp;&amp; setInterval(function(){
-			Object
-				.keys( this._mem )
-				.forEach(function( key ){
-					var now = new Date();
-					var first = this._mem[key][0];
-					var diff;
+        expires &amp;&amp; setInterval(() => {
+          for( var key in this._mem ) {
+              const now = new Date();
+              const first = this._mem[key][0];
+              const diff = first ? now - first : 0;
 
-					diff = first ? now - first : 0;
-					if( diff > this.options.expires ){
-						debug("purging record for %s ", key );
-						this._mem[key].shift();
-					}
-				}.bind( this ) );
-		}.bind(this),expires).unref();
-	}
+              if( diff > expires ){
+                  debug("purging record for %s ", key );
+                  this._mem[key].shift();
+              }
+          }
+        }, expires).unref();
+    }
 
-	/**
-	 * Records an entry for a given keyf
-	 * @chainable
-	 * @method module:tastypie/lib/throttle.Memory#incr
-	 * @param {String} id the internal key to record
-	 **/
-	,incr: function incr( id ){
-		var key = this.convert( id );
-		( this._mem[ key ] = this._mem[ key ] || [] ).push( new Date() );
-		return this;
-	}
+    /**
+     * Records an entry for a given keyf
+     * @chainable
+     * @method module:tastypie/lib/throttle.Memory#incr
+     * @param {String} id the internal key to record
+     **/
+    ,incr: function incr( id ){
+        var key = this.convert( id );
+        ( this._mem[ key ] = this._mem[ key ] || [] ).push( new Date() );
+        return this;
+    }
 
-	/**
-	 * Checks if a given key has reached the configured throttling limit
-	 * @method module:tastypie/lib/throttle.Memory#toThrottle
-	 * @param {String} id the internal key to record
-	 * @returns {Boolean}
-	 **/
-	,toThrottle: function toThrottle( id ){
-		var that     // reference to this
-		  , key      // lookup key
-		  , now      // current date
-		  , attempts // number of attempts for lookup key
-		  ;
+    /**
+     * Checks if a given key has reached the configured throttling limit
+     * @method module:tastypie/lib/throttle.Memory#toThrottle
+     * @param {String} id the internal key to record
+     * @returns {Boolean}
+     **/
+    ,toThrottle: function toThrottle( id ){
+        var that     // reference to this
+          , key      // lookup key
+          , now      // current date
+          , attempts // number of attempts for lookup key
+          ;
 
-		that = this;
-		key  = this.convert( id );
-		now  = new Date();
+        that = this;
+        key  = this.convert( id );
+        now  = new Date();
 
-		attempts = ( this._mem [ key ] || [])
-						.filter( function( time ){
-							 return ( now - time ) &lt; that.options.timeframe;
-						});
+        attempts = ( this._mem [ key ] || [])
+                        .filter( function( time ){
+                             return ( now - time ) &lt; that.options.timeframe;
+                        });
 
-		return attempts.length >= this.options.at;
-	}
+        return attempts.length >= this.options.at;
+    }
 
-	/**
-	 * Returns internal memory
-	 * @private
-	 * @method module:tastypie/lib/throttle.Memory#toJSON
-	 * @returns {Object}
-	 **/
-	,toJSON: function toJSON(){
-		return this._mem;
-	}
+    /**
+     * Returns internal memory
+     * @private
+     * @method module:tastypie/lib/throttle.Memory#toJSON
+     * @returns {Object}
+     **/
+    ,toJSON: function toJSON(){
+        return this._mem;
+    }
 
-	/**
-	 * creates a namespaced key based on an id
-	 * @method module:tastypie/lib/throttle.Memory#convert
-	 * @param {String} id the internal key to record
-	 * @return {String} key
-	 **/
-	,convert: function convert( id ){
-		return 'access-' + slugify( id );
-	}
+    /**
+     * creates a namespaced key based on an id
+     * @method module:tastypie/lib/throttle.Memory#convert
+     * @param {String} id the internal key to record
+     * @return {String} key
+     **/
+    ,convert: function convert( id ){
+        return `access-${slugify( id )}`;
+    }
 });
 
 module.exports = Throttle;
@@ -266,20 +265,22 @@ module.exports.Memory = Memory;
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -289,9 +290,9 @@ module.exports.Memory = Memory;
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -299,7 +300,9 @@ module.exports.Memory = Memory;
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -309,7 +312,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -345,8 +348,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -372,11 +374,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>

@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -101,12 +103,15 @@
 var Boom         = require('boom')
   , EventEmitter = require('events').EventEmitter
   , async        = require('async')
+  , isString     = require('mout/lang/isString')
   , each         = require('mout/collection/forEach')
   , debug        = require('debug')("tastypie:resources:list")
   , Class        = require('../class')
   , http         = require('../http')
+  , {annotate}   = require('../utility')
   , List
   ;
+
 
 /**
  * @mixin
@@ -114,152 +119,143 @@ var Boom         = require('boom')
  * @extends EventEmitter
  */
 List = new Class({
-	inherits: EventEmitter
-	
-	/**
-	 * Internal method used during the `post_list` method
-	 * @protected
-	 * @method module:tastypie/lib/resource/list#create_object
-	 * @param {Bundle} bundle A bundle representing the current request
-	 * @param {module:tastypie/lib/resource~Nodeback} callback a callback function to call when the operation is complete
-	 **/
-	, create_object: function create_object( bundle, callback ){
-		var e = Boom.notImplemented( "create_object is not implemented" );
-		e.req = bundle.req;
-		e.res = bundle.res;
+  inherits: EventEmitter
+  
+  /**
+   * Internal method used during the `post_list` method
+   * @protected
+   * @method module:tastypie/lib/resource/list#create_object
+   * @param {Bundle} bundle A bundle representing the current request
+   * @param {module:tastypie/lib/resource~Nodeback} callback a callback function to call when the operation is complete
+   **/
+  , create_object: function create_object( bundle, callback ){
+    var e = Boom.notImplemented( "create_object is not implemented" );
+    e.req = bundle.req;
+    e.res = bundle.res;
 
-		callback( e );
-	}
+    callback( e );
+  }
 
-	/**
-	 * disaptches a list request operating on a collection of objects.
-	 * If any additional check / balances or processing needs to occur before a request is actually
-	 * dispatched to the handler, this would be a good place to do that.
-	 * @method module:tastypie/lib/resource/list#dispatch_list
-	 * @param {Request} request A hapijs request object
-	 * @param {Function} reply A hapis reply function
-	 **/
-	, dispatch_list: function list( req, reply ){
-		return this.dispatch( 'list', this.bundle( req, reply ) );
-	}
+  /**
+   * disaptches a list request operating on a collection of objects.
+   * If any additional check / balances or processing needs to occur before a request is actually
+   * dispatched to the handler, this would be a good place to do that.
+   * @method module:tastypie/lib/resource/list#dispatch_list
+   * @param {Request} request A hapijs request object
+   * @param {Function} reply A hapis reply function
+   **/
+  , dispatch_list: function list( req, reply ){
+    return this.dispatch( 'list', this.bundle( req, reply ) );
+  }
 
-	/**
-	 * Top level function used to handle get requests for listing endpoints. It handles paging and serialization
-	 * @method module:tastypie/lib/resource/list#get_list
-	 * @param {Bundle} bundle A bundle representing the current request
-	 **/
-    , get_list: function get_list( bundle ){
-		this.get_objects( bundle, function( e, objects ){
-			var that = this
-			  , to_be_serialize
-			  , paginator
-			  , name
-			  , apiname
-			  ;
-			if( e ){
-				e.req = bundle.req;
-				e.res = bundle.res;
-				return that.emit('error', e);
-			}
-			objects = objects || '[]';
-			objects = this.sort( JSON.parse( objects ) );
-			paginator = new this.options.paginator({
-				limit: bundle.req.query.limit || this.options.limit
-			  , req: bundle.req
-			  , res: bundle.res
-			  , collectionName: this.options.collection
-			  , objects: objects
-			});
+  /**
+   * Top level function used to handle get requests for listing endpoints. It handles paging and serialization
+   * @method module:tastypie/lib/resource/list#get_list
+   * @param {Bundle} bundle A bundle representing the current request
+   **/
+  , get_list: function get_list( bundle ){
+    this.get_objects( bundle, ( e, objects ) => {
+      var _obs  = objects
+        , query = bundle.req.query
+        , uri = bundle.req.path
+        , page  = this.options.paginator
+        , offset = query.offset
+        , limit = query.limit
+        , prop  = this.options.collection
+        , max   = this.options.max
+        , to_serialize
+        ;
+      
+      if( e ) return this.emit('error', annotate(e, bundle) );
+      _obs = objects || '[]';
 
-			to_be_serialize = paginator.page();
-			debug( ' %s %s : serializing', apiname, this.options.name );
+      if( isString( _obs ) || Buffer.isBuffer( _obs ) ){
+        _obs = JSON.parse(_obs)
+      }
+       
+      _obs = this.sort( _obs );
+      to_serialize = page(uri, limit, query.offset, _obs, _obs.length, max, prop);
+      
+      async.map( to_serialize[ prop ],( item, done ) => {
+        this.full_dehydrate( item, bundle, done );
+      }, ( err, results ) => {
+        
+        if( err ) return this.emit('error', annotate(err, bundle) );
 
-			async.map( to_be_serialize[ this.options.collection ],function( item, done ){
-				that.full_dehydrate( item, bundle, done );
-			}, function( err, results ){
-				
-				if( err ){
-					err.res = bundle.res;
-					err.req = bundle.req;
-					return that.emit('error', err );
+        to_serialize[ prop ] = results;
+        bundle.data = to_serialize;
+        page = to_serialize = null;
+        this.respond( bundle );
+      });
 
-				}
+    });
+  }
 
-				to_be_serialize[ that.options.collection ] = results;
-				bundle.data = to_be_serialize;
-				debug( ' %s %s : responding', apiname, name );
-				apiname = name = paginator = to_be_serialize = null;
-				return that.respond( bundle );
-			});
+  /**
+   * Internal method used to retrieve a full list of objects for a resource
+   * @method module:tastypie/lib/resource/list#get_objects
+   * @param {module:tastypie/lib/resource~Bundle} bundle
+   * @param {module:tastypie/lib/resource~Nodeback} callback callback function to call when data retrieval is
+   **/
+  , get_objects: function get_objects( bundle, callback ){
+    var e = Boom.notImplemented( "get_objects is not implemented" );
+    e.req = bundle.req;
+    e.res = bundle.res;
+    callback( e );
+  }
 
-		}.bind( this ) );
-	}
+  /**
+   * High level function called in response to an OPTIONS request. Returns with an Allow header and empty body
+   * @method module:tastypie/lib/resource/detail#options_detail
+   * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `OPTIONS` request
+   **/
+  , options_list: function options_list( bundle ){
+    bundle.data = null;
+    this.respond( bundle, null, null, ( err, reply ) => {
+      let methods = [];
+      each( this.options.allowed.list,function( value, key ){
+        if( value ){
+          methods.push( key.toUpperCase() );
+        }
+      });
+      reply.header('Allow',methods.join(','));
+    });
+  }
+  /**
+   * Top level method used to handle post request to listing endpoints. Used to create new instances
+   * of the associated resource
+   * @method module:tastypie/lib/resource/list#post_list
+   * @param {Bundle} bundle An object represneting the current `POST` request
+   **/
+  , post_list: function post_list( bundle ){
+    var response = http.created
+      , format = this.format( bundle, this.options.serializer.types )
+      , that = this
+      ;
 
-	/**
-	 * Internal method used to retrieve a full list of objects for a resource
-	 * @method module:tastypie/lib/resource/list#get_objects
-	 * @param {module:tastypie/lib/resource~Bundle} bundle
-	 * @param {module:tastypie/lib/resource~Nodeback} callback callback function to call when data retrieval is
- 	 **/
-	, get_objects: function get_objects( bundle, callback ){
-		var e = Boom.notImplemented( "get_objects is not implemented" );
-		e.req = bundle.req;
-		e.res = bundle.res;
-		callback( e );
-	}
+    this.deserialize( bundle.req.payload, format, function( err, data ){
+      bundle = that.bundle(bundle.req, bundle.res, data );
 
-	/**
-	 * High level function called in response to an OPTIONS request. Returns with an Allow header and empty body
-	 * @method module:tastypie/lib/resource/detail#options_detail
-	 * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `OPTIONS` request
-	 **/
-	, options_list: function options_list( bundle ){
-		bundle.data = null;
-		this.respond( bundle, null, null, function( err, reply ){
-			let methods = [];
-			each( this.options.allowed.list,function( value, key ){
-				if( value ){
-					methods.push( key.toUpperCase() );
-				}
-			});
-			reply.header('Allow',methods.join(','));
-		}.bind( this ));
-	}
-	/**
-	 * Top level method used to handle post request to listing endpoints. Used to create new instances
-	 * of the associated resource
-	 * @method module:tastypie/lib/resource/list#post_list
-	 * @param {Bundle} bundle An object represneting the current `POST` request
-	 **/
-	, post_list: function post_list( bundle ){
-		var response = http.created
-		  , format = this.format( bundle, this.options.serializer.types )
-		  , that = this
-		  ;
+      // create_object must save the object
+      that.create_object( bundle, function( err, bndl ){
+        if( err ){
+          err.res = bundle.res;
+          err.req = bundle.req;
+          return that.emit( 'error', err );
+        }
 
-		this.deserialize( bundle.req.payload, format, function( err, data ){
-			bundle = that.bundle(bundle.req, bundle.res, data );
+        if( !that.options.returnData ){
+          bundle.data = null;
+          return that.respond( bndl, http.noContent );
+        } 
 
-			// create_object must save the object
-			that.create_object( bundle, function( err, bndl ){
-				if( err ){
-					err.res = bundle.res;
-					err.req = bundle.req;
-					return that.emit( 'error', err );
-				}
-
-				if( !that.options.returnData ){
-					bundle.data = null;
-					return that.respond( bndl, http.noContent );
-				} 
-
-				that.full_dehydrate( bndl.object, bndl, function( err, data ){
-					bundle.data = data;
-					return that.respond( bndl, response );
-				});
-			});
-		});
-	}
+        that.full_dehydrate( bndl.object, bndl, function( err, data ){
+          bndl.data = data;
+          return that.respond( bndl, response );
+        });
+      });
+    });
+  }
 });
 
 module.exports = List;
@@ -281,20 +277,22 @@ module.exports = List;
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -304,9 +302,9 @@ module.exports = List;
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -314,7 +312,9 @@ module.exports = List;
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -324,7 +324,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -360,8 +360,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -387,11 +386,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>

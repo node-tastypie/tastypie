@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -118,342 +120,342 @@ var ApiField      = require('./api')
   ;
 
 exports.define = function( name, fn ){
-	Object.defineProperty( exports, name, fn );
+  Object.defineProperty( exports, name, fn );
 };
 
 Object.defineProperties( exports,{
-	field:{
-		/**
-		 * @readonly
-		 * @name field
-		 * @alias module:tastypie/fields/api
-		 * @memberof module:tastypie/fields
-		 * @property {Field} field short cut for the {@link module:tastypie/fields/api|ApiField} class
-		 **/
-		get: function(){
-			return ApiField;
-		}
-	}
-	,ApiFIeld:{
-		/**
-		 * @readonly
-		 * @name ApiField
-		 * @alias module:tastypie/fields/api
-		 * @memberof module:tastypie/fields
-		 * @property {Field} field short cut for the {@link module:tastypie/fields/api|ApiField} class
-		 **/
-		get: function( ){
-			return ApiField;
-		}
-	}
+  field:{
+    /**
+     * @readonly
+     * @name field
+     * @alias module:tastypie/fields/api
+     * @memberof module:tastypie/fields
+     * @property {Field} field short cut for the {@link module:tastypie/fields/api|ApiField} class
+     **/
+    get: function(){
+      return ApiField;
+    }
+  }
+  ,ApiField:{
+    /**
+     * @readonly
+     * @name ApiField
+     * @alias module:tastypie/fields/api
+     * @memberof module:tastypie/fields
+     * @property {Field} field short cut for the {@link module:tastypie/fields/api|ApiField} class
+     **/
+    get: function( ){
+      return ApiField;
+    }
+  }
 
-	,CharField:{
-		/**
-		 * @readonly
-		 * @name CharFIeld
-		 * @alias module:tastypie/fields/char
-		 * @memberof module:tastypie/fields
-		 * @property {Field} char short cut for the {@link module:tastypie/fields/char|CharField} class
-		 **/
-		get: function( ){
-			return CharField;
-		}
-	}
+  ,CharField:{
+    /**
+     * @readonly
+     * @name CharFIeld
+     * @alias module:tastypie/fields/char
+     * @memberof module:tastypie/fields
+     * @property {Field} char short cut for the {@link module:tastypie/fields/char|CharField} class
+     **/
+    get: function( ){
+      return CharField;
+    }
+  }
 
-	, 'char':{
-		/**
-		 * @readonly
-		 * @name char
-		 * @alias module:tastypie/fields/char
-		 * @memberof module:tastypie/fields
-		 * @property {Field} char short cut for the {@link module:tastypie/fields/char|CharField} class
-		 **/
-		get:function( ){
-			return CharField;
-		}
-	}
+  , 'char':{
+    /**
+     * @readonly
+     * @name char
+     * @alias module:tastypie/fields/char
+     * @memberof module:tastypie/fields
+     * @property {Field} char short cut for the {@link module:tastypie/fields/char|CharField} class
+     **/
+    get:function( ){
+      return CharField;
+    }
+  }
 
-	, character:{
-		/**
-		 * @readonly
-		 * @name character
-		 * @alias module:tastypie/fields/char
-		 * @memberof module:tastypie/fields
-		 * @property {Field} character short cut for the {@link module:tastypie/fields/char|CharField} class
-		 **/
-		get:function( ){
-			return CharField;
-		}
-	}
+  , character:{
+    /**
+     * @readonly
+     * @name character
+     * @alias module:tastypie/fields/char
+     * @memberof module:tastypie/fields
+     * @property {Field} character short cut for the {@link module:tastypie/fields/char|CharField} class
+     **/
+    get:function( ){
+      return CharField;
+    }
+  }
 
-	, FileField: {
-		/**
-		 * @readonly
-		 * @name FileField
-		 * @alias module:tastypie/fields/file
-		 * @memberof module:tastypie/fields
-		 * @property {Field} character short cut for the {@link module:tastypie/fields/file|FileField} class
-		 **/
-		get: function( ){
-			return FileField;
-		}
-	}
+  , FileField: {
+    /**
+     * @readonly
+     * @name FileField
+     * @alias module:tastypie/fields/file
+     * @memberof module:tastypie/fields
+     * @property {Field} character short cut for the {@link module:tastypie/fields/file|FileField} class
+     **/
+    get: function( ){
+      return FileField;
+    }
+  }
 
-	, file: {
-		/**
-		 * @readonly
-		 * @name file
-		 * @alias module:tastypie/fields/file
-		 * @memberof module:tastypie/fields
-		 * @property {Field} character short cut for the {@link module:tastypie/fields/file|FileField} class
-		 **/
-		get: function( ){
-			return FileField;
-		}
-	}
+  , file: {
+    /**
+     * @readonly
+     * @name file
+     * @alias module:tastypie/fields/file
+     * @memberof module:tastypie/fields
+     * @property {Field} character short cut for the {@link module:tastypie/fields/file|FileField} class
+     **/
+    get: function( ){
+      return FileField;
+    }
+  }
 
-	,FilePathField:{
-		/**
-		 * @readonly
-		 * @name FilePathField
-		 * @alias module:tastypie/fields/filepath
-		 * @memberof module:tastypie/fields
-		 * @property {Field} character short cut for the {@link module:tastypie/fields/filepath|FilePath} class
-		 **/
-		get: function( ){
-			return FilePathField;
-		}
-	}
+  ,FilePathField:{
+    /**
+     * @readonly
+     * @name FilePathField
+     * @alias module:tastypie/fields/filepath
+     * @memberof module:tastypie/fields
+     * @property {Field} character short cut for the {@link module:tastypie/fields/filepath|FilePath} class
+     **/
+    get: function( ){
+      return FilePathField;
+    }
+  }
 
-	,filepath:{
-		/**
-		 * @readonly
-		 * @name filepath
-		 * @alias module:tastypie/fields/filepath
-		 * @memberof module:tastypie/fields
-		 * @property {Field} character short cut for the {@link module:tastypie/fields/filepath|FilePath} class
-		 **/
-		get: function( ){
-			return FilePathField;
-		}
-	}
+  ,filepath:{
+    /**
+     * @readonly
+     * @name filepath
+     * @alias module:tastypie/fields/filepath
+     * @memberof module:tastypie/fields
+     * @property {Field} character short cut for the {@link module:tastypie/fields/filepath|FilePath} class
+     **/
+    get: function( ){
+      return FilePathField;
+    }
+  }
 
-	, ArrayField:{
-		/**
-		 * @readonly
-		 * @name ArrayField
-		 * @alias module:tastypie/fields/array
-		 * @memberof module:tastypie/fields
-		 * @property {Field} array short cut for the {@link module:tastypie/fields/array|ArrayField} class
-		 **/
-		get: function( ){
-			return ArrayField;
-		}
-	}
+  , ArrayField:{
+    /**
+     * @readonly
+     * @name ArrayField
+     * @alias module:tastypie/fields/array
+     * @memberof module:tastypie/fields
+     * @property {Field} array short cut for the {@link module:tastypie/fields/array|ArrayField} class
+     **/
+    get: function( ){
+      return ArrayField;
+    }
+  }
 
-	, array:{
-		/**
-		 * @readonly
-		 * @name array
-		 * @alias module:tastypie/fields/array
-		 * @memberof module:tastypie/fields
-		 * @property {Field} array short cut for the {@link module:tastypie/fields/array|ArrayField} class
-		 **/
-		get: function( ){
-			return ArrayField;
-		}
-	}
+  , array:{
+    /**
+     * @readonly
+     * @name array
+     * @alias module:tastypie/fields/array
+     * @memberof module:tastypie/fields
+     * @property {Field} array short cut for the {@link module:tastypie/fields/array|ArrayField} class
+     **/
+    get: function( ){
+      return ArrayField;
+    }
+  }
 
-	, IntegerField:{
-		/**
-		 * @readonly
-		 * @name IntegerField
-		 * @alias module:tastypie/fields/integer
-		 * @memberof module:tastypie/fields
-		 * @property {Field} int short cut for the {@link module:tastypie/fields/integer|IntegerField} class
-		 **/
-		get: function( ){
-			return IntegerField;
-		}
-	}
-	, 'int':{
-		/**
-		 * @readonly
-		 * @name int
-		 * @alias module:tastypie/fields/integer
-		 * @memberof module:tastypie/fields
-		 * @property {Field} int short cut for the {@link module:tastypie/fields/integer|IntegerField} class
-		 **/
-		get: function( ){
-			return IntegerField;
-		}
-	}
-	, 'integer':{
-		/**
-		 * @readonly
-		 * @name integer
-		 * @alias module:tastypie/fields/integer
-		 * @memberof module:tastypie/fields
-		 * @property {Field} integer short cut for the {@link module:tastypie/fields/integer|IntegerField} class
-		 **/
-		get: function( ){
-			return IntegerField;
-		}
-	}
-	, FloatField:{
-		/**
-		 * @readonly
-		 * @name FloatField
-		 * @alias module:tastypie/fields/float
-		 * @memberof module:tastypie/fields
-		 * @property {Field} float short cut for the {@link module:tastypie/fields/float|FloatField} class
-		 **/
-		get: function( ){
-			return FloatField;
-		}
-	}
-	, 'float':{
-		/**
-		 * @readonly
-		 * @name float
-		 * @alias module:tastypie/fields/float
-		 * @memberof module:tastypie/fields
-		 * @property {Field} float short cut for the {@link module:tastypie/fields/float|FloatField} class
-		 **/
-		get: function( ){
-			return FloatField;
-		}
-	}
+  , IntegerField:{
+    /**
+     * @readonly
+     * @name IntegerField
+     * @alias module:tastypie/fields/integer
+     * @memberof module:tastypie/fields
+     * @property {Field} int short cut for the {@link module:tastypie/fields/integer|IntegerField} class
+     **/
+    get: function( ){
+      return IntegerField;
+    }
+  }
+  , 'int':{
+    /**
+     * @readonly
+     * @name int
+     * @alias module:tastypie/fields/integer
+     * @memberof module:tastypie/fields
+     * @property {Field} int short cut for the {@link module:tastypie/fields/integer|IntegerField} class
+     **/
+    get: function( ){
+      return IntegerField;
+    }
+  }
+  , 'integer':{
+    /**
+     * @readonly
+     * @name integer
+     * @alias module:tastypie/fields/integer
+     * @memberof module:tastypie/fields
+     * @property {Field} integer short cut for the {@link module:tastypie/fields/integer|IntegerField} class
+     **/
+    get: function( ){
+      return IntegerField;
+    }
+  }
+  , FloatField:{
+    /**
+     * @readonly
+     * @name FloatField
+     * @alias module:tastypie/fields/float
+     * @memberof module:tastypie/fields
+     * @property {Field} float short cut for the {@link module:tastypie/fields/float|FloatField} class
+     **/
+    get: function( ){
+      return FloatField;
+    }
+  }
+  , 'float':{
+    /**
+     * @readonly
+     * @name float
+     * @alias module:tastypie/fields/float
+     * @memberof module:tastypie/fields
+     * @property {Field} float short cut for the {@link module:tastypie/fields/float|FloatField} class
+     **/
+    get: function( ){
+      return FloatField;
+    }
+  }
 
-	, BooleanField:{
-		/**
-		 * @readonly
-		 * @name BooleanField
-		 * @alias module:tastypie/fields/boolean
-		 * @memberof module:tastypie/fields
-		 * @property {Field} bool short cut for the {@link module:tastypie/fields/boolean|BooleanField} class
-		 **/
-		get: function( ){
-			return BooleanField;
-		}
-	}
+  , BooleanField:{
+    /**
+     * @readonly
+     * @name BooleanField
+     * @alias module:tastypie/fields/boolean
+     * @memberof module:tastypie/fields
+     * @property {Field} bool short cut for the {@link module:tastypie/fields/boolean|BooleanField} class
+     **/
+    get: function( ){
+      return BooleanField;
+    }
+  }
 
-	, 'bool':{
-		/**
-		 * @readonly
-		 * @name bool
-		 * @alias module:tastypie/fields/boolean
-		 * @memberof module:tastypie/fields
-		 * @property {Field} bool short cut for the {@link module:tastypie/fields/boolean|BooleanField} class
-		 **/
-		get: function( ){
-			return BooleanField;
-		}
-	}
+  , 'bool':{
+    /**
+     * @readonly
+     * @name bool
+     * @alias module:tastypie/fields/boolean
+     * @memberof module:tastypie/fields
+     * @property {Field} bool short cut for the {@link module:tastypie/fields/boolean|BooleanField} class
+     **/
+    get: function( ){
+      return BooleanField;
+    }
+  }
 
-	, 'boolean':{
-		/**
-		 * @readonly
-		 * @name boolean
-		 * @alias module:tastypie/fields/boolean
-		 * @memberof module:tastypie/fields
-		 * @property {Field} boolean short cut for the {@link module:tastypie/fields/boolean|BooleanField} class
-		 **/
-		get: function( ){
-			return BooleanField;
-		}
-	}
+  , 'boolean':{
+    /**
+     * @readonly
+     * @name boolean
+     * @alias module:tastypie/fields/boolean
+     * @memberof module:tastypie/fields
+     * @property {Field} boolean short cut for the {@link module:tastypie/fields/boolean|BooleanField} class
+     **/
+    get: function( ){
+      return BooleanField;
+    }
+  }
 
-	, DateField:{
-		/**
-		 * @readonly
-		 * @name DateField
-		 * @alias module:tastypie/fields/date
-		 * @memberof module:tastypie/fields
-		 * @property {Field} date short cut for the {@link module:tastypie/fields/date|DateField} class
-		 **/
-		get: function( ){
-			return DateField;
-		}
-	}
+  , DateField:{
+    /**
+     * @readonly
+     * @name DateField
+     * @alias module:tastypie/fields/date
+     * @memberof module:tastypie/fields
+     * @property {Field} date short cut for the {@link module:tastypie/fields/date|DateField} class
+     **/
+    get: function( ){
+      return DateField;
+    }
+  }
 
-	, 'date':{
-		/**
-		 * @readonly
-		 * @name date
-		 * @alias module:tastypie/fields/date
-		 * @memberof module:tastypie/fields
-		 * @property {Field} date short cut for the {@link module:tastypie/fields/date|DateField} class
-		 **/
-		get: function( ){
-			return DateField;
-		}
-	}
+  , 'date':{
+    /**
+     * @readonly
+     * @name date
+     * @alias module:tastypie/fields/date
+     * @memberof module:tastypie/fields
+     * @property {Field} date short cut for the {@link module:tastypie/fields/date|DateField} class
+     **/
+    get: function( ){
+      return DateField;
+    }
+  }
 
-	, DateTimeField:{
-		/**
-		 * @readonly
-		 * @name DateTimeField
-		 * @alias module:tastypie/fields/datetime
-		 * @memberof module:tastypie/fields
-		 * @property {Field} datetime short cut for the {@link module:tastypie/fields/datetime|DateTimeField} class
-		 **/
-		get: function( ){
-			return DateTimeField;
-		}
-	}
+  , DateTimeField:{
+    /**
+     * @readonly
+     * @name DateTimeField
+     * @alias module:tastypie/fields/datetime
+     * @memberof module:tastypie/fields
+     * @property {Field} datetime short cut for the {@link module:tastypie/fields/datetime|DateTimeField} class
+     **/
+    get: function( ){
+      return DateTimeField;
+    }
+  }
 
-	, 'datetime':{
-		/**
-		 * @readonly
-		 * @name datetime
-		 * @alias module:tastypie/fields/datetime
-		 * @memberof module:tastypie/fields
-		 * @property {Field} datetime short cut for the {@link module:tastypie/fields/datetime|DateTimeField} class
-		 **/
-		get: function( ){
-			return DateTimeField;
-		}
-	}
+  , 'datetime':{
+    /**
+     * @readonly
+     * @name datetime
+     * @alias module:tastypie/fields/datetime
+     * @memberof module:tastypie/fields
+     * @property {Field} datetime short cut for the {@link module:tastypie/fields/datetime|DateTimeField} class
+     **/
+    get: function( ){
+      return DateTimeField;
+    }
+  }
 
-	, ObjectField:{
-		/**
-		 * @readonly
-		 * @name ObjectField
-		 * @alias module:tastypie/fields/object
-		 * @memberof module:tastypie/fields
-		 * @property {Field} object short cut for the {@link module:tastypie/fields/object|ObjectField} class
-		 **/
-		get: function( ){
-			return ObjectField;
-		}
-	}
+  , ObjectField:{
+    /**
+     * @readonly
+     * @name ObjectField
+     * @alias module:tastypie/fields/object
+     * @memberof module:tastypie/fields
+     * @property {Field} object short cut for the {@link module:tastypie/fields/object|ObjectField} class
+     **/
+    get: function( ){
+      return ObjectField;
+    }
+  }
 
-	, 'object':{
-		/**
-		 * @readonly
-		 * @name object
-		 * @alias module:tastypie/fields/object
-		 * @memberof module:tastypie/fields
-		 * @property {Field} object short cut for the {@link module:tastypie/fields/object|ObjectField} class
-		 **/
-		get: function( ){
-			return ObjectField;
-		}
-	}
+  , 'object':{
+    /**
+     * @readonly
+     * @name object
+     * @alias module:tastypie/fields/object
+     * @memberof module:tastypie/fields
+     * @property {Field} object short cut for the {@link module:tastypie/fields/object|ObjectField} class
+     **/
+    get: function( ){
+      return ObjectField;
+    }
+  }
 
-	, 'related':{
-		/**
-		 * @readonly
-		 * @name related
-		 * @alias module:tastypie/fields/related
-		 * @memberof module:tastypie/fields
-		 * @property {Field} object short cut for the {@link module:tastypie/fields/related|RelatedField} class
-		 **/
-		get: function( ){
-			return RelatedField;
-		}
-	}
+  , 'related':{
+    /**
+     * @readonly
+     * @name related
+     * @alias module:tastypie/fields/related
+     * @memberof module:tastypie/fields
+     * @property {Field} object short cut for the {@link module:tastypie/fields/related|RelatedField} class
+     **/
+    get: function( ){
+      return RelatedField;
+    }
+  }
 });
 </pre>
     </article>
@@ -473,20 +475,22 @@ Object.defineProperties( exports,{
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -496,9 +500,9 @@ Object.defineProperties( exports,{
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -506,7 +510,9 @@ Object.defineProperties( exports,{
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -516,7 +522,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -552,8 +558,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -579,11 +584,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>

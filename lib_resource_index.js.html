@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -95,58 +97,58 @@
  * @requires domain
  * @requires events
  * @requires util
- * @requires fs
- * @requires express
- * @requires debug
- * @requires urljoin
- * @requires mout/object/merge
- * @requires mout/lang/clone
+ * @requires async
+ * @requires url-join
+ * @requires joi
+ * @requires boom
+ * @requires querystring
+ * @requires mout/lang
  * @requires mout/string/interpolate
- * @requires tastypie/lib/class/parent
- * @requires tastypie/lib/resource/schema
- * @requires tastypie/lib/resource/list
- * @requires tastypie/lib/resource/detail
+ * @requires debug
  * @requires tastypie/lib/class
+ * @requires tastypie/lib/class/parent
+ * @requires tastypie/lib/class/options
  * @requires tastypie/lib/http
  * @requires tastypie/lib/mime
+ * @requires tastypie/lib/utility
  * @requires tastypie/lib/paginator
- * @requires tastypie/lib/class/options
  * @requires tastypie/lib/exceptions
- * @requires tastypie/lib/serializer
+ * @requires tastypie/lib/cache
+ * @requires tastypie/lib/throttle
+ * @requires tastypie/lib/fields
+ * @requires tastypie/lib/resource/detail
+ * @requires tastypie/lib/resource/list
+ * @requires tastypie/lib/resource/schema
+ * @requires tastypie/lib/resource/validator
  **/
-var domain           = require( 'domain' )                     // domain
-  , events           = require( 'events' )                     // events
-  , util             = require( 'util' )                       // util
-  , async            = require( 'async' )
-  , urljoin          = require( 'url-join' )
-  , joi              = require( 'joi' )
-  , Boom             = require( 'boom' )
-  , object           = require( 'mout/object' )
-  , qs               = require( 'querystring' )                  // qs module from npm
-  , merge            = require( 'mout/object/merge' )            // mout object merge function
-  , get              = require( 'mout/object/get' )            // mout object get function
-  , clone            = require( 'mout/lang/clone' )              // mout clone function
-  , isFunction       = require( 'mout/lang/isFunction' )
-  , interpolate      = require( 'mout/string/interpolate' )      // string template interpolation interpolate
-  , set              = require( 'mout/object/set' )
-  , debug            = require( 'debug' )( 'tastypie:resource' ) // debug
-  , Class            = require( '../class' )                     // Class
-  , Parentize        = require( '../class/parent' )
-  , Options          = require( '../class/options' )             // Options
-  , http             = require( '../http' )                      // http
-  , mime             = require( '../mime' )                      // mime
-  , paginator        = require( '../paginator' )                 // paginator
-  , exceptions       = require( '../exceptions' )                // exceptions
-  , Serializer       = require( '../serializer' )                // serializer
-  , Cache            = require( '../cache' )
-  , Throttle         = require( '../throttle')
-  , fields           = require( '../fields' )
-  , Schema           = require( './schema' )
-  , Detail           = require( './detail' )
-  , List             = require( './list' )
-  , validators       = require( './validator' )
-  , EMPTY_OBJECT     = {}
-  , mutableMethods   = ['put','post','delete', 'patch']
+var domain              = require( 'domain' )                       // domain
+  , events              = require( 'events' )                       // events
+  , util                = require( 'util' )                         // util
+  , async               = require( 'async' )
+  , urljoin             = require( 'url-join' )
+  , joi                 = require( 'joi' )
+  , Boom                = require( 'boom' )
+  , qs                  = require( 'querystring' )                  // qs module from npm
+  , {get, set, merge}   = require( 'mout/object' )
+  , {clone, isFunction} = require( 'mout/lang' )                    // mout clone function
+  , interpolate         = require( 'mout/string/interpolate' )      // string template interpolation interpolate
+  , debug               = require( 'debug' )( 'tastypie:resource' ) // debug
+  , Class               = require( '../class' )                     // Class
+  , Parentize           = require( '../class/parent' )
+  , Options             = require( '../class/options' )             // Options
+  , http                = require( '../http' )                      // http
+  , mime                = require( '../mime' )                      // mime
+  , paginator           = require( '../paginator' )                 // paginator
+  , exceptions          = require( '../exceptions' )                // exceptions
+  , Serializer          = require( '../serializer' )                // serializer
+  , {annotate,attempt}  = require( '../utility' )
+  , Cache               = require( '../cache' )
+  , Throttle            = require( '../throttle')
+  , fields              = require( '../fields' )
+  , Schema              = require( './schema' )
+  , Detail              = require( './detail' )
+  , List                = require( './list' )
+  , validators          = require( './validator' )
   , optionsSchema
   , filterschema
   , Resource
@@ -154,15 +156,16 @@ var domain           = require( 'domain' )                     // domain
   ;
 
 const PATCH = 'patch';
+const EMPTY_OBJECT     = {};
+const mutableMethods   = ['put','post','delete', 'patch'];
 
 filterschema = joi.alternatives().try(
-	joi.any()
-	, joi.array().items( joi.string() )
+    joi.any()
+    , joi.array().items( joi.string() )
 );
 
-
 optionsSchema = joi.object().keys({
-	name          : joi.string().allow(null)
+    name          : joi.string().allow(null)
   , apiname       : joi.string().allow(null)
   , includeUri    : joi.boolean()
   , pk            : joi.string()
@@ -170,58 +173,70 @@ optionsSchema = joi.object().keys({
   , returnData    : joi.boolean()
   , defaultFormat : joi.string()
   , collection    : joi.string()
-  , objectTpl     : joi.func().allow(null)
+  , objectTpl     : joi.any().forbidden().description("objectTpl is now simply template")
+  , template      : joi.func().allow(null)
   , filtering     : joi.object().pattern(/.+/, filterschema ).allow( null )
-  , ordering      : joi.array( joi.string() ).allow( null )
+  , ordering      : joi.array().items( joi.string() ).allow( null )
   , allowed       : joi.object()
-						.pattern(
-							/.+/
-							, joi.object({
-								'get'     :joi.boolean()
-							  , 'put'     :joi.boolean()
-							  , 'post'    :joi.boolean()
-							  , 'delete'  :joi.boolean()
-							  , 'options' :joi.boolean()
-							  , 'head'    :joi.boolean()
-							  , 'patch'   :joi.boolean()
-							  , 'connect' :joi.boolean()
-							  , 'trace' :joi.boolean()
-							}).optionalKeys('get', 'put','post', 'delete', 'options','head', 'patch', 'connect' ) )
+                        .pattern(
+                            /.+/
+                            , joi.object({
+                                'get'     :joi.boolean()
+                              , 'put'     :joi.boolean()
+                              , 'post'    :joi.boolean()
+                              , 'delete'  :joi.boolean()
+                              , 'options' :joi.boolean()
+                              , 'head'    :joi.boolean()
+                              , 'patch'   :joi.boolean()
+                              , 'connect' :joi.boolean()
+                              , 'trace' :joi.boolean()
+                            }).optionalKeys('get', 'put','post', 'delete', 'options','head', 'patch', 'connect' ) )
 }).unknown();
 
 function to_json(){
-	return ( this.data || EMPTY_OBJECT );
+    return ( this.data || EMPTY_OBJECT );
 }
 
 checks = {
-	dispatch: function( bundle ){
-		var httpmethod = ( bundle.req.headers['x-method-override'] || bundle.req.method ).toLowerCase();
-		var actions    = this.options.allowed[ bundle.action ] || EMPTY_OBJECT;
+    dispatch: function( bundle ){
+        var httpmethod = ( bundle.req.headers['x-method-override'] || bundle.req.method ).toLowerCase();
+        var actions    = this.options.allowed[ bundle.action ] || EMPTY_OBJECT;
 
-		if( !actions[ httpmethod ] ){
-			return [ new Boom.methodNotAllowed(util.format( "method not allowed - %s", httpmethod )) ];
-		}
+        if( !actions[ httpmethod ] ){
+            return [ new Boom.methodNotAllowed(util.format( "method not allowed - %s", httpmethod )) ];
+        }
 
-		return [null, util.format( '%s_%s', httpmethod, bundle.action ) ];
-	},
+        return [null, util.format( '%s_%s', httpmethod, bundle.action ) ];
+    },
 
-	verb: function( bundle ){
-		return ( bundle.req.headers['x-method-override'] || bundle.req.method ).toLowerCase();
-	},
+    verb: function( bundle ){
+        return ( bundle.req.headers['x-method-override'] || bundle.req.method ).toLowerCase();
+    },
 
-	access: function( bundle ){
-		var httpmethod = ( bundle.req.headers['x-method-override'] || bundle.req.method ).toLowerCase();
-		var action = bundle.action;
-		var method_name = util.format('%s_%s', httpmethod, action );
+    access: function( bundle ){
+        var httpmethod = ( bundle.req.headers['x-method-override'] || bundle.req.method ).toLowerCase();
+        var action = bundle.action;
+        var method_name = util.format('%s_%s', httpmethod, action );
 
-		if( !this[ method_name ] ){
+        if( !this[ method_name ] ){
 
-			return [ Boom.notImplemented( util.format( "%s is not implemented: %s ", httpmethod, bundle.req.path) ), null ];
-		}
+            return [ Boom.notImplemented( util.format( "%s is not implemented: %s ", httpmethod, bundle.req.path) ), null ];
+        }
 
-		return [null, this[ method_name ] ];
-	}
+        return [null, this[ method_name ] ];
+    }
 };
+
+function async_field_dehydrate(err, data, scope, field, method, ret, bundle, obj, cb){
+	let _ret = ret;
+	_ret[ field ] = data;
+
+	if( method ){
+		_ret[field] = method.call(scope, obj,  bundle, _ret );
+	}
+	
+	return cb &amp;&amp; cb( err );
+}
 
 /**
  * An easy way to pass around request, and reply objects
@@ -285,424 +300,416 @@ checks = {
  * @param {String} [options.labelField=data] A field to be included in minimal responses
  * @param {Number} [options.limit=25] The maximum number of results to return per page for the list endpoint
  * @param {module:tastypie/lib/paginator} [options.paginator=paginator] a Paginator Class used to page large list
- * @param {module:tastypie/lib/cache} [options.cache] A cache instance to be used for response caching.
- * @param {Object} [options.methodsAllowed] an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined
- * @param {Object} [options.listMethodsAllowed=null] an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined
- * @param {Object} [options.detailMethodsAllowed=null] an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined
+ * @param {Object} [options.cache] A cache instance to be used for response caching.
+ * @param {Object} [options.cache.engine='catbox-noop'] The underlying engine type to use. This should be a requireable catbox module that is installed
+ * @param {Object} [options.allowed] an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined
+ * @param {Object} [options.allowed.methods] an object which maps HTTP method names to a boolean {get:true} This is used as a default for custom actions if non is defined
+ * @param {Object} [options.allowed.list] Defines methods access for listing methods. Defaults to the definitions found in the methods object if not defined
+ * @param {Object} [options.allowed.detail] Defines methods access for detail methods. Defaults to the definitions found in the methods object if not defined
  * @param {Boolean} [options.returnData=true] return data after put, post requests.
  * @param {?Object} [options.filtering=null] And object defining an array of allowable filter types for each field
  * @example vaar Resource = require('tastypie').Resource
 var instnace = new Resource({
-	limit:10,
-	pk:'user_id',
-	defaultFormat:'text/xml',
-	collection:'users'
-	allowed:{
-		list:{
-			get:true,
-			put:false,
-			post:false
-			delete:false
-		},
-		detail:{
-			get:true,
-			put:true,
-			post:false
-		}
-	}
+    limit:10,
+    pk:'user_id',
+    defaultFormat:'text/xml',
+    collection:'users'
+    allowed:{
+        list:{
+            get:true,
+            put:false,
+            post:false
+            delete:false
+        },
+        detail:{
+            get:true,
+            put:true,
+            post:false
+        }
+    }
 })
  */
 Resource = new Class({
-	mixin: [events.EventEmitter, Options, Parentize, Schema, List, Detail ]
+    mixin: [events.EventEmitter, Options, Parentize, Schema, List, Detail ]
   , options: {
-		name: null
-	  , apiname: null
-	  , includeUri: true
-	  , pk: 'id'
-	  , limit: 25
-	  , returnData: true
-	  , defaultFormat: 'application/json'
-	  , serializer: new Serializer()
-	  , cache: {
-	  		engine: 'catbox-noop'
-	  }
-	  , throttle: new Throttle()
-	  , collection: 'data'
-	  , labelField:'id'
-	  , paginator: paginator
-	  , objectTpl: function(){}
-	  , filtering: null
-	  , ordering: null
-	  , allowed:{
+        name: null
+      , apiname: null
+      , includeUri: true
+      , pk: 'id'
+      , limit: 25
+      , returnData: true
+      , defaultFormat: 'application/json'
+      , serializer: new Serializer()
+      , cache: {
+            engine: 'catbox-noop'
+      }
+      , throttle: new Throttle()
+      , collection: 'data'
+      , labelField:'id'
+      , paginator: paginator.local
+      , template: function(){}
+      , filtering: null
+      , ordering: null
+      , allowed:{
 
-			methods:{
-				get: true
-			  , put: true
-			  , post: true
-			  , "delete": true
-			  , patch: true
-			  , head: true
-			  , options: true
-			}
+            methods:{
+                get: true
+              , put: true
+              , post: true
+              , "delete": true
+              , patch: true
+              , head: true
+              , options: true
+            }
 
-			, schema:{
-				get: true
-			}
-	  }
-	}
+            , schema:{
+                get: true
+            }
+      }
+    }
 
-	, constructor: function( options ){
-		var _fields, pkattr, allowed, isValid;
-		events.EventEmitter.call( this );
-		this.setOptions( options );
+    , constructor: function( options ){
+        var _fields, pkattr, allowed, isValid;
+        events.EventEmitter.call( this );
+        this.setOptions( options );
 
-		isValid        = optionsSchema.validate( this.options );
-		allowed        = this.options.allowed;
-		pkattr         = this.options.pk;
-		this._uricache = null;
-		this.domain    = domain.create();
-		this.modified  = undefined;
+        isValid        = optionsSchema.validate( this.options );
+        allowed        = this.options.allowed;
+        pkattr         = this.options.pk;
+        this._uricache = null;
+        this.domain    = domain.create();
+        this.modified  = undefined;
 
-		isValid.error &amp;&amp; this.emit('error', isValid.error );
-		this.domain.on( 'error', this.exception.bind( this ) );
+        isValid.error &amp;&amp; this.emit('error', isValid.error );
+        this.domain.on( 'error', (err) => this.exception(err) );
 
 
-		if( !allowed.list ){
-			this.options.allowed.list = clone( allowed.methods );
-		}
+        if( !allowed.list ){
+            this.options.allowed.list = clone( allowed.methods );
+        }
 
-		if( !allowed.detail ){
-			this.options.allowed.detail = clone( allowed.methods );
-		}
+        if( !allowed.detail ){
+            this.options.allowed.detail = clone( allowed.methods );
+        }
 
-		allowed = undefined;
-		this.cache = this.cache || new Cache( this.options.cache );
-		// field inheritance
-		_fields    = merge( clone( get(this.constructor, 'parent.fields' ) || EMPTY_OBJECT ), this.fields );
-		_fields.id = _fields.id ? _fields.id : {type:'field', attribute:pkattr, readonly:true, help:'A unique identifier for a resource instance'};
+        allowed = undefined;
+        this.cache = this.cache || new Cache( this.options.cache );
+        // field inheritance
+        _fields    = merge( clone( get(this.constructor, 'parent.fields' ) || EMPTY_OBJECT ), this.fields );
+        _fields.id = _fields.id ? _fields.id : {type:'field', attribute:pkattr, readonly:true, help:'A unique identifier for a resource instance'};
 
-		Object
-			.keys( _fields )
-			.forEach(function( key ){
-				var fieldopt = _fields[key];
-				if( fieldopt.type &amp;&amp; fields[ fieldopt.type ] ){
-					fieldopt.attribute = fieldopt.hasOwnProperty('attribute') ? fieldopt.attribute : key;
-					_fields[key] = new fields[fieldopt.type]( fieldopt );
-				} else{
-					fieldopt.options.attribute = fieldopt.options.hasOwnProperty('attribute') ? fieldopt.options.attribute : key;
-					_fields[ key ] = fieldopt;
-				}
-				_fields[key].options.name = key;
-				_fields[key].augment( this, key );
+        Object
+            .keys( _fields )
+            .forEach(( key ) => {
+                var fieldopt = _fields[key];
+                if( fieldopt.type &amp;&amp; fields[ fieldopt.type ] ){
+                    fieldopt.attribute = fieldopt.hasOwnProperty('attribute') ? fieldopt.attribute : key;
+                    _fields[key] = new fields[fieldopt.type]( fieldopt );
+                } else{
+                    fieldopt.options.attribute = fieldopt.options.hasOwnProperty('attribute') ? fieldopt.options.attribute : key;
+                    _fields[ key ] = fieldopt;
+                }
+                _fields[key].options.name = key;
+                _fields[key].augment( this, key );
 
-				Object.defineProperty( this, key, {
+                Object.defineProperty( this, key, {
 
-					get: function(){
-						return _fields[ key ];
-					}
-				});
-			}.bind( this ) );
+                    get: function(){
+                        return _fields[ key ];
+                    }
+                });
+            });
 
-		this.fields = _fields;
+        this.fields = _fields;
 
-		if( this.options.includeUri ){
+        if( this.options.includeUri ){
 
-			this.fields.uri = this.fields.uri || new fields.CharField({readonly:true, help:'A direict URI for this resource instance'});
-		}
-	}
+            this.fields.uri = this.fields.uri || new fields.CharField({readonly:true, help:'A direict URI for this resource instance'});
+        }
+    }
 
-	/**
-	 * Defines the base urls for this resource
-	 * @method module:tastypie/lib/resource#base_urls
-	 * @return Array. And array of objects containing a route, name and handler propperty
-	 * @example
+    /**
+     * Defines the base urls for this resource
+     * @method module:tastypie/lib/resource#base_urls
+     * @return Array. And array of objects containing a route, name and handler propperty
+     * @example
 {
-	base_urls: fuinction(){
-		return [{
-			path:decodeURIComponent('/api/v1/test/{action}'),
-			name:"test",
-			handler: this.dispatch_test.bind( this )
-		}];
-	}
+    base_urls: fuinction(){
+        return [{
+            path:decodeURIComponent('/api/v1/test/{action}'),
+            name:"test",
+            handler: this.dispatch_test.bind( this )
+        }];
+    }
 }
-	 **/
-	, base_urls: function base_urls( ){
-		return [{
-			name: 'schema'
-		  , path: interpolate( urljoin(  '{{apiname}}', '{{name}}', 'schema' ), this.options ).replace( /\/\//g, "/" )
-		  , handler: this.get_schema.bind( this )
-		  , config:{ tags:['api'] }
-		}
-		, {
-			name: 'detail'
-		  , path: interpolate( urljoin(  '{{apiname}}', '{{name}}', '{pk}' ), this.options ).replace( /\/\//g, "/" )
-		  , handler: this.dispatch_detail.bind( this )
-		  , config:{ tags:['api'] }
-		}
-		, {
-			name: 'list'
-		  , path: interpolate( urljoin(  '{{apiname}}', '{{name}}' ), this.options ).replace( /\/\//g, "/" )
-		  , handler: this.dispatch_list.bind( this )
-		  , config:{
-				tags:['api']
-				, validate:{ query: validators.query }
-			}
-		}];
-	}
+     **/
+    , base_urls: function base_urls( ){
+        return [{
+            name: 'schema'
+          , path: interpolate( urljoin(  '{{apiname}}', '{{name}}', 'schema' ), this.options ).replace( /\/\//g, "/" )
+          , handler: (req, reply) => this.get_schema( req, reply )
+          , config:{ tags:['api'] }
+        }
+        , {
+            name: 'detail'
+          , path: interpolate( urljoin(  '{{apiname}}', '{{name}}', '{pk}' ), this.options ).replace( /\/\//g, "/" )
+          , handler: (req, reply) => this.dispatch_detail( req, reply )
+          , config:{ tags:['api'] }
+        }
+        , {
+            name: 'list'
+          , path: interpolate( urljoin(  '{{apiname}}', '{{name}}' ), this.options ).replace( /\/\//g, "/" )
+          , handler: (req, reply) => this.dispatch_list( req, reply )
+          , config:{
+                tags:['api']
+                , validate:{ query: validators.query }
+            }
+        }];
+    }
 
-	/**
-	 * creates an object to be used to filter data before it is returns.
-	 * **NOTE** this needs to be implemented to suit the the data source backend
-	 * @method module:tastypie/lib/resource#buildFilters
-	 * @param {Object} fiters An object of requested filters
-	 * @return {Object} filters An object of filter definitions suitable to be pased to the data backend
-	 **/
-	, buildFilters: function buildFilters( query ){
-		return query;
-	}
+    /**
+     * creates an object to be used to filter data before it is returns.
+     * **NOTE** this needs to be implemented to suit the the data source backend
+     * @method module:tastypie/lib/resource#buildFilters
+     * @param {Object} fiters An object of requested filters
+     * @return {Object} filters An object of filter definitions suitable to be pased to the data backend
+     **/
+    , buildFilters: function buildFilters( query ){
+        return query;
+    }
 
-	/**
-	 * Packages peices of the express request in a single object for easy passing
-	 * @method module:tastypie/lib/resource#bundle
-	 * @param {Request} req An express request object
-	 * @param {Response} rep An express response object
-	 * @param {Function} next An express next callback
-	 * @param {Object} [data={}] The data object to package
-	 * @param {Object} [obj] and object instance used for hydration
-	 * @return Object An object packaging important information about the current request
-	 **/
-	, bundle: function bundle( req, res, data, obj ){
-		return {
-			req: req
-			, res: res
-			, data: data || {}
-			, object: obj
-			, toJSON: to_json
-			, toKey: function( type ){
-				return util.format(
-					"%s:%s:%s:%s:%s:%s"
-					, type
-					, req.path
-					, 'get' // only get request are cached currently.
-					, this.options.name
-					, qs.stringify( req.params || EMPTY_OBJECT )
-					, qs.stringify( req.query || EMPTY_OBJECT )
-				);
-			}.bind( this )
-		};
-	}
+    /**
+     * Packages peices of the request in a single object for easy passing
+     * @method module:tastypie/lib/resource#bundle
+     * @param {Request} req A Hapijs request object request object
+     * @param {Response} res A Hapijs reply object
+     * @param {Object} [data={}] The data object to package
+     * @param {Object} [obj] and object instance used for hydration
+     * @return Object An object packaging important information about the current request
+     **/
+    , bundle: function bundle( req, res, data, obj ){
+        return {
+            req: req
+            , res: res
+            , data: data || {}
+            , object: obj
+            , toJSON: to_json
+            , toKey: ( type ) => {
+                return util.format(
+                    "%s:%s:%s:%s:%s:%s"
+                    , type
+                    , req.path
+                    , 'get' // only get request are cached currently.
+                    , this.options.name
+                    , qs.stringify( req.params || EMPTY_OBJECT )
+                    , qs.stringify( req.query || EMPTY_OBJECT )
+                );
+            }
+        };
+    }
 
-	/**
-	 * function used to generate a unique cache key
-	 * @protected
-	 * @method module:tastypie/lib/resource#cacheKey
-	 * @param {String} type
-	 * @param {String} uri
-	 * @param {String} method
-	 * @param {String} resource
-	 * @param {Object} query
-	 * @param {Object} params
-	 * @return {String} key A valid cache key for the current request
-	 **/
-	, cacheKey: function cacheKey( type, uri, method, resource, query, params ){
-		return util.format(
-			"%s:%s:%s:%s:%s:%s"
-		  , type
-		  , uri
-		  , method.toLowerCase()
-		  , resource
-		  , qs.stringify( params || EMPTY_OBJECT )
-		  , qs.stringify( query || EMPTY_OBJECT )
-		);
-	}
+    /**
+     * function used to generate a unique cache key
+     * @protected
+     * @method module:tastypie/lib/resource#cacheKey
+     * @param {String} type
+     * @param {String} uri
+     * @param {String} method
+     * @param {String} resource
+     * @param {Object} query
+     * @param {Object} params
+     * @return {String} key A valid cache key for the current request
+     **/
+    , cacheKey: function cacheKey( type, uri, method, resource, query, params ){
+        return util.format(
+            "%s:%s:%s:%s:%s:%s"
+          , type
+          , uri
+          , method.toLowerCase()
+          , resource
+          , qs.stringify( params || EMPTY_OBJECT )
+          , qs.stringify( query || EMPTY_OBJECT )
+        );
+    }
 
-	/**
-	 * Executes a given check against a request bundle
-	 * action checks can be `verb`, `dispatch`, `access`
-	 * @protected
-	 * @method module:tastypie/lib/resource#check
-	 * @param {String} action The http action to check
-	 * @param {module:tastypie/lib/resource~Bundle} bundle a request bundle
-	 * @return {Mixed}
-	 **/
-	, check: function check( act, bundle ){
-		return checks[ act ] &amp;&amp; checks[act].call(this, bundle );
-	}
+    /**
+     * Executes a given check against a request bundle
+     * action checks can be `verb`, `dispatch`, `access`
+     * @protected
+     * @method module:tastypie/lib/resource#check
+     * @param {String} action The http action to check
+     * @param {module:tastypie/lib/resource~Bundle} bundle a request bundle
+     * @return {Mixed}
+     **/
+    , check: function check( act, bundle ){
+        return checks[ act ] &amp;&amp; checks[act].call(this, bundle );
+    }
 
-	/**
-	 * A final hook to run and last deydration operations before a response is returned
-	 * @method module:tastypie/lib/resource#dehydrate
-	 * @param {Object} obj An object to dehydrate
-	 * @return {Object}
-	 **/
-	, dehydrate: function dehydrate( obj ){
-		return obj;
-	}
+    /**
+     * A final hook to run and last deydration operations before a response is returned
+     * @method module:tastypie/lib/resource#dehydrate
+     * @param {Object} obj An object to dehydrate
+     * @return {Object}
+     **/
+    , dehydrate: function dehydrate( obj ){
+        return obj;
+    }
 
-	/**
-	 * Generates a uri for a specific object related to this resource
-	 * @method module:tastypie/lib/resource#dehydrate_uri
-	 * @param {Object} obj
-	 * @param {Bundle} bundle
-	 * @param {Objectd} result
-	 * @return {String} uri
-	 **/
-	, dehydrate_uri: function( obj, bundle, result ){
-		return this.to_uri( obj, bundle, result );
-	}
+    /**
+     * Generates a uri for a specific object related to this resource
+     * @method module:tastypie/lib/resource#dehydrate_uri
+     * @param {Object} obj
+     * @param {Bundle} bundle
+     * @param {Objectd} result
+     * @return {String} uri
+     **/
+    , dehydrate_uri: function( obj, bundle, result ){
+        return this.to_uri( obj, bundle, result );
+    }
 
-	/**
-	 * converts a data string into an object
-	 * @method module:tastypie/lib/resource#deserialize
-	 * @param {String} data A string of data to be parsed
-	 * @param {String} format the content type ( application/json, text/xml, etc ) of the in coming data string
-	 * @param {module:tastypie/lib/resource~Nodeback} callback
-	 **/
-	, deserialize: function deserialize( data, format, callback ){
-		this.options.serializer.deserialize( data, format, callback );
-	}
+    /**
+     * converts a data string into an object
+     * @method module:tastypie/lib/resource#deserialize
+     * @param {String} data A string of data to be parsed
+     * @param {String} format the content type ( application/json, text/xml, etc ) of the in coming data string
+     * @param {module:tastypie/lib/resource~Nodeback} callback
+     **/
+    , deserialize: function deserialize( data, format, callback ){
+        this.options.serializer.deserialize( data, format, callback );
+    }
 
-	/**
-	 * Primary entry point for a request into the resource. maps Http methods to resource methods
-	 * @method module:tastypie/lib/resource#dispatch
-	 * @param {String} action the resource action to route the request to
-	 * @param {Object|Bundle} bundle A bundle representing the current request
-	 **/
-	, dispatch: function dispatch( action, bundle ){
-		var method
-		  , req
-		  , res
-		  , err
-		  , results
-		  ;
+    /**
+     * Primary entry point for a request into the resource. maps Http methods to resource methods
+     * @method module:tastypie/lib/resource#dispatch
+     * @param {String} action the resource action to route the request to
+     * @param {Object|Bundle} bundle A bundle representing the current request
+     **/
+    , dispatch: function dispatch( action, bundle ){
+        let method
+          , err
+          , results
+          ;
 
-		req            = bundle.req;
-		res            = bundle.res;
-		bundle.action  = action;
+        bundle.action  = action;
 
-		err = this.check('dispatch', bundle )[0];
-		results = this.check('access', bundle );
+        [err] = this.check('dispatch', bundle );
+        results = this.check('access', bundle );
 
-		err = err ? err : results[0];
+        err = err ? err : results[0];
 
-		if( err ){
-			err.res = res;
-			err.req = req;
-			return this.exception( err );
-		}
+        if( err ){
+            return this.exception( annotate( err, bundle ) );
+        }
 
-		method = results[1];
+        method = results[1];
 
-		if(this.throttle( bundle )){
-			err = new Boom.create(429);
-			err.req = req;
-			err.res = res;
-			return this.exception( err );
-		}
-		this.domain.run(method.bind( this, bundle ));
-	}
+        if(this.throttle( bundle )){
+            return this.exception( annotate( Boom.create(429), bundle ) );
+        }
 
-	/**
-	 * Used to handle uncaught caugt errors during the request life cycle.
-	 * @method module:tastypie/lib/resource#exception
-	 * @param {RequestError} Error The error generated during the request
-	 **/
-	, exception: function exception( err ){
-		var reply = err.res
-		  , format
-		  , code
-		  ;
+        this.domain.run(() => {
+            let [err, result] = attempt(method, [bundle], this );
+            if( err ){
+                this.exception( annotate( err, bundle ) );
+            }
+        });
+    }
 
-		if( !reply ){
-			debug('resource#exception: no reply object - throwing');
-			throw err;
-		}
+    /**
+     * Used to handle uncaught caugt errors during the request life cycle.
+     * @method module:tastypie/lib/resource#exception
+     * @param {RequestError} Error The error generated during the request
+     **/
+    , exception: function exception( err ){
+        var reply = err.res
+          , format
+          , code
+          ;
 
-		if( err.isBoom ){
-			return reply( err );
-		}
+        if( !reply ){
+            debug('resource#exception: no reply object - throwing');
+            throw err;
+        }
 
-		code = err.statusCode || err.code || 500;
-		format = this.format( err, this.options.serializer.types );
-		err.req = err.res = null;
+        if( err.isBoom ){
+            return reply( err );
+        }
 
-		this.serialize( {error: err.name, message: err.message, statusCode: code}, format, function( serr, data ){
-			var e = Boom.wrap( err, code, data.message );
-			e.output.payload = data;
-			reply( e );
-		});
-	}
+        code = err.statusCode || err.code || 500;
+        format = this.format( err );
+        err.req = err.res = null;
 
-	/**
-	 * Applies custom filtering to a given set of objects.
-	 * @method module:tastypie/lib/resource#filter
-	 * @param {Bundle} bundle A request bundle
-	 * @param {Object} filters An implementation specific object used to filter data sets
-	 * @return {Object}
-	 **/
-	, filter: function filter( bundle, filters ){
-		this.emit( 'error', new exceptions.NotImplemented( "filter" ) );
-	}
+        this.serialize( {error: err.name, message: err.message, statusCode: code}, format, function( serr, data ){
+            var e = Boom.wrap( err, code, data.message );
+            e.output.payload = data;
+            reply( e );
+        });
+    }
 
-	/**
-	 * Attempts to determine the best serialization format for a given request
-	 * @method module:tastypie/lib/resource#format
-	 * @param {Bundle|Object} bundle A bundle object or similar object
-	 * @param {Array} [types] An array of possible content types this resource can deal with.
-	 * @return {String} accepts an accepted format for the the related request
-	 **/
-	, format: function format( bundle, types ){
-		var fmt  = bundle.req.query &amp;&amp; bundle.req.query.format
-		  , ct = this.options.serializer.convertFormat( fmt )
-		  ;
+    /**
+     * Applies custom filtering to a given set of objects.
+     * @method module:tastypie/lib/resource#filter
+     * @param {Bundle} bundle A request bundle
+     * @param {Object} filters An implementation specific object used to filter data sets
+     * @return {Object}
+     **/
+    , filter: function filter( bundle, filters ){
+        this.emit( 'error', new exceptions.NotImplemented( "filter" ) );
+    }
 
-		if( fmt &amp;&amp; !ct ){
-			let error = Boom.unsupportedMediaType( 'Unsupported format: ' + fmt )
-			error.req = bundle.req;
-			error.res = bundle.res;
-			return this.emit('error', error);
-		} else if( fmt &amp;&amp; ct ){
-			return ct;
-		}
+    /**
+     * Attempts to determine the best serialization format for a given request
+     * @method module:tastypie/lib/resource#format
+     * @param {Bundle|Object} bundle A bundle object or similar object
+     * @param {Array} [types] An array of possible content types this resource can deal with.
+     * @return {String} accepts an accepted format for the the related request
+     **/
+    , format: function format( bundle, types = this.options.serializer.types ){
+        var fmt  = bundle.req.query &amp;&amp; bundle.req.query.format
+          , ct = this.options.serializer.convertFormat( fmt )
+          ;
 
-		return mime.determine( bundle.req, types );
-	}
+        if( fmt &amp;&amp; !ct ){
+            let error = Boom.unsupportedMediaType( 'Unsupported format: ' + fmt );
+            return this.emit('error', annotate( error ) );
+        } else if( fmt &amp;&amp; ct ){
+            return ct;
+        }
 
-	/**
-	 * reads a valeue from the specified cache backend by name. If nothing is found in
-	 * cache it wil call {@link module:tastypie/lib/resource#get_object|get_object}
-	 * @protected
-	 * @method module:tastypie/lib/resource#from_cache
-	 * @param {String} type of request ( list, detail, updload, etc)
-	 * @param {Bundle} bundle A bundle representing the current request
-	 * @param {Function} callback A calback function to use whkf
-	 **/
-	, from_cache: function from_cache( type, bundle, callback ){
-		var obj
-		  , key = this.cacheKey(
-				type
-			  , bundle.req.path
-			  , bundle.req.method
-			  , this.options.name
-			  , bundle.req.query
-			  , bundle.req.params
-		);
+        return mime.determine( bundle.req, types );
+    }
 
-		obj = this.cache.get( key, function( err, obj ){
-			var that = this;
+    /**
+     * reads a valeue from the specified cache backend by name. If nothing is found in
+     * cache it wil call {@link module:tastypie/lib/resource#get_object|get_object}
+     * @protected
+     * @method module:tastypie/lib/resource#from_cache
+     * @param {String} type of request ( list, detail, updload, etc)
+     * @param {Bundle} bundle A bundle representing the current request
+     * @param {Function} callback A calback function to use whkf
+     **/
+    , from_cache: function from_cache( type, bundle, callback ){
+        var obj
+          , key = this.cacheKey(
+            type
+          , bundle.req.path
+          , bundle.req.method
+          , this.options.name
+          , bundle.req.query
+          , bundle.req.params
+        );
 
-			if( obj ){
-				debug("%s %s returning cached object", this.options.apiname, this.options.name );
-				return callback( err, obj );
-			}
-			debug('cahed object miss');
-			this.get_object( bundle, function( err, obj ){
-				that.cache.set( key, obj );
-				callback( err, obj );
-			});
-		}.bind( this ) );
+        obj = this.cache.get( key, ( err, obj ) => {
+          if( obj ){
+            return callback( err, obj );
+          }
+          this.get_object( bundle, ( err, obj ) => {
+            this.cache.set( key, obj );
+            callback( err, obj );
+          });
+        });
 
-	}
+    }
 
 	/**
 	 * A hook before serialization to converte and complex objects or classes into simple serializable objects
@@ -711,273 +718,292 @@ Resource = new Class({
 	 * @return Object An object containing only serializable data
 	 **/
 	, full_dehydrate: function full_dehydrate( obj, bundle, done ){
-		var ret       = {}
-		  , flds      = this.fields
-		  , dehydrate = this.dehydrate
-		  , that      = this
-		  ;
+        let that = this, ret = Object.create(null), flds=this.fields;
+        async.forEachOf( flds, function eachfield( fld, field, cb){
 
-		async.forEachOf( flds, function eachfield( fld, field, cb){
+        if( !!fld.options.exclude ) return cb();
+        
+        fld.dehydrate( obj, function asyncFieldDehy( err, data ){
+            let method       = that[ `dehydrate_${field}` ];
 
-			if( !!fld.options.exclude ){
-			  return cb();
-			}
+            ret[ field ] = data;
 
-			fld.dehydrate( obj, function asyncFieldDehy( err, data ){
-				var methodname   = 'dehydrate_' + field
-				  , method       = that[ methodname ]
-				  ;
+            if( method ){
+                ret[field] = method.call(that, obj,  bundle, ret );
+            }
 
-				ret[ field ] = data;
+            return cb( err );
+        });
+      }, ( err ) => {
+          done( err, that.dehydrate( ret ) );
+      });
+    }
 
-				if( method ){
-					ret[field] = method.call(that, obj,  bundle, ret );
-				}
+    /**
+     * Responsible for converting a raw data object into a resource mapped object
+     * @method module:tastypie/lib/resource#full_hydrate
+     * @param {Bundle} bundle
+     * @return {Bundle}
+     **/
+    , full_hydrate: function full_hydrate( bundle, done ){
+        var Tpl        = this.options.template
+          , method     = this.check( 'verb', bundle )
+          , flds
+          ;
 
-				return cb &amp;&amp; cb( err );
-			});
-		}, function( err ){
-			done( err, dehydrate( ret ) );
-		});
-	}
+        flds = method === PATCH ? ( bundle.data || {} ) : this.fields;
+        bundle = this.hydrate( bundle );
+        bundle.object = bundle.object || ( typeof Tpl === 'function' ? new Tpl() : Object.create( Tpl ) );
 
-	/**
-	 * Responsible for converting a raw data object into a resource mapped object
-	 * @method module:tastypie/lib/resource#full_hydrate
-	 * @param {Bundle} bundle
-	 * @return {Bundle}
-	 **/
-	, full_hydrate: function full_hydrate( bundle, done ){
-		var Tpl        = this.options.objectTpl
-		  , method     = this.check( 'verb', bundle )
-		  , flds
-		  ;
+        async.forEachOf( flds, (value, fieldname, cb ) => {
+            let methodname
+              , method
+              , attr
+              , field
+              ;
 
-		flds = method === PATCH ? ( bundle.data || {} ) : this.fields;
-		bundle = this.hydrate( bundle );
-		bundle.object = bundle.object || ( typeof Tpl === 'function' ? new Tpl() : Object.create( Tpl ) );
+            field = this.fields[ fieldname ];
 
-		async.forEachOf( flds, function(value, fieldname, cb ){
-			var methodname
-			  , method
-			  , attr
-			  , field
-			  ;
+            if( field.options.readonly ) return cb();
 
-			field = this.fields[ fieldname ];
+            methodname = `hydrate_${fieldname}`;
+            method = this[ methodname ];
 
-			if( field.options.readonly ){
-				return cb &amp;&amp; cb( );
-			}
+            if( typeof method === 'function' ){
+                bundle = method( bundle );
+            }
 
-			methodname = util.format( 'hydrate_%s', fieldname );
-			method = this[ methodname ];
+            attr = field.options.attribute;
 
-			if( isFunction( method ) ){
-				bundle = method( bundle );
-			}
+            if( attr ){
+                field.hydrate( bundle, ( err, value ) => {
+                    set( bundle.object, attr, value );
+                    return cb( err, value );
+                });
+            } else {
+                return cb( null );
+            }
+        }, ( err ) => {
+            done( err, bundle );
+        });
+    }
 
-			attr = field.options.attribute;
+    /**
+     * Final hydration hook method. Is a noop by default
+     * @method module:tastypie/lib/resource#hydrate
+     * @param {Bundle} bundle
+     * @return {Bundle}
+     **/
+    , hydrate: function( bundle ){
+        return bundle;
+    }
 
-			if( attr ){
-				field.hydrate( bundle, function( err, value ){
-					set( bundle.object, attr, value );
-					return cb &amp;&amp; cb( err, value );
-				});
-			} else{
-				return cb &amp;&amp; cb( null );
-			}
-		}.bind( this ), function( err ){
-			done( err, bundle );
-		});
-	}
+    /**
+     * Attempts to determine the primary key value of the specific object related to a resource request
+     * @method module:tastypie/lib/resource#pk
+     * @param {Object} orig
+     * @param {Bundle} bundle
+     * @param {Object} result
+     * @return {String|Number} pk The value at the configured primary key field of the object related to the resource
+     **/
+    , pk: function pk( orig, bundle, result ){
+        let pk_field;
 
-	/**
-	 * Final hydration hook method. Is a noop by default
-	 * @method module:tastypie/lib/resource#hydrate
-	 * @param {Bundle} bundle
-	 * @return {Bundle}
-	 **/
-	, hydrate: function( bundle ){
-		return bundle;
-	}
+        pk_field = this.options.pk || 'id';
 
-	/**
-	 * Attempts to determine the primary key value of the specific object related to a resource request
-	 * @method module:tastypie/lib/resource#pk
-	 * @param {Object} orig
-	 * @param {Bundle} bundle
-	 * @param {Object} result
-	 * @return {String|Number} pk The value at the configured primary key field of the object related to the resource
-	 **/
-	, pk: function pk( orig, bundle, result ){
-		var pk_field;
+        return orig[pk_field] || result[pk_field] || ( bundle.data &amp;&amp; bundle.data[pk_field] ) || null;
+    }
 
-		pk_field = this.options.pk || 'id';
+    /**
+     * A method which returns additaional urls to be added to the default uri defintion of a resource
+     * @method module:tastypie/lib/resource#prepend_urls
+     * @return Array an empty array
+     **/
+    , prepend_urls: function prepend_urls( ){
+        return this.options.routes || [];
+    }
 
-		return orig[pk_field] || result[pk_field] || ( bundle.data &amp;&amp; bundle.data[pk_field] ) || null;
-	}
+    /**
+     * Method to generate a response for a bundled request. Will set contnent-type and length headers
+     * @chainable
+     * @method module:tastypie/lib/resource#respond
+     * @param {Bundle|Object} bundle A bundle or similar object
+     * @param {HttpResponse|Function} cls An HttpResponse function to call to finish the request. Function should accept a response object, and data to send
+     * @return Resource
+     **/
 
-	/**
-	 * A method which returns additaional urls to be added to the default uri defintion of a resource
-	 * @method module:tastypie/lib/resource#prepend_urls
-	 * @return Array an empty array
-	 **/
-	, prepend_urls: function prepend_urls( ){
-		return this.options.routes || [];
-	}
+    // if location is omitted
+    // respond( bundle, cls, callback )
+    , respond: function respond( bundle, cls, loc, cb ){
+        let _cls = cls || http.ok
+          , format = this.format( bundle )
+          , _loc = loc
+          , fn   = cb
+          , that = this
+          ;
 
-	/**
-	 * Method to generate a response for a bundled request. Will set contnent-type and length headers
-	 * @chainable
-	 * @method module:tastypie/lib/resource#respond
-	 * @param {Bundle|Object} bundle A bundle or similar object
-	 * @param {HttpResponse|Function} cls An HttpResponse function to call to finish the request. Function should accept a response object, and data to send
-	 * @return Resource
-	 **/
-	, respond: function respond( bundle, cls, location, cb ){
-		cls = cls || http.ok;
-		var format = this.format( bundle, this.options.serializer.types )
-		  , that = this
-		  ;
+        if( arguments.length === 3 &amp;&amp; typeof loc === 'function' ){
+            fn = _loc;
+            _loc = '';
+        }
 
+        this.serialize( bundle.data, format, function( err, data ){
+            let reply = _cls( bundle.res, data || null, format, _loc );
+            let mutable = mutableMethods.indexOf( bundle.req.method.toLowerCase() ) !== -1;
+            that.modified = mutable ? (new Date()).toUTCString() : that.modified;
+            that.modified &amp;&amp; reply.header('Last-Modified', that.modified );
+            fn &amp;&amp; fn( null, reply );
+        });
+    }
 
-		// if location is omitted
-		// respond( bundle, cls, callback )
-		if( arguments.length === 3 &amp;&amp; typeof location === 'function' ){
-			cb = location;
-			location = '';
-		}
-		this.serialize( bundle.data, format, function( err, data ){
-			var reply = cls( bundle.res, data || null, format, location );
-			var mutable = mutableMethods.indexOf( bundle.req.method.toLowerCase() ) !== -1;
-			that.modified = mutable ? (new Date()).toUTCString() : that.modified;
-			that.modified &amp;&amp; reply.header('Last-Modified', that.modified );
-			mutable = null;
+    /**
+     * Converts a valid object in to a string of the specified format
+     * @method module:tastypie/lib/resource#serialize
+     * @param {Object} data Data object to be serialized before delivery
+     * @param {String} format the
+     * @param {module:tastypie/lib/resource~Nodeback} callback
+     **/
+    , serialize: function serialize( data, format, callback ){
+        this.options.serializer.serialize( data, format, callback );
+    }
 
-			return cb &amp;&amp; cb( null, reply );
-		});
-	}
+    /**
+     * Applies custome sorting to a given list of objects. Default applies no sorting
+     * @method module:tastypie/lib/resource#sort
+     * @param {Array} list The list of objects to be sorted
+     * @return Array of sorted objects
+     **/
+    , sort: function sort( obj_list ){
+        return obj_list;
+    }
 
-	/**
-	 * Converts a valid object in to a string of the specified format
-	 * @method module:tastypie/lib/resource#serialize
-	 * @param {Object} data Data object to be serialized before delivery
-	 * @param {String} format the
-	 * @param {module:tastypie/lib/resource~Nodeback} callback
-	 **/
-	, serialize: function serialize( data, format, callback ){
-		this.options.serializer.serialize( data, format, callback );
-	}
+    /**
+     * manages request throttling. Default implementation usses the remote address of the incomming request
+     * @method module:tastypie/lib/resource#throttle
+     * @param {module:tastypie/lib/resource~Bundle} bundle A bundle representing the current request
+     * @return {Boolean} true if the request should rejected
+     */
+    , throttle: function throttle( bundle ){
+        let thrtl
+          , request_id
+          , req
+          ;
 
-	/**
-	 * Applies custome sorting to a given list of objects. Default applies no sorting
-	 * @method module:tastypie/lib/resource#sort
-	 * @param {Array} list The list of objects to be sorted
-	 * @return Array of sorted objects
-	 **/
-	, sort: function sort( obj_list ){
-		return obj_list;
-	}
+        req        = bundle.req;
+        request_id = `${req.method.toLowerCase()}:${req.info.remoteAddress || "noaddr"}:${req.path}`;
+        thrtl      = this.options.throttle.toThrottle( request_id );
 
-	, throttle: function throttle( bundle ){
-		var thrtl
-		  , request_id
-		  ;
+        if( !thrtl ){
+            this.options.throttle.incr( request_id );
+        }
 
-		request_id = util.format(
-			'%s:%s:%s'
-			, bundle.req.method.toLowerCase()
-			, bundle.req.info.remoteAddress || "noaddr"
-			, bundle.req.path
-		);
-		thrtl = this.options.throttle.toThrottle( request_id );
+        return thrtl;
+    }
 
-		if( !thrtl ){
-			this.options.throttle.incr( request_id );
-		}
+    /**
+     * returns the internal string representation of a resource
+     * @method module:tastypie/lib/resource#toString
+     * @return {String} String representation
+     **/
+    , toString: function toString( ){
+        return '[object Resource]';
+    }
 
-		return thrtl;
-	}
+    /**
+     * creates a resource uri for a specific object
+     * @method module:tastypie/lib/resource#to_uri
+     * @param {Object} obj
+     * @param {Bundle} bundle
+     * @param {Object} result
+     * @return {String}
+     **/
+    , to_uri: function to_uri( obj, bundle, result ){
+        return urljoin(this.options.apiname, this.options.name, this.pk( obj, bundle, result ) );
+    }
 
-	/**
-	 * returns the internal string representation of a resource
-	 * @method module:tastypie/lib/resource#toString
-	 * @return {String} String representation
-	 **/
-	, toString: function toString( ){
-		return '[object Resource]';
-	}
-
-	/**
-	 * creates a resource uri for a specific object
-	 * @method module:tastypie/lib/resource#to_uri
-	 * @param {Object} obj
-	 * @param {Bundle} bundle
-	 * @param {Object} result
-	 * @return {String}
-	 **/
-	, to_uri: function to_uri( obj, bundle, result ){
-		return urljoin( this.options.apiname, this.options.name, this.pk( obj, bundle, result ) );
-	}
-
-	/**
-	 * Used internally for better type detection
-	 * @private
-	 * @method module:tastypie/lib/resource#$family
-	 * @return {String}
-	 **/
-	, $family: function $family( ){
-		return 'resource';
-	}
+    /**
+     * Used internally for better type detection
+     * @private
+     * @method module:tastypie/lib/resource#$family
+     * @return {String}
+     **/
+    , $family: function $family( ){
+        return 'resource';
+    }
 });
 
 Object.defineProperties( Resource.prototype, {
 
-	routes: {
-		/**
-		 * @name routes
-		 * @property routes A mapping of uris and their associated handlers
-		 * @memberof module:tastypie/lib/resource#routes
-		 * @type Object
-		 **/
-		get: function( ){
-			var that = this;
-			if( !this._uricache ){
-				this._uricache = ( this.prepend_urls() || [] ).concat( this.base_urls() );
-				this.actions = [];
-			}
-			return this._uricache.map(function( route ){
-				that.actions.indexOf( route.name ) === -1 &amp;&amp; that.actions.push( route.name );
-				return {
-					path: route.path
-					, method: route.method || "*"
-					, handler: route.handler
-					, config: object.merge( that.options.config || {}, route.config || {}, {
-						plugins: {
-							tastypie: {
-								name: route.name
-							}
-						}
-					})
-				};
-			});
-		}
-	}
+    routes: {
+        /**
+         * @name routes
+         * @property routes A mapping of uris and their associated handlers
+         * @memberof module:tastypie/lib/resource#routes
+         * @type Object
+         **/
+        get: function( ){
+            var that = this;
+            if( !this._uricache ){
+                this._uricache = ( this.prepend_urls() || [] ).concat( this.base_urls() );
+                this.actions = [];
+            }
+            return this._uricache.map(function( route ){
+                that.actions.indexOf( route.name ) === -1 &amp;&amp; that.actions.push( route.name );
+                return {
+                    path: route.path
+                    , method: route.method || "*"
+                    , handler: route.handler
+                    , config: merge( that.options.config || {}, route.config || {}, {
+                        plugins: {
+                            tastypie: {
+                                name: route.name
+                            }
+                        }
+                    })
+                };
+            });
+        }
+    }
 
-	, urls: {
-		/**
-		 * @property urls An array of all registered uris on a given resource
-		 * @name urls
-		 * @memberof module:tastypie.resources.Resource
-		 * @type Array
-		 **/
-		get: function( ){
-			return this.routes.map( function( uri ){
-				return uri.path;
-			});
-		}
-	}
+    ,api:{
+        /**
+         * @property urls An array of all registered uris on a given resource
+         * @name urls
+         * @memberof module:tastypie.resources.Resource
+         * @type Array
+         **/
+        set: function( api ){
+            this.options.apiname = api.basepath;
+            for( var key of Object.keys( this.fields ) ){
+                let field = this.fields[ key ];
+                if( field.is_related ){
+                    field.instance.setOptions({apiname: api.basepath });
+                }
+            }
+        }
+    }
+
+    ,prefix:{
+        set: function( prefix ){
+            this.options.name = this.options.name || prefix;
+        }
+        ,get: function(){
+            this.options.name;
+        }
+    }
+    , urls: {
+        /**
+         * @property urls An array of all registered uris on a given resource
+         * @name urls
+         * @memberof module:tastypie.resources.Resource
+         * @type Array
+         **/
+        get: function( ){
+            return this.routes.map( function( uri ){
+                return uri.path;
+            });
+        }
+    }
 });
 
 Resource.defineMutator = Class.defineMutator;
@@ -992,8 +1018,8 @@ Resource.defineMutator = Class.defineMutator;
  * @return {module:tastypie/lib/resource}
  **/
 Resource.extend = function( proto ){
-	proto.inherits = Resource;
-	return new Class( proto );
+    proto.inherits = Resource;
+    return new Class( proto );
 };
 module.exports = Resource;
 
@@ -1015,20 +1041,22 @@ module.exports = Resource;
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -1038,9 +1066,9 @@ module.exports = Resource;
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -1048,7 +1076,9 @@ module.exports = Resource;
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -1058,7 +1088,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -1094,8 +1124,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -1121,11 +1150,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>

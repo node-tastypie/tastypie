@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -125,13 +127,13 @@ var  xml2js        = require( 'xml2js' )
   ;
 
 const TOP_LEVEL      = "response"
-	, OBJECT         = "object"
-	, OBJECTS        = "objects"
-	, VALUE          = "value"
-	, FUNCTION       = 'function'
-	, ARRAY          = 'array'
-	;
-	
+    , OBJECT         = "object"
+    , OBJECTS        = "objects"
+    , VALUE          = "value"
+    , FUNCTION       = 'function'
+    , ARRAY          = 'array'
+    ;
+    
 
 
 
@@ -151,308 +153,304 @@ serializer.serialize({key:value}, "text/xml", null, console.log );
  * @example
  * // define new acceptable content types &amp; formats
  * FakeSerializer = new tastypie.Class({
- * 		inherits:Serializer
- *   	,options:{
- * 			content_types:{
- *   			'application/vnd+fakescript':['fake', 'vnd-fake']
- * 			}
- *		}
+ *      inherits:Serializer
+ *      ,options:{
+ *          content_types:{
+ *              'application/vnd+fakescript':['fake', 'vnd-fake']
+ *          }
+ *      }
  *
- *   	,constructor: function( options ){
- *    		this.setOptions( options )
- *		}
- * 		,to_fake: function(data, callback){ ... }
- *   	,from_fake:function(data,callback){ ... }
+ *      ,constructor: function( options ){
+ *          this.setOptions( options )
+ *      }
+ *      ,to_fake: function(data, callback){ ... }
+ *      ,from_fake:function(data,callback){ ... }
  * });
  * // ?format=fake
  */
 Serializer = new Class({
-	mixin:[ Options, Parent ]
-	,options:{
-		callbackKey:'callback'
-		,defaultFormat:"application/json"
-		,xml:{
-			explicitCharKey : false
-		  , trim            : true
-		  , normalize       : false
-		  , explicitArray   : false
-		  , explicitRoot    : false
-		  , ignoreAttrs     : true
-		  , mergeAttrs      : false
-		  , validator       : null
-		  , timeout         : 20000
-		  , strict          : true
-		}
-		, content_types :{
-			'application/json':'json'
-			,'text/javascript':'jsonp'
-			,'text/xml':'xml'
-		}
-	}
-	,constructor:function( options ){
-		this.setOptions( options );
-		const _parser = new xml2js.Parser( this.options.xml );
-		const _mime = new Mime();
-		_mime.default_type = null;
+    mixin:[ Options, Parent ]
+    ,options:{
+        callbackKey:'callback'
+        ,defaultFormat:"application/json"
+        ,xml:{
+            explicitCharKey : false
+          , trim            : true
+          , normalize       : false
+          , explicitArray   : false
+          , explicitRoot    : false
+          , ignoreAttrs     : true
+          , mergeAttrs      : false
+          , validator       : null
+          , timeout         : 20000
+          , strict          : true
+        }
+        , content_types :{
+            'application/json':'json'
+            ,'text/javascript':'jsonp'
+            ,'text/xml':'xml'
+        }
+    }
+    ,constructor:function( options ){
+        this.setOptions( options );
+        const _parser = new xml2js.Parser( this.options.xml );
+        const _mime = new Mime();
+        _mime.default_type = null;
 
-		Object.defineProperties(this,{
-			_mime:{
-				enumerable: false
-				,configurable: false
-				,get: function(){
-					return _mime;
-				}
-			}
-			,_parser:{
-				enumerable: false
-				,configurable: false
-				,get: function(){
-					return _parser;
-				}
-			}
-		});
+        Object.defineProperties(this,{
+            _mime:{
+                enumerable: false
+                ,configurable: false
+                ,get: function(){
+                    return _mime;
+                }
+            }
+            ,_parser:{
+                enumerable: false
+                ,configurable: false
+                ,get: function(){
+                    return _parser;
+                }
+            }
+        });
 
-		this._mime.define(
-			map( this.options.content_types, function( val, key, obj){
-				return toArray( val );
-			})
-		);
-	}
+        this._mime.define(
+            map( this.options.content_types, function( val, key, obj){
+                return toArray( val );
+            })
+        );
+    }
 
-	/**
-	 * Serialized an object into a string of a specified format
-	 * @method module:tastypie/lib/serializer#serialize
-	 * @param {Object} data The data object to be serialized into a string
-	 * @param {String} format The format to serialize the object down to
-	 * @param {Function} callback A callback function to be called when serialization is complete
-	 * @throws SerializationError
-	 **/
-	,serialize:function( data, format, callback ){
-		var method_name
-		  , desired_format
-		  , default_format
-		  , mime
-		  ;
+    /**
+     * Serialized an object into a string of a specified format
+     * @method module:tastypie/lib/serializer#serialize
+     * @param {Object} data The data object to be serialized into a string
+     * @param {String} format The format to serialize the object down to
+     * @param {Function} callback A callback function to be called when serialization is complete
+     * @throws SerializationError
+     **/
+    ,serialize:function( data = '' , format, callback ){
+        var method_name
+          , desired_format
+          , mime
+          , _data
+          , _format
+          , _cb
+          ;
 
-		data           = data || '';
-		mime           = this._mime;
-		format = isString( format ) ? format : this.options.defaultFormat;
-	    callback       = createCallback.apply(null, Array.prototype.slice.call(arguments) );
+        _data   = data;
+        mime    = this._mime;
+        _format = isString( format ) ? format : this.options.defaultFormat;
+        _cb     = createCallback(...arguments); 
 
-		// if It is already a string
-		// there is nothing to serialize
-		if( isString( data ) ){
-			return callback &amp;&amp; callback( null, data );
-		}
+        // if It is already a string
+        // there is nothing to serialize
+        if( isString( _data ) ) return _cb( null, _data );
 
-		desired_format = mime.extension( format );
-	  	method_name = "to_" + desired_format;
-		debug('desired format: %s', desired_format);
-		if( this[method_name] &amp;&amp; typeof this[method_name] === 'function'){
-			return this[method_name]( data,callback );
-		}
+        desired_format = mime.extension( _format );
+        method_name = `to_${desired_format}`;
+        if( typeof this[method_name] === 'function'){
+            return this[method_name]( _data, _cb );
+        }
 
-		callback( boom.unsupportedMediaType(`unsupported format ${desired_format}` ), null );
-	}
+        _cb( boom.unsupportedMediaType(`unsupported format ${desired_format}` ), null );
+    }
 
-	,convertFormat: function convertFormat( format ){
-		return this._mime.lookup( format ) || null;
-	}
+    ,convertFormat: function convertFormat( format ){
+        return this._mime.lookup( format ) || null;
+    }
 
-	/**
-	 * Converts a data string into a javascript object based on a specified content type
-	 * @method module:tastypie/lib/serializer#deserialize
-	 * @param {String} Data string to convert into an object
-	 * @param {String} contentType the content type of the string to be deserialzie
-	 * @param {Function} callback a function to call when deserialization is complete
-	 **/
-	,deserialize: function(data, format, callback ){
-		var desired_format
-		  , method_name
-		  , mime
-		  ;
+    /**
+     * Converts a data string into a javascript object based on a specified content type
+     * @method module:tastypie/lib/serializer#deserialize
+     * @param {String} Data string to convert into an object
+     * @param {String} contentType the content type of the string to be deserialzie
+     * @param {Function} callback a function to call when deserialization is complete
+     **/
+    ,deserialize: function(data={}, format=this.options.defaultFormat, ...args ){
+        var desired_format
+          , method_name
+          , mime
+          , callback
+          ;
 
-		data     = data || {};
-		mime     = this._mime;
-		callback =  createCallback.apply(null, Array.prototype.slice.call(arguments) );
-		format   = isString( format ) ? format : this.options.defaultFormat;
-		
-		if( isObject( data ) ){
-			return callback( null, data );
-		}
+        mime     = this._mime;
+        format   = isString( format ) ? format : this.options.defaultFormat;
+        callback = createCallback( ...args );
 
-		desired_format = mime.extension( format );
-	  	method_name    = "from_" + desired_format;
+        if( isObject( data ) ){
+            return setImmediate( callback, null, data );
+        }
 
-		if( isFunction( this[method_name] ) ){
-			return this[method_name]( data, callback );
-		}
+        desired_format = mime.extension( format );
+        method_name    = `from_${desired_format}`;
 
-		callback( boom.unsupportedMediaType(`unsupported format ${desired_format}`), null );
-	}
+        if( typeof this[method_name] == 'function' ){
+            return this[method_name]( data, callback );
+        }
 
-	/**
-	 * Converts an object into a valid JSON string
-	 * @method module:tastypie/lib/serializer#to_json
-	 * @param {String} json valid json string to parse into an object
-	 * @param {Function} callback callback function to call when deserialization is complete
-	 **/
-	,to_json:function( data, callback ){
-		process.nextTick(function(err){
-			callback(err, JSON.stringify( data ) );
-		});
-	}
+        callback( boom.unsupportedMediaType(`unsupported format ${desired_format}`), null );
+    }
 
-	/**
-	 * Converts a json string into an object
-	 * @method module:tastypie/lib/serializer#from_json
-	 * @param {String} json valid json string to parse into an object
-	 * @param {Function} callback callback function to call when deserialization is complete
-	 **/
-	,from_json: function( data, callback ){
-		process.nextTick(function(err){
-			callback( err, JSON.parse( data, null, 2 ) );
-		});
-	}
+    /**
+     * Converts an object into a valid JSON string
+     * @method module:tastypie/lib/serializer#to_json
+     * @param {String} json valid json string to parse into an object
+     * @param {Function} callback callback function to call when deserialization is complete
+     **/
+    ,to_json:function( data, callback ){
+        setImmediate(callback, null, JSON.stringify( data ) );
+    }
 
-	/**
-	 * Converts an object to an xml string
-	 * @method module:tastypie/lib/serializer#to_xml
-	 * @param {String} data object to convert into an xml string
-	 * @param {Function} callback callback function to call when deserialization is complete
-	 **/
-	,to_xml: function( data, callback ){
-		process.nextTick(function(err){
-			callback(err, data == null ? data : jstoxml.toXML( this.to_jstree( data) , {header:true, indent:" "} ) );
-		}.bind( this ));
-	}
+    /**
+     * Converts a json string into an object
+     * @method module:tastypie/lib/serializer#from_json
+     * @param {String} json valid json string to parse into an object
+     * @param {Function} callback callback function to call when deserialization is complete
+     **/
+    ,from_json: function( data, callback ){
+        setImmediate(callback, null, JSON.parse( data ) );
+    }
 
-	/**
-	 * converts an xml string into an object
-	 * @method module:tastypie/lib/serializer#from_xml
-	 * @param {String} xml valid xml string to parse into an object
-	 * @param {Function} callback callback function to call when deserialization is complete
-	 **/
-	,from_xml: function( data, callback ){
-		this._parser.parseString(data, callback);
-	}
+    /**
+     * Converts an object to an xml string
+     * @method module:tastypie/lib/serializer#to_xml
+     * @param {String} data object to convert into an xml string
+     * @param {Function} callback callback function to call when deserialization is complete
+     **/
+    ,to_xml: function( data, callback ){
+        setImmediate(() => {
+            callback(null, data == null ? data : jstoxml.toXML( this.to_jstree( data) , {header:true, indent:" "} ) );
+        });
+    }
 
-	/**
-	 * Generates a tree of for xml serialization
-	 * @private
-	 * @method module:tastypie/lib/serializer#to_jstree
-	 * @return {Object} An xml root element with sub tree
-	 **/
-	,to_jstree: function( data, name, depth, element){
-		depth = depth == null ? 0 : depth;
-		if(data &amp;&amp; data.toJSON &amp;&amp; typeof data.toJSON === 'function' ){
-			data = data.toJSON();
-		}
-		if(data  &amp;&amp; data.toObject &amp;&amp; typeof data.toObject === 'function' ){
-			data = data.toObject();
-		}
-		var data_type = kindOf( data ).toLowerCase();
+    /**
+     * converts an xml string into an object
+     * @method module:tastypie/lib/serializer#from_xml
+     * @param {String} xml valid xml string to parse into an object
+     * @param {Function} callback callback function to call when deserialization is complete
+     **/
+    ,from_xml: function( data, callback ){
+        this._parser.parseString(data, callback);
+    }
 
-		switch( data_type ){
-			case ARRAY:
-				if( this.options.xml.strict ){
-					element = [];
-					for(let item of data){
-						element.push( this.to_jstree( item, name, depth+1 ) );
-					}
-				} else{
-					element = {
-						_name: name || OBJECTS
-						,_attrs:{
-							type:ARRAY
-						}
-						,_content:[]
-					};
+    /**
+     * Generates a tree of for xml serialization
+     * @private
+     * @method module:tastypie/lib/serializer#to_jstree
+     * @return {Object} An xml root element with sub tree
+     **/
+    ,to_jstree: function( data, name, depth, element){
+        let _data = data || '';
+        depth = depth == null ? 0 : depth;
+        if(typeof _data.toJSON === 'function' ){
+            _data = _data.toJSON();
+        }
+        if(typeof _data.toObject === 'function' ){
+            _data = _data.toObject();
+        }
+        var data_type = kindOf( _data ).toLowerCase();
 
-					for(let item of data){
-						element._content.push( this.to_jstree( item, null, depth+1 ));
-					}
-				}
+        switch( data_type ){
+            case ARRAY:
+                if( this.options.xml.strict ){
+                    element = [];
+                    for(let idx=0,len = _data.length; idx &lt; len; idx++){
+                        element.push( this.to_jstree( _data[idx], name, depth+1 ) );
+                    }
+                } else{
+                    element = {
+                        _name: name || OBJECTS
+                        ,_attrs:{
+                            type:ARRAY
+                        }
+                        ,_content:[]
+                    };
 
-				break;
+                    for(let item of _data){
+                        element._content.push( this.to_jstree( item, null, depth+1 ));
+                    }
+                }
 
-			case OBJECT:
-				if(depth === 0){
-					element = {
-						_name:TOP_LEVEL
-						,_content:[]
-					};
+                break;
 
-				} else {
-					name = name || OBJECT;
-					element = {
-						_content:[]
-						,_name:name
-						,_attrs:{
-							type:OBJECT
-						}
-					};
-					if( name !== data_type ){
-						element._attrs.type = data_type;
-					}
-				}
-				for( let key in data ){
-					element._content.push( this.to_jstree( data[key], key, depth+1, element ) );
-				}
-				break;
-			case FUNCTION:
-				let result = data();
-				element = {
-					_attrs:{
-						type:kindOf( result ).toLowerCase()
-					}
-					,_content: String( result )
-					,_name: name || VALUE
-				};
-				break;
-			default:
-				element = {
-					_attrs:{
-						type: data_type
-					}
-					,_content: String( data )
-					,_name: name || VALUE
-				};
-				break;
-		}
-		return element;
-	}
+            case OBJECT:
+                if(depth === 0){
+                    element = {
+                        _name:TOP_LEVEL
+                        ,_content:[]
+                    };
 
-	/**
-	 * Converts an object in to a jsonp string
-	 * @method module:tastypie/lib/serializer#to_jsonp
-	 * @param {Object} data data object to serialzie
-	 * @param {Function} callback a callback function to call when serialization is complete. Must accept an error object and data payload
-	 **/
-	,to_jsonp:function( data, callback ){
-		process.nextTick(function(err){
-			callback(err
-				, util.format(
-					"%s(%j)"
-						.replace('\u2028', '\\u2028')
-						.replace('\u2029', '\\u2029')
-					, (this.options.callbackKey)
-				, data )
-			);
-		}.bind( this ),0);
-	}
+                } else {
+                    name = name || OBJECT;
+                    element = {
+                        _content:[]
+                        ,_name:name
+                        ,_attrs:{
+                            type:OBJECT
+                        }
+                    };
+                    if( name !== data_type ){
+                        element._attrs.type = data_type;
+                    }
+                }
+                for( let key in _data ){
+                    element._content.push( this.to_jstree( data[key], key, depth+1, element ) );
+                }
+                break;
+            case FUNCTION:
+                let result = data();
+                element = {
+                    _attrs:{
+                        type:kindOf( result ).toLowerCase()
+                    }
+                    ,_content: String( result )
+                    ,_name: name || VALUE
+                };
+                break;
+            default:
+                element = {
+                    _attrs:{
+                        type: data_type
+                    }
+                    ,_content: String( _data )
+                    ,_name: name || VALUE
+                };
+                break;
+        }
+        return element;
+    }
+
+    /**
+     * Converts an object in to a jsonp string
+     * @method module:tastypie/lib/serializer#to_jsonp
+     * @param {Object} data data object to serialzie
+     * @param {Function} callback a callback function to call when serialization is complete. Must accept an error object and data payload
+     **/
+    ,to_jsonp:function( data, callback ){
+        setImmediate(function(key){
+            callback(null
+                , util.format(
+                    "%s(%j)"
+                        .replace('\u2028', '\\u2028')
+                        .replace('\u2029', '\\u2029')
+                    , (key)
+                , data )
+            );
+        }, 0, this.options.callbackKey);
+    }
 });
 
 
 Object.defineProperties(Serializer.prototype,{
-	types: {
-		get: function(){
-			var types = this.options.content_types;
-				return Object.keys( types ).filter(function( key ){
-					return !!types[ key ];
-				});
-		}
-	}
+    types: {
+        get: function(){
+            var types = this.options.content_types;
+                return Object.keys( types ).filter(function( key ){
+                    return !!types[ key ];
+                });
+        }
+    }
 });
 module.exports           = Serializer;
 
@@ -474,20 +472,22 @@ module.exports           = Serializer;
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -497,9 +497,9 @@ module.exports           = Serializer;
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -507,7 +507,9 @@ module.exports           = Serializer;
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -517,7 +519,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -553,8 +555,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -580,11 +581,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>

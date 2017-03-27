@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_paginator.Remote.html">tastypie/lib/paginator.Remote</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
+					<li><a href="module-lib_execpetions.BaseException.html">lib/execpetions.BaseException</a></li><li><a href="module-tastypie_lib_exceptions.ImproperlyConfigured.html">tastypie/lib/exceptions.ImproperlyConfigured</a></li><li><a href="module-tastypie_lib_exceptions.NotImplemented.html">tastypie/lib/exceptions.NotImplemented</a></li><li><a href="module-tastypie_lib_exceptions.ResourceFilterError.html">tastypie/lib/exceptions.ResourceFilterError</a></li><li><a href="module-tastypie_lib_exceptions.SerializationError.html">tastypie/lib/exceptions.SerializationError</a></li><li><a href="module-tastypie_lib_exceptions.UnsupportedFormat.html">tastypie/lib/exceptions.UnsupportedFormat</a></li><li><a href="module-tastypie_lib_throttle.Memory.html">tastypie/lib/throttle.Memory</a></li><li><a href="module-tastypie_lib_validators.FormValidator.html">tastypie/lib/validators.FormValidator</a></li><li><a href="module-tastypie_lib_validators.JoiValidator.html">tastypie/lib/validators.JoiValidator</a></li><li><a href="module-tastypie_lib_validators.Validator.html">tastypie/lib/validators.Validator</a></li>
 				</ul>
 			</li>
 			
@@ -52,16 +52,18 @@
 			</li>
 			
 		</ul>
-		<div class="col-sm-3 col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        
 	</div>
 
 </div>
@@ -82,8 +84,7 @@
 <section>
     <article>
         <pre
-            class="sunlight-highlight-javascript ">
-/*jshint laxcomma: true, smarttabs: true, node:true, unused:true, esversion:6, esnext:true */
+            class="sunlight-highlight-javascript ">/*jshint laxcomma: true, smarttabs: true, node:true, unused:true, esnext:true */
 'use strict';
 /**
  * Mixin class providing functionality for detail endpoints
@@ -104,34 +105,34 @@ var Boom         = require('boom')
 
 
 function annotate( err, bundle ){
-	if(!err){
-		return err;
-	}
+  if(!err){
+    return err;
+  }
 
-	err.req = bundle.req;
-	err.res = bundle.res;
-	return err;
+  err.req = bundle.req;
+  err.res = bundle.res;
+  return err;
 }
 
 function delete_db( bundle, err, data ){
-	if( err ){
-		err = annotate( err );
-		return this.emit( 'error', err );
-	}
+  if( err ){
+    err = annotate( err );
+    return this.emit( 'error', err );
+  }
 
-	if(!this.options.returnData){
-		return this.respond( bundle, http.noContent );
-	}
+  if(!this.options.returnData){
+    return this.respond( bundle, http.noContent );
+  }
 
-	this.full_dehydrate(bundle.object, bundle, function( err, data ){
-		if( err ){
-			err = annotate( err, bundle );
-			return this.emit( 'error', err );
-		}
-		bundle.data = data;	
-		this.options.cache.set(bundle.toKey( 'detail' ) , null );
-		return this.respond( bundle );
-	}.bind( this ));
+  this.full_dehydrate(bundle.object, bundle, ( err, data ) => {
+    if( err ){
+      err = annotate( err, bundle );
+      return this.emit( 'error', err );
+    }
+    bundle.data = data; 
+    this.options.cache.set(bundle.toKey( 'detail' ) , null );
+    return this.respond( bundle );
+  });
 }
 
 /**
@@ -141,229 +142,222 @@ function delete_db( bundle, err, data ){
 Detail = new Class({
 
 
-	delete_detail: function delete_detail( bundle ){
-		return this.get_object( bundle, function( err, obj ){
-			
-			bundle.object = obj;
+  delete_detail: function delete_detail( bundle ){
+    return this.get_object( bundle, ( err, obj ) => {
+      
+      bundle.object = obj;
 
-			if( !obj ){
-				bundle.data = {
-					message: `No object found at ${bundle.req.path}` 
-					,statusCode: 404
-					,error:'Not Found'
-				};
-				return this.respond(bundle, http.notFound);
-			}
+      if( !obj ){
+        bundle.data = {
+          message: `No object found at ${bundle.req.path}` 
+          ,statusCode: 404
+          ,error:'Not Found'
+        };
+        return this.respond(bundle, http.notFound);
+      }
 
-			this.remove_object( bundle, delete_db.bind( this, bundle ) );
-		}.bind( this ) );
-	}
+      this.remove_object( bundle, delete_db.bind( this, bundle ) );
+    });
+  }
 
-	/**
-	 * Dispatches detail requests which operated on a sigular, specific object
-	 * @method module:tastypie/lib/resource/detail#dispatch_detail
-	 * @param {Request} req An express request object
-	 * @param {Response} rep An express response object
-	 * @param {Function} next An express next callback
-	 **/
-	, dispatch_detail: function dispatch_detail( req, res ){
-		return this.dispatch( 'detail', this.bundle( req, res ) );
-	}
+  /**
+   * Dispatches detail requests which operated on a sigular, specific object
+   * @method module:tastypie/lib/resource/detail#dispatch_detail
+   * @param {Request} req An express request object
+   * @param {Response} rep An express response object
+   * @param {Function} next An express next callback
+   **/
+  , dispatch_detail: function dispatch_detail( req, res ){
+    return this.dispatch( 'detail', this.bundle( req, res ) );
+  }
 
-    /**
-	 * Top level method used to retreive indiidual objects by id.
-	 * This method handles caching results as well as reading from the cache
-	 * @where applicable
-	 * @method module:tastypie/lib/resource/detail#get_detail
-	 * @param {Bundle} bundle A bundle representing the current request.
-	 **/
-	, get_detail: function get_detail( bundle ){
-		var that = this;
-		this.from_cache( 'detail', bundle, function( err, data ){
+  /**
+   * Top level method used to retreive indiidual objects by id.
+   * This method handles caching results as well as reading from the cache
+   * @where applicable
+   * @method module:tastypie/lib/resource/detail#get_detail
+   * @param {Bundle} bundle A bundle representing the current request.
+   **/
+  , get_detail: function get_detail( bundle ){
+    var that = this;
+    this.from_cache( 'detail', bundle, function( err, data ){
 
-			if( err ){
-				err = annotate( err, bundle );
-				return that.emit( 'error', err );
-			}
+      if( err ) return that.emit( 'error', annotate( err, bundle ) );
 
-			if( !data ){
-				bundle.data = {
-					message: `No object found at ${bundle.req.path}` 
-					,statusCode: 404
-					,error:'Not Found'
-				};
-				return that.respond( bundle, http.notFound );
-			}
+      if( !data ){
+      let err = Boom.notFound(`No object found at ${bundle.req.path}`);
+      return that.emit( 'error', annotate( err, bundle ) );
+      }
 
-			that.full_dehydrate( data, bundle, function( err, data ){
-				bundle = that.bundle( bundle.req, bundle.res, data );
-				return that.respond( bundle );
-			});
-		});
-	}
-	/**
-	 * Method used to retrieve a specific object
-	 * **NOTE** This method *must* be implement for specific use cases. The default does not implement this method
-	 * @method module:tastypie/lib/resource/detail#get_object
-	 * @param {module:tastypie/lib/resource~Bundle} bundle
-	 * @param {module:tastypie/lib/resource~Nodeback} callback
-	 * @example
+      that.full_dehydrate( data, bundle, function( err, data ){
+        bundle.data = data;
+        return that.respond( bundle );
+      });
+    });
+  }
+  /**
+   * Method used to retrieve a specific object
+   * **NOTE** This method *must* be implement for specific use cases. The default does not implement this method
+   * @method module:tastypie/lib/resource/detail#get_object
+   * @param {module:tastypie/lib/resource~Bundle} bundle
+   * @param {module:tastypie/lib/resource~Nodeback} callback
+   * @example
 var MyResource = Resource.extend({
-	get_object: function( bundle, callback ){
-		Model.get( bundle.req.params.pk, callback )
-	}
+  get_object: function( bundle, callback ){
+    Model.get( bundle.req.params.pk, callback )
+  }
 })
-	 * @example
+   * @example
 var MyResource = new Class({
-	inherits: Resource
-	, get_object: function( bundle, callback ){
-		this.get_objects(bundle,function(e, objects){
-			var obj = JSON.parse( objects ).filter(function( obj ){
-				return obj._id = bundle.req.params.pk
-			})[0]
-			callback( null, obj )
-		})
-	}
+  inherits: Resource
+  , get_object: function( bundle, callback ){
+    this.get_objects(bundle,function(e, objects){
+      var obj = JSON.parse( objects ).filter(function( obj ){
+        return obj._id = bundle.req.params.pk
+      })[0]
+      callback( null, obj )
+    })
+  }
 })
-	 **/
-	, get_object: function get_object( bundle, callback ){
-		var e = Boom.notImplemented("method get_object not implemented");
-		e = annotate( e, bundle );
-		e.next = bundle.next;
-		callback &amp;&amp; callback( e );
-	}
+   **/
+  , get_object: function get_object( bundle, callback ){
+    var e = Boom.notImplemented("method get_object not implemented");
+    e = annotate( e, bundle );
+    e.next = bundle.next;
+    callback &amp;&amp; callback( e );
+  }
 
-	/**
-	 * High level function called in response to an OPTIONS request. Returns with an Allow header and empty body
-	 * @method module:tastypie/lib/resource/detail#options_detail
-	 * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `OPTIONS` request
-	 **/
-	, options_detail: function options_detail( bundle ){
-		bundle.data = null;
-		this.respond( bundle, null, null, function( err, reply ){
-			let methods = [];
-			each( this.options.allowed.detail,function( value, key ){
-				if( value ){
-					methods.push( key.toUpperCase() );
-				}
-			});
-			reply.header('Allow',methods.join(','));
-		}.bind( this ));
-	}
+  /**
+   * High level function called in response to an OPTIONS request. Returns with an Allow header and empty body
+   * @method module:tastypie/lib/resource/detail#options_detail
+   * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `OPTIONS` request
+   **/
+  , options_detail: function options_detail( bundle ){
+    bundle.data = null;
+    this.respond( bundle, null, null, ( err, reply ) => {
+      let methods = [];
+      each( this.options.allowed.detail,function( value, key ){
+        if( value ){
+          methods.push( key.toUpperCase() );
+        }
+      });
+      reply.header('Allow',methods.join(','));
+    });
+  }
 
-	/**
-	 * high level function called to handle PATCH requests
-	 * @method module:tastypie/lib/resource/detail#patch_detail
-	 * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `PATCH` request
-	 **/
-	, patch_detail: function patch_detail( bundle ){
-		var response = http.ok
-		  , that = this
-		  , format
-		  ;
+  /**
+   * high level function called to handle PATCH requests
+   * @method module:tastypie/lib/resource/detail#patch_detail
+   * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `PATCH` request
+   **/
+  , patch_detail: function patch_detail( bundle ){
+    var response = http.ok
+      , that = this
+      , format
+      ;
 
-		format = this.format( bundle, this.options.serializer.types );
-		this.deserialize( bundle.req.payload, format, function( err, data ){
-			bundle = that.bundle(bundle.req, bundle.res, data );
-			// update_object must save the object
-			that.update_object( bundle, function( err, bndl ){
-				if( err ){
-					err.req = bundle.req;
-					err.res = bundle.res;
-					return that.emit( 'error', err );
-				}
+    format = this.format( bundle, this.options.serializer.types );
+    this.deserialize( bundle.req.payload, format, function( err, data ){
+      bundle = that.bundle(bundle.req, bundle.res, data );
+      // update_object must save the object
+      that.update_object( bundle, function( err, bndl ){
+        if( err ){
+          err.req = bundle.req;
+          err.res = bundle.res;
+          return that.emit( 'error', err );
+        }
 
-				if( !that.options.returnData ){
-					bundle.data = null;
-					response = http.noContent;
-				} else {
-					that.full_dehydrate( bndl.object, bndl, function( err, data ){
-						if( err ){
-							err.req = bundle.req;
-							err.res = bundle.res;
-							return that.emit( 'error', err );
-						}
-						bundle.data = data;
-						return that.respond( bndl, response );
-					});
-				}
-			});
-		});
-	}
+        if( !that.options.returnData ){
+          bundle.data = null;
+          response = http.noContent;
+        } else {
+          that.full_dehydrate( bndl.object, bndl, function( err, data ){
+            if( err ){
+              err.req = bundle.req;
+              err.res = bundle.res;
+              return that.emit( 'error', err );
+            }
+            bndl.data = data;
+            return that.respond( bndl, response );
+          });
+        }
+      });
+    });
+  }
 
-	/**
-	 * Top level method used to handle post request to listing endpoints. Used to update instances with supplied data
-	 * @method module:tastypie/lib/resource/detail#put_detail
-	 * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `PUT` request
-	 **/
-	, put_detail: function put_detail( bundle ){
-		var response = http.ok
-		  , that = this
-		  , format
-		  ;
+  /**
+   * Top level method used to handle post request to listing endpoints. Used to update instances with supplied data
+   * @method module:tastypie/lib/resource/detail#put_detail
+   * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `PUT` request
+   **/
+  , put_detail: function put_detail( bundle ){
+    var response = http.ok
+      , that = this
+      , format
+      ;
 
-		format = this.format( bundle, this.options.serializer.types );
-		this.deserialize( bundle.req.payload, format, function( err, data ){
-			bundle = that.bundle(bundle.req, bundle.res, data );
-			// replace_object must save the object
-			that.replace_object( bundle, function( err, bndl ){
-				if( err ){
-					err = annotate(err, bundle);
-					return that.emit( 'error', err );
-				}
+    format = this.format( bundle, this.options.serializer.types );
+    this.deserialize( bundle.req.payload, format, function( err, data ){
+      bundle = that.bundle(bundle.req, bundle.res, data );
+      // replace_object must save the object
+      that.replace_object( bundle, function( err, bndl ){
+        if( err ){
+          err = annotate(err, bundle);
+          return that.emit( 'error', err );
+        }
 
-				if( !that.options.returnData ){
-					bundle.data = null;
-					response = http.noContent;
-				}
-				that.full_dehydrate( bndl.object, bndl, function( err, data ){
-					if( err ){
-						err = annotate(err, bundle);
-						return that.emit( 'error', err );
-					}
-					bundle.data = data;
-					return that.respond( bndl, response );
-				});
-			});
-		});
+        if( !that.options.returnData ){
+          bundle.data = null;
+          response = http.noContent;
+        }
+        that.full_dehydrate( bndl.object, bndl, function( err, data ){
+          if( err ){
+            err = annotate(err, bundle);
+            return that.emit( 'error', err );
+          }
+          bndl.data = data;
+          return that.respond( bndl, response );
+        });
+      });
+    });
 
-	}
+  }
 
-	/**
-	 * Low level function called to delete existing objects
-	 * @method module:tastypie/lib/resource/detail#replace_object
-	 * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `DELETE` request
-	 * @param {module:tastypie/lib/resource~NodeBack} callback a callback to be caled when finished
-	 **/
-	, remove_object: function( bundle, callback ){
-		var e = Boom.notImplemented('method remove_object not implemented');
-		e = annotate(e, bundle);
-		return callback &amp;&amp; callback( e, null );
-	}
+  /**
+   * Low level function called to delete existing objects
+   * @method module:tastypie/lib/resource/detail#remove_object
+   * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `DELETE` request
+   * @param {module:tastypie/lib/resource~NodeBack} callback a callback to be caled when finished
+   **/
+  , remove_object: function( bundle, callback ){
+    var e = Boom.notImplemented('method remove_object not implemented');
+    e = annotate(e, bundle);
+    return callback &amp;&amp; callback( e, null );
+  }
 
-	/**
-	 * Low level function called to replace existing objects
-	 * @method module:tastypie/lib/resource/detail#replace_object
-	 * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `PUT` request
-	 * @param {module:tastypie/lib/resource~NodeBack} callback a callback to be caled when finished
-	 **/
-	, replace_object: function replace_object( bundle, callback ){
-		var e = Boom.notImplemented("method replace_object not implemented");
-		e = annotate(e, bundle);
-		return callback &amp;&amp; callback( e, null );
-	}
+  /**
+   * Low level function called to replace existing objects
+   * @method module:tastypie/lib/resource/detail#replace_object
+   * @param {module:tastypie/lib/resource~Bundle} bundle An object represneting the current `PUT` request
+   * @param {module:tastypie/lib/resource~NodeBack} callback a callback to be caled when finished
+   **/
+  , replace_object: function replace_object( bundle, callback ){
+    var e = Boom.notImplemented("method replace_object not implemented");
+    e = annotate(e, bundle);
+    return callback &amp;&amp; callback( e, null );
+  }
 
-	/**
-	 * Method that is responsibe for updating a specific object during a *PUT* request
-	 * @method module:tastypie/lib/resource/detail#update_object
-	 * @param {module:tastypie/lib/resource~Bundle} bundle The data bundle representing the current request
-	 * @param {module:tastypie/lib/resource~Nodeback} callback callback to be called when the operation finishes.
-	 **/
-	, update_object: function update_object( bundle, callback ){
-		var e = Boom.notImplemented("method update_object not implemented");
-		e = annotate(e, bundle);
-		return callback &amp;&amp; callback( e, null );
-	}
+  /**
+   * Method that is responsibe for updating a specific object during a *PUT* request
+   * @method module:tastypie/lib/resource/detail#update_object
+   * @param {module:tastypie/lib/resource~Bundle} bundle The data bundle representing the current request
+   * @param {module:tastypie/lib/resource~Nodeback} callback callback to be called when the operation finishes.
+   **/
+  , update_object: function update_object( bundle, callback ){
+    var e = Boom.notImplemented("method update_object not implemented");
+    e = annotate(e, bundle);
+    return callback &amp;&amp; callback( e, null );
+  }
 });
 
 module.exports = Detail;
@@ -385,20 +379,22 @@ module.exports = Detail;
 </div>
 </div>
 
-<div class="modal fade" id="searchResults">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Search results</h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
 
 <footer>
 
@@ -408,9 +404,9 @@ module.exports = Detail;
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2016-07-28T15:22:22-05:00
+		on 2017-03-26T19:13:53-05:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -418,7 +414,9 @@ module.exports = Detail;
 
 <script src="scripts/docstrap.lib.js"></script>
 <script src="scripts/toc.js"></script>
-<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
 
 <script>
 $( function () {
@@ -428,7 +426,7 @@ $( function () {
 		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
 	} );
 
-	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
 		var $this = $( this );
 
 		var example = $this.find( "code" );
@@ -464,8 +462,7 @@ $( function () {
 	} );
 	$( "#toc" ).toc( {
 		anchorName  : function ( i, heading, prefix ) {
-			var id = $( heading ).attr( "id" );
-			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+			return $( heading ).attr( "id" ) || ( prefix + i );
 		},
 		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
 		showAndHide : false,
@@ -491,11 +488,13 @@ $( function () {
 <!--Google Analytics-->
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		SearcherDisplay.init();
-	});
-</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
 
 </body>
 </html>
