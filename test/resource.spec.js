@@ -169,16 +169,18 @@ describe('resoruce', function(){
 						, replace_object:function( bundle, cb ){
 							bundle.object ={};
 							this.full_hydrate(bundle, function( err, b ){
+                if(err) return cb(err)
 								data[bundle.req.params.pk] = b.object;
-								cb( err, b );
+								cb( null, b );
 							})
 						}
 
 						, create_object: function( bundle, cb ){
 							bundle.object = { id: data.length + 1 }
 							this.full_hydrate( bundle, function( err, b ){
-								cb( err, bundle );
+                if(err) return cb(err)
 								data.push( b.object );
+                cb(null, bundle)
 							})
 						}
 
