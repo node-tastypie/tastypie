@@ -29,7 +29,7 @@ describe('serializer#xml', function(){
 			xmlattr:true
 		})
 		s.serialize({key:'value', foo:{alt:{test:1}}}, 'application/xml', function(e,xml){
-			assert.equal( xml, expected )
+			assert.equal(xml, expected )
 		})
 
 	})
